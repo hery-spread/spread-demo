@@ -3,11 +3,18 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Influencer, InfluencerDetails } from '@/types';
-import { mockInfluencers, mockInfluencerDetails } from '@/lib/mockData';
+import {
+  mockInfluencers,
+  mockInfluencerDetails,
+  unlockInfluencerReport,
+} from '@/lib/mockData';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
+import UnlockModal from '@/components/profile/UnlockModal';
+import LockedContent from '@/components/profile/LockedContent';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useCredits } from '@/hooks/useCredits';
 
 type ProfileTab = 'overview' | 'audience' | 'content' | 'contact';
 
@@ -20,6 +27,8 @@ export default function ProfilePage() {
   );
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
   const [loading, setLoading] = useState(true);
+  const { credits, spendCredits } = useCredits();
+  const [showUnlockModal, setShowUnlockModal] = useState(false);
 
   useEffect(() => {
     const id = params.id as string;
@@ -38,6 +47,28 @@ export default function ProfilePage() {
 
     setLoading(false);
   }, [params.id]);
+
+  // Fonction pour débloquer le rapport
+  const handleUnlockReport = async () => {
+    if (!influencer) return;
+
+    try {
+      // Dépenser les crédits
+      await spendCredits(
+        1,
+        `Rapport débloqué - ${influencer.name}`,
+        influencer.id
+      );
+
+      // Simuler le déverrouillage du rapport
+      const unlockedData = await unlockInfluencerReport(influencer.id);
+      if (unlockedData) {
+        setDetailedData(unlockedData);
+      }
+    } catch (error) {
+      console.error('Erreur lors du déverrouillage:', error);
+    }
+  };
 
   const handleAddToList = () => {
     // TODO: Ouvrir modal pour ajouter à une liste
@@ -147,17 +178,19 @@ export default function ProfilePage() {
       case 'audience':
         if (!detailedData) {
           return (
-            <div className="p-6 text-center">
-              <div className="text-6xl mb-4">🔒</div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Données d&apos;audience verrouillées
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Débloquez les données d&apos;audience détaillées pour cet
-                influenceur.
-              </p>
-              <Button>Débloquer pour 1 crédit</Button>
-            </div>
+            <LockedContent
+              title="Données d'audience verrouillées"
+              description="Débloquez l'analyse détaillée de l'audience pour cet influenceur et accédez à des insights précieux sur ses followers."
+              onUnlock={() => setShowUnlockModal(true)}
+              creditCost={1}
+              features={[
+                'Répartition par âge et genre',
+                'Géolocalisation (pays et villes)',
+                "Centres d'intérêt détaillés",
+                "Marques favorites de l'audience",
+                'Langues et ethnicités',
+              ]}
+            />
           );
         }
         return (
@@ -167,7 +200,7 @@ export default function ProfilePage() {
             </h3>
             <p className="text-gray-600">
               Données d&apos;audience détaillées disponibles (sera implémenté
-              dans PROFILE-02)
+              dans PROFILE-04)
             </p>
           </div>
         );
@@ -180,7 +213,7 @@ export default function ProfilePage() {
             </h3>
             <p className="text-gray-600">
               Analyse du contenu et des performances (sera implémenté dans
-              PROFILE-03)
+              PROFILE-04)
             </p>
           </div>
         );
@@ -256,6 +289,17 @@ export default function ProfilePage() {
       <div className="bg-white rounded-lg border border-gray-200">
         {renderTabContent()}
       </div>
+
+      {/* Modal de déverrouillage */}
+      {influencer && (
+        <UnlockModal
+          isOpen={showUnlockModal}
+          onClose={() => setShowUnlockModal(false)}
+          influencer={influencer}
+          onUnlock={handleUnlockReport}
+          currentCredits={credits}
+        />
+      )}
     </div>
   );
 }
