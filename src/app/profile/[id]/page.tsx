@@ -16,7 +16,8 @@ import PerformanceChart from '@/components/profile/charts/PerformanceChart';
 import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
 import PostPerformance from '@/components/profile/charts/PostPerformance';
 import { Button } from '@/components/ui/Button';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { Input } from '@/components/ui/Input';
+import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCredits } from '@/hooks/useCredits';
 
 type ProfileTab =
@@ -37,6 +38,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const { credits, spendCredits } = useCredits();
   const [showUnlockModal, setShowUnlockModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [showAddToListModal, setShowAddToListModal] = useState(false);
 
   useEffect(() => {
     const id = params.id as string;
@@ -79,13 +82,11 @@ export default function ProfilePage() {
   };
 
   const handleAddToList = () => {
-    // TODO: Ouvrir modal pour ajouter à une liste
-    console.log('Ajouter à une liste:', influencer?.name);
+    setShowAddToListModal(true);
   };
 
   const handleContact = () => {
-    // TODO: Ouvrir modal de contact
-    console.log('Contacter:', influencer?.name);
+    setShowContactModal(true);
   };
 
   if (loading) {
@@ -352,6 +353,131 @@ export default function ProfilePage() {
           onUnlock={handleUnlockReport}
           currentCredits={credits}
         />
+      )}
+
+      {/* Modal de contact */}
+      {showContactModal && influencer && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Contacter {influencer.name}
+              </h3>
+              <button
+                onClick={() => setShowContactModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Sujet
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Collaboration marketing d'influence"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Message
+                </label>
+                <textarea
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                  placeholder={`Bonjour ${influencer.name},
+
+Nous souhaiterions vous proposer une collaboration...`}
+                />
+              </div>
+
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <p className="text-sm text-blue-800">
+                  📧 Email: {influencer.email}
+                </p>
+                <p className="text-xs text-blue-600 mt-1">
+                  Ce message sera envoyé directement à l&apos;influenceur
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3 mt-6">
+              <Button
+                variant="outline"
+                onClick={() => setShowContactModal(false)}
+                className="flex-1"
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={() => {
+                  alert(`Message envoyé à ${influencer.name} !`);
+                  setShowContactModal(false);
+                }}
+                className="flex-1"
+              >
+                Envoyer
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Ajouter à liste */}
+      {showAddToListModal && influencer && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                Ajouter {influencer.name} à une liste
+              </h3>
+              <button
+                onClick={() => setShowAddToListModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-3 mb-6">
+              <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                📋 Liste Beauté & Mode
+              </button>
+              <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                🎮 Liste Gaming
+              </button>
+              <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                ✨ Liste VIP
+              </button>
+              <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-purple-50 border-purple-200">
+                ➕ Créer une nouvelle liste
+              </button>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowAddToListModal(false)}
+                className="flex-1"
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={() => {
+                  alert(`${influencer.name} ajouté à la liste !`);
+                  setShowAddToListModal(false);
+                }}
+                className="flex-1"
+              >
+                Ajouter
+              </Button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -1535,8 +1535,8 @@ export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   },
 };
 
-// Données des listes
-export const mockLists: InfluencerList[] = [
+// Données des listes de base
+const baseMockLists: InfluencerList[] = [
   {
     id: "1",
     name: "HelloFresh",
@@ -1715,6 +1715,198 @@ export const mockLists: InfluencerList[] = [
     createdAt: "2024-06-05",
     influencers: [
       { id: "4", contactName: "Dadju", contactEmail: "contact@dadju.com" },
+    ],
+  },
+];
+
+// Données des listes étendues avec toutes les listes
+export const mockLists: InfluencerList[] = [
+  // Listes existantes
+  ...baseMockLists,
+
+  // Nouvelles listes
+  {
+    id: "8",
+    name: "Tech Reviewers",
+    description:
+      "Influenceurs spécialisés dans les tests et reviews de produits technologiques",
+    category: "Technologie",
+    createdAt: "2024-03-15",
+    influencers: [
+      { id: "30", contactName: "Micode", contactEmail: "contact@micode.com" },
+      {
+        id: "31",
+        contactName: "Linus Tech Tips",
+        contactEmail: "linus@linustechtips.com",
+      },
+      { id: "32", contactName: "MKBHD", contactEmail: "marques@mkbhd.com" },
+      {
+        id: "33",
+        contactName: "Unbox Therapy",
+        contactEmail: "lewis@unboxtherapy.com",
+      },
+      { id: "34", contactName: "Dave2D", contactEmail: "dave@dave2d.com" },
+    ],
+  },
+  {
+    id: "9",
+    name: "Fitness Motivation",
+    description:
+      "Coachs et influenceurs fitness pour campagne équipements sportifs",
+    category: "Sport",
+    createdAt: "2024-04-10",
+    influencers: [
+      {
+        id: "35",
+        contactName: "Tibo InShape",
+        contactEmail: "tibo@tiboinshape.com",
+      },
+      {
+        id: "36",
+        contactName: "Sissy Mua",
+        contactEmail: "sissy@sissymua.com",
+      },
+      { id: "37", contactName: "Athlean-X", contactEmail: "jeff@athleanx.com" },
+      {
+        id: "38",
+        contactName: "Calisthenic Movement",
+        contactEmail: "contact@calisthenic-movement.com",
+      },
+      {
+        id: "39",
+        contactName: "FitnessBlender",
+        contactEmail: "contact@fitnessblender.com",
+      },
+    ],
+  },
+  {
+    id: "10",
+    name: "Music Artists",
+    description:
+      "Artistes et producteurs musicaux pour promotion plateforme streaming",
+    category: "Musique",
+    createdAt: "2024-05-20",
+    influencers: [
+      { id: "40", contactName: "PNL", contactEmail: "management@pnlmusic.com" },
+      {
+        id: "41",
+        contactName: "Orelsan",
+        contactEmail: "orelsan@7thheaven.fr",
+      },
+      {
+        id: "42",
+        contactName: "Angèle",
+        contactEmail: "angele@angelemusic.com",
+      },
+      { id: "43", contactName: "Stromae", contactEmail: "contact@stromae.com" },
+      {
+        id: "44",
+        contactName: "Bigflo & Oli",
+        contactEmail: "contact@bigfloetoli.com",
+      },
+    ],
+  },
+  {
+    id: "11",
+    name: "Parenting Bloggers",
+    description: "Influenceurs parentalité pour campagne produits bébé/enfant",
+    category: "Famille",
+    createdAt: "2024-02-28",
+    influencers: [
+      {
+        id: "45",
+        contactName: "Maman Déborde",
+        contactEmail: "contact@mamandeborde.com",
+      },
+      {
+        id: "46",
+        contactName: "Papa Positive",
+        contactEmail: "papa@papapositive.fr",
+      },
+      {
+        id: "47",
+        contactName: "Les Maternelles",
+        contactEmail: "contact@lesmaternelles.com",
+      },
+      {
+        id: "48",
+        contactName: "Famille Nombreuse",
+        contactEmail: "contact@famillenombreuse.com",
+      },
+    ],
+  },
+  {
+    id: "12",
+    name: "Eco-Influencers",
+    description: "Influenceurs éco-responsables pour marque durable",
+    category: "Écologie",
+    createdAt: "2024-06-12",
+    influencers: [
+      {
+        id: "49",
+        contactName: "Camille Se Lance",
+        contactEmail: "camille@camilleselance.com",
+      },
+      {
+        id: "50",
+        contactName: "Julien Vidal",
+        contactEmail: "julien@cacommenceparmoi.org",
+      },
+      {
+        id: "51",
+        contactName: "Lucie Pinson",
+        contactEmail: "lucie@reclaimfinance.org",
+      },
+      {
+        id: "52",
+        contactName: "Zero Waste France",
+        contactEmail: "contact@zerowastefrance.org",
+      },
+    ],
+  },
+  {
+    id: "13",
+    name: "Luxury Lifestyle",
+    description: "Influenceurs luxe et lifestyle haut de gamme",
+    category: "Luxe",
+    createdAt: "2024-01-25",
+    influencers: [
+      {
+        id: "53",
+        contactName: "Luxury Lifestyle",
+        contactEmail: "contact@luxurylifestyle.com",
+      },
+      {
+        id: "54",
+        contactName: "Rich Kids",
+        contactEmail: "contact@richkids.com",
+      },
+      {
+        id: "55",
+        contactName: "Monaco Life",
+        contactEmail: "contact@monacolife.com",
+      },
+    ],
+  },
+  {
+    id: "14",
+    name: "Pet Influencers",
+    description: "Influenceurs animaliers pour marque alimentation animale",
+    category: "Animaux",
+    createdAt: "2024-03-08",
+    influencers: [
+      {
+        id: "56",
+        contactName: "Grumpy Cat",
+        contactEmail: "grumpy@grumpycat.com",
+      },
+      {
+        id: "57",
+        contactName: "Doug the Pug",
+        contactEmail: "doug@dougthepug.com",
+      },
+      { id: "58", contactName: "Nala Cat", contactEmail: "nala@nalacat.com" },
+      { id: "59", contactName: "Jiff Pom", contactEmail: "jiff@jiffpom.com" },
     ],
   },
 ];
@@ -2188,4 +2380,466 @@ export function deleteUserList(listId: string): Promise<boolean> {
       }
     }, 300);
   });
+}
+
+// Fonction pour supprimer un influenceur d'une liste
+export function removeInfluencerFromList(
+  listId: string,
+  influencerId: string
+): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const list = mockLists.find((list) => list.id === listId);
+      if (list) {
+        const index = list.influencers.findIndex((inf) => inf.id === influencerId);
+        if (index !== -1) {
+          list.influencers.splice(index, 1);
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } else {
+        resolve(false);
+      }
+    }, 200);
+  });
+}
+
+// Fonctions utilitaires pour les statistiques des listes
+export function getListStatistics() {
+  const totalLists = mockLists.length;
+  const totalContacts = mockLists.reduce(
+    (sum, list) => sum + list.influencers.length,
+    0
+  );
+  const totalCategories = new Set(mockLists.map((list) => list.category)).size;
+  const averageContactsPerList = Math.round(totalContacts / totalLists);
+
+  const contactsWithEmail = mockLists.reduce(
+    (sum, list) =>
+      sum + list.influencers.filter((inf) => inf.contactEmail).length,
+    0
+  );
+
+  const emailCompletionRate = Math.round(
+    (contactsWithEmail / totalContacts) * 100
+  );
+
+  const categoryDistribution = mockLists.reduce((acc, list) => {
+    acc[list.category] = (acc[list.category] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const mostPopularCategory = Object.entries(categoryDistribution).sort(
+    ([, a], [, b]) => b - a
+  )[0];
+
+  const recentLists = mockLists.filter((list) => {
+    const listDate = new Date(list.createdAt);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    return listDate >= thirtyDaysAgo;
+  });
+
+  return {
+    totalLists,
+    totalContacts,
+    totalCategories,
+    averageContactsPerList,
+    emailCompletionRate,
+    categoryDistribution,
+    mostPopularCategory: mostPopularCategory ? {
+      name: mostPopularCategory[0],
+      count: mostPopularCategory[1]
+    } : null,
+    recentListsCount: recentLists.length,
+  };
+}
+
+// Fonction pour obtenir les listes par catégorie
+export function getListsByCategory(): Record<string, InfluencerList[]> {
+  return mockLists.reduce((acc, list) => {
+    if (!acc[list.category]) {
+      acc[list.category] = [];
+    }
+    acc[list.category].push(list);
+    return acc;
+  }, {} as Record<string, InfluencerList[]>);
+}
+
+// Fonction pour rechercher dans les listes
+export async function searchInLists(query: string): Promise<InfluencerList[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const results = mockLists.filter(
+        (list) =>
+          list.name.toLowerCase().includes(query.toLowerCase()) ||
+          list.description?.toLowerCase().includes(query.toLowerCase()) ||
+          list.category.toLowerCase().includes(query.toLowerCase()) ||
+          list.influencers.some(
+            (inf) =>
+              inf.contactName?.toLowerCase().includes(query.toLowerCase()) ||
+              inf.contactEmail?.toLowerCase().includes(query.toLowerCase())
+          )
+      );
+      resolve(results);
+    }, 300);
+  });
+}
+
+// Fonction pour dupliquer une liste
+export function duplicateUserList(listId: string): Promise<InfluencerList | null> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const originalList = mockLists.find((list) => list.id === listId);
+      if (originalList) {
+        const duplicatedList: InfluencerList = {
+          ...originalList,
+          id: Date.now().toString(),
+          name: `${originalList.name} (Copie)`,
+          createdAt: new Date().toISOString().split('T')[0],
+        };
+        mockLists.unshift(duplicatedList);
+        resolve(duplicatedList);
+      } else {
+        resolve(null);
+      }
+    }, 400);
+  });
+}
+
+// Fonction pour fusionner plusieurs listes
+export function mergeUserLists(
+  listIds: string[],
+  newListName: string,
+  category?: string
+): Promise<InfluencerList | null> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const listsToMerge = mockLists.filter((list) => listIds.includes(list.id));
+      if (listsToMerge.length === 0) {
+        resolve(null);
+        return;
+      }
+
+      // Fusionner tous les influenceurs en évitant les doublons
+      const mergedInfluencers = new Map();
+      listsToMerge.forEach((list) => {
+        list.influencers.forEach((influencer) => {
+          if (!mergedInfluencers.has(influencer.id)) {
+            mergedInfluencers.set(influencer.id, influencer);
+          }
+        });
+      });
+
+      const mergedList: InfluencerList = {
+        id: Date.now().toString(),
+        name: newListName,
+        description: `Liste fusionnée créée à partir de ${listsToMerge.length} listes`,
+        category: category || listsToMerge[0].category,
+        createdAt: new Date().toISOString().split('T')[0],
+        influencers: Array.from(mergedInfluencers.values()),
+      };
+
+      // Supprimer les listes originales
+      listIds.forEach((listId) => {
+        const index = mockLists.findIndex((list) => list.id === listId);
+        if (index !== -1) {
+          mockLists.splice(index, 1);
+        }
+      });
+
+      // Ajouter la nouvelle liste fusionnée
+      mockLists.unshift(mergedList);
+      resolve(mergedList);
+    }, 600);
+  });
+}
+
+// Fonction pour archiver des listes
+export function archiveUserLists(listIds: string[]): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Dans un vrai système, on marquerait les listes comme archivées
+      // Ici on simule en les supprimant simplement
+      let archiveCount = 0;
+      listIds.forEach((listId) => {
+        const index = mockLists.findIndex((list) => list.id === listId);
+        if (index !== -1) {
+          mockLists.splice(index, 1);
+          archiveCount++;
+        }
+      });
+      resolve(archiveCount > 0);
+    }, 300);
+  });
+}
+
+// Fonction pour marquer des listes comme favorites
+export function favoriteUserLists(listIds: string[]): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Simulation de marquage comme favoris
+      // Dans un vrai système, on ajouterait un champ "favorite" à la liste
+      console.log(`Marked ${listIds.length} lists as favorites:`, listIds);
+      resolve(true);
+    }, 200);
+  });
+}
+
+// Fonction d'export avancé avec options
+export function exportListWithOptions(
+  listId: string,
+  options: {
+    format: "csv" | "xlsx" | "json";
+    fields: string[];
+    includeHeaders: boolean;
+    separator: string;
+    encoding: string;
+    filterEmptyEmails: boolean;
+  }
+): Promise<{ success: boolean; filename?: string; error?: string }> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const list = mockLists.find((l) => l.id === listId);
+      if (!list) {
+        resolve({ success: false, error: "Liste non trouvée" });
+        return;
+      }
+
+      let contacts = list.influencers;
+      if (options.filterEmptyEmails) {
+        contacts = contacts.filter(
+          (c) => c.contactEmail && c.contactEmail.trim() !== ""
+        );
+      }
+
+      // Simulation de l'export
+      const filename = `${list.name.replace(/\s+/g, "_")}_export_${Date.now()}.${options.format}`;
+      
+      console.log("Export simulé:", {
+        filename,
+        format: options.format,
+        contactsCount: contacts.length,
+        fields: options.fields,
+        options,
+      });
+
+      resolve({ success: true, filename });
+    }, 1000);
+  });
+}
+
+// Fonction d'envoi d'email groupé
+export function sendGroupEmail(
+  listId: string,
+  emailData: {
+    subject: string;
+    message: string;
+    template: string;
+    includeContactName: boolean;
+    sendTime: "now" | "scheduled";
+    scheduledDate?: string;
+    scheduledTime?: string;
+  }
+): Promise<{ success: boolean; sentCount?: number; error?: string }> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const list = mockLists.find((l) => l.id === listId);
+      if (!list) {
+        resolve({ success: false, error: "Liste non trouvée" });
+        return;
+      }
+
+      const validEmails = list.influencers.filter(
+        (inf) => inf.contactEmail && inf.contactEmail.trim() !== ""
+      );
+
+      if (validEmails.length === 0) {
+        resolve({ success: false, error: "Aucun email valide trouvé" });
+        return;
+      }
+
+      // Simulation de l'envoi
+      console.log("Email groupé simulé:", {
+        listName: list.name,
+        recipientCount: validEmails.length,
+        subject: emailData.subject,
+        sendTime: emailData.sendTime,
+        scheduledFor: emailData.scheduledDate && emailData.scheduledTime 
+          ? `${emailData.scheduledDate} ${emailData.scheduledTime}`
+          : undefined,
+      });
+
+      resolve({ success: true, sentCount: validEmails.length });
+    }, 1500);
+  });
+}
+
+// Données de profil utilisateur détaillées
+export const mockUserProfile = {
+  id: "user-123",
+  firstName: "Sophie",
+  lastName: "Martin",
+  email: "sophie.martin@marketingpro.fr",
+  company: "Marketing Pro",
+  position: "Directrice Marketing",
+  phone: "+33 1 42 68 53 27",
+  website: "https://www.marketingpro.fr",
+  bio: "Directrice marketing avec 8 ans d'expérience dans le marketing d'influence. Passionnée par les stratégies digitales innovantes et la création de campagnes authentiques qui connectent les marques avec leur audience.",
+  avatar: "/avatars/user-profile.jpg",
+  createdAt: "2023-03-15",
+  lastLogin: "2024-12-20T14:30:00Z",
+  emailVerified: true,
+  twoFactorEnabled: false,
+};
+
+// Préférences de notifications
+export const mockNotificationSettings = {
+  email: {
+    newInfluencers: true,
+    weeklyReport: true,
+    billing: true,
+    systemUpdates: false,
+    marketingOffers: false,
+  },
+  push: {
+    newInfluencers: false,
+    campaignReminders: true,
+    systemAlerts: true,
+  },
+  sms: {
+    importantOnly: false,
+    billing: true,
+    security: true,
+  },
+};
+
+// Paramètres de confidentialité
+export const mockPrivacySettings = {
+  dataCollection: true,
+  analytics: true,
+  marketing: false,
+  profilePublic: false,
+  searchHistory: true,
+  cookiesAnalytics: true,
+  cookiesMarketing: false,
+};
+
+// Historique des paiements
+export const mockBillingHistory = [
+  {
+    id: "pay-001",
+    date: "2024-12-15",
+    amount: 89.00,
+    currency: "EUR",
+    plan: "Plan Elite",
+    status: "paid" as const,
+    invoiceUrl: "/invoices/2024-12-15.pdf",
+    paymentMethod: "•••• •••• •••• 4242",
+  },
+  {
+    id: "pay-002",
+    date: "2024-11-15",
+    amount: 89.00,
+    currency: "EUR",
+    plan: "Plan Elite",
+    status: "paid" as const,
+    invoiceUrl: "/invoices/2024-11-15.pdf",
+    paymentMethod: "•••• •••• •••• 4242",
+  },
+  {
+    id: "pay-003",
+    date: "2024-10-15",
+    amount: 89.00,
+    currency: "EUR",
+    plan: "Plan Elite",
+    status: "paid" as const,
+    invoiceUrl: "/invoices/2024-10-15.pdf",
+    paymentMethod: "•••• •••• •••• 4242",
+  },
+  {
+    id: "pay-004",
+    date: "2024-09-15",
+    amount: 89.00,
+    currency: "EUR",
+    plan: "Plan Elite",
+    status: "paid" as const,
+    invoiceUrl: "/invoices/2024-09-15.pdf",
+    paymentMethod: "•••• •••• •••• 4242",
+  },
+];
+
+// Moyens de paiement
+export const mockPaymentMethods = [
+  {
+    id: "card-001",
+    type: "visa" as const,
+    lastFour: "4242",
+    expiryMonth: 12,
+    expiryYear: 2025,
+    holderName: "Sophie Martin",
+    isDefault: true,
+    fingerprint: "fp_1234567890",
+  },
+];
+
+// Fonctions pour récupérer les données utilisateur
+export function getUserProfile(): Promise<typeof mockUserProfile> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(mockUserProfile), 300);
+  });
+}
+
+
+
+export function getNotificationSettings(): Promise<typeof mockNotificationSettings> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(mockNotificationSettings), 200);
+  });
+}
+
+export function updateNotificationSettings(data: Partial<typeof mockNotificationSettings>): Promise<typeof mockNotificationSettings> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const updatedSettings = { ...mockNotificationSettings, ...data };
+      console.log("Paramètres de notifications mis à jour:", updatedSettings);
+      resolve(updatedSettings);
+    }, 400);
+  });
+}
+
+export function getPrivacySettings(): Promise<typeof mockPrivacySettings> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(mockPrivacySettings), 200);
+  });
+}
+
+export function updatePrivacySettings(data: Partial<typeof mockPrivacySettings>): Promise<typeof mockPrivacySettings> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const updatedSettings = { ...mockPrivacySettings, ...data };
+      console.log("Paramètres de confidentialité mis à jour:", updatedSettings);
+      resolve(updatedSettings);
+    }, 400);
+  });
+}
+
+
+
+export function getBillingHistory(): Promise<typeof mockBillingHistory> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(mockBillingHistory), 300);
+  });
+}
+
+export function getPaymentMethods(): Promise<typeof mockPaymentMethods> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(mockPaymentMethods), 200);
+  });
+}
+
+// Alias pour getUserListById (utilise getListDetails)
+export function getUserListById(listId: string): Promise<InfluencerList | null> {
+  return getListDetails(listId);
 } 

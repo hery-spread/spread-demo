@@ -61,17 +61,19 @@ export interface InfluencerDetails extends Influencer {
   }[];
 }
 
+export interface InfluencerContact {
+  id: string;
+  contactName?: string;
+  contactEmail?: string;
+}
+
 export interface InfluencerList {
   id: string;
   name: string;
   description?: string;
   category: string;
   createdAt: string;
-  influencers: {
-    id: string;
-    contactName?: string;
-    contactEmail?: string;
-  }[];
+  influencers: InfluencerContact[];
 }
 
 export interface PlanLimits {
