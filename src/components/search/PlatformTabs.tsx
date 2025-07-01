@@ -71,7 +71,7 @@ export default function PlatformTabs({
               {counts && (
                 <span
                   className={`text-sm px-2 py-0.5 rounded-full ${
-                    isActive ? 'bg-white bg-opacity-80' : 'bg-gray-100'
+                    isActive ? 'bg-white/80' : 'bg-gray-100'
                   }`}
                 >
                   {count.toLocaleString()}
