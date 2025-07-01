@@ -15,7 +15,7 @@ SEARCH-01,SEARCH,"En tant qu'utilisateur, je veux voir l'interface de recherche 
 SEARCH-02,SEARCH,"En tant qu'utilisateur, je veux voir les résultats de ma recherche affichés dans un tableau clair avec les colonnes Nom, Followers, Engagement, et Taux d'Engagement.",1,2,100
 SEARCH-03,SEARCH,"En tant que développeur, je dois peupler le tableau de résultats de recherche avec les données mockées d'influenceurs pour simuler une recherche réelle.",1,2,100
 SEARCH-04,SEARCH,"En tant qu'utilisateur, je veux voir les onglets statiques pour Instagram, YouTube et TikTok pour comprendre que la recherche est multi-plateforme.",0.5,1,100
-PROFILE-01,PROFILE,"En tant qu'utilisateur, je veux pouvoir cliquer sur 'Consulter rapport' et voir une fiche détaillée d'un influenceur apparaître dans un panneau latéral.",2,4,0
+PROFILE-01,PROFILE,"En tant qu'utilisateur, je veux pouvoir cliquer sur 'Consulter rapport' et voir une fiche détaillée d'un influenceur apparaître dans un panneau latéral.",2,4,100
 PROFILE-02,PROFILE,"En tant que développeur, je dois remplir la fiche détaillée de l'influenceur avec les données mockées correspondantes, incluant les highlights, les stats et les contacts.",1,3,0
 PROFILE-03,PROFILE,"En tant qu'utilisateur, je veux voir que le rapport d'audience est initialement 'verrouillé' et que je peux le 'débloquer' via un clic pour simuler la consommation de crédit.",1,2,0
 PROFILE-04,PROFILE,"En tant qu'utilisateur, je veux voir tous les graphiques d'analyse d'audience (genre, âge, localisation, intérêts) dans la fiche détaillée, alimentés par les données mockées.",3,5,0
