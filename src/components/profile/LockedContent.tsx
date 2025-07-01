@@ -55,15 +55,7 @@ export default function LockedContent({
       </div>
 
       {/* Bouton de déverrouillage */}
-      <Button
-        onClick={() => {
-          console.log(
-            '🔓 LockedContent - Bouton "Débloquer maintenant" cliqué'
-          );
-          onUnlock();
-        }}
-        size="lg"
-      >
+      <Button onClick={onUnlock} size="lg">
         <LockClosedIcon className="w-4 h-4 mr-2" />
         Débloquer maintenant
       </Button>

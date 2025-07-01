@@ -41,10 +41,6 @@ export default function ProfilePage() {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
 
-  console.log('📊 ProfilePage - Rendu du composant');
-  console.log('💰 Credits du hook:', credits);
-  console.log('🔓 showUnlockModal:', showUnlockModal);
-
   useEffect(() => {
     const id = params.id as string;
 
@@ -65,37 +61,23 @@ export default function ProfilePage() {
 
   // Fonction pour débloquer le rapport
   const handleUnlockReport = async () => {
-    console.log('🚀 handleUnlockReport appelé');
-    console.log('👤 Influencer:', influencer);
-
-    if (!influencer) {
-      console.log('❌ Aucun influenceur trouvé');
-      return;
-    }
+    if (!influencer) return;
 
     try {
-      console.log('💳 Tentative de dépense de crédits...');
       // Dépenser les crédits
       await spendCredits(
         1,
         `Rapport débloqué - ${influencer.name}`,
         influencer.id
       );
-      console.log('✅ Crédits dépensés avec succès');
 
-      console.log('🔓 Tentative de déverrouillage du rapport...');
       // Simuler le déverrouillage du rapport
       const unlockedData = await unlockInfluencerReport(influencer.id);
-      console.log('📊 Données déverrouillées:', unlockedData);
-
       if (unlockedData) {
         setDetailedData(unlockedData);
-        console.log('✅ DetailedData mis à jour');
-      } else {
-        console.log('❌ Aucune donnée déverrouillée reçue');
       }
     } catch (error) {
-      console.error('❌ Erreur lors du déverrouillage:', error);
+      console.error('Erreur lors du déverrouillage:', error);
     }
   };
 
@@ -208,10 +190,7 @@ export default function ProfilePage() {
             <LockedContent
               title="Données d'audience verrouillées"
               description="Débloquez l'analyse détaillée de l'audience pour cet influenceur et accédez à des insights précieux sur ses followers."
-              onUnlock={() => {
-                console.log('🔓 ProfilePage - setShowUnlockModal(true) appelé');
-                setShowUnlockModal(true);
-              }}
+              onUnlock={() => setShowUnlockModal(true)}
               creditCost={1}
               features={[
                 'Répartition par âge et genre',
@@ -582,12 +561,7 @@ export default function ProfilePage() {
           <LockedContent
             title="Données de performance verrouillées"
             description="Accédez aux graphiques de performance et à l'analyse détaillée des publications."
-            onUnlock={() => {
-              console.log(
-                '🔓 ProfilePage - setShowUnlockModal(true) appelé depuis performance'
-              );
-              setShowUnlockModal(true);
-            }}
+            onUnlock={() => setShowUnlockModal(true)}
             creditCost={1}
             features={[
               'Évolution des followers et engagement',
@@ -669,21 +643,11 @@ export default function ProfilePage() {
       {influencer && (
         <UnlockModal
           isOpen={showUnlockModal}
-          onClose={() => {
-            console.log('🔓 Modal fermée');
-            setShowUnlockModal(false);
-          }}
+          onClose={() => setShowUnlockModal(false)}
           influencer={influencer}
           onUnlock={handleUnlockReport}
           currentCredits={credits}
         />
-      )}
-
-      {/* Debug: Afficher l'état de la modal */}
-      {showUnlockModal && (
-        <div className="fixed top-4 right-4 bg-red-500 text-white p-2 rounded z-[9999]">
-          Modal devrait être visible!
-        </div>
       )}
 
       {/* Modal de contact */}

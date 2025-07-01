@@ -28,35 +28,21 @@ export default function UnlockModal({
   const [unlocking, setUnlocking] = useState(false);
   const creditCost = 1;
 
-  console.log('🔓 UnlockModal - Rendu du composant');
-  console.log('💰 currentCredits reçu:', currentCredits);
-  console.log('💰 creditCost:', creditCost);
-  console.log('✅ canUnlock:', currentCredits >= creditCost);
-
   if (!isOpen) return null;
 
   const handleUnlock = async () => {
-    console.log('🔓 Tentative de déverrouillage - handleUnlock appelé');
-    console.log('💰 Crédits disponibles:', currentCredits);
-    console.log('💰 Coût requis:', creditCost);
-
     if (currentCredits < creditCost) {
-      console.log('❌ Crédits insuffisants');
       return;
     }
 
-    console.log('✅ Démarrage du déverrouillage...');
     setUnlocking(true);
     try {
-      console.log('📞 Appel de onUnlock()...');
       await onUnlock();
-      console.log('✅ onUnlock() terminé avec succès');
       onClose();
     } catch (error) {
-      console.error('❌ Erreur lors du déverrouillage:', error);
+      console.error('Erreur lors du déverrouillage:', error);
     } finally {
       setUnlocking(false);
-      console.log('🏁 handleUnlock terminé');
     }
   };
 
