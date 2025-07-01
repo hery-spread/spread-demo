@@ -18,7 +18,7 @@ SEARCH-04,SEARCH,"En tant qu'utilisateur, je veux voir les onglets statiques pou
 PROFILE-01,PROFILE,"En tant qu'utilisateur, je veux pouvoir cliquer sur 'Consulter rapport' et voir une fiche détaillée d'un influenceur apparaître dans un panneau latéral.",2,4,100
 PROFILE-02,PROFILE,"En tant que développeur, je dois remplir la fiche détaillée de l'influenceur avec les données mockées correspondantes, incluant les highlights, les stats et les contacts.",1,3,100
 PROFILE-03,PROFILE,"En tant qu'utilisateur, je veux voir que le rapport d'audience est initialement 'verrouillé' et que je peux le 'débloquer' via un clic pour simuler la consommation de crédit.",1,2,100
-PROFILE-04,PROFILE,"En tant qu'utilisateur, je veux voir tous les graphiques d'analyse d'audience (genre, âge, localisation, intérêts) dans la fiche détaillée, alimentés par les données mockées.",3,5,0
+PROFILE-04,PROFILE,"En tant qu'utilisateur, je veux voir tous les graphiques d'analyse d'audience (genre, âge, localisation, intérêts) dans la fiche détaillée, alimentés par les données mockées.",3,5,100
 LISTS-01,LISTS,"En tant qu'utilisateur, je veux une page 'Mes Listes' qui affiche un tableau de toutes les listes que j'ai créées avec leur nom, le nombre de contacts et la date de création.",1,2,0
 LISTS-02,LISTS,"En tant que développeur, je dois peupler la page 'Mes Listes' avec les données mockées pour simuler des listes existantes.",0.5,1,0
 LISTS-03,LISTS,"En tant qu'utilisateur, je veux pouvoir cliquer sur une liste pour voir une page de détail affichant les influenceurs qu'elle contient.",1,2,0

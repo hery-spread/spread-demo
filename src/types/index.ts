@@ -64,6 +64,8 @@ export interface InfluencerDetails extends Influencer {
 export interface InfluencerList {
   id: string;
   name: string;
+  description?: string;
+  category: string;
   createdAt: string;
   influencers: {
     id: string;

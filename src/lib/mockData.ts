@@ -1540,6 +1540,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "1",
     name: "HelloFresh",
+    description: "Campagne HelloFresh - influenceurs lifestyle et cuisine",
+    category: "Cuisine",
     createdAt: "2024-06-15",
     influencers: [
       { id: "1", contactName: "Zidane", contactEmail: "contact@zidane.com" },
@@ -1559,6 +1561,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "2",
     name: "Food",
+    description: "Créateurs de contenu spécialisés dans la cuisine et la gastronomie",
+    category: "Cuisine",
     createdAt: "2024-06-10",
     influencers: [
       { id: "3", contactName: "Squeezie", contactEmail: "contact@squeezie.fr" },
@@ -1573,6 +1577,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "3",
     name: "Auto",
+    description: "Passionnés d'automobile et de mécanique pour campagne automobile",
+    category: "Automobile",
     createdAt: "2024-05-28",
     influencers: [
       { id: "9", contactName: "Shmee150", contactEmail: "tim@shmee150.com" },
@@ -1606,6 +1612,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "4",
     name: "Good",
+    description: "Influenceurs lifestyle et divertissement",
+    category: "Lifestyle",
     createdAt: "2024-06-01",
     influencers: [
       {
@@ -1623,6 +1631,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "5",
     name: "Marketing d'influence",
+    description: "Experts en marketing digital et stratégies d'influence",
+    category: "Marketing",
     createdAt: "2024-04-20",
     influencers: [
       {
@@ -1676,6 +1686,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "6",
     name: "Voyage",
+    description: "Créateurs de contenu voyage et aventure",
+    category: "Voyage",
     createdAt: "2024-05-15",
     influencers: [
       {
@@ -1698,6 +1710,8 @@ export const mockLists: InfluencerList[] = [
   {
     id: "7",
     name: "R&B",
+    description: "Artistes R&B et musique urbaine",
+    category: "Lifestyle",
     createdAt: "2024-06-05",
     influencers: [
       { id: "4", contactName: "Dadju", contactEmail: "contact@dadju.com" },
@@ -2133,6 +2147,45 @@ export function addInfluencerToList(
       // Simulate API call - log the action
       console.log(`Adding influencer ${influencerId} to list ${listId}`);
       resolve(true);
+    }, 300);
+  });
+}
+
+// Fonction pour créer une nouvelle liste
+export function createUserList(listData: {
+  name: string;
+  description: string;
+  category: string;
+}): Promise<InfluencerList> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const newList: InfluencerList = {
+        id: Date.now().toString(),
+        name: listData.name,
+        description: listData.description,
+        category: listData.category,
+        createdAt: new Date().toISOString().split('T')[0],
+        influencers: [],
+      };
+      
+      // Simuler l'ajout à la base de données
+      mockLists.unshift(newList);
+      resolve(newList);
+    }, 500);
+  });
+}
+
+// Fonction pour supprimer une liste
+export function deleteUserList(listId: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const index = mockLists.findIndex(list => list.id === listId);
+      if (index !== -1) {
+        mockLists.splice(index, 1);
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     }, 300);
   });
 } 
