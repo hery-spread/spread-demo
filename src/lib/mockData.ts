@@ -1382,6 +1382,7 @@ export interface SearchFilters {
   minFollowers?: number;
   maxFollowers?: number;
   minEngagement?: number;
+  maxEngagement?: number;
   country?: string;
   verified?: boolean;
   hasEmail?: boolean;
@@ -1430,6 +1431,11 @@ export function searchInfluencers(filters: SearchFilters = {}): Influencer[] {
     if (
       filters.minEngagement &&
       influencer.engagementRate < filters.minEngagement
+    )
+      return false;
+    if (
+      filters.maxEngagement &&
+      influencer.engagementRate > filters.maxEngagement
     )
       return false;
     if (filters.country && influencer.country !== filters.country) return false;
