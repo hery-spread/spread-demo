@@ -12,9 +12,9 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
-import PerformanceChart from '@/components/profile/charts/PerformanceChart';
-import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
-import PostPerformance from '@/components/profile/charts/PostPerformance';
+// import PerformanceChart from '@/components/profile/charts/PerformanceChart';
+// import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
+// import PostPerformance from '@/components/profile/charts/PostPerformance';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -41,6 +41,10 @@ export default function ProfilePage() {
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
 
+  console.log('📊 ProfilePage - Rendu du composant');
+  console.log('💰 Credits du hook:', credits);
+  console.log('🔓 showUnlockModal:', showUnlockModal);
+
   useEffect(() => {
     const id = params.id as string;
 
@@ -61,23 +65,37 @@ export default function ProfilePage() {
 
   // Fonction pour débloquer le rapport
   const handleUnlockReport = async () => {
-    if (!influencer) return;
+    console.log('🚀 handleUnlockReport appelé');
+    console.log('👤 Influencer:', influencer);
+
+    if (!influencer) {
+      console.log('❌ Aucun influenceur trouvé');
+      return;
+    }
 
     try {
+      console.log('💳 Tentative de dépense de crédits...');
       // Dépenser les crédits
       await spendCredits(
         1,
         `Rapport débloqué - ${influencer.name}`,
         influencer.id
       );
+      console.log('✅ Crédits dépensés avec succès');
 
+      console.log('🔓 Tentative de déverrouillage du rapport...');
       // Simuler le déverrouillage du rapport
       const unlockedData = await unlockInfluencerReport(influencer.id);
+      console.log('📊 Données déverrouillées:', unlockedData);
+
       if (unlockedData) {
         setDetailedData(unlockedData);
+        console.log('✅ DetailedData mis à jour');
+      } else {
+        console.log('❌ Aucune donnée déverrouillée reçue');
       }
     } catch (error) {
-      console.error('Erreur lors du déverrouillage:', error);
+      console.error('❌ Erreur lors du déverrouillage:', error);
     }
   };
 
@@ -190,7 +208,10 @@ export default function ProfilePage() {
             <LockedContent
               title="Données d'audience verrouillées"
               description="Débloquez l'analyse détaillée de l'audience pour cet influenceur et accédez à des insights précieux sur ses followers."
-              onUnlock={() => setShowUnlockModal(true)}
+              onUnlock={() => {
+                console.log('🔓 ProfilePage - setShowUnlockModal(true) appelé');
+                setShowUnlockModal(true);
+              }}
               creditCost={1}
               features={[
                 'Répartition par âge et genre',
@@ -203,14 +224,102 @@ export default function ProfilePage() {
           );
         }
         return (
-          <div className="p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Analyse d&apos;audience
+          <div className="p-6 space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Analyse d&apos;audience détaillée
             </h3>
-            <p className="text-gray-600">
-              Données d&apos;audience détaillées disponibles (sera implémenté
-              dans PROFILE-04)
-            </p>
+
+            {/* Statistiques principales */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">
+                  {Math.round(detailedData!.audience!.gender.female)}%
+                </div>
+                <div className="text-sm text-blue-800">Femmes</div>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">
+                  {Math.round(detailedData!.audience!.gender.male)}%
+                </div>
+                <div className="text-sm text-purple-800">Hommes</div>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">
+                  {Object.keys(detailedData!.audience!.countries).length}
+                </div>
+                <div className="text-sm text-green-800">Pays</div>
+              </div>
+              <div className="bg-orange-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-orange-600">
+                  {Object.keys(detailedData!.audience!.interests.topics).length}
+                </div>
+                <div className="text-sm text-orange-800">Intérêts</div>
+              </div>
+            </div>
+
+            {/* Répartition par âge */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Répartition par âge
+              </h4>
+              <div className="space-y-2">
+                {Object.entries(detailedData!.audience!.age).map(
+                  ([age, percentage]) => (
+                    <div key={age} className="flex items-center">
+                      <div className="w-16 text-sm text-gray-600">{age}</div>
+                      <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
+                        <div
+                          className="bg-blue-500 h-2 rounded-full"
+                          style={{ width: `${percentage}%` }}
+                        ></div>
+                      </div>
+                      <div className="w-12 text-sm font-medium text-right">
+                        {percentage}%
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Top pays */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">Top pays</h4>
+              <div className="space-y-2">
+                {Object.entries(detailedData!.audience!.countries)
+                  .sort(([, a], [, b]) => (b as number) - (a as number))
+                  .slice(0, 5)
+                  .map(([country, percentage]) => (
+                    <div
+                      key={country}
+                      className="flex items-center justify-between"
+                    >
+                      <span className="text-sm text-gray-700">{country}</span>
+                      <span className="text-sm font-medium">{percentage}%</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Centres d'intérêt */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Centres d&apos;intérêt
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(detailedData!.audience!.interests.topics)
+                  .sort(([, a], [, b]) => (b as number) - (a as number))
+                  .slice(0, 8)
+                  .map(([topic, percentage]) => (
+                    <span
+                      key={topic}
+                      className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
+                    >
+                      {topic} ({percentage}%)
+                    </span>
+                  ))}
+              </div>
+            </div>
           </div>
         );
 
@@ -262,35 +371,40 @@ export default function ProfilePage() {
         );
 
       case 'performance':
-        if (!detailedData) {
-          return (
-            <LockedContent
-              title="Données de performance verrouillées"
-              description="Accédez aux graphiques de performance et à l'analyse détaillée des publications."
-              onUnlock={() => setShowUnlockModal(true)}
-              creditCost={1}
-              features={[
-                'Évolution des followers et engagement',
-                'Répartition des interactions',
-                'Performance des publications récentes',
-                'Métriques de portée et croissance',
-              ]}
-            />
-          );
-        }
+        // FORCER l'affichage de la modal pour le test (même si detailedData existe)
+        return (
+          <LockedContent
+            title="Données de performance verrouillées"
+            description="Accédez aux graphiques de performance et à l'analyse détaillée des publications."
+            onUnlock={() => {
+              console.log(
+                '🔓 ProfilePage - setShowUnlockModal(true) appelé depuis performance'
+              );
+              setShowUnlockModal(true);
+            }}
+            creditCost={1}
+            features={[
+              'Évolution des followers et engagement',
+              'Répartition des interactions',
+              'Performance des publications récentes',
+              'Métriques de portée et croissance',
+            ]}
+          />
+        );
+
+      // Code original commenté pour les tests
+      /*
         return (
           <div className="p-6 space-y-6">
             <h3 className="text-lg font-semibold text-gray-900">
               Analyse de performance
             </h3>
 
-            {/* Graphique de performance */}
             <PerformanceChart
               data={detailedData.performance!}
               title="Évolution des métriques"
             />
 
-            {/* Répartition de l'engagement et posts récents */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <EngagementBreakdown
                 data={detailedData.engagementBreakdown!}
@@ -305,6 +419,7 @@ export default function ProfilePage() {
             </div>
           </div>
         );
+        */
 
       default:
         return null;
@@ -348,11 +463,21 @@ export default function ProfilePage() {
       {influencer && (
         <UnlockModal
           isOpen={showUnlockModal}
-          onClose={() => setShowUnlockModal(false)}
+          onClose={() => {
+            console.log('🔓 Modal fermée');
+            setShowUnlockModal(false);
+          }}
           influencer={influencer}
           onUnlock={handleUnlockReport}
           currentCredits={credits}
         />
+      )}
+
+      {/* Debug: Afficher l'état de la modal */}
+      {showUnlockModal && (
+        <div className="fixed top-4 right-4 bg-red-500 text-white p-2 rounded z-[9999]">
+          Modal devrait être visible!
+        </div>
       )}
 
       {/* Modal de contact */}

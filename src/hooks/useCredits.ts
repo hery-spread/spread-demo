@@ -15,8 +15,10 @@ export function useCredits() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('🏁 useCredits - useEffect démarré');
     // Simuler le chargement des crédits depuis l'API
     setTimeout(() => {
+      console.log('💰 Chargement des crédits - 25 crédits attribués');
       // Données mockées - normalement depuis l'API utilisateur
       setCredits(25); // L'utilisateur a 25 crédits disponibles
       setTransactions([
@@ -45,6 +47,7 @@ export function useCredits() {
         },
       ]);
       setLoading(false);
+      console.log('✅ useCredits - Hook complètement chargé');
     }, 500);
   }, []);
 
