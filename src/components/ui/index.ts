@@ -1,6 +1,6 @@
-export { Button } from "./Button";
-export { Input } from "./Input";
-export { Select } from "./Select";
+export { Button } from './Button';
+export { Input } from './Input';
+export { Select } from './Select';
 export {
   Table,
   TableHeader,
@@ -8,4 +8,5 @@ export {
   TableHead,
   TableRow,
   TableCell,
-} from "./Table"; 
+} from './Table';
+export { Avatar } from './Avatar'; 

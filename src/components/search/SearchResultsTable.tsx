@@ -11,13 +11,13 @@ import {
   TableRow,
 } from '@/components/ui/Table';
 import { Button } from '@/components/ui/Button';
+import { Avatar } from '@/components/ui/Avatar';
 import {
   ChevronUpIcon,
   ChevronDownIcon,
   EyeIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 
 interface SearchResultsTableProps {
   results: Influencer[];
@@ -109,12 +109,12 @@ export default function SearchResultsTable({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl">
         <div className="p-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-10 bg-gray-200 rounded"></div>
+            <div className="h-10 bg-gray-200/50 rounded-lg"></div>
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-16 bg-gray-100 rounded"></div>
+              <div key={i} className="h-16 bg-gray-100/50 rounded-lg"></div>
             ))}
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function SearchResultsTable({
 
   if (results.length === 0) {
     return (
-      <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
+      <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl p-8 text-center">
         <p className="text-gray-500 mb-2">Aucun résultat trouvé</p>
         <p className="text-sm text-gray-400">
           Essayez d&apos;ajuster vos critères de recherche
@@ -134,13 +134,13 @@ export default function SearchResultsTable({
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200">
-      <div className="p-6 border-b border-gray-200">
+    <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl overflow-hidden">
+      <div className="p-6 border-b border-gray-200/50">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-900">
             Résultats de recherche
           </h3>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 bg-gray-100/50 px-3 py-1 rounded-full backdrop-blur-sm">
             {results.length} influenceur{results.length > 1 ? 's' : ''} trouvé
             {results.length > 1 ? 's' : ''}
           </span>
@@ -155,7 +155,7 @@ export default function SearchResultsTable({
               <TableHead>
                 <button
                   onClick={() => handleSort('name')}
-                  className="flex items-center hover:text-gray-900"
+                  className="flex items-center hover:text-gray-900 transition-colors duration-200"
                 >
                   Nom
                   <SortIcon field="name" />
@@ -164,7 +164,7 @@ export default function SearchResultsTable({
               <TableHead>
                 <button
                   onClick={() => handleSort('platform')}
-                  className="flex items-center hover:text-gray-900"
+                  className="flex items-center hover:text-gray-900 transition-colors duration-200"
                 >
                   Plateforme
                   <SortIcon field="platform" />
@@ -173,7 +173,7 @@ export default function SearchResultsTable({
               <TableHead>
                 <button
                   onClick={() => handleSort('followers')}
-                  className="flex items-center hover:text-gray-900"
+                  className="flex items-center hover:text-gray-900 transition-colors duration-200"
                 >
                   Followers
                   <SortIcon field="followers" />
@@ -182,7 +182,7 @@ export default function SearchResultsTable({
               <TableHead>
                 <button
                   onClick={() => handleSort('engagement')}
-                  className="flex items-center hover:text-gray-900"
+                  className="flex items-center hover:text-gray-900 transition-colors duration-200"
                 >
                   Engagement
                   <SortIcon field="engagement" />
@@ -194,20 +194,15 @@ export default function SearchResultsTable({
           </TableHeader>
           <TableBody>
             {paginatedResults.map((influencer) => (
-              <TableRow key={influencer.id}>
+              <TableRow
+                key={influencer.id}
+                className="hover:bg-purple-50/30 transition-colors duration-200"
+              >
                 <TableCell>
-                  <Image
+                  <Avatar
                     src={influencer.avatar}
-                    alt={influencer.name}
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 rounded-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                          influencer.name
-                        )}&background=6366f1&color=fff`;
-                    }}
+                    name={influencer.name}
+                    size="default"
                   />
                 </TableCell>
                 <TableCell>
@@ -230,7 +225,7 @@ export default function SearchResultsTable({
                 </TableCell>
                 <TableCell>
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPlatformBadge(
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium backdrop-blur-sm border border-white/20 shadow-sm hover:scale-105 transition-all duration-200 ${getPlatformBadge(
                       influencer.platform
                     )}`}
                   >
@@ -253,9 +248,15 @@ export default function SearchResultsTable({
                 </TableCell>
                 <TableCell>
                   {influencer.email ? (
-                    <div className="text-sm text-green-600">✓ Disponible</div>
+                    <div className="text-sm text-green-600 flex items-center">
+                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                      Disponible
+                    </div>
                   ) : (
-                    <div className="text-sm text-gray-400">Non disponible</div>
+                    <div className="text-sm text-gray-400 flex items-center">
+                      <span className="w-2 h-2 bg-gray-300 rounded-full mr-2"></span>
+                      Non disponible
+                    </div>
                   )}
                 </TableCell>
                 <TableCell>
@@ -264,6 +265,7 @@ export default function SearchResultsTable({
                       variant="outline"
                       size="sm"
                       onClick={() => onViewProfile?.(influencer)}
+                      className="hover:scale-105 transition-transform duration-200"
                     >
                       <EyeIcon className="w-4 h-4 mr-1" />
                       Voir
@@ -272,6 +274,7 @@ export default function SearchResultsTable({
                       variant="default"
                       size="sm"
                       onClick={() => onAddToList?.(influencer)}
+                      className="hover:scale-105 transition-transform duration-200"
                     >
                       <PlusIcon className="w-4 h-4 mr-1" />
                       Ajouter
@@ -284,9 +287,9 @@ export default function SearchResultsTable({
         </Table>
       </div>
 
-      {/* Pagination */}
+      {/* Pagination avec design moderne */}
       {totalPages > 1 && (
-        <div className="px-6 py-4 border-t border-gray-200">
+        <div className="px-6 py-4 border-t border-gray-200/50 bg-gray-50/30 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-500">
               Affichage de {startIndex + 1} à{' '}
@@ -299,10 +302,11 @@ export default function SearchResultsTable({
                 size="sm"
                 onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
+                className="hover:scale-105 transition-transform duration-200"
               >
                 Précédent
               </Button>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm">
                 Page {currentPage} sur {totalPages}
               </span>
               <Button
@@ -312,6 +316,7 @@ export default function SearchResultsTable({
                   setCurrentPage(Math.min(totalPages, currentPage + 1))
                 }
                 disabled={currentPage === totalPages}
+                className="hover:scale-105 transition-transform duration-200"
               >
                 Suivant
               </Button>

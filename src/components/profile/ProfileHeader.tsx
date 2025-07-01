@@ -2,12 +2,12 @@
 
 import { Influencer } from '@/types';
 import { Button } from '@/components/ui/Button';
+import { Avatar } from '@/components/ui/Avatar';
 import {
   CheckBadgeIcon,
   EnvelopeIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 
 interface ProfileHeaderProps {
   influencer: Influencer;
@@ -56,31 +56,28 @@ export default function ProfileHeader({
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-      {/* Header avec gradient */}
-      <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-32"></div>
+    <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/20 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
+      {/* Header avec gradient moderne */}
+      <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 h-32 relative overflow-hidden">
+        {/* Effet glassmorphism sur le header */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
+        {/* Animation shimmer */}
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      </div>
 
       <div className="relative px-6 pb-6">
         {/* Avatar */}
         <div className="flex items-start justify-between -mt-16">
           <div className="flex items-end space-x-4">
-            <Image
+            <Avatar
               src={influencer.avatar}
-              alt={influencer.name}
-              width={128}
-              height={128}
-              className="w-32 h-32 rounded-full border-4 border-white object-cover bg-white"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    influencer.name
-                  )}&background=6366f1&color=fff&size=128`;
-              }}
-              priority
+              name={influencer.name}
+              size="3xl"
+              className="border-4 border-white shadow-lg"
             />
             <div className="pb-4">
               <span
-                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getPlatformColor(
+                className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm border border-white/20 shadow-lg hover:scale-105 transition-all duration-300 ${getPlatformColor(
                   influencer.platform
                 )}`}
               >
@@ -97,7 +94,7 @@ export default function ProfileHeader({
             <Button
               variant="outline"
               onClick={onAddToList}
-              className="flex items-center"
+              className="flex items-center backdrop-blur-sm"
             >
               <PlusIcon className="w-4 h-4 mr-2" />
               Ajouter à une liste
@@ -128,17 +125,17 @@ export default function ProfileHeader({
             <p className="text-gray-700 mb-4 max-w-2xl">{influencer.bio}</p>
           )}
 
-          {/* Statistiques principales */}
+          {/* Statistiques principales avec design moderne */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">
+            <div className="text-center p-4 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-100/50 hover:bg-blue-100/80 transition-all duration-300 group">
+              <div className="text-2xl font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300">
                 {formatNumber(influencer.followers)}
               </div>
               <div className="text-sm text-blue-600 font-medium">Followers</div>
             </div>
 
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">
+            <div className="text-center p-4 bg-green-50/80 backdrop-blur-sm rounded-xl border border-green-100/50 hover:bg-green-100/80 transition-all duration-300 group">
+              <div className="text-2xl font-bold text-green-600 group-hover:scale-110 transition-transform duration-300">
                 {influencer.engagementRate}%
               </div>
               <div className="text-sm text-green-600 font-medium">
@@ -146,8 +143,8 @@ export default function ProfileHeader({
               </div>
             </div>
 
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">
+            <div className="text-center p-4 bg-purple-50/80 backdrop-blur-sm rounded-xl border border-purple-100/50 hover:bg-purple-100/80 transition-all duration-300 group">
+              <div className="text-2xl font-bold text-purple-600 group-hover:scale-110 transition-transform duration-300">
                 {formatNumber(influencer.engagement)}
               </div>
               <div className="text-sm text-purple-600 font-medium">
@@ -155,8 +152,8 @@ export default function ProfileHeader({
               </div>
             </div>
 
-            <div className="text-center p-4 bg-orange-50 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">
+            <div className="text-center p-4 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-100/50 hover:bg-orange-100/80 transition-all duration-300 group">
+              <div className="text-2xl font-bold text-orange-600 group-hover:scale-110 transition-transform duration-300">
                 {influencer.country}
               </div>
               <div className="text-sm text-orange-600 font-medium">Pays</div>
