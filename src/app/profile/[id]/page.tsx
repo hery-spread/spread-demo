@@ -325,14 +325,220 @@ export default function ProfilePage() {
 
       case 'content':
         return (
-          <div className="p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="p-6 space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">
               Analyse de contenu
             </h3>
-            <p className="text-gray-600">
-              Analyse du contenu et des performances (sera implémenté dans
-              PROFILE-04)
-            </p>
+
+            {/* Métriques de contenu */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">
+                  {influencer.followers > 1000000
+                    ? Math.floor(Math.random() * 50) + 20
+                    : Math.floor(Math.random() * 20) + 5}
+                </div>
+                <div className="text-sm text-blue-800">Posts/mois</div>
+              </div>
+              <div className="bg-green-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">
+                  {Math.floor(Math.random() * 30) + 15}k
+                </div>
+                <div className="text-sm text-green-800">Vues moy.</div>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">
+                  {(Math.random() * 8 + 2).toFixed(1)}%
+                </div>
+                <div className="text-sm text-purple-800">Taux eng.</div>
+              </div>
+              <div className="bg-orange-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-orange-600">
+                  {Math.floor(Math.random() * 500) + 200}
+                </div>
+                <div className="text-sm text-orange-800">Comm. moy.</div>
+              </div>
+            </div>
+
+            {/* Types de contenu */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Types de contenu populaires
+              </h4>
+              <div className="space-y-3">
+                {[
+                  { type: 'Photos lifestyle', percentage: 45 },
+                  { type: 'Stories quotidiennes', percentage: 30 },
+                  { type: 'Collaborations marques', percentage: 15 },
+                  { type: 'Vidéos/Reels', percentage: 10 },
+                ].map((item) => (
+                  <div key={item.type} className="flex items-center">
+                    <div className="w-32 text-sm text-gray-600">
+                      {item.type}
+                    </div>
+                    <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
+                      <div
+                        className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full"
+                        style={{ width: `${item.percentage}%` }}
+                      ></div>
+                    </div>
+                    <div className="w-12 text-sm font-medium text-right">
+                      {item.percentage}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Hashtags populaires */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Hashtags les plus utilisés
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  '#lifestyle',
+                  '#fashion',
+                  '#beauty',
+                  '#travel',
+                  '#food',
+                  '#fitness',
+                  '#inspiration',
+                  '#love',
+                  '#instagood',
+                  '#photooftheday',
+                ].map((hashtag) => (
+                  <span
+                    key={hashtag}
+                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
+                  >
+                    {hashtag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Meilleurs moments de publication */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Meilleurs moments de publication
+              </h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">
+                    Jours de la semaine
+                  </h5>
+                  <div className="space-y-1">
+                    {[
+                      { day: 'Dimanche', score: 95 },
+                      { day: 'Samedi', score: 88 },
+                      { day: 'Mercredi', score: 75 },
+                      { day: 'Vendredi', score: 70 },
+                      { day: 'Jeudi', score: 60 },
+                    ]
+                      .slice(0, 3)
+                      .map((item) => (
+                        <div
+                          key={item.day}
+                          className="flex items-center justify-between text-sm"
+                        >
+                          <span className="text-gray-600">{item.day}</span>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-16 bg-gray-200 rounded-full h-1">
+                              <div
+                                className="bg-green-500 h-1 rounded-full"
+                                style={{ width: `${item.score}%` }}
+                              ></div>
+                            </div>
+                            <span className="text-green-600 font-medium">
+                              {item.score}%
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <div>
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">
+                    Heures optimales
+                  </h5>
+                  <div className="space-y-1">
+                    {[
+                      { time: '18h-20h', score: 92 },
+                      { time: '12h-14h', score: 85 },
+                      { time: '20h-22h', score: 78 },
+                    ].map((item) => (
+                      <div
+                        key={item.time}
+                        className="flex items-center justify-between text-sm"
+                      >
+                        <span className="text-gray-600">{item.time}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-16 bg-gray-200 rounded-full h-1">
+                            <div
+                              className="bg-orange-500 h-1 rounded-full"
+                              style={{ width: `${item.score}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-orange-600 font-medium">
+                            {item.score}%
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Collaborations récentes */}
+            <div className="bg-white border rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 mb-3">
+                Collaborations récentes
+              </h4>
+              <div className="space-y-3">
+                {[
+                  {
+                    brand: 'Nike',
+                    type: 'Post sponsorisé',
+                    engagement: '12.5k',
+                    date: '15 Nov',
+                  },
+                  {
+                    brand: 'Sephora',
+                    type: 'Story',
+                    engagement: '8.2k',
+                    date: '12 Nov',
+                  },
+                  {
+                    brand: 'Zara',
+                    type: 'Reel',
+                    engagement: '15.8k',
+                    date: '8 Nov',
+                  },
+                ].map((collab, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {collab.brand}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {collab.type} • {collab.date}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium text-gray-900">
+                        {collab.engagement}
+                      </div>
+                      <div className="text-sm text-gray-500">interactions</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         );
 
