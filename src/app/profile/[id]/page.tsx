@@ -12,11 +12,19 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
+import PerformanceChart from '@/components/profile/charts/PerformanceChart';
+import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
+import PostPerformance from '@/components/profile/charts/PostPerformance';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useCredits } from '@/hooks/useCredits';
 
-type ProfileTab = 'overview' | 'audience' | 'content' | 'contact';
+type ProfileTab =
+  | 'overview'
+  | 'audience'
+  | 'content'
+  | 'contact'
+  | 'performance';
 
 export default function ProfilePage() {
   const params = useParams();
@@ -249,6 +257,51 @@ export default function ProfilePage() {
                 </p>
               </div>
             )}
+          </div>
+        );
+
+      case 'performance':
+        if (!detailedData) {
+          return (
+            <LockedContent
+              title="Données de performance verrouillées"
+              description="Accédez aux graphiques de performance et à l'analyse détaillée des publications."
+              onUnlock={() => setShowUnlockModal(true)}
+              creditCost={1}
+              features={[
+                'Évolution des followers et engagement',
+                'Répartition des interactions',
+                'Performance des publications récentes',
+                'Métriques de portée et croissance',
+              ]}
+            />
+          );
+        }
+        return (
+          <div className="p-6 space-y-6">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Analyse de performance
+            </h3>
+
+            {/* Graphique de performance */}
+            <PerformanceChart
+              data={detailedData.performance!}
+              title="Évolution des métriques"
+            />
+
+            {/* Répartition de l'engagement et posts récents */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <EngagementBreakdown
+                data={detailedData.engagementBreakdown!}
+                totalEngagement={
+                  detailedData.engagementBreakdown!.likes +
+                  detailedData.engagementBreakdown!.comments +
+                  detailedData.engagementBreakdown!.shares +
+                  detailedData.engagementBreakdown!.saves
+                }
+              />
+              <PostPerformance posts={detailedData.recentPosts!} />
+            </div>
           </div>
         );
 

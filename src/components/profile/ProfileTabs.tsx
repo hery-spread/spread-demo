@@ -1,6 +1,11 @@
 'use client';
 
-type ProfileTab = 'overview' | 'audience' | 'content' | 'contact';
+type ProfileTab =
+  | 'overview'
+  | 'audience'
+  | 'content'
+  | 'contact'
+  | 'performance';
 
 interface ProfileTabsProps {
   activeTab: ProfileTab;
@@ -30,6 +35,12 @@ export default function ProfileTabs({
       id: 'content' as ProfileTab,
       name: 'Contenu',
       icon: '📱',
+      available: hasDetailedData,
+    },
+    {
+      id: 'performance' as ProfileTab,
+      name: 'Performance',
+      icon: '📈',
       available: hasDetailedData,
     },
     {

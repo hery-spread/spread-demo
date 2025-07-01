@@ -22,7 +22,13 @@ export interface InfluencerDetails extends Influencer {
   };
   audience: {
     gender: { male: number; female: number };
-    age: Record<string, number>;
+    age: {
+      "13-17": number;
+      "18-24": number;
+      "25-34": number;
+      "35-44": number;
+      "45-64": number;
+    };
     countries: Record<string, number>;
     cities: Record<string, number>;
     languages: Record<string, number>;
@@ -32,6 +38,27 @@ export interface InfluencerDetails extends Influencer {
       brands: Record<string, number>;
     };
   };
+  performance?: {
+    date: string;
+    followers: number;
+    engagement: number;
+    reach: number;
+  }[];
+  engagementBreakdown?: {
+    likes: number;
+    comments: number;
+    shares: number;
+    saves: number;
+  };
+  recentPosts?: {
+    id: string;
+    type: "image" | "video" | "carousel";
+    thumbnail: string;
+    likes: number;
+    comments: number;
+    engagement: number;
+    date: string;
+  }[];
 }
 
 export interface InfluencerList {
