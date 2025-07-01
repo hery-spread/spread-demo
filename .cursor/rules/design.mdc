@@ -1,0 +1,39 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Analyse tout le projet actuel (frontend, composants, CSS, Tailwind, fichiers de thème, fichiers statiques, etc.) et crée un dossier DESIGN/ à la racine du projet. Ce dossier doit contenir une documentation exhaustive du Design System existant, sous forme de fichiers .MD bien structurés. Voici les fichiers attendus et leur contenu respectif :
+
+/DESIGN/colors.MD
+Liste exhaustive des couleurs utilisées dans le projet (hex, rgba, nom de variable si existant). Regroupe-les par type : primaires, secondaires, alertes, fonds, bordures, texte, hover, etc. Si des classes Tailwind personnalisées sont utilisées (via config ou extensions), inclue-les également.
+
+/DESIGN/typography.MD
+Décrit toutes les tailles de texte, familles, poids, interlignes, et usages contextuels (titres, sous-titres, texte courant, captions, boutons, etc.). Référence les classes Tailwind ou utilitaires CSS utilisés, et indique les règles de hiérarchie visuelle.
+
+/DESIGN/shapes.MD
+Documente les formes et rayons de bordures (border-radius), les coins arrondis, la géométrie des boutons, inputs, cartes, etc. Indique les tailles standards (sm, md, lg, pill, circle…), les paddings associés, et les composants concernés.
+
+/DESIGN/icons.MD
+Liste les icônes utilisées, leur provenance (librairie type Lucide, Heroicons, etc.), leur taille, usage, couleur par défaut, et s’ils sont intégrés en SVG inline ou via composant. Si un système d’icônes custom existe, documente-le.
+
+/DESIGN/layouts.MD
+Décrit les gabarits de mise en page (containers, grilles, colonnes, espacements, marges), les breakpoints responsive utilisés et les comportements associés. Inclue les conventions d’alignement et de composition.
+
+/DESIGN/components.MD
+Indexe les composants UI déjà existants avec une courte description pour chacun (ex. : Button, Card, Modal, Dropdown…), leurs variantes s’il y en a, leurs props principales, et une capture ou aperçu si possible. Spécifie les composants génériques, les composants métiers, et leurs dépendances éventuelles.
+
+/DESIGN/guidelines.MD
+Règles générales de cohérence visuelle : espacement entre les éléments, rythme vertical, stratégie de contraste, accessibilité, conventions de nommage CSS ou Tailwind, tonalité visuelle générale, éléments à éviter.
+
+/DESIGN/forms.MD
+Documente les styles des champs de formulaire : inputs, selects, checkboxes, radios, erreurs, états désactivés, focus, succès. Inclue les guidelines d’accessibilité et les bonnes pratiques UI/UX associées.
+
+/DESIGN/buttons.MD
+Décrit toutes les variantes de boutons disponibles (primaire, secondaire, danger, ghost…), leur style (taille, couleur, icône ou non), état (hover, disabled, loading…), et leur usage recommandé.
+
+/DESIGN/shadows.MD
+Liste les ombres (box-shadow) utilisées dans le projet : profondeur, style, usage contextuel. Classe-les par niveau d’élévation visuelle (ex. : card, modal, tooltip…).
+
+/DESIGN/themes.MD (optionnel)
+Si un système de thème (dark/light) est utilisé, documente les variables, couleurs alternatives, comportements dynamiques, composants impactés et éventuelles classes conditionnelles.

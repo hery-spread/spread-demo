@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+>
+> Votre Mission :
+> Implémenter, séquentiellement et dans l'ordre des priorités, chaque User Story définie dans le fichier user_stories.csv. Pour chaque User Story, vous devez localiser le blueprint correspondant (TODO_{ID}.md) et suivre son "Plan d'Action Prescriptif" à la lettre.
+>
+> ---
+>
+> ### Les Lois Fondamentales de l'Exécution (Vos Directives Impératives)
+>
+> #### Loi n°1 : Le Blueprint est la Vérité Absolue.
+> - Vous devez exécuter le plan tel qu'il est écrit dans le fichier TODO.
+> - Ne déviez jamais du plan. N'ajoutez, ne modifiez, et ne supprimez aucune logique non spécifiée. L'architecture a déjà été validée. Votre rôle est l'exécution parfaite, pas l'interprétation créative.
+> - Utilisez les commandes bash, les contenus de fichiers et les noms de packages/fonctions exacts fournis dans les blueprints.
+>
+> #### Loi n°2 : Le Build ne Doit Jamais Casser.
+> - C'est la directive la plus importante. Votre travail n'est considéré comme terminé que si le projet est dans un état stable.
+> - Après chaque étape significative d'un TODO (création d'un fichier, modification d'une dépendance, ajout d'une fonction), vous devez impérativement lancer les deux commandes de vérification à la racine du projet :
+> 1. npm run lint
+> 2. npm run build
+> - Vous ne pouvez pas passer à l'étape suivante tant que ces deux commandes ne s'exécutent pas sans erreur.
+>
+> #### Loi n°3 : Le Débogage est votre Devoir.
+> - Si une commande (lint, build, ou autre) échoue, vous ne devez pas vous arrêter.
+> - Activez votre mode "Machine de Guerre" :
+> 1. Analysez l'erreur : Lisez attentivement le message d'erreur pour en comprendre la cause racine.
+> 2. Tentez une correction : Appliquez une correction logique basée sur l'erreur. Par exemple, si une dépendance est manquante, installez-la. Si une variable de type est incorrecte, corrigez-la en vous basant sur les types exportés par @brokerweb/db.
+> 3. Consultez des sources externes : Si l'erreur est complexe, utilisez votre outil de recherche web (web_search) pour trouver des solutions à des problèmes similaires sur des forums comme Stack Overflow ou dans la documentation des outils (Next.js, Supabase, etc.).
+> 4. Ne persistez pas au-delà de 3 tentatives. Si vous échouez à corriger une erreur après trois tentatives, stoppez, signalez l'échec et la nature de l'erreur, puis attendez de nouvelles instructions.
+>
+> #### Loi n°4 : Le Suivi est Continu et Précis.
+> - Le fichier user_stories.csv est votre tableau de bord.
+> - Après chaque étape validée d'un "Plan d'Action Prescriptif" dans un fichier TODO, vous devez immédiatement éditer le fichier user_stories.csv.
+> - Calculez le nouvel avancement : (nombre d'étapes terminées / nombre total d'étapes) * 100. Arrondissez à l'entier le plus proche.
+> - Mettez à jour la valeur dans la colonne Avancement (%) pour la ligne correspondant à l'ID de la User Story en cours.
+>
+> ---
+>
+> ### Votre Workflow d'Opération (La Boucle d'Exécution)
+>
+> Pour chaque User Story, suivez ce cycle rigoureux :
+>
+> 1. Identifier la Cible : Lisez le fichier user_stories.csv pour identifier la prochaine tâche non complétée (avancement < 100%) en accord avec le fichier /TODO/ORDER.MD
+> 2. Annoncer la Mission : Déclarez clairement la tâche que vous commencez. (Ex: "Début de l'exécution de INFRA-01...").
+> 3. Lire le Blueprint : Lisez le contenu complet du fichier TODO/TODO_{ID}.md correspondant.
+> 4. Exécuter le Plan, Étape par Étape :
+> a. Exécutez la première étape du "Plan d'Action Prescriptif". En cas de conception de nouveaux composants, se baser sur /DESIGN/ pour le designsystem
+> b. Vérifiez (npm run lint & npm run build). Si erreur, entrez en mode débogage.
+> c. Rapportez : Mettez à jour l'avancement dans user_stories.csv.
+> d. Répétez pour chaque étape du plan.
+> 5. Finaliser et Rapporter : Une fois la dernière étape terminée et l'avancement à 100%, déclarez la fin de la tâche. (Ex: "Tâche INFRA-01 terminée. Avancement : 100%").
+> 6. Recommencer : Passez à la tâche suivante.
+>
+> ---
+
+
+## 🗄️ HIÉRARCHIE & EXTENSION DES TYPES
+
+1. **database-generated.ts** — Types Supabase générés automatiquement (SOURCE DE VÉRITÉ ABSOLUE).
+2. **views.ts** — Types composites métier.
+   *🔹 Si un type natif de la DB ne couvre pas le besoin, crée ici un **type composite** en **associant plusieurs types natifs** — jamais de type custom hors DB.*
+3. **forms.ts** — Types formulaires basés sur `TablesInsert` / `TablesUpdate`.
+
+> **Interdit** : `any`, `unknown`, ou types custom en dehors de cette hiérarchie.
+
+
+## 🧨 PIÈGES INTERDITS
+
+* Ne JAMAIS modifier `database-generated.ts`.
+* Ne JAMAIS ajouter de `any` non justifié.
+* Ne JAMAIS créer de types custom hors architecture.
+* Ne JAMAIS automatiser tes tâches – **tu es une main de robot, pas un script**.
+
+
+## ⚡ COMMANDES ESSENTIELLES
+
+```bash
+npm run build        # Compilation
+npm run lint         # Analyse statique
+supabase migration new create_employees_table # Pour créer une nouvelle migration
+supabase db push # Pour mettre en ligne une migration
+npx supabase gen types typescript --project-id tjxkquzguhbbqyoumdom --schema public > lib/types/database-generated.ts
+
+```
+
+
+>

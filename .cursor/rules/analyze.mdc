@@ -1,0 +1,235 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 📋 Méthodologie d'Analyse pour Fichier user\_story.csv
+
+## Ton job
+
+Crée un fichier user_story.csv complet et structuré à partir de l'analyse d'un projet de code existant, en suivant une méthodologie rigoureuse d'extraction, de catégorisation et d'estimation.
+Ce fichier doit se trouver à la racine du présent projet. Voici un guide pour ta réflexion
+
+## Phase 1 : Exploration et Compréhension du Projet
+
+### Analyse de l'architecture et du contexte
+
+* Lisez la documentation existante :
+
+  * `README.md`, `ARCHITECTURE.md`, `context.md`
+  * Fichiers de configuration (`package.json`, `requirements.txt`, etc.)
+  * Documentation technique et guides utilisateur
+
+* Analysez la structure du code :
+
+  * Arborescence des dossiers (`frontend`, `backend`, `mobile`, `admin`)
+  * Technologies utilisées (frameworks, bases de données, APIs)
+  * Modèles de données (schemas, migrations, entités)
+  * Interfaces utilisateur existantes
+
+* Identifiez les parties prenantes :
+
+  * Utilisateurs finaux (clients, abonnés, visiteurs)
+  * Administrateurs (gestionnaires, modérateurs)
+  * Développeurs (infrastructure, maintenance)
+  * Système (intégrations tierces, APIs)
+
+## Phase 2 : Extraction des Fonctionnalités
+
+### Analyse par module/composant
+
+* Fonctionnalités utilisateur visibles :
+
+  * Pages/écrans de l'application
+  * Formulaires et interactions
+  * Workflows métier
+* Fonctionnalités administratives :
+
+  * Dashboards et analytics
+  * Gestion des données
+  * Configuration système
+* Fonctionnalités techniques :
+
+  * APIs et intégrations
+  * Sécurité et authentification
+  * Performance et monitoring
+
+## 🗂️ Structure du Fichier CSV
+
+### Format Standard
+
+```
+ID,Catégorie,User_story,Estimation Min (h),Estimation Max (h)
+```
+
+### Règles de Nommage des ID
+
+* Format : `[CATEGORIE]-[NUMERO]`
+
+  * Exemples : `AUTH-01`, `ADMINDASH-03`, `API-12`
+* Cohérence : Numérotation séquentielle par catégorie
+
+### Format des User Stories
+
+Structure recommandée :
+
+```
+"En tant que [ROLE], je veux/dois [ACTION] [CONTEXTE/DÉTAILS]"
+```
+
+#### Exemples :
+
+* Utilisateur : "En tant qu'utilisateur, je veux pouvoir me connecter avec email/mot de passe"
+* Admin : "En tant qu'administrateur, je veux voir le dashboard des ventes en temps réel"
+* Développeur : "En tant que développeur, je dois configurer l'API de paiement Stripe"
+
+## 🏷️ Catégorisation Recommandée
+
+### Infrastructure & Technique
+
+* `INFRA` : Infrastructure & Setup
+* `AUTH` : Authentification & Autorisation
+* `API` : APIs & Intégrations
+* `SEC` : Sécurité & Conformité
+* `PERF` : Performance & Optimisation
+* `TEST` : Tests & Qualité
+* `DOC` : Documentation & Formation
+
+### Fonctionnelles (exemples adaptables)
+
+* `USER` : Gestion Utilisateurs
+* `PROFILE` : Profils & Préférences
+* `CATALOG` : Catalogue & Produits
+* `ORDER` : Commandes & Transactions
+* `PAY` : Paiements & Facturation
+* `NOTIF` : Notifications & Communication
+* `REPORT` : Reporting & Analytics
+
+### Interface
+
+* `UI` : Interface Utilisateur
+* `ADMIN` : Interface Administration
+* `MOBILE` : Application Mobile
+* `WEB` : Application Web
+
+### Spécialisées (selon le domaine)
+
+* `AI` : Intelligence Artificielle
+* `IOT` : Internet des Objets
+* `GAME` : Fonctionnalités Jeu
+* `ECOM` : E-commerce
+* `SOCIAL` : Réseaux Sociaux
+* `CONTENT` : Gestion de Contenu
+
+## ⏱️ Méthodologie d'Estimation
+
+### Facteurs à Considérer
+
+#### Complexité Technique :
+
+* Intégrations tierces : `+50-100%`
+* Algorithmes complexes : `+100-200%`
+* Nouvelles technologies : `+25-50%`
+
+#### Complexité UI/UX :
+
+* Interface simple : `2-6h`
+* Interface complexe : `8-15h`
+* Interface interactive avancée : `15-25h`
+
+#### Complexité Backend :
+
+* CRUD simple : `3-8h`
+* Logique métier complexe : `10-20h`
+* Intégrations multiples : `15-30h`
+
+### Grille d'Estimation Standard
+
+* **Très Simple (1-4h)** :
+
+  * Ajout de champs simples
+  * Pages statiques
+  * Configurations basiques
+* **Simple (4-8h)** :
+
+  * Formulaires standards
+  * CRUD basique
+  * Validations simples
+* **Moyen (8-15h)** :
+
+  * Workflows métier
+  * Intégrations API simples
+  * Interfaces utilisateur élaborées
+* **Complexe (15-25h)** :
+
+  * Logique métier avancée
+  * Intégrations multiples
+  * Interfaces administratives complètes
+* **Très Complexe (25h+)** :
+
+  * Algorithmes IA/ML
+  * Architectures distribuées
+  * Systèmes temps réel
+
+### Ajustements par Contexte
+
+* **Projet Existant** :
+
+  * Code legacy : `+25-50%`
+  * Architecture claire : `+0%`
+  * Tests existants : `-10%`
+* **Équipe Expérience** :
+
+  * Junior : `+50-100%`
+  * Senior : `+0%`
+  * Expert domaine : `-20%`
+* **Contraintes Qualité** :
+
+  * MVP : `-30%`
+  * Production : `+0%`
+  * Mission critique : `+50%`
+
+## 📊 Processus de Validation
+
+### Auto-Vérification
+
+* [ ] **Complétude** : Toutes les fonctionnalités existantes sont-elles couvertes ?
+* [ ] **Cohérence** : Les estimations sont-elles proportionnelles ?
+* [ ] **Granularité** : Chaque story est-elle réalisable en moins de 25h ?
+* [ ] **Valeur métier** : Chaque story apporte-t-elle de la valeur ?
+
+### Points de Contrôle
+
+* Total Infrastructure : `[X]% du projet`
+* Total Fonctionnel : `[X]% du projet`
+* Total Interface : `[X]% du projet`
+* Total Technique : `[X]% du projet`
+
+#### Ratios typiques
+
+* **Application Web classique** : 20% Infra, 50% Fonctionnel, 20% Interface, 10% Tech
+* **Application Mobile** : 15% Infra, 40% Fonctionnel, 35% Interface, 10% Tech
+* **Système Backend** : 30% Infra, 40% Fonctionnel, 10% Interface, 20% Tech
+
+## 🔍 Checklist de Qualité
+
+### Contenu des User Stories
+
+* [ ] Rôle clairement identifié
+* [ ] Action spécifique et mesurable
+* [ ] Valeur métier évidente
+* [ ] Critères d'acceptation implicites clairs
+
+### Structure du Fichier
+
+* [ ] Headers CSV corrects
+* [ ] IDs uniques et cohérents
+* [ ] Catégories logiques et exhaustives
+* [ ] Estimations réalistes (1-25h par story)
+
+### Couverture Fonctionnelle
+
+* [ ] Tous les workflows métier couverts
+* [ ] Interfaces administratives incluses
+* [ ] Aspects techniques (sécurité, performance) inclus
+* [ ] Documentation et formation prévues
