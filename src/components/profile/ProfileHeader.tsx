@@ -7,6 +7,7 @@ import {
   EnvelopeIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 interface ProfileHeaderProps {
   influencer: Influencer;
@@ -63,9 +64,11 @@ export default function ProfileHeader({
         {/* Avatar */}
         <div className="flex items-start justify-between -mt-16">
           <div className="flex items-end space-x-4">
-            <img
+            <Image
               src={influencer.avatar}
               alt={influencer.name}
+              width={128}
+              height={128}
               className="w-32 h-32 rounded-full border-4 border-white object-cover bg-white"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
@@ -73,6 +76,7 @@ export default function ProfileHeader({
                     influencer.name
                   )}&background=6366f1&color=fff&size=128`;
               }}
+              priority
             />
             <div className="pb-4">
               <span

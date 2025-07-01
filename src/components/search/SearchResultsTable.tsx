@@ -17,6 +17,7 @@ import {
   EyeIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 interface SearchResultsTableProps {
   results: Influencer[];
@@ -195,9 +196,11 @@ export default function SearchResultsTable({
             {paginatedResults.map((influencer) => (
               <TableRow key={influencer.id}>
                 <TableCell>
-                  <img
+                  <Image
                     src={influencer.avatar}
                     alt={influencer.name}
+                    width={40}
+                    height={40}
                     className="w-10 h-10 rounded-full object-cover"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =
