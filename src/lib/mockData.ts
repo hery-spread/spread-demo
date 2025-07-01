@@ -709,6 +709,166 @@ export const mockInfluencers: Influencer[] = [
     email: "contact@joueurdugrenier.fr",
     bio: "Test de jeux rétro YouTube",
   },
+  // Influenceurs Gaming
+  {
+    id: "51",
+    name: "Gotaga",
+    username: "gotaga",
+    platform: "youtube",
+    avatar: "/avatars/gotaga.jpg",
+    followers: 3200000,
+    engagement: 128000,
+    engagementRate: 4.0,
+    country: "FR",
+    verified: true,
+    email: "contact@gotaga.tv",
+    bio: "Pro gamer et streamer français",
+  },
+  {
+    id: "52",
+    name: "Domingo",
+    username: "domingo",
+    platform: "youtube",
+    avatar: "/avatars/domingo.jpg",
+    followers: 2800000,
+    engagement: 95000,
+    engagementRate: 3.4,
+    country: "FR",
+    verified: true,
+    email: "contact@domingo.fr",
+    bio: "Gaming et divertissement",
+  },
+  // Influenceurs Beauté
+  {
+    id: "53",
+    name: "Sananas",
+    username: "sananas",
+    platform: "youtube",
+    avatar: "/avatars/sananas.jpg",
+    followers: 2100000,
+    engagement: 84000,
+    engagementRate: 4.0,
+    country: "FR",
+    verified: true,
+    email: "contact@sananas.fr",
+    bio: "Beauté et lifestyle",
+  },
+  {
+    id: "54",
+    name: "EnjoyPhoenix Pro",
+    username: "enjoyphoenix_pro",
+    platform: "youtube",
+    avatar: "/avatars/enjoyphoenix2.jpg",
+    followers: 3500000,
+    engagement: 105000,
+    engagementRate: 3.0,
+    country: "FR",
+    verified: true,
+    email: "marie@enjoyphoenix.fr",
+    bio: "Beauté, lifestyle et bien-être",
+  },
+  // Influenceurs TikTok
+  {
+    id: "55",
+    name: "Léa Elui Pro",
+    username: "leaelui_pro",
+    platform: "tiktok",
+    avatar: "/avatars/leaelui2.jpg",
+    followers: 13200000,
+    engagement: 660000,
+    engagementRate: 5.0,
+    country: "FR",
+    verified: true,
+    email: "contact@leaelui.com",
+    bio: "Danseuse et créatrice de contenu",
+  },
+  {
+    id: "56",
+    name: "Théo Derville",
+    username: "theoderville",
+    platform: "tiktok",
+    avatar: "/avatars/theoderville.jpg",
+    followers: 8900000,
+    engagement: 445000,
+    engagementRate: 5.0,
+    country: "FR",
+    verified: true,
+    bio: "Humour et divertissement",
+  },
+  // Influenceurs Lifestyle
+  {
+    id: "57",
+    name: "Caroline Receveur Pro",
+    username: "carolinereceveur_pro",
+    platform: "instagram",
+    avatar: "/avatars/carolinereceveur2.jpg",
+    followers: 4200000,
+    engagement: 168000,
+    engagementRate: 4.0,
+    country: "FR",
+    verified: true,
+    email: "contact@carolinereceveur.fr",
+    bio: "Lifestyle, mode et famille",
+  },
+  // Influenceurs Fitness
+  {
+    id: "58",
+    name: "Tibo InShape Pro",
+    username: "tiboinshape_pro",
+    platform: "youtube",
+    avatar: "/avatars/tiboinshape2.jpg",
+    followers: 8100000,
+    engagement: 324000,
+    engagementRate: 4.0,
+    country: "FR",
+    verified: true,
+    email: "contact@tiboinshape.fr",
+    bio: "Fitness et musculation",
+  },
+  // Influenceurs Cuisine
+  {
+    id: "59",
+    name: "Cyril Lignac Pro",
+    username: "cyril_lignac_pro",
+    platform: "instagram",
+    avatar: "/avatars/cyrillignac2.jpg",
+    followers: 1800000,
+    engagement: 54000,
+    engagementRate: 3.0,
+    country: "FR",
+    verified: true,
+    email: "contact@cyril-lignac.com",
+    bio: "Chef cuisinier",
+  },
+  // Influenceurs Internationaux
+  {
+    id: "60",
+    name: "MrBeast",
+    username: "mrbeast",
+    platform: "youtube",
+    avatar: "/avatars/mrbeast.jpg",
+    followers: 172000000,
+    engagement: 8600000,
+    engagementRate: 5.0,
+    country: "US",
+    verified: true,
+    email: "business@mrbeast.com",
+    bio: "Philanthropist and content creator",
+  },
+  {
+    id: "61",
+    name: "Charli D'Amelio",
+    username: "charlidamelio",
+    platform: "tiktok",
+    avatar: "/avatars/charlidamelio.jpg",
+    followers: 151000000,
+    engagement: 7550000,
+    engagementRate: 5.0,
+    country: "US",
+    verified: true,
+    email: "contact@charlidamelio.com",
+    bio: "Dancer and content creator",
+  },
 ];
 
 // Données détaillées pour 5 influenceurs
@@ -1386,6 +1546,7 @@ export interface SearchFilters {
   country?: string;
   verified?: boolean;
   hasEmail?: boolean;
+  query?: string; // Recherche textuelle
 }
 
 // Fonction utilitaire pour générer des données cohérentes
@@ -1422,36 +1583,141 @@ export function generateInfluencerData(
 // Fonction de recherche et de filtrage
 export function searchInfluencers(filters: SearchFilters = {}): Influencer[] {
   return mockInfluencers.filter((influencer) => {
-    if (filters.platform && influencer.platform !== filters.platform)
+    // Filtre par plateforme
+    if (filters.platform && influencer.platform !== filters.platform) {
       return false;
-    if (filters.minFollowers && influencer.followers < filters.minFollowers)
+    }
+
+    // Filtre par nombre de followers
+    if (filters.minFollowers && influencer.followers < filters.minFollowers) {
       return false;
-    if (filters.maxFollowers && influencer.followers > filters.maxFollowers)
+    }
+    if (filters.maxFollowers && influencer.followers > filters.maxFollowers) {
       return false;
+    }
+
+    // Filtre par taux d'engagement
     if (
       filters.minEngagement &&
       influencer.engagementRate < filters.minEngagement
-    )
+    ) {
       return false;
+    }
     if (
       filters.maxEngagement &&
       influencer.engagementRate > filters.maxEngagement
-    )
+    ) {
       return false;
-    if (filters.country && influencer.country !== filters.country) return false;
+    }
+
+    // Filtre par pays
+    if (filters.country && influencer.country !== filters.country) {
+      return false;
+    }
+
+    // Filtre par statut vérifié
     if (
       filters.verified !== undefined &&
       influencer.verified !== filters.verified
-    )
+    ) {
       return false;
-    if (
-      filters.hasEmail !== undefined &&
-      !!influencer.email !== filters.hasEmail
-    )
-      return false;
+    }
+
+    // Filtre par disponibilité email
+    if (filters.hasEmail !== undefined) {
+      const hasEmail = !!influencer.email;
+      if (hasEmail !== filters.hasEmail) {
+        return false;
+      }
+    }
+
+    // Filtre par recherche textuelle (nom, username ou bio)
+    if (filters.query) {
+      const query = filters.query.toLowerCase();
+      const matchesName = influencer.name.toLowerCase().includes(query);
+      const matchesUsername = influencer.username.toLowerCase().includes(query);
+      const matchesBio = influencer.bio?.toLowerCase().includes(query);
+
+      if (!matchesName && !matchesUsername && !matchesBio) {
+        return false;
+      }
+    }
 
     return true;
   });
+}
+
+// Ajouter une fonction pour obtenir des suggestions de recherche
+export function getSearchSuggestions(query: string): string[] {
+  if (!query || query.length < 2) return [];
+
+  const suggestions = new Set<string>();
+  const queryLower = query.toLowerCase();
+
+  mockInfluencers.forEach((influencer) => {
+    // Suggestions basées sur le nom
+    if (influencer.name.toLowerCase().includes(queryLower)) {
+      suggestions.add(influencer.name);
+    }
+
+    // Suggestions basées sur le username
+    if (influencer.username.toLowerCase().includes(queryLower)) {
+      suggestions.add(influencer.username);
+    }
+
+    // Suggestions basées sur la bio
+    if (influencer.bio?.toLowerCase().includes(queryLower)) {
+      const words = influencer.bio.split(" ");
+      words.forEach((word) => {
+        if (word.toLowerCase().includes(queryLower) && word.length > 2) {
+          suggestions.add(word);
+        }
+      });
+    }
+  });
+
+  return Array.from(suggestions).slice(0, 5);
+}
+
+// Ajouter une fonction pour obtenir des statistiques de recherche
+export function getSearchStats(): {
+  totalInfluencers: number;
+  byPlatform: Record<string, number>;
+  byCountry: Record<string, number>;
+  avgFollowers: number;
+  avgEngagement: number;
+} {
+  const stats = {
+    totalInfluencers: mockInfluencers.length,
+    byPlatform: {} as Record<string, number>,
+    byCountry: {} as Record<string, number>,
+    avgFollowers: 0,
+    avgEngagement: 0,
+  };
+
+  let totalFollowers = 0;
+  let totalEngagement = 0;
+
+  mockInfluencers.forEach((influencer) => {
+    // Compter par plateforme
+    stats.byPlatform[influencer.platform] =
+      (stats.byPlatform[influencer.platform] || 0) + 1;
+
+    // Compter par pays
+    stats.byCountry[influencer.country] =
+      (stats.byCountry[influencer.country] || 0) + 1;
+
+    // Calculer les moyennes
+    totalFollowers += influencer.followers;
+    totalEngagement += influencer.engagementRate;
+  });
+
+  stats.avgFollowers = Math.round(totalFollowers / mockInfluencers.length);
+  stats.avgEngagement = Number(
+    (totalEngagement / mockInfluencers.length).toFixed(2)
+  );
+
+  return stats;
 }
 
 // Fonction pour simuler le "déverrouillage" d'un rapport
