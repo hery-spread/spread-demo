@@ -10,7 +10,7 @@ DATA-02,DATA,"En tant que développeur, je dois créer des fichiers de mock data
 DATA-03,DATA,"En tant que développeur, je dois créer un fichier de mock data pour 'Mes Listes', simulant plusieurs listes créées par l'utilisateur avec des influenceurs associés.",1,2,100
 DATA-04,DATA,"En tant que développeur, je dois créer un fichier de mock data pour les informations du compte utilisateur et de son abonnement (Plan Elite, date de renouvellement).",0.5,1,100
 DASH-01,DASH,"En tant qu'utilisateur, je veux voir un Dashboard affichant mes quotas d'utilisation (Recherches, Profils consultés, Utilisateurs) pour suivre ma consommation.",1,2,100
-DASH-02,DASH,"En tant qu'utilisateur, je veux voir les détails de mon abonnement (nom du plan, date de renouvellement) sur le Dashboard pour savoir quand il sera renouvelé.",0.5,1,0
+DASH-02,DASH,"En tant qu'utilisateur, je veux voir les détails de mon abonnement (nom du plan, date de renouvellement) sur le Dashboard pour savoir quand il sera renouvelé.",0.5,1,100
 SEARCH-01,SEARCH,"En tant qu'utilisateur, je veux voir l'interface de recherche avancée avec tous les filtres disponibles (localisation, engagement, followers, etc.) pour comprendre les capacités de ciblage.",3,5,0
 SEARCH-02,SEARCH,"En tant qu'utilisateur, je veux voir les résultats de ma recherche affichés dans un tableau clair avec les colonnes Nom, Followers, Engagement, et Taux d'Engagement.",1,2,0
 SEARCH-03,SEARCH,"En tant que développeur, je dois peupler le tableau de résultats de recherche avec les données mockées d'influenceurs pour simuler une recherche réelle.",1,2,0

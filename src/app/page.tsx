@@ -4,6 +4,8 @@ import { useUserAccount } from '@/hooks/useUserAccount';
 import { getUsageStats } from '@/lib/mockData';
 import StatCard from '@/components/dashboard/StatCard';
 import ProgressBar from '@/components/dashboard/ProgressBar';
+import SubscriptionCard from '@/components/dashboard/SubscriptionCard';
+import UsageSummary from '@/components/dashboard/UsageSummary';
 import { useEffect, useState } from 'react';
 import {
   ChartBarIcon,
@@ -123,6 +125,15 @@ export default function Dashboard() {
             color="green"
           />
         </div>
+      </div>
+
+      {/* Résumé d'utilisation et abonnement */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <UsageSummary
+          account={account!}
+          searchesThisMonth={stats?.searchesThisMonth || 0}
+        />
+        <SubscriptionCard account={account!} />
       </div>
 
       {/* Activité récente */}
