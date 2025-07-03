@@ -2842,4 +2842,78 @@ export function getPaymentMethods(): Promise<typeof mockPaymentMethods> {
 // Alias pour getUserListById (utilise getListDetails)
 export function getUserListById(listId: string): Promise<InfluencerList | null> {
   return getListDetails(listId);
-} 
+}
+
+// Ajouter à la fin du fichier après les données existantes
+
+// Données de crédits et déblocage de rapports
+export const mockCreditsData = {
+  totalCredits: 100,
+  usedCredits: 45,
+  remainingCredits: 55,
+  history: [
+    {
+      date: "2024-01-15",
+      action: "unlock_report" as const,
+      credits: 2,
+      description: "Déblocage rapport @marie_lifestyle",
+    },
+    {
+      date: "2024-01-14",
+      action: "search" as const,
+      credits: 5,
+      description: "Recherche influenceurs mode",
+    },
+    {
+      date: "2024-01-12",
+      action: "unlock_report" as const,
+      credits: 4,
+      description: "Déblocage 2 rapports gaming",
+    },
+    {
+      date: "2024-01-10",
+      action: "purchase" as const,
+      credits: -50,
+      description: "Achat package 50 crédits",
+    },
+    {
+      date: "2024-01-08",
+      action: "unlock_report" as const,
+      credits: 6,
+      description: "Déblocage 3 rapports cuisine",
+    },
+  ],
+};
+
+// Marquer certains influenceurs comme ayant des rapports débloqués
+export const mockInfluencersWithUnlock = mockInfluencers.map((inf, index) => ({
+  ...inf,
+  audienceUnlocked: index % 3 === 0, // 1/3 des influenceurs ont leurs rapports débloqués
+  unlockedAt: index % 3 === 0 ? "2024-01-10T10:30:00Z" : undefined,
+}));
+
+// Données d'export avec crédits
+export const mockExportHistory = [
+  {
+    id: "export_1",
+    listId: "1",
+    listName: "Influenceurs Mode",
+    format: "csv",
+    includeAudienceData: true,
+    creditsUsed: 6,
+    exportedAt: "2024-01-15T14:30:00Z",
+    fileName: "influenceurs_mode_20240115.csv",
+    recordsCount: 25,
+  },
+  {
+    id: "export_2", 
+    listId: "2",
+    listName: "Gaming Creators",
+    format: "xlsx",
+    includeAudienceData: false,
+    creditsUsed: 0,
+    exportedAt: "2024-01-12T09:15:00Z",
+    fileName: "gaming_creators_20240112.xlsx",
+    recordsCount: 18,
+  },
+];

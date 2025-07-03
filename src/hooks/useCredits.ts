@@ -1,108 +1,87 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { CreditsUsage } from "@/types";
 
-interface CreditTransaction {
-  id: string;
-  type: "unlock" | "purchase" | "refund";
-  amount: number;
-  description: string;
-  date: string;
-  influencerId?: string;
-}
+export const useCredits = () => {
+  const [credits, setCredits] = useState<CreditsUsage>({
+    totalCredits: 100,
+    usedCredits: 45,
+    remainingCredits: 55,
+    history: [
+      {
+        date: "2024-01-15",
+        action: "unlock_report",
+        credits: 2,
+        description: "Déblocage rapport @marie_lifestyle",
+      },
+      {
+        date: "2024-01-14",
+        action: "search",
+        credits: 5,
+        description: "Recherche influenceurs mode",
+      },
+      {
+        date: "2024-01-10",
+        action: "purchase",
+        credits: -50,
+        description: "Achat package 50 crédits",
+      },
+    ],
+  });
 
-export function useCredits() {
-  const [credits, setCredits] = useState(0);
-  const [transactions, setTransactions] = useState<CreditTransaction[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simuler le chargement des crédits depuis l'API
-    setTimeout(() => {
-      // Données mockées - normalement depuis l'API utilisateur
-      setCredits(25); // L'utilisateur a 25 crédits disponibles
-      setTransactions([
-        {
-          id: "1",
-          type: "purchase",
-          amount: 50,
-          description: "Achat de crédits - Pack Pro",
-          date: "2024-06-15T10:00:00Z",
-        },
-        {
-          id: "2",
-          type: "unlock",
-          amount: -1,
-          description: "Rapport débloqué - Nabilla Vergara",
-          date: "2024-06-20T14:30:00Z",
-          influencerId: "2",
-        },
-        {
-          id: "3",
-          type: "unlock",
-          amount: -1,
-          description: "Rapport débloqué - Squeezie",
-          date: "2024-06-22T09:15:00Z",
-          influencerId: "3",
-        },
-      ]);
-      setLoading(false);
-    }, 500);
-  }, []);
-
-  const spendCredits = async (
-    amount: number,
-    description: string,
-    influencerId?: string
-  ): Promise<boolean> => {
-    if (credits < amount) {
-      throw new Error("Crédits insuffisants");
+  const unlockReports = (influencerIds: string[]) => {
+    const creditsNeeded = influencerIds.length * 2;
+    
+    if (credits.remainingCredits >= creditsNeeded) {
+      setCredits((prev) => ({
+        ...prev,
+        usedCredits: prev.usedCredits + creditsNeeded,
+        remainingCredits: prev.remainingCredits - creditsNeeded,
+        history: [
+          {
+            date: new Date().toISOString().split("T")[0],
+            action: "unlock_report",
+            credits: creditsNeeded,
+            description: `Déblocage ${influencerIds.length} rapport(s)`,
+          },
+          ...prev.history,
+        ],
+      }));
+      return true;
     }
-
-    // Simuler l'API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newTransaction: CreditTransaction = {
-          id: Date.now().toString(),
-          type: "unlock",
-          amount: -amount,
-          description,
-          date: new Date().toISOString(),
-          influencerId,
-        };
-
-        setCredits((prev) => prev - amount);
-        setTransactions((prev) => [newTransaction, ...prev]);
-        resolve(true);
-      }, 1000);
-    });
+    
+    return false;
   };
 
-  const addCredits = async (
-    amount: number,
-    description: string
-  ): Promise<boolean> => {
-    // Simuler l'achat de crédits
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newTransaction: CreditTransaction = {
-          id: Date.now().toString(),
-          type: "purchase",
-          amount,
-          description,
-          date: new Date().toISOString(),
-        };
+  const purchaseCredits = (amount: number) => {
+    setCredits((prev) => ({
+      ...prev,
+      totalCredits: prev.totalCredits + amount,
+      remainingCredits: prev.remainingCredits + amount,
+      history: [
+        {
+          date: new Date().toISOString().split("T")[0],
+          action: "purchase",
+          credits: -amount,
+          description: `Achat package ${amount} crédits`,
+        },
+        ...prev.history,
+      ],
+    }));
+  };
 
-        setCredits((prev) => prev + amount);
-        setTransactions((prev) => [newTransaction, ...prev]);
-        resolve(true);
-      }, 1000);
-    });
+  const getCreditsForAction = (action: string) => {
+    const costs = {
+      unlock_report: 2,
+      search: 5,
+      export_detailed: 1,
+    };
+    return costs[action as keyof typeof costs] || 0;
   };
 
   return {
     credits,
-    transactions,
-    loading,
-    spendCredits,
-    addCredits,
+    unlockReports,
+    purchaseCredits,
+    getCreditsForAction,
   };
-} 
+}; 

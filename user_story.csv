@@ -26,4 +26,20 @@ LISTS-04,LISTS,"En tant que développeur, je dois peupler la vue détaillée d'u
 LISTS-05,LISTS,"En tant qu'utilisateur, je veux voir un bouton 'Exporter en .csv' sur mes listes, même s'il n'est pas fonctionnel dans le mock.",0.5,1,100
 ACCOUNT-01,ACCOUNT,"En tant qu'utilisateur, je veux une page 'Mon Compte' avec des onglets pour modifier mes informations personnelles et changer mon mot de passe.",1,3,100
 ACCOUNT-02,ACCOUNT,"En tant que développeur, je dois pré-remplir les formulaires de la page 'Mon Compte' avec des données utilisateur mockées.",0.5,1,100
-ACCOUNT-03,ACCOUNT,"En tant qu'utilisateur, je veux voir un onglet 'Abonnement' dans 'Mon Compte' qui affiche les détails de mon plan actuel et la date de renouvellement.",1,2,100 
+ACCOUNT-03,ACCOUNT,"En tant qu'utilisateur, je veux voir un onglet 'Abonnement' dans 'Mon Compte' qui affiche les détails de mon plan actuel et la date de renouvellement.",1,2,100
+UNLOCK-01,UNLOCK,"En tant qu'utilisateur, je veux voir une modale de déblocage de rapports d'audience lors du téléchargement CSV d'une liste, me permettant de consommer des crédits pour débloquer les rapports manquants.",2,4,0
+SHARE-01,SHARE,"En tant qu'utilisateur, je veux pouvoir partager un rapport d'audience en un clic avec un lien brandé Spread incluant un CTA 'Essayer Spread' pour faire du growth hacking.",3,5,0
+SHARE-02,SHARE,"En tant que développeur, je dois créer un système de tracking des liens partagés pour mesurer les consultations et conversions des rapports partagés.",2,4,0
+SHARE-03,SHARE,"En tant qu'utilisateur, je veux voir les statistiques de mes partages (vues, clics) dans une section dédiée pour mesurer l'impact de mes partages.",1,2,0
+CRM-01,CRM,"En tant qu'utilisateur, je veux pouvoir contacter un influenceur ou une liste d'influenceurs pour qu'ils soient automatiquement ajoutés à un CRM de contact intégré.",3,6,0
+CRM-02,CRM,"En tant qu'utilisateur, je veux voir un pipeline de contact avec les colonnes 'Contacté', 'Répondu', 'Négociation', 'Fermé' pour gérer mes campagnes.",2,4,0
+CRM-03,CRM,"En tant qu'utilisateur, je veux pouvoir déplacer les influenceurs entre les différentes étapes du pipeline pour suivre l'avancement de mes négociations.",1,2,0
+CRM-04,CRM,"En tant qu'utilisateur, je veux voir l'historique des communications avec chaque influenceur pour avoir une vue d'ensemble de nos échanges.",2,3,0
+CRM-05,CRM,"En tant qu'utilisateur, je veux pouvoir ajouter des notes et des rappels sur chaque contact pour organiser mon suivi commercial.",1,2,0
+EMAIL-01,EMAIL,"En tant qu'utilisateur, je veux pouvoir connecter ma boîte mail Google Workspace ou Outlook pour synchroniser mes emails avec les influenceurs.",4,8,0
+EMAIL-02,EMAIL,"En tant qu'utilisateur, je veux voir tous les fils d'emails avec un influenceur directement dans son profil pour avoir une vue unifiée de nos communications.",2,4,0
+EMAIL-03,EMAIL,"En tant qu'utilisateur, je veux une page centralisée qui regroupe toutes mes communications email avec tous les influenceurs pour un suivi global.",2,3,0
+SEARCH-05,SEARCH,"En tant qu'utilisateur, je veux pouvoir utiliser une recherche IA en langage naturel (ex: 'trouve des micro-influenceurs dans le tennis') qui remplit automatiquement le formulaire de recherche.",4,8,0
+SEARCH-06,SEARCH,"En tant qu'utilisateur, je veux pouvoir effectuer une recherche vocale qui transforme ma voix en critères de recherche automatiques.",3,6,0
+SEARCH-07,SEARCH,"En tant que développeur, je dois ajouter tous les champs de recherche disponibles dans l'API Modash pour offrir un ciblage plus précis.",2,4,0
+SEARCH-08,SEARCH,"En tant qu'utilisateur, je veux voir un historique de mes recherches avec la possibilité de les relancer ou de rafraîchir les résultats contre des crédits.",2,4,0 

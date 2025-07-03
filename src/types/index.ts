@@ -59,6 +59,8 @@ export interface InfluencerDetails extends Influencer {
     engagement: number;
     date: string;
   }[];
+  audienceUnlocked?: boolean;
+  unlockedAt?: string;
 }
 
 export interface InfluencerContact {
@@ -108,4 +110,23 @@ export interface UserAccount {
     };
     phone?: string;
   };
+}
+
+// Nouveaux types pour le déblocage de rapports
+export interface UnlockReport {
+  influencerId: string;
+  unlockedAt: string;
+  creditsUsed: number;
+}
+
+export interface CreditsUsage {
+  totalCredits: number;
+  usedCredits: number;
+  remainingCredits: number;
+  history: {
+    date: string;
+    action: "unlock_report" | "search" | "purchase";
+    credits: number;
+    description: string;
+  }[];
 } 

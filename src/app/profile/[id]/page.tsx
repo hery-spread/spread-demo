@@ -36,7 +36,7 @@ export default function ProfilePage() {
   );
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
   const [loading, setLoading] = useState(true);
-  const { credits, spendCredits } = useCredits();
+  const { credits, unlockReports } = useCredits();
   const [showUnlockModal, setShowUnlockModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
@@ -64,17 +64,17 @@ export default function ProfilePage() {
     if (!influencer) return;
 
     try {
-      // Dépenser les crédits
-      await spendCredits(
-        1,
-        `Rapport débloqué - ${influencer.name}`,
-        influencer.id
-      );
+      // Débloquer le rapport avec le nouveau hook
+      const success = unlockReports([influencer.id]);
 
-      // Simuler le déverrouillage du rapport
-      const unlockedData = await unlockInfluencerReport(influencer.id);
-      if (unlockedData) {
-        setDetailedData(unlockedData);
+      if (success) {
+        // Simuler le déverrouillage du rapport
+        const unlockedData = await unlockInfluencerReport(influencer.id);
+        if (unlockedData) {
+          setDetailedData(unlockedData);
+        }
+      } else {
+        console.error('Crédits insuffisants pour débloquer le rapport');
       }
     } catch (error) {
       console.error('Erreur lors du déverrouillage:', error);
@@ -646,7 +646,7 @@ export default function ProfilePage() {
           onClose={() => setShowUnlockModal(false)}
           influencer={influencer}
           onUnlock={handleUnlockReport}
-          currentCredits={credits}
+          currentCredits={credits.remainingCredits}
         />
       )}
 
