@@ -2917,3 +2917,111 @@ export const mockExportHistory = [
     recordsCount: 18,
   },
 ];
+
+// Données de partage de rapports
+export const mockSharedReports = [
+  {
+    id: 'share_1',
+    influencerId: '1',
+    shareType: 'public' as const,
+    createdAt: '2024-01-15T10:30:00Z',
+    expiresAt: '2024-02-15T10:30:00Z',
+    includeFullAudience: true,
+    trackingEnabled: true,
+    viewCount: 127,
+    lastViewedAt: '2024-01-20T14:22:00Z',
+    utmParameters: {
+      source: 'spread_app',
+      medium: 'share',
+      campaign: 'growth_hacking',
+    },
+  },
+  {
+    id: 'share_2',
+    influencerId: '2',
+    shareType: 'private' as const,
+    createdAt: '2024-01-12T15:45:00Z',
+    includeFullAudience: false,
+    trackingEnabled: true,
+    password: 'securepass123',
+    viewCount: 43,
+    lastViewedAt: '2024-01-18T09:15:00Z',
+  },
+  {
+    id: 'share_3',
+    influencerId: '3',
+    shareType: 'public' as const,
+    createdAt: '2024-01-18T08:20:00Z',
+    expiresAt: '2024-01-25T08:20:00Z',
+    includeFullAudience: true,
+    trackingEnabled: true,
+    viewCount: 89,
+    lastViewedAt: '2024-01-22T16:45:00Z',
+    utmParameters: {
+      source: 'linkedin',
+      medium: 'social',
+      campaign: 'viral_share',
+    },
+  },
+];
+
+export const mockShareStats = {
+  totalViews: 1250,
+  uniqueViews: 892,
+  clickThroughRate: 12.5,
+  conversionRate: 3.2,
+  topReferrers: [
+    { source: 'Direct', views: 450 },
+    { source: 'LinkedIn', views: 320 },
+    { source: 'Twitter', views: 180 },
+    { source: 'Email', views: 150 },
+    { source: 'WhatsApp', views: 120 },
+  ],
+  viewsOverTime: [
+    { date: '2024-01-10', views: 23 },
+    { date: '2024-01-11', views: 45 },
+    { date: '2024-01-12', views: 67 },
+    { date: '2024-01-13', views: 89 },
+    { date: '2024-01-14', views: 112 },
+    { date: '2024-01-15', views: 134 },
+    { date: '2024-01-16', views: 156 },
+    { date: '2024-01-17', views: 189 },
+    { date: '2024-01-18', views: 203 },
+    { date: '2024-01-19', views: 225 },
+    { date: '2024-01-20', views: 267 },
+  ],
+};
+
+// Fonction pour simuler la génération d'un lien de partage
+export const generateShareLink = async (shareData: {
+  influencerId: string;
+  shareType: 'public' | 'private';
+  expiresAt?: string;
+  includeFullAudience: boolean;
+  trackingEnabled: boolean;
+}) => {
+  // Simuler un délai d'API
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  
+  const shareId = `${shareData.influencerId}_${Date.now()}`;
+  const baseUrl = 'https://share.spread.com/report';
+  const utm = shareData.trackingEnabled 
+    ? '?utm_source=spread_app&utm_medium=share&utm_campaign=growth_hacking'
+    : '';
+  
+  return `${baseUrl}/${shareId}${utm}`;
+};
+
+// Fonction pour simuler le tracking des vues
+export const trackShareView = async (shareId: string, utmParams?: Record<string, string>) => {
+  console.log('Tracking share view:', { shareId, utmParams });
+  
+  // Dans un vrai projet, ça ferait un appel API pour tracker la vue
+  // Ici on simule juste le log pour le growth hacking
+  
+  return {
+    success: true,
+    viewId: `view_${Date.now()}`,
+    timestamp: new Date().toISOString(),
+  };
+};

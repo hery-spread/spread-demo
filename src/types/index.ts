@@ -129,4 +129,32 @@ export interface CreditsUsage {
     credits: number;
     description: string;
   }[];
+}
+
+// Types pour le partage de rapports
+export interface SharedReport {
+  id: string;
+  influencerId: string;
+  shareType: 'public' | 'private';
+  createdAt: string;
+  expiresAt?: string;
+  includeFullAudience: boolean;
+  trackingEnabled: boolean;
+  password?: string;
+  viewCount: number;
+  lastViewedAt?: string;
+  utmParameters?: {
+    source?: string;
+    medium?: string;
+    campaign?: string;
+  };
+}
+
+export interface ShareStats {
+  totalViews: number;
+  uniqueViews: number;
+  clickThroughRate: number;
+  conversionRate: number;
+  topReferrers: { source: string; views: number }[];
+  viewsOverTime: { date: string; views: number }[];
 } 
