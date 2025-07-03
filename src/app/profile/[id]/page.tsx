@@ -622,7 +622,7 @@ export default function ProfilePage() {
 
       {/* Header du profil */}
       <ProfileHeader
-        influencer={influencer}
+        influencer={detailedData || influencer}
         onAddToList={handleAddToList}
         onContact={handleContact}
       />
