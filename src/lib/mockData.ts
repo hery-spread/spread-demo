@@ -875,6 +875,7 @@ export const mockInfluencers: Influencer[] = [
 export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   "1": {
     ...mockInfluencers[0],
+    audienceUnlocked: true,
     stats: {
       avgLikes: 162000,
       avgComments: 200,
@@ -1007,6 +1008,7 @@ export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   },
   "2": {
     ...mockInfluencers[1],
+    audienceUnlocked: true,
     stats: {
       avgLikes: 125000,
       avgComments: 1800,
@@ -1139,6 +1141,7 @@ export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   },
   "3": {
     ...mockInfluencers[2],
+    audienceUnlocked: true,
     stats: {
       avgLikes: 45000,
       avgComments: 850,
@@ -1271,6 +1274,7 @@ export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   },
   "4": {
     ...mockInfluencers[3],
+    audienceUnlocked: true,
     stats: {
       avgLikes: 85000,
       avgComments: 1200,
@@ -1403,6 +1407,7 @@ export const mockInfluencerDetails: Record<string, InfluencerDetails> = {
   },
   "5": {
     ...mockInfluencers[4],
+    audienceUnlocked: true,
     stats: {
       avgLikes: 520000,
       avgComments: 8500,

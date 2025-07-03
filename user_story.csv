@@ -28,7 +28,7 @@ ACCOUNT-01,ACCOUNT,"En tant qu'utilisateur, je veux une page 'Mon Compte' avec d
 ACCOUNT-02,ACCOUNT,"En tant que développeur, je dois pré-remplir les formulaires de la page 'Mon Compte' avec des données utilisateur mockées.",0.5,1,100
 ACCOUNT-03,ACCOUNT,"En tant qu'utilisateur, je veux voir un onglet 'Abonnement' dans 'Mon Compte' qui affiche les détails de mon plan actuel et la date de renouvellement.",1,2,100
 UNLOCK-01,UNLOCK,"En tant qu'utilisateur, je veux voir une modale de déblocage de rapports d'audience lors du téléchargement CSV d'une liste, me permettant de consommer des crédits pour débloquer les rapports manquants.",2,4,100
-SHARE-01,SHARE,"En tant qu'utilisateur, je veux pouvoir partager un rapport d'audience en un clic avec un lien brandé Spread incluant un CTA 'Essayer Spread' pour faire du growth hacking.",3,5,0
+SHARE-01,SHARE,"En tant qu'utilisateur, je veux pouvoir partager un rapport d'audience en un clic avec un lien brandé Spread incluant un CTA 'Essayer Spread' pour faire du growth hacking.",3,5,100
 SHARE-02,SHARE,"En tant que développeur, je dois créer un système de tracking des liens partagés pour mesurer les consultations et conversions des rapports partagés.",2,4,0
 SHARE-03,SHARE,"En tant qu'utilisateur, je veux voir les statistiques de mes partages (vues, clics) dans une section dédiée pour mesurer l'impact de mes partages.",1,2,0
 CRM-01,CRM,"En tant qu'utilisateur, je veux pouvoir contacter un influenceur ou une liste d'influenceurs pour qu'ils soient automatiquement ajoutés à un CRM de contact intégré.",3,6,0
