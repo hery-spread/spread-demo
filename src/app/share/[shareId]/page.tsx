@@ -138,7 +138,7 @@ export default async function SharePage({
                 // Tracker le clic CTA header
                 console.log('Header CTA clicked', utmParams);
                 window.open(
-                  'https://spread.com/signup?utm_source=shared_report_header',
+                  '/search?utm_source=shared_report_header',
                   '_blank'
                 );
               }}
@@ -334,10 +334,7 @@ export default async function SharePage({
             onClick={() => {
               // Tracker le clic CTA
               console.log('CTA clicked', utmParams);
-              window.open(
-                'https://spread.com/signup?utm_source=shared_report',
-                '_blank'
-              );
+              window.open('/search?utm_source=shared_report', '_blank');
             }}
           >
             Essayer Spread gratuitement

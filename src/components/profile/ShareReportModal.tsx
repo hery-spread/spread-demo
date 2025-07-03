@@ -51,7 +51,11 @@ export default function ShareReportModal({
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const shareId = `${influencer.id}_${Date.now()}`;
-    const link = `https://share.spread.com/report/${shareId}?utm_source=spread_app&utm_medium=share&utm_campaign=growth_hacking`;
+    const baseUrl =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : 'http://localhost:3000';
+    const link = `${baseUrl}/share/${shareId}?utm_source=spread_app&utm_medium=share&utm_campaign=growth_hacking`;
 
     setGeneratedLink(link);
     setIsGenerating(false);
