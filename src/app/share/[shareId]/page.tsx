@@ -1,3 +1,7 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import {
   ShareIcon,
@@ -8,21 +12,8 @@ import {
 import { Button } from '@/components/ui/Button';
 import { InfluencerDetails } from '@/types';
 
-interface SharePageProps {
-  params: Promise<{
-    shareId: string;
-  }>;
-  searchParams: Promise<{
-    utm_source?: string;
-    utm_medium?: string;
-    utm_campaign?: string;
-  }>;
-}
-
 // Simuler la récupération des données de partage
-async function getSharedReport(
-  shareId: string
-): Promise<InfluencerDetails | null> {
+function getSharedReport(shareId: string): InfluencerDetails | null {
   // Dans un vrai projet, ça ferait un appel API avec le shareId
   // Pour le mock, on simule la validation du shareId
   if (!shareId || shareId.length < 5) {
@@ -101,13 +92,42 @@ async function getSharedReport(
   };
 }
 
-export default async function SharePage({
-  params,
-  searchParams,
-}: SharePageProps) {
-  const { shareId } = await params;
-  const utmParams = await searchParams;
-  const report = await getSharedReport(shareId);
+export default function SharePage() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const [report, setReport] = useState<InfluencerDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const shareId = params.shareId as string;
+  const utmParams = {
+    utm_source: searchParams.get('utm_source'),
+    utm_medium: searchParams.get('utm_medium'),
+    utm_campaign: searchParams.get('utm_campaign'),
+  };
+
+  useEffect(() => {
+    const fetchReport = async () => {
+      setLoading(true);
+      // Simuler un délai d'API
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const reportData = getSharedReport(shareId);
+      setReport(reportData);
+      setLoading(false);
+    };
+
+    fetchReport();
+  }, [shareId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Chargement du rapport...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!report) {
     notFound();
