@@ -191,4 +191,49 @@ export interface DemoBooking {
   status: 'scheduled' | 'completed' | 'cancelled';
   meetingUrl?: string;
   notes?: string;
+}
+
+// Types pour le CRM
+export interface CRMContact {
+  id: string;
+  name: string;
+  username: string;
+  email?: string;
+  phone?: string;
+  platform: 'instagram' | 'youtube' | 'tiktok';
+  followers: number;
+  avatar: string;
+  stage: 'contacted' | 'responded' | 'negotiating' | 'closed';
+  notes?: string;
+  source: 'manual' | 'search' | 'import' | 'list';
+  createdAt: string;
+  lastContact: string;
+  nextReminder?: string;
+  tags?: string[];
+  hasVideoCall?: boolean;
+  dealValue?: number;
+  probability?: number;
+  expectedCloseDate?: string;
+}
+
+export interface CRMStats {
+  totalContacts: number;
+  contacted: number;
+  responded: number;
+  negotiating: number;
+  closed: number;
+  responseRate: number;
+  averageResponseTime: number;
+  conversionRate: number;
+}
+
+export interface CRMActivity {
+  id: string;
+  contactId: string;
+  type: 'email' | 'call' | 'meeting' | 'note' | 'stage_change';
+  title: string;
+  description?: string;
+  createdAt: string;
+  createdBy: string;
+  metadata?: Record<string, string | number | boolean>;
 } 
