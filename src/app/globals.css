@@ -202,3 +202,38 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Styles pour les sliders du pricing calculator */
+.slider {
+  -webkit-appearance: none;
+  background: #e5e7eb;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7c3aed;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7c3aed;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider:focus {
+  outline: none;
+}
+
+.slider:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+}

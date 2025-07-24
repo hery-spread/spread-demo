@@ -4,88 +4,98 @@
 
 ### Phase 1 : Fonctionnalités Core (Semaines 1-2)
 
-1. **UNLOCK-01** - Modale de déblocage des rapports d'audience
+1. **PRICING-01** - Page de pricing avec calculateur interactif
+   - Dépendances : Aucune
+   - Impact : Conversion et acquisition
+   - Complexité : Moyenne
+
+2. **ONBOARDING-01** - Onboarding automatisé avec call demo
+   - Dépendances : Aucune
+   - Impact : Activation et qualification leads
+   - Complexité : Moyenne
+
+3. **UNLOCK-01** - Modale de déblocage des rapports d'audience
    - Dépendances : Aucune
    - Impact : Monétisation directe
    - Complexité : Moyenne
 
-2. **SHARE-01** - Partage de rapport avec branding
+4. **SHARE-01** - Partage de rapport avec branding
    - Dépendances : Aucune
    - Impact : Growth hacking
    - Complexité : Moyenne
 
-3. **CRM-01** - Système CRM intégré
+5. **CRM-01** - Système CRM intégré
    - Dépendances : Aucune
    - Impact : Rétention utilisateurs
    - Complexité : Élevée
 
 ### Phase 2 : Fonctionnalités Avancées (Semaines 3-4)
 
-4. **SEARCH-05** - Recherche IA en langage naturel
+6. **SEARCH-05** - Recherche IA en langage naturel
    - Dépendances : Aucune
    - Impact : UX révolutionnaire
    - Complexité : Élevée
 
-5. **SEARCH-06** - Recherche vocale
+7. **SEARCH-06** - Recherche vocale
    - Dépendances : SEARCH-05
    - Impact : Différenciation
    - Complexité : Moyenne
 
-6. **SEARCH-08** - Historique des recherches
+8. **SEARCH-08** - Historique des recherches
    - Dépendances : SEARCH-05
    - Impact : Économies utilisateur
    - Complexité : Moyenne
 
 ### Phase 3 : Intégrations (Semaines 5-6)
 
-7. **EMAIL-01** - Intégration email Google/Outlook
+9. **EMAIL-01** - Intégration email Google/Outlook
    - Dépendances : CRM-01
    - Impact : Productivité
    - Complexité : Très élevée
 
-8. **SHARE-02** - Système de tracking des partages
-   - Dépendances : SHARE-01
-   - Impact : Analytics
-   - Complexité : Moyenne
+10. **SHARE-02** - Système de tracking des partages
+    - Dépendances : SHARE-01
+    - Impact : Analytics
+    - Complexité : Moyenne
 
-9. **SEARCH-07** - Champs de recherche Modash
-   - Dépendances : SEARCH-05
-   - Impact : Précision
-   - Complexité : Faible
+11. **SEARCH-07** - Champs de recherche Modash
+    - Dépendances : SEARCH-05
+    - Impact : Précision
+    - Complexité : Faible
 
 ### Phase 4 : Compléments (Semaines 7-8)
 
-10. **CRM-02** - Pipeline de contact avancé
+12. **CRM-02** - Pipeline de contact avancé
     - Dépendances : CRM-01
     - Impact : Workflow
     - Complexité : Moyenne
 
-11. **EMAIL-02** - Fils d'emails dans profil
+13. **EMAIL-02** - Fils d'emails dans profil
     - Dépendances : EMAIL-01
     - Impact : Centralisation
     - Complexité : Moyenne
 
-12. **SHARE-03** - Statistiques de partage
+14. **SHARE-03** - Statistiques de partage
     - Dépendances : SHARE-02
     - Impact : Insights
     - Complexité : Faible
 
-13. **CRM-03** - Gestion du pipeline
+15. **CRM-03** - Gestion du pipeline
     - Dépendances : CRM-02
     - Impact : Workflow
     - Complexité : Faible
 
-14. **CRM-04** - Historique des communications
+16. **CRM-04** - Historique des communications
     - Dépendances : EMAIL-02
     - Impact : Suivi
     - Complexité : Moyenne
 
-15. **EMAIL-03** - Page centralisée des emails
+17. **EMAIL-03** - Page centralisée des emails
     - Dépendances : EMAIL-02
     - Impact : Vue globale
     - Complexité : Moyenne
 
-16. **CRM-05** - Notes et rappels
+18. **CRM-05** - Notes et rappels
     - Dépendances : CRM-03
     - Impact : Organisation
     - Complexité : Faible
@@ -97,6 +107,12 @@
 ### Graphe de dépendances
 
 ```
+PRICING-01 (indépendant)
+└── Peut être implémenté immédiatement
+
+ONBOARDING-01 (indépendant)
+└── Peut être implémenté immédiatement
+
 UNLOCK-01 (indépendant)
 └── Peut être implémenté immédiatement
 
@@ -124,8 +140,10 @@ SEARCH-05 (indépendant)
 
 ## 📊 Impact Business vs Complexité
 
-### Impact Très Élevé / Complexité Faible
+### Impact Très Élevé / Complexité Faible-Moyenne
 
+- **PRICING-01** : Page de pricing avec calculateur pour optimiser les conversions
+- **ONBOARDING-01** : Qualification des leads et activation optimisée
 - **UNLOCK-01** : Monétisation directe
 - **SHARE-01** : Growth hacking viral
 
@@ -150,10 +168,11 @@ SEARCH-05 (indépendant)
 
 ### Approche recommandée : "Quick Wins First"
 
-1. **Commencer par UNLOCK-01** : ROI immédiat
-2. **Enchaîner avec SHARE-01** : Effet viral
-3. **Développer CRM-01** : Base solide pour la suite
-4. **Intégrer SEARCH-05** : Différenciation majeure
+1. **Commencer par PRICING-01** : Optimisation de la conversion dès l'arrivée
+2. **Enchaîner avec ONBOARDING-01** : Qualification et activation des leads
+3. **Développer UNLOCK-01** : ROI immédiat sur la monétisation
+4. **Intégrer SHARE-01** : Effet viral pour l'acquisition
+5. **Déployer CRM-01** : Base solide pour la rétention
 
 ### Critères de validation pour passer à la phase suivante
 
@@ -190,6 +209,37 @@ SEARCH-05 (indépendant)
 ### Nouvelles entités à créer
 
 ```typescript
+// Types pour page de pricing
+interface PricingConfig {
+  basePrice: number;
+  searchPrice: number;
+  reportPrice: number;
+  userPrice: number;
+}
+
+// Types pour onboarding
+interface OnboardingData {
+  personalInfo: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    company: string;
+    role: string;
+  };
+  businessInfo: {
+    industry: string;
+    teamSize: string;
+    monthlyBudget: string;
+    goals: string[];
+  };
+  preferences: {
+    wantsDemo: boolean;
+    demoTime: string;
+    communicationChannel: 'email' | 'phone' | 'both';
+  };
+}
+
 // Types pour déblocage de rapports
 interface UnlockReport {
   influencerId: string;
@@ -227,6 +277,8 @@ interface AISearchHistory {
 
 ### Fichiers de données mockées à créer
 
+- `src/lib/mockData/pricing.ts` - Données de pricing et plans
+- `src/lib/mockData/onboarding.ts` - Données d'onboarding et créneaux
 - `src/lib/mockData/unlock.ts` - Données de déblocage
 - `src/lib/mockData/share.ts` - Données de partage
 - `src/lib/mockData/crm.ts` - Données CRM
@@ -239,14 +291,18 @@ interface AISearchHistory {
 
 ### KPIs à tracker
 
+- **Pricing** : Taux de conversion landing → signup
+- **Onboarding** : Taux de complétion et demandes de démo
 - **Déblocage** : Taux de conversion crédits → rapports
 - **Partage** : Taux de partage et clics CTA
 - **CRM** : Taux d'adoption et conversion pipeline
 - **IA** : Taux d'utilisation recherche naturelle
 - **Email** : Taux de connexion et utilisation
 
-### Seuils de validation
+### Seuils de validation MVP
 
+- Pricing : >20% de conversion visitors → leads
+- Onboarding : >80% de complétion + >30% demandes démo
 - Déblocage : >15% de conversion
 - Partage : >5% de clics CTA
 - CRM : >25% d'utilisation active
@@ -255,4 +311,4 @@ interface AISearchHistory {
 
 ---
 
-**🎯 Objectif final : Transformer Spread en plateforme complète de gestion d'influence marketing**
+**🎯 Objectif final : Transformer Spread en plateforme complète de gestion d'influence marketing avec optimisation des conversions et qualification automatisée des leads**

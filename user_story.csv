@@ -7,7 +7,7 @@ UI-02,UI,"En tant qu'utilisateur, je veux voir un en-tête persistant affichant 
 UI-03,UI,"En tant que développeur, je dois créer une bibliothèque de composants réutilisables (Boutons, Champs de saisie, Tableaux, Modales) basés sur le design de Spread pour assurer la cohérence visuelle.",4,8,100
 DATA-01,DATA,"En tant que développeur, je dois créer un fichier de mock data contenant une liste de 50 profils d'influenceurs avec leurs statistiques de base (nom, followers, engagement, ER).",1,3,100
 DATA-02,DATA,"En tant que développeur, je dois créer des fichiers de mock data détaillés pour au moins 5 influenceurs, incluant les données d'audience complètes (démographie, intérêts, etc.).",2,4,100
-DATA-03,DATA,"En tant que développeur, je dois créer un fichier de mock data pour 'Mes Listes', simulant plusieurs listes créées par l'utilisateur avec des influenceurs associés.",1,2,100
+DATA-03,DATA,"En tant de développeur, je dois créer un fichier de mock data pour 'Mes Listes', simulant plusieurs listes créées par l'utilisateur avec des influenceurs associés.",1,2,100
 DATA-04,DATA,"En tant que développeur, je dois créer un fichier de mock data pour les informations du compte utilisateur et de son abonnement (Plan Elite, date de renouvellement).",0.5,1,100
 DASH-01,DASH,"En tant qu'utilisateur, je veux voir un Dashboard affichant mes quotas d'utilisation (Recherches, Profils consultés, Utilisateurs) pour suivre ma consommation.",1,2,100
 DASH-02,DASH,"En tant qu'utilisateur, je veux voir les détails de mon abonnement (nom du plan, date de renouvellement) sur le Dashboard pour savoir quand il sera renouvelé.",0.5,1,100
@@ -42,4 +42,5 @@ EMAIL-03,EMAIL,"En tant qu'utilisateur, je veux une page centralisée qui regrou
 SEARCH-05,SEARCH,"En tant qu'utilisateur, je veux pouvoir utiliser une recherche IA en langage naturel (ex: 'trouve des micro-influenceurs dans le tennis') qui remplit automatiquement le formulaire de recherche.",4,8,0
 SEARCH-06,SEARCH,"En tant qu'utilisateur, je veux pouvoir effectuer une recherche vocale qui transforme ma voix en critères de recherche automatiques.",3,6,0
 SEARCH-07,SEARCH,"En tant que développeur, je dois ajouter tous les champs de recherche disponibles dans l'API Modash pour offrir un ciblage plus précis.",2,4,0
-SEARCH-08,SEARCH,"En tant qu'utilisateur, je veux voir un historique de mes recherches avec la possibilité de les relancer ou de rafraîchir les résultats contre des crédits.",2,4,0 
+SEARCH-08,SEARCH,"En tant qu'utilisateur, je veux voir un historique de mes recherches avec la possibilité de les relancer ou de rafraîchir les résultats contre des crédits.",2,4,0
+PRICING-01,PRICING,"En tant qu'utilisateur, je veux voir une page de pricing avec un calculateur interactif me permettant de choisir entre le nombre de rapports d'influenceurs ou le nombre de recherches par mois pour connaître le prix adapté à mes besoins.",3,5,100

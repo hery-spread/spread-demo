@@ -8,6 +8,7 @@ import {
   ListBulletIcon,
   UserIcon,
   MagnifyingGlassIcon,
+  CreditCardIcon,
 } from '@heroicons/react/24/outline';
 
 const navigation = [
@@ -34,6 +35,12 @@ const navigation = [
     href: '/account',
     icon: UserIcon,
     description: 'Paramètres et profil',
+  },
+  {
+    name: 'Pricing',
+    href: '/pricing',
+    icon: CreditCardIcon,
+    description: 'Tarifs et abonnements',
   },
 ];
 
