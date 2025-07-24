@@ -3030,3 +3030,37 @@ export const trackShareView = async (shareId: string, utmParams?: Record<string,
     timestamp: new Date().toISOString(),
   };
 };
+
+// Données mockées pour l'onboarding
+export const mockOnboardingData = {
+  demoSlots: [
+    { id: '1', date: '2024-01-25', time: '09:00', available: true },
+    { id: '2', date: '2024-01-25', time: '11:00', available: true },
+    { id: '3', date: '2024-01-25', time: '14:00', available: false },
+    { id: '4', date: '2024-01-25', time: '16:00', available: true },
+    { id: '5', date: '2024-01-26', time: '09:00', available: true },
+    { id: '6', date: '2024-01-26', time: '11:00', available: true },
+    { id: '7', date: '2024-01-26', time: '15:00', available: true },
+    { id: '8', date: '2024-01-29', time: '10:00', available: true },
+  ],
+
+  industries: [
+    { value: 'fashion', label: 'Mode & Lifestyle' },
+    { value: 'beauty', label: 'Beauté & Cosmétiques' },
+    { value: 'food', label: 'Food & Boissons' },
+    { value: 'tech', label: 'Tech & Innovation' },
+    { value: 'fitness', label: 'Sport & Fitness' },
+    { value: 'travel', label: 'Voyage & Tourisme' },
+    { value: 'gaming', label: 'Gaming & Esport' },
+    { value: 'other', label: 'Autre' },
+  ],
+
+  goals: [
+    'Trouver des micro-influenceurs',
+    'Analyser la concurrence',
+    'Gérer des campagnes',
+    'Mesurer le ROI',
+    'Développer ma marque',
+    'Recruter des ambassadeurs',
+  ],
+};

@@ -157,4 +157,38 @@ export interface ShareStats {
   conversionRate: number;
   topReferrers: { source: string; views: number }[];
   viewsOverTime: { date: string; views: number }[];
+}
+
+// Types pour l'onboarding
+export interface OnboardingData {
+  step: number;
+  personalInfo: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    company: string;
+    role: string;
+  };
+  businessInfo: {
+    industry: string;
+    teamSize: string;
+    monthlyBudget: string;
+    goals: string[];
+  };
+  preferences: {
+    wantsDemo: boolean;
+    demoTime: string;
+    communicationChannel: 'email' | 'phone' | 'both';
+  };
+}
+
+export interface DemoBooking {
+  id: string;
+  userId: string;
+  scheduledAt: string;
+  duration: number;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  meetingUrl?: string;
+  notes?: string;
 } 
