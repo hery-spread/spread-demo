@@ -236,4 +236,121 @@ export interface CRMActivity {
   createdAt: string;
   createdBy: string;
   metadata?: Record<string, string | number | boolean>;
+}
+
+// Types pour le système de communications email
+export interface EmailProvider {
+  type: 'gmail' | 'outlook' | 'other';
+  email: string;
+  connected: boolean;
+  connectedAt?: string;
+  lastSync?: string;
+}
+
+export interface EmailMessage {
+  id: string;
+  threadId: string;
+  from: string;
+  to: string[];
+  cc?: string[];
+  bcc?: string[];
+  subject: string;
+  body: string;
+  bodyHtml?: string;
+  sentAt: string;
+  receivedAt?: string;
+  isRead: boolean;
+  isReplied: boolean;
+  isForwarded: boolean;
+  attachments?: EmailAttachment[];
+  messageId: string;
+  inReplyTo?: string;
+  references?: string[];
+}
+
+export interface EmailAttachment {
+  id: string;
+  filename: string;
+  mimeType: string;
+  size: number;
+  downloadUrl?: string;
+}
+
+export interface EmailThread {
+  id: string;
+  influencerId: string;
+  influencerName: string;
+  influencerEmail: string;
+  influencerAvatar?: string;
+  subject: string;
+  messageCount: number;
+  unreadCount: number;
+  lastMessageAt: string;
+  lastMessagePreview: string;
+  status: 'new' | 'responded' | 'waiting' | 'negotiating' | 'closed';
+  tags?: string[];
+  messages: EmailMessage[];
+  firstContactAt: string;
+  lastReplyAt?: string;
+}
+
+export interface EmailCampaign {
+  id: string;
+  name: string;
+  subject: string;
+  bodyTemplate: string;
+  recipientCount: number;
+  sentCount: number;
+  deliveredCount: number;
+  openedCount: number;
+  repliedCount: number;
+  bouncedCount: number;
+  status: 'draft' | 'sending' | 'sent' | 'paused';
+  createdAt: string;
+  sentAt?: string;
+  completedAt?: string;
+  fromEmail: string;
+  fromName: string;
+  listId?: string;
+}
+
+export interface EmailTemplate {
+  id: string;
+  name: string;
+  subject: string;
+  bodyHtml: string;
+  bodyText: string;
+  category: 'outreach' | 'follow_up' | 'collaboration' | 'custom';
+  variables: string[];
+  createdAt: string;
+  lastUsed?: string;
+  isDefault: boolean;
+}
+
+export interface BulkEmailRequest {
+  recipientIds: string[];
+  templateId?: string;
+  subject: string;
+  body: string;
+  fromEmail: string;
+  fromName: string;
+  scheduledAt?: string;
+  trackOpens: boolean;
+  trackClicks: boolean;
+}
+
+export interface EmailStats {
+  totalThreads: number;
+  activeThreads: number;
+  responseRate: number;
+  averageResponseTime: number;
+  totalSent: number;
+  totalReceived: number;
+  unreadCount: number;
+  monthlyStats: {
+    month: string;
+    sent: number;
+    received: number;
+    responded: number;
+  }[];
 } 

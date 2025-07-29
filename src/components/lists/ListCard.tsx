@@ -11,8 +11,10 @@ import {
   DocumentArrowDownIcon,
   UserGroupIcon,
   CalendarIcon,
+  EnvelopeIcon,
 } from '@heroicons/react/24/outline';
 import { InfluencerList } from '@/types';
+import BulkEmailModal from './BulkEmailModal';
 
 interface ListCardProps {
   list: InfluencerList;
@@ -30,6 +32,7 @@ export default function ListCard({
   onShare,
 }: ListCardProps) {
   const [showMenu, setShowMenu] = useState(false);
+  const [showBulkEmailModal, setShowBulkEmailModal] = useState(false);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('fr-FR', {
@@ -135,6 +138,17 @@ export default function ListCard({
 
               <button
                 onClick={() => {
+                  setShowBulkEmailModal(true);
+                  setShowMenu(false);
+                }}
+                className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              >
+                <EnvelopeIcon className="w-4 h-4" />
+                <span>Contacter en masse</span>
+              </button>
+
+              <button
+                onClick={() => {
                   onShare(list.id);
                   setShowMenu(false);
                 }}
@@ -235,6 +249,14 @@ export default function ListCard({
       {showMenu && (
         <div className="fixed inset-0 z-0" onClick={() => setShowMenu(false)} />
       )}
+
+      {/* Modale d'email en masse */}
+      <BulkEmailModal
+        isOpen={showBulkEmailModal}
+        onClose={() => setShowBulkEmailModal(false)}
+        influencers={list.influencers}
+        listName={list.name}
+      />
     </div>
   );
 }

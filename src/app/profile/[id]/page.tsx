@@ -12,6 +12,7 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
+import EmailThreads from '@/components/profile/EmailThreads';
 // import PerformanceChart from '@/components/profile/charts/PerformanceChart';
 // import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
 // import PostPerformance from '@/components/profile/charts/PostPerformance';
@@ -25,6 +26,7 @@ type ProfileTab =
   | 'audience'
   | 'content'
   | 'contact'
+  | 'communications'
   | 'performance';
 
 export default function ProfilePage() {
@@ -552,6 +554,13 @@ export default function ProfilePage() {
                 </p>
               </div>
             )}
+          </div>
+        );
+
+      case 'communications':
+        return (
+          <div className="p-6">
+            <EmailThreads influencerId={influencer.id} />
           </div>
         );
 

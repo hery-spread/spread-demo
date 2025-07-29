@@ -10,6 +10,7 @@ import {
   MagnifyingGlassIcon,
   CreditCardIcon,
   UserGroupIcon,
+  ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
 
 const navigation = [
@@ -36,6 +37,12 @@ const navigation = [
     href: '/crm',
     icon: UserGroupIcon,
     description: 'Contacts et campagnes',
+  },
+  {
+    name: 'Communications',
+    href: '/communications',
+    icon: ChatBubbleLeftRightIcon,
+    description: 'Emails et conversations',
   },
   {
     name: 'Mon Compte',

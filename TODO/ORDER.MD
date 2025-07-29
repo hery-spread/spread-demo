@@ -9,93 +9,103 @@
    - Impact : Conversion et acquisition
    - Complexité : Moyenne
 
-2. **ONBOARDING-01** - Onboarding automatisé avec call demo
+2. **PRICING-02** - Système d'achat de crédits supplémentaires
+   - Dépendances : PRICING-01
+   - Impact : Monétisation récurrente et flexibilité
+   - Complexité : Moyenne
+
+3. **ONBOARDING-01** - Onboarding automatisé avec call demo
    - Dépendances : Aucune
    - Impact : Activation et qualification leads
    - Complexité : Moyenne
 
-3. **UNLOCK-01** - Modale de déblocage des rapports d'audience
+4. **ONBOARDING-02** - Onboarding simplifié avec sélecteur Agence/Marque
+   - Dépendances : ONBOARDING-01
+   - Impact : Amélioration UX et conversion
+   - Complexité : Moyenne
+
+5. **UNLOCK-01** - Modale de déblocage des rapports d'audience
    - Dépendances : Aucune
    - Impact : Monétisation directe
    - Complexité : Moyenne
 
-4. **SHARE-01** - Partage de rapport avec branding
+6. **SHARE-01** - Partage de rapport avec branding
    - Dépendances : Aucune
    - Impact : Growth hacking
    - Complexité : Moyenne
 
-5. **CRM-01** - Système CRM intégré
+7. **CRM-01** - Système CRM intégré
    - Dépendances : Aucune
    - Impact : Rétention utilisateurs
    - Complexité : Élevée
 
 ### Phase 2 : Fonctionnalités Avancées (Semaines 3-4)
 
-6. **SEARCH-05** - Recherche IA en langage naturel
+8. **SEARCH-05** - Recherche IA en langage naturel
    - Dépendances : Aucune
    - Impact : UX révolutionnaire
    - Complexité : Élevée
 
-7. **SEARCH-06** - Recherche vocale
+9. **SEARCH-06** - Recherche vocale
    - Dépendances : SEARCH-05
    - Impact : Différenciation
    - Complexité : Moyenne
 
-8. **SEARCH-08** - Historique des recherches
-   - Dépendances : SEARCH-05
-   - Impact : Économies utilisateur
-   - Complexité : Moyenne
+10. **SEARCH-08** - Historique des recherches
+    - Dépendances : SEARCH-05
+    - Impact : Économies utilisateur
+    - Complexité : Moyenne
 
 ### Phase 3 : Intégrations (Semaines 5-6)
 
-9. **EMAIL-01** - Intégration email Google/Outlook
-   - Dépendances : CRM-01
-   - Impact : Productivité
-   - Complexité : Très élevée
+11. **EMAIL-01** - Intégration email Google/Outlook
+    - Dépendances : CRM-01
+    - Impact : Productivité
+    - Complexité : Très élevée
 
-10. **SHARE-02** - Système de tracking des partages
+12. **SHARE-02** - Système de tracking des partages
     - Dépendances : SHARE-01
     - Impact : Analytics
     - Complexité : Moyenne
 
-11. **SEARCH-07** - Champs de recherche Modash
+13. **SEARCH-07** - Champs de recherche Modash
     - Dépendances : SEARCH-05
     - Impact : Précision
     - Complexité : Faible
 
 ### Phase 4 : Compléments (Semaines 7-8)
 
-12. **CRM-02** - Pipeline de contact avancé
+14. **CRM-02** - Pipeline de contact avancé
     - Dépendances : CRM-01
     - Impact : Workflow
     - Complexité : Moyenne
 
-13. **EMAIL-02** - Fils d'emails dans profil
+15. **EMAIL-02** - Fils d'emails dans profil
     - Dépendances : EMAIL-01
     - Impact : Centralisation
     - Complexité : Moyenne
 
-14. **SHARE-03** - Statistiques de partage
+16. **SHARE-03** - Statistiques de partage
     - Dépendances : SHARE-02
     - Impact : Insights
     - Complexité : Faible
 
-15. **CRM-03** - Gestion du pipeline
+17. **CRM-03** - Gestion du pipeline
     - Dépendances : CRM-02
     - Impact : Workflow
     - Complexité : Faible
 
-16. **CRM-04** - Historique des communications
+18. **CRM-04** - Historique des communications
     - Dépendances : EMAIL-02
     - Impact : Suivi
     - Complexité : Moyenne
 
-17. **EMAIL-03** - Page centralisée des emails
+19. **EMAIL-03** - Page centralisée des emails
     - Dépendances : EMAIL-02
     - Impact : Vue globale
     - Complexité : Moyenne
 
-18. **CRM-05** - Notes et rappels
+20. **CRM-05** - Notes et rappels
     - Dépendances : CRM-03
     - Impact : Organisation
     - Complexité : Faible
@@ -108,9 +118,11 @@
 
 ```
 PRICING-01 (indépendant)
+├── PRICING-02 (crédits supplémentaires)
 └── Peut être implémenté immédiatement
 
 ONBOARDING-01 (indépendant)
+├── ONBOARDING-02 (simplification onboarding)
 └── Peut être implémenté immédiatement
 
 UNLOCK-01 (indépendant)
@@ -143,7 +155,9 @@ SEARCH-05 (indépendant)
 ### Impact Très Élevé / Complexité Faible-Moyenne
 
 - **PRICING-01** : Page de pricing avec calculateur pour optimiser les conversions
+- **PRICING-02** : Achat de crédits supplémentaires pour monétisation récurrente
 - **ONBOARDING-01** : Qualification des leads et activation optimisée
+- **ONBOARDING-02** : Simplification onboarding pour améliorer la conversion
 - **UNLOCK-01** : Monétisation directe
 - **SHARE-01** : Growth hacking viral
 
@@ -170,9 +184,10 @@ SEARCH-05 (indépendant)
 
 1. **Commencer par PRICING-01** : Optimisation de la conversion dès l'arrivée
 2. **Enchaîner avec ONBOARDING-01** : Qualification et activation des leads
-3. **Développer UNLOCK-01** : ROI immédiat sur la monétisation
-4. **Intégrer SHARE-01** : Effet viral pour l'acquisition
-5. **Déployer CRM-01** : Base solide pour la rétention
+3. **Améliorer avec ONBOARDING-02** : Simplifier le processus d'inscription
+4. **Développer UNLOCK-01** : ROI immédiat sur la monétisation
+5. **Intégrer SHARE-01** : Effet viral pour l'acquisition
+6. **Déployer CRM-01** : Base solide pour la rétention
 
 ### Critères de validation pour passer à la phase suivante
 

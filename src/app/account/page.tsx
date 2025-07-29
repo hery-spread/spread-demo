@@ -9,7 +9,9 @@ import {
   CreditCardIcon,
   BellIcon,
   ShieldCheckIcon,
+  EnvelopeIcon,
 } from '@heroicons/react/24/outline';
+import EmailIntegration from '@/components/account/EmailIntegration';
 
 const tabs = [
   {
@@ -42,6 +44,12 @@ const tabs = [
     icon: ShieldCheckIcon,
     description: 'Paramètres de confidentialité',
   },
+  {
+    id: 'integrations',
+    name: 'Intégrations',
+    icon: EnvelopeIcon,
+    description: 'Connecter vos comptes email',
+  },
 ];
 
 export default function AccountPage() {
@@ -59,6 +67,8 @@ export default function AccountPage() {
         return <NotificationsTab />;
       case 'privacy':
         return <PrivacyTab />;
+      case 'integrations':
+        return <EmailIntegration />;
       default:
         return <ProfileTab />;
     }
