@@ -6,6 +6,7 @@ import StatCard from '@/components/dashboard/StatCard';
 import ProgressBar from '@/components/dashboard/ProgressBar';
 import SubscriptionCard from '@/components/dashboard/SubscriptionCard';
 import UsageSummary from '@/components/dashboard/UsageSummary';
+import DemoModal from '@/components/onboarding/DemoBooking';
 import { useEffect, useState } from 'react';
 import {
   ChartBarIcon,
@@ -28,12 +29,19 @@ export default function Dashboard() {
   const { account, loading: accountLoading } = useUserAccount();
   const [stats, setStats] = useState<UsageStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(true);
+  const [showDemoModal, setShowDemoModal] = useState(false);
 
   useEffect(() => {
     getUsageStats().then((data) => {
       setStats(data);
       setStatsLoading(false);
     });
+
+    // Vérifier si la modale de démo doit être affichée
+    const demoModalShown = localStorage.getItem('demoModalShown');
+    if (!demoModalShown) {
+      setShowDemoModal(true);
+    }
   }, []);
 
   if (accountLoading || statsLoading) {
@@ -58,6 +66,12 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Modale de démo */}
+      <DemoModal
+        isOpen={showDemoModal}
+        onClose={() => setShowDemoModal(false)}
+      />
+
       {/* Statistiques principales */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard

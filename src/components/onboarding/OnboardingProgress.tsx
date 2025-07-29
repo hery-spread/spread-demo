@@ -12,8 +12,6 @@ export default function OnboardingProgress({
   const steps = [
     { id: 1, name: 'Infos personnelles' },
     { id: 2, name: 'Contexte business' },
-    { id: 3, name: 'Préférences' },
-    { id: 4, name: 'Finalisation' },
   ];
 
   return (
