@@ -353,4 +353,51 @@ export interface EmailStats {
     received: number;
     responded: number;
   }[];
+}
+
+// Types pour les campagnes séquentielles
+export interface EmailSequenceStep {
+  id: string;
+  stepNumber: number;
+  delayDays: number;
+  templateId: string;
+  subject: string;
+  body: string;
+  isActive: boolean;
+}
+
+export interface EmailCampaignSequence {
+  id: string;
+  name: string;
+  description?: string;
+  listId: string;
+  listName: string;
+  fromEmail: string;
+  fromName: string;
+  steps: EmailSequenceStep[];
+  status: 'draft' | 'active' | 'paused' | 'completed';
+  createdAt: string;
+  startedAt?: string;
+  completedAt?: string;
+  totalRecipients: number;
+  sentCount: number;
+  openedCount: number;
+  repliedCount: number;
+  bouncedCount: number;
+  trackOpens: boolean;
+  trackClicks: boolean;
+}
+
+export interface CampaignRecipient {
+  id: string;
+  campaignId: string;
+  influencerId: string;
+  influencerName: string;
+  influencerEmail: string;
+  currentStep: number;
+  status: 'pending' | 'active' | 'completed' | 'bounced' | 'unsubscribed';
+  lastEmailSentAt?: string;
+  nextEmailAt?: string;
+  hasReplied: boolean;
+  repliedAt?: string;
 } 

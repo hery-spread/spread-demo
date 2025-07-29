@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui';
-import { EmailThread } from '@/types';
+import { EmailThread, EmailCampaignSequence } from '@/types';
 import { mockEmailThreads, mockEmailStats } from '@/lib/mockData/emailData';
+import SimpleCampaignWizard from '@/components/communications/SimpleCampaignWizard';
 
 export default function CommunicationsPage() {
   const [activeFilter, setActiveFilter] = useState<
@@ -13,6 +14,8 @@ export default function CommunicationsPage() {
     null
   );
   const [searchQuery, setSearchQuery] = useState('');
+  const [showCampaignWizard, setShowCampaignWizard] = useState(false);
+  const [, setCampaigns] = useState<EmailCampaignSequence[]>([]);
 
   const stats = mockEmailStats;
 
@@ -110,7 +113,10 @@ export default function CommunicationsPage() {
             Gérez toutes vos conversations avec les influenceurs
           </p>
         </div>
-        <Button className="bg-emerald-600 hover:bg-emerald-700">
+        <Button
+          onClick={() => setShowCampaignWizard(true)}
+          className="bg-emerald-600 hover:bg-emerald-700"
+        >
           Nouvelle campagne email
         </Button>
       </div>
@@ -475,6 +481,16 @@ export default function CommunicationsPage() {
           )}
         </div>
       </div>
+
+      {/* Campaign Wizard Modal */}
+      <SimpleCampaignWizard
+        isOpen={showCampaignWizard}
+        onClose={() => setShowCampaignWizard(false)}
+        onCreateCampaign={(campaign: EmailCampaignSequence) => {
+          setCampaigns((prev) => [...prev, campaign]);
+          console.log('Campagne créée:', campaign);
+        }}
+      />
     </div>
   );
 }
