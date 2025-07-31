@@ -14,8 +14,9 @@ import {
 } from '@heroicons/react/24/outline';
 import { InfluencerList } from '@/types';
 import ExportModal from './ExportModal';
-import EmailModal from './EmailModal';
-import { exportListWithOptions, sendGroupEmail } from '@/lib/mockData';
+import UnifiedEmailModal from '../communication/UnifiedEmailModal';
+import { CommunicationProvider } from '@/contexts/CommunicationContext';
+import { exportListWithOptions } from '@/lib/mockData';
 
 interface ListHeaderProps {
   list: InfluencerList;
@@ -254,19 +255,22 @@ export default function ListHeader({
       />
 
       {/* Email Modal */}
-      <EmailModal
-        isOpen={showEmailModal}
-        onClose={() => setShowEmailModal(false)}
-        list={list}
-        onSend={async (emailData) => {
-          const result = await sendGroupEmail(list.id, emailData);
-          if (result.success) {
-            console.log(`Email envoyé à ${result.sentCount} destinataires`);
-          } else {
-            console.error(`Erreur d'envoi: ${result.error}`);
-          }
-        }}
-      />
+      <CommunicationProvider>
+        <UnifiedEmailModal
+          isOpen={showEmailModal}
+          onClose={() => setShowEmailModal(false)}
+          mode="bulk"
+          contacts={list.influencers.map((inf) => ({
+            id: inf.id,
+            name: inf.contactName || 'Nom non défini',
+            email: inf.contactEmail || '',
+            company: '',
+          }))}
+          onSent={(result) => {
+            console.log(`Email envoyé à ${result.sent} destinataires`);
+          }}
+        />
+      </CommunicationProvider>
     </div>
   );
 }

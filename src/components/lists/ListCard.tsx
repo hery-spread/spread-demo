@@ -14,7 +14,8 @@ import {
   EnvelopeIcon,
 } from '@heroicons/react/24/outline';
 import { InfluencerList } from '@/types';
-import BulkEmailModal from './BulkEmailModal';
+import UnifiedEmailModal from '../communication/UnifiedEmailModal';
+import { CommunicationProvider } from '@/contexts/CommunicationContext';
 
 interface ListCardProps {
   list: InfluencerList;
@@ -251,12 +252,22 @@ export default function ListCard({
       )}
 
       {/* Modale d'email en masse */}
-      <BulkEmailModal
-        isOpen={showBulkEmailModal}
-        onClose={() => setShowBulkEmailModal(false)}
-        influencers={list.influencers}
-        listName={list.name}
-      />
+      <CommunicationProvider>
+        <UnifiedEmailModal
+          isOpen={showBulkEmailModal}
+          onClose={() => setShowBulkEmailModal(false)}
+          mode="bulk"
+          contacts={list.influencers.map((inf) => ({
+            id: inf.id,
+            name: inf.contactName || 'Nom non défini',
+            email: inf.contactEmail || '',
+            company: '',
+          }))}
+          onSent={(result) => {
+            console.log(`Email envoyé à ${result.sent} contacts`);
+          }}
+        />
+      </CommunicationProvider>
     </div>
   );
 }

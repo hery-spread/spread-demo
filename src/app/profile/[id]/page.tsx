@@ -12,7 +12,8 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
-import EmailThreads from '@/components/profile/EmailThreads';
+import ThreadViewer from '@/components/communication/ThreadViewer';
+import { CommunicationProvider } from '@/contexts/CommunicationContext';
 // import PerformanceChart from '@/components/profile/charts/PerformanceChart';
 // import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
 // import PostPerformance from '@/components/profile/charts/PostPerformance';
@@ -560,7 +561,13 @@ export default function ProfilePage() {
       case 'communications':
         return (
           <div className="p-6">
-            <EmailThreads influencerId={influencer.id} />
+            <CommunicationProvider>
+              <ThreadViewer
+                contactId={influencer.id}
+                showHeader={false}
+                compact={true}
+              />
+            </CommunicationProvider>
           </div>
         );
 

@@ -287,7 +287,7 @@ export interface ThreadViewerProps {
 }
 
 export interface CommunicationHubProps {
-  defaultView?: 'inbox' | 'campaigns' | 'templates' | 'stats';
+  defaultView?: 'inbox' | 'campaigns' | 'templates' | 'analytics';
   embedded?: boolean;
   showSidebar?: boolean;
 } 

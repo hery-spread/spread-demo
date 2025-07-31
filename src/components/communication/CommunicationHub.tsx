@@ -77,7 +77,7 @@ export default function CommunicationHub({
       count: templates.length,
     },
     {
-      id: 'analytics',
+      id: 'analytics' as const,
       name: 'Analytics',
       icon: ChartBarIcon,
       iconSolid: ChartBarIcon,
@@ -315,7 +315,15 @@ export default function CommunicationHub({
               return (
                 <button
                   key={view.id}
-                  onClick={() => setActiveView(view.id)}
+                  onClick={() =>
+                    setActiveView(
+                      view.id as
+                        | 'inbox'
+                        | 'campaigns'
+                        | 'templates'
+                        | 'analytics'
+                    )
+                  }
                   className={`w-full flex items-center justify-between p-3 mb-1 rounded-lg text-left transition-colors ${
                     isActive
                       ? 'bg-purple-50 text-purple-700 border-l-4 border-purple-700'
@@ -613,7 +621,7 @@ export default function CommunicationHub({
                   Modèles
                 </h3>
                 <p className="text-gray-600">
-                  Créez et gérez vos modèles d'emails.
+                  Créez et gérez vos modèles d&apos;emails.
                 </p>
               </div>
             </div>

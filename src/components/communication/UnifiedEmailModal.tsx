@@ -251,7 +251,9 @@ export default function UnifiedEmailModal({
     return (
       <div className="space-y-4">
         <div className="bg-gray-50 p-4 rounded-lg">
-          <h4 className="font-medium text-gray-900 mb-2">Aperçu de l'email</h4>
+          <h4 className="font-medium text-gray-900 mb-2">
+            Aperçu de l&apos;email
+          </h4>
           <div className="bg-white border rounded p-3 space-y-2">
             <div className="text-xs text-gray-500">
               De: {formData.fromName} &lt;{formData.fromEmail}&gt;
