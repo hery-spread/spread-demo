@@ -110,6 +110,28 @@
     - Impact : Organisation
     - Complexité : Faible
 
+### Phase 5 : Nouvelles Fonctionnalités UX/Communication (Semaines 9-10)
+
+21. **LISTS-06** - Sélection individuelle de contacts pour envoi email
+    - Dépendances : LISTS-01, EMAIL-COMMUNICATIONS
+    - Impact : Précision des campagnes
+    - Complexité : Moyenne
+
+22. **COMM-01** - Harmonisation du système de communication
+    - Dépendances : EMAIL-COMMUNICATIONS, CRM-01
+    - Impact : Cohérence UX globale
+    - Complexité : Élevée
+
+23. **NAV-01** - Regroupement navigation par cas d'utilisation
+    - Dépendances : Tous les modules existants
+    - Impact : UX et découvrabilité
+    - Complexité : Moyenne
+
+24. **ANALYTICS-01** - Système d'analyse de campagne
+    - Dépendances : COMM-01, LISTS-06, CRM-01
+    - Impact : Insights business
+    - Complexité : Élevée
+
 ---
 
 ## 🔄 Dépendances détaillées
@@ -146,6 +168,22 @@ SEARCH-05 (indépendant)
 ├── SEARCH-06 (vocale)
 ├── SEARCH-07 (champs Modash)
 └── SEARCH-08 (historique)
+
+LISTS-06 (indépendant, amélioration LISTS-01)
+└── Peut être implémenté après LISTS-01 et EMAIL-COMMUNICATIONS
+
+COMM-01 (refactorisation globale)
+├── Dépend de EMAIL-COMMUNICATIONS
+├── Impact sur CRM-01 et toutes les communications
+└── Prérequis pour ANALYTICS-01
+
+NAV-01 (refactorisation UI globale)
+└── Impact transversal sur tous les modules
+
+ANALYTICS-01 (système de métriques)
+├── COMM-01 (communication harmonisée)
+├── LISTS-06 (sélection avancée)
+└── CRM-01 (données)
 ```
 
 ---
