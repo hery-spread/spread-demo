@@ -6,14 +6,18 @@ import { useState, useEffect } from 'react';
 
 const getPageTitle = (pathname: string) => {
   switch (pathname) {
-    case '/':
-      return 'Dashboard';
-    case '/lists':
-      return 'Mes Listes';
-    case '/account':
-      return 'Mon Compte';
     case '/search':
       return "Recherche d'Influenceurs";
+    case '/lists':
+      return 'Mes Listes';
+    case '/communications':
+      return 'Communications';
+    case '/campagnes':
+      return 'Campagnes';
+    case '/account':
+      return 'Mon Compte';
+    case '/pricing':
+      return 'Mon Abonnement';
     default:
       return 'Spread';
   }
@@ -21,14 +25,18 @@ const getPageTitle = (pathname: string) => {
 
 const getPageIcon = (pathname: string) => {
   switch (pathname) {
-    case '/':
-      return '📊';
-    case '/lists':
-      return '📋';
-    case '/account':
-      return '👤';
     case '/search':
       return '🔍';
+    case '/lists':
+      return '📋';
+    case '/communications':
+      return '💬';
+    case '/campagnes':
+      return '📢';
+    case '/account':
+      return '👤';
+    case '/pricing':
+      return '💳';
     default:
       return '🌟';
   }

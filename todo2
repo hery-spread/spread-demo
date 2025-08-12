@@ -1,6 +1,11 @@
 -> Listes pour l'envoi de mail pouvoir sélectionner ceux à qui on veut envoyer le mail
 -> Harmoniser le système de communication car pour le moment c'est un peu split tout du long de l'app
--> Regrouper les éléments du sidenav par cas d'utilisation : rechercher des utilisateurs, 
+-> Regrouper les éléments du sidenav par cas d'utilisation : rechercher des utilisateurs,
 -> Créer un système d'analyse de campagne
 https://docs.google.com/spreadsheets/d/1uS7lM-ATeOZiVnSgIaJzV49m1UzDPRyV34voidMiMNQ/edit?gid=2076538895#gid=2076538895
 -> Système de crédits ??
+-> Analyser l'API de Modash pour connaître quelles données supplémentaires ajouter dans les rapports d'audience
+-> Dans la recherche, pouvoir sélectionner plusieurs avec une case à cocher par influ pour les ajouter dans une liste
+-> Pour la recherche, ajouter filtres dispos dans l'API de Modas hhttps://docs.modash.io/products/discovery_api/openapi_doc/discovery/youtube/youtubecontroller_search
+----> Taille de l'audience, répartition de l'audience, etc etc ou
+----> Un champ de texte où on écrit notre recherche (donc "Je recherche tel type d'influ, avec tel type d'audience pour vendre tel produit") et l'API de ChatGPT ferait un remplissage des champs de recherche avancés pour lancer la recherche

@@ -428,16 +428,14 @@ export default function CommunicationHub({
                     Statut
                   </label>
                   <Select
+                    options={filterOptions.map(option => ({
+                      value: option.value,
+                      label: `${option.label} (${option.count})`
+                    }))}
                     onChange={(e) =>
                       handleFilterChange('status', e.target.value)
                     }
-                  >
-                    {filterOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label} ({option.count})
-                      </option>
-                    ))}
-                  </Select>
+                  />
                 </div>
 
                 <div>
@@ -445,15 +443,16 @@ export default function CommunicationHub({
                     Canal
                   </label>
                   <Select
+                    options={[
+                      { value: 'all', label: 'Tous les canaux' },
+                      { value: 'email', label: 'Email' },
+                      { value: 'linkedin', label: 'LinkedIn' },
+                      { value: 'instagram', label: 'Instagram' }
+                    ]}
                     onChange={(e) =>
                       handleFilterChange('channel', e.target.value)
                     }
-                  >
-                    <option value="all">Tous les canaux</option>
-                    <option value="email">Email</option>
-                    <option value="linkedin">LinkedIn</option>
-                    <option value="instagram">Instagram</option>
-                  </Select>
+                  />
                 </div>
 
                 <div>
@@ -461,16 +460,17 @@ export default function CommunicationHub({
                     Priorité
                   </label>
                   <Select
+                    options={[
+                      { value: 'all', label: 'Toutes les priorités' },
+                      { value: 'urgent', label: 'Urgent' },
+                      { value: 'high', label: 'Élevée' },
+                      { value: 'medium', label: 'Moyenne' },
+                      { value: 'low', label: 'Faible' }
+                    ]}
                     onChange={(e) =>
                       handleFilterChange('priority', e.target.value)
                     }
-                  >
-                    <option value="all">Toutes les priorités</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="high">Élevée</option>
-                    <option value="medium">Moyenne</option>
-                    <option value="low">Faible</option>
-                  </Select>
+                  />
                 </div>
               </div>
             </div>

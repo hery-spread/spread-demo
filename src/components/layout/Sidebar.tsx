@@ -4,22 +4,15 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import {
-  ChartBarIcon,
   ListBulletIcon,
-  UserIcon,
   MagnifyingGlassIcon,
-  CreditCardIcon,
-  UserGroupIcon,
   ChatBubbleLeftRightIcon,
+  MegaphoneIcon,
+  UserIcon,
+  CreditCardIcon,
 } from '@heroicons/react/24/outline';
 
 const navigation = [
-  {
-    name: 'Dashboard',
-    href: '/',
-    icon: ChartBarIcon,
-    description: "Vue d'ensemble et métriques",
-  },
   {
     name: 'Recherche',
     href: '/search',
@@ -33,28 +26,16 @@ const navigation = [
     description: 'Gérer vos listes',
   },
   {
-    name: 'CRM',
-    href: '/crm',
-    icon: UserGroupIcon,
-    description: 'Contacts et campagnes',
-  },
-  {
     name: 'Communications',
     href: '/communications',
     icon: ChatBubbleLeftRightIcon,
     description: 'Emails et conversations',
   },
   {
-    name: 'Mon Compte',
-    href: '/account',
-    icon: UserIcon,
-    description: 'Paramètres et profil',
-  },
-  {
-    name: 'Pricing',
-    href: '/pricing',
-    icon: CreditCardIcon,
-    description: 'Tarifs et abonnements',
+    name: 'Campagnes',
+    href: '/campagnes',
+    icon: MegaphoneIcon,
+    description: 'Gérer vos campagnes',
   },
 ];
 
@@ -198,29 +179,55 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Footer */}
-      <div className="p-6 border-t border-gray-100/50 relative overflow-hidden group">
-        {/* Background shimmer effect */}
-        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-gray-500/5 to-transparent" />
-
-        <div className="relative z-10">
-          <div className="bg-gradient-to-r from-gray-50/80 to-gray-100/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 transition-all duration-300 hover:shadow-md hover:scale-[1.01]">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-gray-600 to-gray-700 rounded-xl flex items-center justify-center">
-                <span className="text-white font-medium text-sm">2.0</span>
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-gray-900">
-                  Version 2.0
-                </div>
-                <div className="text-xs text-gray-500">
-                  Dernière mise à jour
-                </div>
-              </div>
-            </div>
-            <div className="text-xs text-gray-500">
-              © 2025 Spread - Tous droits réservés
-            </div>
+      {/* Footer - Zone Compte */}
+      <div className="p-4 border-t border-gray-100/50">
+        <div className="space-y-1">
+          <Link
+            href="/account"
+            className={`
+              group flex items-center px-3 py-2 text-xs font-medium rounded-lg
+              transition-all duration-200 transform-gpu
+              ${
+                pathname === '/account'
+                  ? 'bg-gray-100 text-gray-900'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              }
+            `}
+          >
+            <UserIcon
+              className={`
+                w-4 h-4 mr-2 transition-colors duration-200
+                ${pathname === '/account' ? 'text-gray-700' : 'text-gray-500 group-hover:text-gray-700'}
+              `}
+            />
+            Mon compte
+          </Link>
+          
+          <Link
+            href="/pricing"
+            className={`
+              group flex items-center px-3 py-2 text-xs font-medium rounded-lg
+              transition-all duration-200 transform-gpu
+              ${
+                pathname === '/pricing'
+                  ? 'bg-gray-100 text-gray-900'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+              }
+            `}
+          >
+            <CreditCardIcon
+              className={`
+                w-4 h-4 mr-2 transition-colors duration-200
+                ${pathname === '/pricing' ? 'text-gray-700' : 'text-gray-500 group-hover:text-gray-700'}
+              `}
+            />
+            Mon abonnement
+          </Link>
+        </div>
+        
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <div className="text-xs text-gray-400 text-center">
+            © 2025 Spread
           </div>
         </div>
       </div>
