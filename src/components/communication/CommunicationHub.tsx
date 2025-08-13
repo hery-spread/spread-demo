@@ -428,9 +428,9 @@ export default function CommunicationHub({
                     Statut
                   </label>
                   <Select
-                    options={filterOptions.map(option => ({
+                    options={filterOptions.map((option) => ({
                       value: option.value,
-                      label: `${option.label} (${option.count})`
+                      label: `${option.label} (${option.count})`,
                     }))}
                     onChange={(e) =>
                       handleFilterChange('status', e.target.value)
@@ -447,7 +447,7 @@ export default function CommunicationHub({
                       { value: 'all', label: 'Tous les canaux' },
                       { value: 'email', label: 'Email' },
                       { value: 'linkedin', label: 'LinkedIn' },
-                      { value: 'instagram', label: 'Instagram' }
+                      { value: 'instagram', label: 'Instagram' },
                     ]}
                     onChange={(e) =>
                       handleFilterChange('channel', e.target.value)
@@ -465,7 +465,7 @@ export default function CommunicationHub({
                       { value: 'urgent', label: 'Urgent' },
                       { value: 'high', label: 'Élevée' },
                       { value: 'medium', label: 'Moyenne' },
-                      { value: 'low', label: 'Faible' }
+                      { value: 'low', label: 'Faible' },
                     ]}
                     onChange={(e) =>
                       handleFilterChange('priority', e.target.value)

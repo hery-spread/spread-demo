@@ -3,6 +3,9 @@ import {
   InfluencerDetails,
   InfluencerList,
   UserAccount,
+  UnlockedReport,
+  CampaignTracker,
+  CampaignContent,
 } from "@/types";
 
 // Données mockées des influenceurs
@@ -3171,4 +3174,782 @@ export const mockCRMStats = {
   responseRate: 67,
   averageResponseTime: 24,
   conversionRate: 13,
+};
+
+// Mock data pour les Rapports Débloqués
+export const mockUnlockedReports: UnlockedReport[] = [
+  {
+    id: 'unlock_1',
+    influencerId: 'inf_1',
+    influencerName: 'Marie Lifestyle',
+    influencerUsername: 'marie_lifestyle',
+    influencerAvatar: '/avatars/marie.jpg',
+    platform: 'instagram' as const,
+    unlockedAt: '2025-01-20T10:30:00Z',
+    lastRefreshed: '2025-01-25T14:20:00Z',
+    creditsUsed: 2,
+    status: 'fresh' as const,
+    refreshCount: 3,
+    validUntil: '2025-02-25T14:20:00Z',
+    report: {
+      id: 'inf_1',
+      name: 'Marie Lifestyle',
+      username: 'marie_lifestyle',
+      platform: 'instagram' as const,
+      avatar: '/avatars/marie.jpg',
+      followers: 45000,
+      engagement: 3200,
+      engagementRate: 7.1,
+      country: 'France',
+      verified: true,
+      email: 'contact@marielifestyle.com',
+      bio: 'Lifestyle & Mode Paris 🇫🇷',
+      stats: {
+        avgLikes: 2800,
+        avgComments: 400,
+        avgViews: 15000,
+        totalPosts: 450
+      },
+      audience: {
+        gender: { male: 25, female: 75 },
+        age: {
+          "13-17": 15,
+          "18-24": 35,
+          "25-34": 30,
+          "35-44": 15,
+          "45-64": 5
+        },
+        countries: { "France": 60, "Belgium": 15, "Switzerland": 10, "Canada": 8, "Other": 7 },
+        cities: { "Paris": 25, "Lyon": 8, "Marseille": 5, "Brussels": 4, "Geneva": 3 },
+        languages: { "French": 85, "English": 12, "Other": 3 },
+        ethnicities: { "Caucasian": 70, "Mixed": 15, "Other": 15 },
+        interests: {
+          topics: { "Fashion": 40, "Beauty": 30, "Lifestyle": 20, "Travel": 10 },
+          brands: { "Zara": 25, "H&M": 20, "Sephora": 15, "ASOS": 10, "Other": 30 }
+        }
+      }
+    }
+  },
+  {
+    id: 'unlock_2',
+    influencerId: 'inf_2',
+    influencerName: 'Alex Gaming Pro',
+    influencerUsername: 'alex_gaming',
+    influencerAvatar: '/avatars/alex.jpg',
+    platform: 'youtube' as const,
+    unlockedAt: '2025-01-22T09:15:00Z',
+    lastRefreshed: '2025-01-24T16:30:00Z',
+    creditsUsed: 2,
+    status: 'stale' as const,
+    refreshCount: 1,
+    validUntil: '2025-02-24T16:30:00Z',
+    report: {
+      id: 'inf_2',
+      name: 'Alex Gaming Pro',
+      username: 'alex_gaming',
+      platform: 'youtube' as const,
+      avatar: '/avatars/alex.jpg',
+      followers: 125000,
+      engagement: 8500,
+      engagementRate: 6.8,
+      country: 'Canada',
+      verified: true,
+      email: 'contact@alexgaming.com',
+      bio: 'Gaming Content Creator 🎮',
+      stats: {
+        avgLikes: 5200,
+        avgComments: 850,
+        avgViews: 28000,
+        totalPosts: 380
+      },
+      audience: {
+        gender: { male: 78, female: 22 },
+        age: {
+          "13-17": 25,
+          "18-24": 40,
+          "25-34": 25,
+          "35-44": 8,
+          "45-64": 2
+        },
+        countries: { "Canada": 35, "USA": 30, "UK": 12, "Australia": 8, "Other": 15 },
+        cities: { "Toronto": 15, "Montreal": 8, "Vancouver": 7, "New York": 6, "London": 4 },
+        languages: { "English": 88, "French": 8, "Other": 4 },
+        ethnicities: { "Caucasian": 60, "Mixed": 20, "Asian": 12, "Other": 8 },
+        interests: {
+          topics: { "Gaming": 50, "Technology": 25, "Entertainment": 15, "Sports": 10 },
+          brands: { "PlayStation": 30, "Xbox": 25, "Steam": 20, "Nvidia": 15, "Other": 10 }
+        }
+      }
+    }
+  },
+  {
+    id: 'unlock_3',
+    influencerId: 'inf_3',
+    influencerName: 'Sarah Fitness',
+    influencerUsername: 'sarah_fitness',
+    influencerAvatar: '/avatars/sarah.jpg',
+    platform: 'instagram' as const,
+    unlockedAt: '2025-01-23T11:45:00Z',
+    lastRefreshed: '2025-01-25T08:20:00Z',
+    creditsUsed: 2,
+    status: 'fresh' as const,
+    refreshCount: 2,
+    validUntil: '2025-02-25T08:20:00Z',
+    report: {
+      id: 'inf_3',
+      name: 'Sarah Fitness',
+      username: 'sarah_fitness',
+      platform: 'instagram' as const,
+      avatar: '/avatars/sarah.jpg',
+      followers: 78000,
+      engagement: 5600,
+      engagementRate: 7.2,
+      country: 'USA',
+      verified: false,
+      email: 'hello@sarahfitness.com',
+      bio: 'Fitness Coach & Nutritionist 💪',
+      stats: {
+        avgLikes: 4200,
+        avgComments: 680,
+        avgViews: 18000,
+        totalPosts: 520
+      },
+      audience: {
+        gender: { male: 35, female: 65 },
+        age: {
+          "13-17": 10,
+          "18-24": 30,
+          "25-34": 35,
+          "35-44": 20,
+          "45-64": 5
+        },
+        countries: { "USA": 45, "Canada": 15, "UK": 12, "Australia": 10, "Other": 18 },
+        cities: { "Los Angeles": 12, "New York": 8, "Chicago": 6, "Toronto": 5, "London": 4 },
+        languages: { "English": 92, "Spanish": 5, "Other": 3 },
+        ethnicities: { "Caucasian": 55, "Hispanic": 20, "Mixed": 15, "Other": 10 },
+        interests: {
+          topics: { "Fitness": 45, "Health": 25, "Nutrition": 20, "Lifestyle": 10 },
+          brands: { "Nike": 25, "Adidas": 20, "Lululemon": 18, "Under Armour": 12, "Other": 25 }
+        }
+      }
+    }
+  },
+  {
+    id: 'unlock_4',
+    influencerId: 'inf_4',
+    influencerName: 'Thomas Tech',
+    influencerUsername: 'thomas_tech',
+    influencerAvatar: '/avatars/thomas.jpg',
+    platform: 'youtube' as const,
+    unlockedAt: '2025-01-21T15:20:00Z',
+    lastRefreshed: '2025-01-23T12:10:00Z',
+    creditsUsed: 2,
+    status: 'stale' as const,
+    refreshCount: 4,
+    validUntil: '2025-02-23T12:10:00Z',
+    report: {
+      id: 'inf_4',
+      name: 'Thomas Tech',
+      username: 'thomas_tech',
+      platform: 'youtube' as const,
+      avatar: '/avatars/thomas.jpg',
+      followers: 95000,
+      engagement: 6800,
+      engagementRate: 7.1,
+      country: 'Germany',
+      verified: true,
+      email: 'contact@thomastech.de',
+      bio: 'Tech Reviews & Tutorials 🔧',
+      stats: {
+        avgLikes: 4500,
+        avgComments: 720,
+        avgViews: 22000,
+        totalPosts: 290
+      },
+      audience: {
+        gender: { male: 82, female: 18 },
+        age: {
+          "13-17": 20,
+          "18-24": 35,
+          "25-34": 30,
+          "35-44": 12,
+          "45-64": 3
+        },
+        countries: { "Germany": 40, "USA": 20, "UK": 12, "France": 8, "Other": 20 },
+        cities: { "Berlin": 15, "Munich": 8, "Hamburg": 6, "London": 4, "New York": 3 },
+        languages: { "German": 50, "English": 45, "Other": 5 },
+        ethnicities: { "Caucasian": 75, "Mixed": 15, "Other": 10 },
+        interests: {
+          topics: { "Technology": 50, "Gaming": 20, "Programming": 15, "Hardware": 15 },
+          brands: { "Apple": 25, "Samsung": 20, "Google": 18, "Microsoft": 15, "Other": 22 }
+        }
+      }
+    }
+  }
+];
+
+export const mockRefreshStats = {
+  totalReports: 4,
+  freshReports: 2,
+  staleReports: 2,
+  totalRefreshes: 10,
+  creditsSpent: 8,
+  lastRefreshDate: '2025-01-25T14:20:00Z'
+};
+
+// Fonctions utilitaires pour les rapports débloqués
+export const getUnlockedReports = async () => {
+  await new Promise(resolve => setTimeout(resolve, 500)); // Simulate API call
+  return mockUnlockedReports;
+};
+
+export const refreshReport = async (reportId: string): Promise<UnlockedReport> => {
+  await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate refresh API call
+  const reportIndex = mockUnlockedReports.findIndex(r => r.id === reportId);
+  if (reportIndex !== -1) {
+    const updatedReport = {
+      ...mockUnlockedReports[reportIndex],
+      lastRefreshed: new Date().toISOString(),
+      status: 'fresh' as const,
+      refreshCount: mockUnlockedReports[reportIndex].refreshCount + 1,
+      validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 jours
+    };
+    mockUnlockedReports[reportIndex] = updatedReport;
+    return updatedReport;
+  }
+  throw new Error('Rapport non trouvé');
+};
+
+export const refreshMultipleReports = async (reportIds: string[]): Promise<UnlockedReport[]> => {
+  await new Promise(resolve => setTimeout(resolve, 3000)); // Simulate batch refresh
+  const refreshedReports: UnlockedReport[] = [];
+  
+  for (const reportId of reportIds) {
+    const reportIndex = mockUnlockedReports.findIndex(r => r.id === reportId);
+    if (reportIndex !== -1) {
+      const updatedReport = {
+        ...mockUnlockedReports[reportIndex],
+        lastRefreshed: new Date().toISOString(),
+        status: 'fresh' as const,
+        refreshCount: mockUnlockedReports[reportIndex].refreshCount + 1,
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      };
+      mockUnlockedReports[reportIndex] = updatedReport;
+      refreshedReports.push(updatedReport);
+    }
+  }
+  
+  return refreshedReports;
+};
+
+export const getRefreshStats = async () => {
+  await new Promise(resolve => setTimeout(resolve, 300)); // Simulate API call
+  return {
+    ...mockRefreshStats,
+    totalReports: mockUnlockedReports.length,
+    freshReports: mockUnlockedReports.filter(r => r.status === 'fresh').length,
+    staleReports: mockUnlockedReports.filter(r => r.status === 'stale').length,
+    totalRefreshes: mockUnlockedReports.reduce((sum, r) => sum + r.refreshCount, 0),
+    creditsSpent: mockUnlockedReports.reduce((sum, r) => sum + r.creditsUsed, 0)
+  };
+};
+
+// Mock data pour les Nouvelles Campagnes
+export const mockAdvancedCampaigns: CampaignTracker[] = [
+  {
+    id: 'camp_1',
+    name: 'Samsung Galaxy S25 Launch',
+    description: 'Campagne de lancement du nouveau Galaxy S25 avec focus sur la photographie',
+    
+    trackingConfig: {
+      hashtags: ['#SamsungS25', '#GalaxyS25Launch', '#SamsungPartner'],
+      mentions: ['@samsung', '@samsungfrance'],
+      keywords: ['Galaxy S25', 'Samsung', 'nouveau smartphone'],
+      platforms: ['instagram', 'youtube', 'tiktok'],
+      autoImport: true,
+      flagMissingHashtags: true,
+      flagMissingDisclosure: true,
+      eventMode: false,
+    },
+    
+    startDate: '2025-01-20T00:00:00Z',
+    endDate: '2025-02-20T23:59:59Z',
+    
+    creators: [
+      {
+        influencerId: 'inf_1',
+        influencerName: 'Marie Lifestyle',
+        influencerUsername: 'marie_lifestyle',
+        influencerAvatar: '/avatars/marie.jpg',
+        platform: 'instagram',
+        expectedPosts: 3,
+        deliveredPosts: 2,
+        costPerCreator: 2500,
+        status: 'active',
+        contractedAt: '2025-01-15T10:00:00Z',
+      },
+      {
+        influencerId: 'inf_2',
+        influencerName: 'Thomas Tech',
+        influencerUsername: 'thomas_tech',
+        influencerAvatar: '/avatars/thomas.jpg',
+        platform: 'youtube',
+        expectedPosts: 2,
+        deliveredPosts: 2,
+        costPerCreator: 4500,
+        status: 'completed',
+        contractedAt: '2025-01-15T10:00:00Z',
+      },
+      {
+        influencerId: 'inf_3',
+        influencerName: 'Alex Gaming',
+        influencerUsername: 'alex_gaming',
+        influencerAvatar: '/avatars/alex.jpg',
+        platform: 'youtube',
+        expectedPosts: 1,
+        deliveredPosts: 1,
+        costPerCreator: 3200,
+        status: 'completed',
+        contractedAt: '2025-01-15T10:00:00Z',
+      }
+    ],
+    
+    analytics: {
+      content: {
+        totalPosts: 5,
+        totalStories: 3,
+        totalReels: 2,
+        totalVideos: 2,
+        creatorsPosted: 3,
+        totalCreators: 3,
+      },
+      
+      engagement: {
+        totalEngagements: 45200,
+        averageER: 6.8,
+        totalLikes: 32500,
+        totalComments: 8900,
+        totalShares: 2400,
+        totalSaves: 1400,
+      },
+      
+      reach: {
+        totalImpressions: 850000,
+        totalReach: 620000,
+        averageVideoER: 7.2,
+        totalViews: 145000,
+      },
+      
+      performance: {
+        totalLinks: 8,
+        totalClicks: 3240,
+        ctr: 2.1,
+        totalConversions: 156,
+        conversionRate: 4.8,
+      },
+      
+      financials: {
+        totalCreatorCost: 10200,
+        totalEMV: 85400,
+        averageCPM: 12.0,
+        averageCPC: 3.15,
+        roas: 8.37,
+        costPerEngagement: 0.23,
+      },
+      
+      byPlatform: {
+        instagram: {
+          posts: 3,
+          engagements: 28900,
+          impressions: 520000,
+          cost: 2500,
+          emv: 52000,
+        },
+        youtube: {
+          posts: 2,
+          engagements: 16300,
+          impressions: 330000,
+          cost: 7700,
+          emv: 33400,
+        },
+      },
+      
+      topCreators: [
+        {
+          influencerId: 'inf_2',
+          influencerName: 'Thomas Tech',
+          posts: 2,
+          totalEngagements: 16300,
+          averageER: 7.1,
+          totalCost: 4500,
+          emv: 33400,
+        },
+        {
+          influencerId: 'inf_1',
+          influencerName: 'Marie Lifestyle',
+          posts: 2,
+          totalEngagements: 15200,
+          averageER: 6.9,
+          totalCost: 2500,
+          emv: 28900,
+        }
+      ],
+      
+      timeline: [
+        {
+          date: '2025-01-21',
+          posts: 1,
+          engagements: 8500,
+          impressions: 180000,
+          cost: 2500,
+        },
+        {
+          date: '2025-01-23',
+          posts: 2,
+          engagements: 18200,
+          impressions: 350000,
+          cost: 4500,
+        },
+        {
+          date: '2025-01-25',
+          posts: 2,
+          engagements: 18500,
+          impressions: 320000,
+          cost: 3200,
+        }
+      ],
+    },
+    
+    status: 'active',
+    createdBy: 'user_1',
+    createdAt: '2025-01-15T09:00:00Z',
+    updatedAt: '2025-01-25T16:30:00Z',
+    totalBudget: 15000,
+    spentBudget: 10200,
+  },
+  
+  {
+    id: 'camp_2',
+    name: 'Sport Summer Collection',
+    description: 'Campagne été 2025 pour la nouvelle collection sportswear',
+    
+    trackingConfig: {
+      hashtags: ['#SportSummer2025', '#FitnessMotivation', '#SportPartner'],
+      mentions: ['@sportbrand', '@fitnesscollection'],
+      keywords: ['sport', 'été', 'collection', 'fitness'],
+      platforms: ['instagram', 'tiktok'],
+      autoImport: true,
+      flagMissingHashtags: true,
+      flagMissingDisclosure: true,
+      eventMode: false,
+    },
+    
+    startDate: '2025-01-10T00:00:00Z',
+    endDate: '2025-02-10T23:59:59Z',
+    
+    creators: [
+      {
+        influencerId: 'inf_4',
+        influencerName: 'Sarah Fitness',
+        influencerUsername: 'sarah_fitness',
+        influencerAvatar: '/avatars/sarah.jpg',
+        platform: 'instagram',
+        expectedPosts: 4,
+        deliveredPosts: 3,
+        costPerCreator: 1800,
+        status: 'active',
+        contractedAt: '2025-01-08T14:00:00Z',
+      },
+      {
+        influencerId: 'inf_5',
+        influencerName: 'Mike Sports',
+        influencerUsername: 'mike_sports',
+        influencerAvatar: '/avatars/mike.jpg',
+        platform: 'tiktok',
+        expectedPosts: 5,
+        deliveredPosts: 4,
+        costPerCreator: 1200,
+        status: 'active',
+        contractedAt: '2025-01-08T14:00:00Z',
+      }
+    ],
+    
+    analytics: {
+      content: {
+        totalPosts: 7,
+        totalStories: 5,
+        totalReels: 4,
+        totalVideos: 2,
+        creatorsPosted: 2,
+        totalCreators: 2,
+      },
+      
+      engagement: {
+        totalEngagements: 22400,
+        averageER: 5.9,
+        totalLikes: 16800,
+        totalComments: 3900,
+        totalShares: 1200,
+        totalSaves: 500,
+      },
+      
+      reach: {
+        totalImpressions: 420000,
+        totalReach: 315000,
+        averageVideoER: 6.4,
+        totalViews: 89000,
+      },
+      
+      performance: {
+        totalLinks: 6,
+        totalClicks: 1840,
+        ctr: 1.8,
+        totalConversions: 89,
+        conversionRate: 4.8,
+      },
+      
+      financials: {
+        totalCreatorCost: 3000,
+        totalEMV: 35600,
+        averageCPM: 7.1,
+        averageCPC: 1.63,
+        roas: 11.87,
+        costPerEngagement: 0.13,
+      },
+      
+      byPlatform: {
+        instagram: {
+          posts: 3,
+          engagements: 13200,
+          impressions: 280000,
+          cost: 1800,
+          emv: 22400,
+        },
+        tiktok: {
+          posts: 4,
+          engagements: 9200,
+          impressions: 140000,
+          cost: 1200,
+          emv: 13200,
+        },
+      },
+      
+      topCreators: [
+        {
+          influencerId: 'inf_4',
+          influencerName: 'Sarah Fitness',
+          posts: 3,
+          totalEngagements: 13200,
+          averageER: 6.2,
+          totalCost: 1800,
+          emv: 22400,
+        },
+        {
+          influencerId: 'inf_5',
+          influencerName: 'Mike Sports',
+          posts: 4,
+          totalEngagements: 9200,
+          averageER: 5.8,
+          totalCost: 1200,
+          emv: 13200,
+        }
+      ],
+      
+      timeline: [
+        {
+          date: '2025-01-12',
+          posts: 2,
+          engagements: 6800,
+          impressions: 125000,
+          cost: 1200,
+        },
+        {
+          date: '2025-01-15',
+          posts: 3,
+          engagements: 8900,
+          impressions: 165000,
+          cost: 1800,
+        },
+        {
+          date: '2025-01-18',
+          posts: 2,
+          engagements: 6700,
+          impressions: 130000,
+          cost: 0,
+        }
+      ],
+    },
+    
+    status: 'active',
+    createdBy: 'user_1',
+    createdAt: '2025-01-08T12:00:00Z',
+    updatedAt: '2025-01-25T14:15:00Z',
+    totalBudget: 5000,
+    spentBudget: 3000,
+  }
+];
+
+// Mock data pour les contenus trackés
+export const mockCampaignContents: CampaignContent[] = [
+  {
+    id: 'content_1',
+    campaignId: 'camp_1',
+    influencerId: 'inf_1',
+    influencerName: 'Marie Lifestyle',
+    influencerUsername: 'marie_lifestyle',
+    influencerAvatar: '/avatars/marie.jpg',
+    platform: 'instagram',
+    contentType: 'post',
+    contentUrl: 'https://instagram.com/p/samsung-s25-review',
+    contentTitle: 'Mon avis sur le nouveau Samsung Galaxy S25 ! 📱✨',
+    contentDescription: 'Je vous partage mes premières impressions sur le nouveau Galaxy S25...',
+    publishedAt: '2025-01-21T15:30:00Z',
+    detectedAt: '2025-01-21T15:45:00Z',
+    
+    trackedHashtags: ['#SamsungS25', '#GalaxyS25Launch', '#SamsungPartner', '#ad'],
+    trackedMentions: ['@samsung', '@samsungfrance'],
+    trackedKeywords: ['Galaxy S25', 'Samsung', 'nouveau smartphone', 'photographie'],
+    
+    metrics: {
+      likes: 8500,
+      comments: 420,
+      shares: 85,
+      views: 45000,
+      saves: 320,
+      clicks: 890,
+      impressions: 180000,
+      reach: 125000,
+      engagementRate: 7.2,
+    },
+    
+    financials: {
+      costPerContent: 1250,
+      cpm: 6.94,
+      cpc: 1.40,
+      emv: 15800,
+      roas: 12.64,
+    },
+    
+    status: 'validated',
+    validatedBy: 'user_1',
+    validatedAt: '2025-01-21T16:00:00Z',
+    notes: 'Excellent contenu, très bon engagement, hashtags présents'
+  },
+  {
+    id: 'content_2',
+    campaignId: 'camp_1',
+    influencerId: 'inf_2',
+    influencerName: 'Thomas Tech',
+    influencerUsername: 'thomas_tech',
+    influencerAvatar: '/avatars/thomas.jpg',
+    platform: 'youtube',
+    contentType: 'video',
+    contentUrl: 'https://youtube.com/watch/samsung-s25-review-tech',
+    contentTitle: 'SAMSUNG GALAXY S25 : Test Complet et Avis ! (Sponsorisé)',
+    contentDescription: 'Review complète du nouveau Samsung Galaxy S25 avec tests photo...',
+    publishedAt: '2025-01-23T18:00:00Z',
+    detectedAt: '2025-01-23T18:15:00Z',
+    
+    trackedHashtags: ['#SamsungS25', '#SamsungPartner'],
+    trackedMentions: ['@samsung'],
+    trackedKeywords: ['Galaxy S25', 'Samsung', 'test', 'review', 'tech'],
+    
+    metrics: {
+      likes: 2800,
+      comments: 340,
+      shares: 120,
+      views: 28000,
+      clicks: 1240,
+      impressions: 165000,
+      reach: 110000,
+      engagementRate: 11.6,
+      videoCompletionRate: 78,
+    },
+    
+    financials: {
+      costPerContent: 4500,
+      cpm: 27.27,
+      cpc: 3.63,
+      emv: 22400,
+      roas: 4.98,
+    },
+    
+    status: 'validated',
+    validatedBy: 'user_1',
+    validatedAt: '2025-01-23T19:00:00Z',
+    notes: 'Vidéo de qualité, bonne durée de visionnage, mentions bien intégrées'
+  }
+];
+
+// Fonctions utilitaires pour les campagnes
+export const getAdvancedCampaigns = async (): Promise<CampaignTracker[]> => {
+  await new Promise(resolve => setTimeout(resolve, 800)); // Simulate API call
+  return mockAdvancedCampaigns;
+};
+
+export const getCampaignById = async (campaignId: string): Promise<CampaignTracker | null> => {
+  await new Promise(resolve => setTimeout(resolve, 400));
+  return mockAdvancedCampaigns.find(c => c.id === campaignId) || null;
+};
+
+export const getCampaignContents = async (campaignId: string): Promise<CampaignContent[]> => {
+  await new Promise(resolve => setTimeout(resolve, 600));
+  return mockCampaignContents.filter(c => c.campaignId === campaignId);
+};
+
+export const createCampaign = async (campaignData: Partial<CampaignTracker>): Promise<CampaignTracker> => {
+  await new Promise(resolve => setTimeout(resolve, 1200)); // Simulate API call
+  
+  const newCampaign: CampaignTracker = {
+    id: `camp_${Date.now()}`,
+    name: campaignData.name || '',
+    description: campaignData.description || '',
+    trackingConfig: campaignData.trackingConfig || {
+      hashtags: [],
+      mentions: [],
+      keywords: [],
+      platforms: ['instagram'],
+      autoImport: false,
+      flagMissingHashtags: false,
+      flagMissingDisclosure: false,
+      eventMode: false,
+    },
+    startDate: campaignData.startDate || new Date().toISOString(),
+    endDate: campaignData.endDate,
+    creators: campaignData.creators || [],
+    analytics: {
+      content: { totalPosts: 0, totalStories: 0, totalReels: 0, totalVideos: 0, creatorsPosted: 0, totalCreators: 0 },
+      engagement: { totalEngagements: 0, averageER: 0, totalLikes: 0, totalComments: 0, totalShares: 0, totalSaves: 0 },
+      reach: { totalImpressions: 0, totalReach: 0, totalViews: 0 },
+      performance: { totalLinks: 0, totalClicks: 0, ctr: 0 },
+      financials: { totalCreatorCost: 0, totalEMV: 0, averageCPM: 0, costPerEngagement: 0 },
+      byPlatform: {},
+      topCreators: [],
+      timeline: []
+    },
+    status: 'draft',
+    createdBy: 'user_1',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    totalBudget: campaignData.totalBudget || 0,
+    spentBudget: 0,
+  };
+  
+  mockAdvancedCampaigns.unshift(newCampaign);
+  return newCampaign;
+};
+
+export const updateCampaign = async (campaignId: string, updates: Partial<CampaignTracker>): Promise<CampaignTracker> => {
+  await new Promise(resolve => setTimeout(resolve, 800));
+  
+  const campaignIndex = mockAdvancedCampaigns.findIndex(c => c.id === campaignId);
+  if (campaignIndex === -1) throw new Error('Campagne non trouvée');
+  
+  mockAdvancedCampaigns[campaignIndex] = {
+    ...mockAdvancedCampaigns[campaignIndex],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  
+  return mockAdvancedCampaigns[campaignIndex];
 };

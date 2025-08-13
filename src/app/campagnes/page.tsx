@@ -1,98 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import Link from 'next/link';
 import {
   MegaphoneIcon,
   PlusIcon,
-  EyeIcon,
   ChartBarIcon,
+  MagnifyingGlassIcon,
+  HashtagIcon,
   CalendarDaysIcon,
-  UserGroupIcon,
+  EyeIcon,
 } from '@heroicons/react/24/outline';
 import {
-  CheckCircleIcon,
-  PlayCircleIcon,
-  PauseCircleIcon,
-  StopCircleIcon,
+  PlayCircleIcon as PlayCircleIconSolid,
+  PauseCircleIcon as PauseCircleIconSolid,
+  CheckCircleIcon as CheckCircleIconSolid,
+  DocumentTextIcon,
 } from '@heroicons/react/24/solid';
+import { CampaignTracker } from '@/types';
+import { getAdvancedCampaigns, createCampaign } from '@/lib/mockData';
+import CreateCampaignModal from '@/components/campaigns/CreateCampaignModal';
 
-// Types pour les campagnes
-interface Campaign {
-  id: string;
-  name: string;
-  status: 'draft' | 'active' | 'paused' | 'completed';
-  type: 'email' | 'social' | 'influencer';
-  startDate: string;
-  endDate: string;
-  budget: number;
-  spent: number;
-  impressions: number;
-  clicks: number;
-  conversions: number;
-  influencers: number;
-}
-
-// Données mock pour les campagnes
-const mockCampaigns: Campaign[] = [
-  {
-    id: '1',
-    name: 'Lancement Produit Été 2025',
-    status: 'active',
-    type: 'influencer',
-    startDate: '2025-01-15',
-    endDate: '2025-02-15',
-    budget: 15000,
-    spent: 8500,
-    impressions: 245000,
-    clicks: 12500,
-    conversions: 850,
-    influencers: 12
-  },
-  {
-    id: '2',
-    name: 'Campagne Awareness Q1',
-    status: 'paused',
-    type: 'social',
-    startDate: '2025-01-01',
-    endDate: '2025-03-31',
-    budget: 25000,
-    spent: 12000,
-    impressions: 180000,
-    clicks: 9200,
-    conversions: 650,
-    influencers: 8
-  },
-  {
-    id: '3',
-    name: 'Newsletter Hebdo',
-    status: 'active',
-    type: 'email',
-    startDate: '2025-01-01',
-    endDate: '2025-12-31',
-    budget: 5000,
-    spent: 1200,
-    impressions: 45000,
-    clicks: 3500,
-    conversions: 280,
-    influencers: 0
-  }
-];
-
-const getStatusIcon = (status: Campaign['status']) => {
+// Fonction pour obtenir l'icône du statut
+const getStatusIcon = (status: CampaignTracker['status']) => {
   switch (status) {
     case 'active':
-      return <PlayCircleIcon className="w-5 h-5 text-green-500" />;
+      return <PlayCircleIconSolid className="w-4 h-4 text-green-500" />;
     case 'paused':
-      return <PauseCircleIcon className="w-5 h-5 text-orange-500" />;
+      return <PauseCircleIconSolid className="w-4 h-4 text-orange-500" />;
     case 'completed':
-      return <CheckCircleIcon className="w-5 h-5 text-blue-500" />;
+      return <CheckCircleIconSolid className="w-4 h-4 text-blue-500" />;
+    case 'cancelled':
+      return <CheckCircleIconSolid className="w-4 h-4 text-red-500" />;
     default:
-      return <StopCircleIcon className="w-5 h-5 text-gray-400" />;
+      return <DocumentTextIcon className="w-4 h-4 text-gray-400" />;
   }
 };
 
-const getStatusText = (status: Campaign['status']) => {
+// Fonction pour obtenir le texte du statut
+const getStatusText = (status: CampaignTracker['status']) => {
   switch (status) {
     case 'active':
       return 'Actif';
@@ -100,6 +48,8 @@ const getStatusText = (status: Campaign['status']) => {
       return 'En pause';
     case 'completed':
       return 'Terminé';
+    case 'cancelled':
+      return 'Annulé';
     case 'draft':
       return 'Brouillon';
     default:
@@ -107,241 +57,361 @@ const getStatusText = (status: Campaign['status']) => {
   }
 };
 
-const getTypeText = (type: Campaign['type']) => {
-  switch (type) {
-    case 'influencer':
-      return 'Influenceurs';
-    case 'social':
-      return 'Réseaux Sociaux';
-    case 'email':
-      return 'Email';
+// Fonction pour obtenir les couleurs du statut
+const getStatusColors = (status: CampaignTracker['status']) => {
+  switch (status) {
+    case 'active':
+      return 'bg-green-100 text-green-800';
+    case 'paused':
+      return 'bg-orange-100 text-orange-800';
+    case 'completed':
+      return 'bg-blue-100 text-blue-800';
+    case 'cancelled':
+      return 'bg-red-100 text-red-800';
+    case 'draft':
+      return 'bg-gray-100 text-gray-800';
     default:
-      return 'Autre';
+      return 'bg-gray-100 text-gray-800';
   }
 };
 
-export default function CampagnesPage() {
-  const [campaigns] = useState<Campaign[]>(mockCampaigns);
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'active' | 'paused' | 'completed'>('all');
+export default function SimpleCampaignsPage() {
+  const [campaigns, setCampaigns] = useState<CampaignTracker[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const filteredCampaigns = campaigns.filter(campaign => 
-    selectedFilter === 'all' || campaign.status === selectedFilter
-  );
+  // Charger les campagnes
+  useEffect(() => {
+    const loadCampaigns = async () => {
+      try {
+        const data = await getAdvancedCampaigns();
+        setCampaigns(data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des campagnes:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-      minimumFractionDigits: 0
-    }).format(amount);
+    loadCampaigns();
+  }, []);
+
+  // Filtrer les campagnes
+  const filteredCampaigns = campaigns.filter((campaign) => {
+    if (!searchQuery.trim()) return true;
+    return (
+      campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      campaign.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  // Créer une nouvelle campagne
+  const handleCreateCampaign = async (campaignData: {
+    name: string;
+    description: string;
+    hashtags: string[];
+    platforms: string[];
+  }) => {
+    try {
+      const newCampaign = await createCampaign({
+        name: campaignData.name,
+        description: campaignData.description,
+        trackingConfig: {
+          hashtags: campaignData.hashtags,
+          mentions: [],
+          keywords: [],
+          platforms: campaignData.platforms as (
+            | 'instagram'
+            | 'youtube'
+            | 'tiktok'
+          )[],
+          autoImport: true,
+          flagMissingHashtags: true,
+          flagMissingDisclosure: true,
+          eventMode: false,
+        },
+        creators: [],
+        totalBudget: 0,
+      });
+
+      setCampaigns((prev) => [newCampaign, ...prev]);
+    } catch (error) {
+      console.error('Erreur lors de la création de la campagne:', error);
+      alert('Erreur lors de la création de la campagne');
+    }
   };
 
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('fr-FR').format(num);
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num.toString();
   };
 
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/3 mb-6"></div>
+          <div className="space-y-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-8 max-w-7xl">
-      {/* Header avec statistiques globales */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 shadow-lg shadow-purple-500/5">
-        <div className="flex items-center justify-between mb-6">
+    <div className="space-y-8 max-w-6xl">
+      {/* Header simple */}
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25">
-              <MegaphoneIcon className="w-7 h-7 text-white" />
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/25">
+              <MegaphoneIcon className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
-                Campagnes
-              </h1>
-              <p className="text-gray-600 mt-1">Gérez et analysez vos campagnes marketing</p>
+              <h1 className="text-3xl font-bold text-gray-900">Campagnes</h1>
+              <p className="text-gray-600 mt-1">
+                Gérez vos campagnes de tracking d&apos;influence
+              </p>
             </div>
           </div>
-          <Button variant="default" className="flex items-center space-x-2">
+          <Button
+            onClick={() => setShowCreateModal(true)}
+            className="flex items-center space-x-2"
+          >
             <PlusIcon className="w-5 h-5" />
-            <span>Nouvelle Campagne</span>
+            <span>Nouvelle campagne</span>
           </Button>
         </div>
 
-        {/* Statistiques globales */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-gradient-to-br from-blue-50/80 to-blue-100/80 rounded-2xl p-6 border border-blue-200/30">
+        {/* Statistiques simples */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-700 text-sm font-medium uppercase tracking-wide">Campagnes Actives</p>
-                <p className="text-3xl font-bold text-blue-800">
-                  {campaigns.filter(c => c.status === 'active').length}
+                <p className="text-green-700 text-sm font-medium">
+                  Campagnes actives
+                </p>
+                <p className="text-2xl font-bold text-green-800">
+                  {campaigns.filter((c) => c.status === 'active').length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
-                <PlayCircleIcon className="w-7 h-7 text-white" />
-              </div>
+              <PlayCircleIconSolid className="w-8 h-8 text-green-500" />
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50/80 to-green-100/80 rounded-2xl p-6 border border-green-200/30">
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-700 text-sm font-medium uppercase tracking-wide">Budget Total</p>
-                <p className="text-3xl font-bold text-green-800">
-                  {formatCurrency(campaigns.reduce((sum, c) => sum + c.budget, 0))}
+                <p className="text-blue-700 text-sm font-medium">
+                  Total campagnes
+                </p>
+                <p className="text-2xl font-bold text-blue-800">
+                  {campaigns.length}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
-                <ChartBarIcon className="w-7 h-7 text-white" />
-              </div>
+              <MegaphoneIcon className="w-8 h-8 text-blue-500" />
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50/80 to-purple-100/80 rounded-2xl p-6 border border-purple-200/30">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-700 text-sm font-medium uppercase tracking-wide">Impressions</p>
-                <p className="text-3xl font-bold text-purple-800">
-                  {formatNumber(campaigns.reduce((sum, c) => sum + c.impressions, 0))}
+                <p className="text-purple-700 text-sm font-medium">
+                  Total impressions
+                </p>
+                <p className="text-2xl font-bold text-purple-800">
+                  {formatNumber(
+                    campaigns.reduce(
+                      (sum, c) => sum + c.analytics.reach.totalImpressions,
+                      0
+                    )
+                  )}
                 </p>
               </div>
-              <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center">
-                <EyeIcon className="w-7 h-7 text-white" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-orange-50/80 to-orange-100/80 rounded-2xl p-6 border border-orange-200/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-orange-700 text-sm font-medium uppercase tracking-wide">Conversions</p>
-                <p className="text-3xl font-bold text-orange-800">
-                  {formatNumber(campaigns.reduce((sum, c) => sum + c.conversions, 0))}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
-                <CheckCircleIcon className="w-7 h-7 text-white" />
-              </div>
+              <EyeIcon className="w-8 h-8 text-purple-500" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Filtres */}
-      <div className="flex items-center space-x-4">
-        <span className="text-gray-700 font-medium">Filtrer par statut :</span>
-        {['all', 'active', 'paused', 'completed'].map((filter) => (
-          <button
-            key={filter}
-            onClick={() => setSelectedFilter(filter as typeof selectedFilter)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              selectedFilter === filter
-                ? 'bg-purple-600 text-white shadow-md'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {filter === 'all' ? 'Toutes' : getStatusText(filter as Campaign['status'])}
-          </button>
-        ))}
-      </div>
+      {/* Recherche */}
+      {campaigns.length > 0 && (
+        <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
+          <div className="relative max-w-md">
+            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Rechercher une campagne..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Liste des campagnes */}
-      <div className="space-y-4">
-        {filteredCampaigns.map((campaign) => (
-          <div
-            key={campaign.id}
-            className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-lg shadow-gray-500/5 hover:shadow-xl hover:shadow-gray-500/10 transition-all duration-300"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center space-x-4 mb-4">
-                  <h3 className="text-xl font-bold text-gray-900">{campaign.name}</h3>
-                  <div className="flex items-center space-x-2">
-                    {getStatusIcon(campaign.status)}
-                    <span className="text-sm font-medium text-gray-600">
-                      {getStatusText(campaign.status)}
-                    </span>
+      {filteredCampaigns.length === 0 ? (
+        <div className="text-center py-12">
+          <div className="text-6xl mb-4">📢</div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            {campaigns.length === 0
+              ? 'Aucune campagne créée'
+              : 'Aucune campagne trouvée'}
+          </h3>
+          <p className="text-gray-600 mb-6">
+            {campaigns.length === 0
+              ? 'Créez votre première campagne pour commencer le tracking'
+              : 'Essayez de modifier votre recherche'}
+          </p>
+          {campaigns.length === 0 && (
+            <Button
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center space-x-2"
+            >
+              <PlusIcon className="w-4 h-4" />
+              <span>Créer ma première campagne</span>
+            </Button>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {filteredCampaigns.map((campaign) => (
+            <div
+              key={campaign.id}
+              className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              {/* Header de la campagne */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <Link
+                      href={`/campagnes/${campaign.id}`}
+                      className="text-xl font-bold text-gray-900 hover:text-purple-600 transition-colors"
+                    >
+                      {campaign.name}
+                    </Link>
+                    <div className="flex items-center space-x-2">
+                      {getStatusIcon(campaign.status)}
+                      <span
+                        className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColors(campaign.status)}`}
+                      >
+                        {getStatusText(campaign.status)}
+                      </span>
+                    </div>
                   </div>
-                  <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
-                    {getTypeText(campaign.type)}
+
+                  {campaign.description && (
+                    <p className="text-gray-600 mb-3">{campaign.description}</p>
+                  )}
+
+                  {/* Hashtags */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {campaign.trackingConfig.hashtags
+                      .slice(0, 4)
+                      .map((hashtag) => (
+                        <span
+                          key={hashtag}
+                          className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full"
+                        >
+                          <HashtagIcon className="w-3 h-3" />
+                          <span>{hashtag}</span>
+                        </span>
+                      ))}
+                    {campaign.trackingConfig.hashtags.length > 4 && (
+                      <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                        +{campaign.trackingConfig.hashtags.length - 4}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex space-x-2">
+                  <Link href={`/campagnes/${campaign.id}`}>
+                    <Button size="sm" className="flex items-center space-x-1">
+                      <ChartBarIcon className="w-4 h-4" />
+                      <span>Voir</span>
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Métriques simplifiées */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-gray-100">
+                <div className="text-center">
+                  <div className="text-sm text-gray-500">Contenus</div>
+                  <div className="text-lg font-bold text-gray-900">
+                    {campaign.analytics.content.totalPosts}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-sm text-gray-500">Impressions</div>
+                  <div className="text-lg font-bold text-purple-600">
+                    {formatNumber(campaign.analytics.reach.totalImpressions)}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-sm text-gray-500">Engagements</div>
+                  <div className="text-lg font-bold text-blue-600">
+                    {formatNumber(
+                      campaign.analytics.engagement.totalEngagements
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-sm text-gray-500">Créateurs</div>
+                  <div className="text-lg font-bold text-gray-900">
+                    {campaign.analytics.content.creatorsPosted}/
+                    {campaign.analytics.content.totalCreators}
+                  </div>
+                </div>
+              </div>
+
+              {/* Période */}
+              <div className="flex items-center justify-between text-sm text-gray-500 mt-4 pt-3 border-t border-gray-100">
+                <div className="flex items-center space-x-2">
+                  <CalendarDaysIcon className="w-4 h-4" />
+                  <span>
+                    {new Date(campaign.startDate).toLocaleDateString('fr-FR')}
+                    {campaign.endDate && (
+                      <>
+                        {' '}
+                        -{' '}
+                        {new Date(campaign.endDate).toLocaleDateString('fr-FR')}
+                      </>
+                    )}
                   </span>
                 </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-                  <div className="flex items-center space-x-2">
-                    <CalendarDaysIcon className="w-4 h-4 text-gray-500" />
-                    <div>
-                      <p className="text-xs text-gray-500">Période</p>
-                      <p className="text-sm font-medium text-gray-900">
-                        {new Date(campaign.startDate).toLocaleDateString('fr-FR')} - {new Date(campaign.endDate).toLocaleDateString('fr-FR')}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-gray-500">Budget</p>
-                    <p className="text-sm font-medium text-gray-900">{formatCurrency(campaign.budget)}</p>
-                    <p className="text-xs text-gray-500">Dépensé: {formatCurrency(campaign.spent)}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-gray-500">Impressions</p>
-                    <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.impressions)}</p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-gray-500">Clics</p>
-                    <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.clicks)}</p>
-                    <p className="text-xs text-gray-500">
-                      CTR: {((campaign.clicks / campaign.impressions) * 100).toFixed(2)}%
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs text-gray-500">Conversions</p>
-                    <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.conversions)}</p>
-                    <p className="text-xs text-gray-500">
-                      Taux: {((campaign.conversions / campaign.clicks) * 100).toFixed(2)}%
-                    </p>
-                  </div>
-
-                  {campaign.influencers > 0 && (
-                    <div className="flex items-center space-x-2">
-                      <UserGroupIcon className="w-4 h-4 text-gray-500" />
-                      <div>
-                        <p className="text-xs text-gray-500">Influenceurs</p>
-                        <p className="text-sm font-medium text-gray-900">{campaign.influencers}</p>
-                      </div>
-                    </div>
-                  )}
+                <div className="flex space-x-2">
+                  {campaign.trackingConfig.platforms.map((platform) => (
+                    <span
+                      key={platform}
+                      className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full capitalize"
+                    >
+                      {platform}
+                    </span>
+                  ))}
                 </div>
               </div>
-
-              <div className="flex flex-col space-y-2 ml-6">
-                <Button variant="outline" size="sm" className="flex items-center space-x-1">
-                  <EyeIcon className="w-4 h-4" />
-                  <span>Voir</span>
-                </Button>
-                <Button variant="outline" size="sm" className="flex items-center space-x-1">
-                  <ChartBarIcon className="w-4 h-4" />
-                  <span>Analytics</span>
-                </Button>
-              </div>
             </div>
+          ))}
+        </div>
+      )}
 
-            {/* Barre de progression du budget */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs font-medium text-gray-500">Progression du budget</span>
-                <span className="text-xs font-medium text-gray-700">
-                  {((campaign.spent / campaign.budget) * 100).toFixed(0)}%
-                </span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-gradient-to-r from-purple-600 to-purple-700 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${Math.min((campaign.spent / campaign.budget) * 100, 100)}%` }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Modal de création */}
+      <CreateCampaignModal
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onCreate={handleCreateCampaign}
+      />
     </div>
   );
 }

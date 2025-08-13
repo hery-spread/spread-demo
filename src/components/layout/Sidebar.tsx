@@ -202,7 +202,7 @@ export default function Sidebar() {
             />
             Mon compte
           </Link>
-          
+
           <Link
             href="/pricing"
             className={`
@@ -224,7 +224,7 @@ export default function Sidebar() {
             Mon abonnement
           </Link>
         </div>
-        
+
         <div className="mt-3 pt-3 border-t border-gray-100">
           <div className="text-xs text-gray-400 text-center">
             © 2025 Spread

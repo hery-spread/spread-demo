@@ -22,8 +22,10 @@ import {
 interface SearchResultsTableProps {
   results: Influencer[];
   loading?: boolean;
+  selectedInfluencers?: string[];
   onViewProfile?: (influencer: Influencer) => void;
   onAddToList?: (influencer: Influencer) => void;
+  onSelectInfluencer?: (influencerId: string) => void;
 }
 
 type SortField = 'name' | 'followers' | 'engagement' | 'platform';
