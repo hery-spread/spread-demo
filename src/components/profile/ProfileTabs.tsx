@@ -5,7 +5,6 @@ type ProfileTab =
   | 'audience'
   | 'content'
   | 'contact'
-  | 'communications'
   | 'performance';
 
 interface ProfileTabsProps {
@@ -48,12 +47,6 @@ export default function ProfileTabs({
       id: 'contact' as ProfileTab,
       name: 'Contact',
       icon: '📧',
-      available: true,
-    },
-    {
-      id: 'communications' as ProfileTab,
-      name: 'Communications',
-      icon: '💬',
       available: true,
     },
   ];

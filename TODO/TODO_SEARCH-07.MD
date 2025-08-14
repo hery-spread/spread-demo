@@ -52,11 +52,13 @@ Références (Modash):
 Exigence non‑négociable: récupérer et rendre disponibles dans notre couche de données l’intégralité des champs fournis par Modash pour les endpoints Search et Report des 3 plateformes. Aucun champ ne doit être perdu (conserver un `raw` complet par item).
 
 Références officielles:
+
 - Instagram: `https://docs.modash.io/products/discovery_api/openapi_doc/discovery/instagram`
 - YouTube: `https://docs.modash.io/products/discovery_api/openapi_doc/discovery/youtube`
 - TikTok: `https://docs.modash.io/products/discovery_api/openapi_doc/discovery/tiktok/tiktokcontroller_search`
 
 À intégrer (communs, lorsque disponibles par plateforme):
+
 - Requête Search
   - `sort`: `{ field, direction, sortedValue?, value? }`
   - `page`: number
@@ -95,13 +97,16 @@ Références officielles:
   - Instagram spécifiques: `/instagram/interests`, `/instagram/brands`
 
 Sort/Pagination UI:
+
 - Exposer au moins: followers, engagement_rate, views; direction asc/desc; page (15 résultats/page par défaut Modash).
 
 Types & persistance:
+
 - Générer des types `Modash{Platform}SearchResult` et `Modash{Platform}Report` (OpenAPI → types) et conserver `raw: unknown` complet par item pour audit.
 - Mapper uniquement ce qui est nécessaire pour l’UI; tout le reste reste accessible via `raw`.
 
 Critère de vérification:
+
 - Écrire une checklist par plateforme confirmant que chaque groupe de champs du schéma OpenAPI reçu est présent soit mappé, soit dans `raw`.
 
 ---

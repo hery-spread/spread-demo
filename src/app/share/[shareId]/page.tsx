@@ -346,8 +346,8 @@ export default function SharePage() {
             Trouvez des influenceurs comme {report.name}
           </h3>
           <p className="text-purple-100 mb-6">
-            Accédez à plus de 100 000 profils d&apos;influenceurs avec des
-            analyses détaillées
+            Accédez à plus de 250 000 000 de profils d&apos;influenceurs avec
+            des analyses détaillées
           </p>
           <Button
             className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3"

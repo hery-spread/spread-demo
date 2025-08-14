@@ -12,8 +12,8 @@ import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
 import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
-import ThreadViewer from '@/components/communication/ThreadViewer';
-import { CommunicationProvider } from '@/contexts/CommunicationContext';
+// import ThreadViewer from '@/components/communication/ThreadViewer';
+// import { CommunicationProvider } from '@/contexts/CommunicationContext';
 // import PerformanceChart from '@/components/profile/charts/PerformanceChart';
 // import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
 // import PostPerformance from '@/components/profile/charts/PostPerformance';
@@ -27,7 +27,6 @@ type ProfileTab =
   | 'audience'
   | 'content'
   | 'contact'
-  | 'communications'
   | 'performance';
 
 export default function ProfilePage() {
@@ -558,18 +557,18 @@ export default function ProfilePage() {
           </div>
         );
 
-      case 'communications':
-        return (
-          <div className="p-6">
-            <CommunicationProvider>
-              <ThreadViewer
-                contactId={influencer.id}
-                showHeader={false}
-                compact={true}
-              />
-            </CommunicationProvider>
-          </div>
-        );
+      // case 'communications':
+      //   return (
+      //     <div className="p-6">
+      //       <CommunicationProvider>
+      //         <ThreadViewer
+      //           contactId={influencer.id}
+      //           showHeader={false}
+      //           compact={true}
+      //         />
+      //       </CommunicationProvider>
+      //     </div>
+      //   );
 
       case 'performance':
         // FORCER l'affichage de la modal pour le test (même si detailedData existe)
