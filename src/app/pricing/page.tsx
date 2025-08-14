@@ -6,7 +6,9 @@ import PricingCalculator from '@/components/pricing/PricingCalculator';
 import PlanComparison from '@/components/pricing/PlanComparison';
 
 export default function PricingPage() {
-  const [activeTab, setActiveTab] = useState<'calculator' | 'plans'>('plans');
+  const [activeTab, setActiveTab] = useState<'calculator' | 'plans'>(
+    'calculator'
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
