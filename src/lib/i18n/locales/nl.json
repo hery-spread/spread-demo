@@ -259,7 +259,11 @@
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "te Revolutioneren?",
     "subtitle": "Sluit je aan bij 2.847+ merken die hun strategie al hebben getransformeerd met Spread. Start nu je gratis proefperiode.",
-    "urgency": "🔥 Speciale aanbieding: 20% korting op je eerste jaar!",
+    "urgency": {
+      "offer": "🔥 Speciale aanbieding: 20% korting op je eerste jaar!",
+      "brands": "marketeers vertrouwen ons al",
+      "timeSaved": "bespaard per week gemiddeld"
+    },
     "benefits": [
       "✅ Installatie in minder dan 5 minuten",
       "✅ Toegang tot 250M+ influencer profielen",

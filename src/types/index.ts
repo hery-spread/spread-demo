@@ -280,8 +280,8 @@ export interface CampaignContent {
   publishedAt: string;
   detectedAt: string; // Quand le contenu a été détecté/importé
   
-  // Tracking et hashtags
-  trackedHashtags: string[]; // Hashtags trouvés dans le contenu
+  // Tracking et mentions
+  trackedLinks: string[]; // Liens trouvés dans le contenu
   trackedMentions: string[]; // Mentions trouvées
   trackedKeywords: string[]; // Keywords trouvés
   
@@ -322,12 +322,15 @@ export interface CampaignTracker {
   
   // Configuration de tracking
   trackingConfig: {
-    hashtags: string[]; // #samsungCampagne2025
+    links: {
+      url: string;
+      label?: string;
+      budget?: number;
+    }[]; // Liens à suivre avec budgets optionnels
     mentions: string[]; // @samsung, @influencer
     keywords: string[]; // mots-clés à chercher
     platforms: ('instagram' | 'youtube' | 'tiktok')[];
     autoImport: boolean; // Import automatique des contenus détectés
-    flagMissingHashtags: boolean;
     flagMissingDisclosure: boolean;
     eventMode: boolean; // Mode événement pour tracking limité
   };

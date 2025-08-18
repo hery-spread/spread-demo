@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { useI18n } from '@/lib/i18n/context';
 import {
   RocketLaunchIcon,
   CalendarDaysIcon,
@@ -10,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function CTASection() {
+  const { t } = useI18n();
   const handleStartTrial = () => {
     window.location.href = '/onboarding';
   };
@@ -22,12 +24,12 @@ export default function CTASection() {
     {
       icon: UserGroupIcon,
       number: '2,847+',
-      label: 'marketeurs nous font déjà confiance',
+      label: t('cta.urgency.brands'),
     },
     {
       icon: ChartBarIcon,
       number: '10h',
-      label: 'économisées par semaine en moyenne',
+      label: t('cta.urgency.timeSaved'),
     },
     {
       icon: SparklesIcon,

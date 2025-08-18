@@ -258,7 +258,11 @@
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "?",
     "subtitle": "Rejoignez 2,847+ marques qui ont déjà transformé leur stratégie avec Spread. Commencez votre essai gratuit maintenant.",
-    "urgency": "🔥 Offre spéciale : 20% de réduction sur votre première année !",
+    "urgency": {
+      "offer": "🔥 Offre spéciale : 20% de réduction sur votre première année !",
+      "brands": "marketeurs nous font déjà confiance",
+      "timeSaved": "économisées par semaine en moyenne"
+    },
     "benefits": [
       "✅ Configuration en moins de 5 minutes",
       "✅ Accès à 250M+ profils d'influenceurs",

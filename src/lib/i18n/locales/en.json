@@ -258,7 +258,11 @@
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "?",
     "subtitle": "Join 2,847+ brands who have already transformed their strategy with Spread. Start your free trial now.",
-    "urgency": "🔥 Special offer: 20% off your first year!",
+    "urgency": {
+      "offer": "🔥 Special offer: 20% off your first year!",
+      "brands": "marketers already trust us",
+      "timeSaved": "saved per week on average"
+    },
     "benefits": [
       "✅ Setup in less than 5 minutes",
       "✅ Access to 250M+ influencer profiles",
