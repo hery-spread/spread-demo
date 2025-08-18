@@ -127,47 +127,47 @@
     "title": "They already",
     "titleHighlight": " trust us ",
     "subtitle": "Join thousands of marketers who have transformed their influence strategy with Spread.",
-    "testimonials": [
-      {
+        "testimonials": {
+      "0": {
         "name": "Marie Dubois",
         "role": "Marketing Manager",
         "company": "Beauty Brand Paris",
         "text": "Spread helped us identify the perfect influencers for our brand. Our ROI increased by 347% in 6 months!",
         "results": "+347% ROI"
       },
-      {
-        "name": "Thomas Chen",
+      "1": {
+        "name": "Thomas Chen", 
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "Spread's AI understands exactly what we're looking for. No more spending hours manually filtering. It's magic!",
         "results": "10h saved/week"
       },
-      {
+      "2": {
         "name": "Sophie Martin",
         "role": "Marketing Director",
         "company": "Fashion House",
         "text": "The integrated CRM allows us to manage all our campaigns in one place. It's a game-changer for our productivity.",
         "results": "+250% conversions"
       }
-    ],
-    "stats": [
-      {
+    },
+        "stats": {
+      "0": {
         "number": "98%",
         "label": "Customer satisfaction rate"
       },
-      {
-        "number": "2,847+",
+      "1": {
+        "number": "2,847+", 
         "label": "Brands trust us"
       },
-      {
+      "2": {
         "number": "250M+",
-        "label": "Referenced influencers"
+        "label": "Referenced influencers" 
       },
-      {
+      "3": {
         "number": "10h",
         "label": "Saved per week"
       }
-    ],
+    },
     "trustIndicators": {
       "excellence": {
         "title": "Recognized Excellence",

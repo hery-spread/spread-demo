@@ -128,47 +128,47 @@
     "titleHighlight": " vertrouwen ons ",
     "titleEnd": "al",
     "subtitle": "Sluit je aan bij duizenden marketeers die hun influence strategie hebben getransformeerd met Spread.",
-    "testimonials": [
-      {
+        "testimonials": {
+      "0": {
         "name": "Marie Dubois",
         "role": "Marketing Manager",
         "company": "Beauty Brand Paris",
         "text": "Spread heeft ons geholpen de perfecte influencers voor ons merk te identificeren. Onze ROI steeg met 347% in 6 maanden!",
         "results": "+347% ROI"
       },
-      {
-        "name": "Thomas Chen",
+      "1": {
+        "name": "Thomas Chen", 
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "Spread's AI begrijpt precies waar we naar zoeken. Geen uren meer besteden aan handmatig filteren. Het is magisch!",
         "results": "10u bespaard/week"
       },
-      {
+      "2": {
         "name": "Sophie Martin",
         "role": "Marketing Directeur",
         "company": "Fashion House",
         "text": "De geïntegreerde CRM stelt ons in staat om al onze campagnes op één plek te beheren. Het verandert de productiviteit volledig.",
         "results": "+250% conversies"
       }
-    ],
-    "stats": [
-      {
+    },
+        "stats": {
+      "0": {
         "number": "98%",
         "label": "Klanttevredenheidspercentage"
       },
-      {
-        "number": "2.847+",
+      "1": {
+        "number": "2.847+", 
         "label": "Merken vertrouwen ons"
       },
-      {
+      "2": {
         "number": "250M+",
-        "label": "Gerefereerde influencers"
+        "label": "Gerefereerde influencers" 
       },
-      {
+      "3": {
         "number": "10u",
         "label": "Bespaard per week"
       }
-    ],
+    },
     "trustIndicators": {
       "excellence": {
         "title": "Erkende Excellentie",

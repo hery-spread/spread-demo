@@ -127,47 +127,47 @@
     "title": "Ils nous font déjà",
     "titleHighlight": " confiance ",
     "subtitle": "Rejoignez des milliers de marketeurs qui ont transformé leur stratégie d'influence avec Spread.",
-    "testimonials": [
-      {
+        "testimonials": {
+      "0": {
         "name": "Marie Dubois",
-        "role": "Marketing Manager",
+        "role": "Marketing Manager", 
         "company": "Beauty Brand Paris",
         "text": "Spread nous a permis d'identifier les influenceurs parfaits pour notre marque. Notre ROI a augmenté de 347% en 6 mois !",
         "results": "+347% de ROI"
       },
-      {
-        "name": "Thomas Chen",
+      "1": {
+        "name": "Thomas Chen", 
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "L'IA de Spread comprend exactement ce qu'on cherche. Plus besoin de passer des heures à filtrer manuellement. C'est magique !",
         "results": "10h économisées/semaine"
       },
-      {
+      "2": {
         "name": "Sophie Martin",
         "role": "Directrice Marketing",
         "company": "Fashion House",
         "text": "Le CRM intégré nous permet de gérer toutes nos campagnes en un seul endroit. C'est un game-changer pour notre productivité.",
         "results": "+250% de conversions"
       }
-    ],
-    "stats": [
-      {
+    },
+        "stats": {
+      "0": {
         "number": "98%",
         "label": "Taux de satisfaction client"
       },
-      {
-        "number": "2,847+",
+      "1": {
+        "number": "2,847+", 
         "label": "Marques nous font confiance"
       },
-      {
+      "2": {
         "number": "250M+",
-        "label": "Influenceurs référencés"
+        "label": "Influenceurs référencés" 
       },
-      {
+      "3": {
         "number": "10h",
         "label": "Économisées par semaine"
       }
-    ],
+    },
     "trustIndicators": {
       "excellence": {
         "title": "Excellence Reconnue",

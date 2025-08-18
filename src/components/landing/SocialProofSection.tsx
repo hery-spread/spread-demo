@@ -1,44 +1,46 @@
 'use client';
 
+import { useI18n } from '@/lib/i18n/context';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 
 export default function SocialProofSection() {
+  const { t } = useI18n();
   const testimonials = [
     {
-      name: 'Marie Dubois',
-      role: 'Marketing Manager',
-      company: 'Fashion Brand Co.',
+      name: t('socialProof.testimonials.0.name'),
+      role: t('socialProof.testimonials.0.role'),
+      company: t('socialProof.testimonials.0.company'),
       avatar: 'MD',
       rating: 5,
-      text: 'Spread a révolutionné notre façon de travailler. Nous trouvons maintenant les influenceurs parfaits en quelques minutes au lieu de plusieurs heures.',
-      results: '+347% ROI sur nos campagnes',
+      text: t('socialProof.testimonials.0.text'),
+      results: t('socialProof.testimonials.0.results'),
     },
     {
-      name: 'Thomas Chen',
-      role: 'Founder',
-      company: 'Tech Startup Inc.',
+      name: t('socialProof.testimonials.1.name'),
+      role: t('socialProof.testimonials.1.role'), 
+      company: t('socialProof.testimonials.1.company'),
       avatar: 'TC',
       rating: 5,
-      text: "La qualité des données d'audience est exceptionnelle. Nous prenons enfin des décisions basées sur de vraies données, pas des approximations.",
-      results: '10h économisées par semaine',
+      text: t('socialProof.testimonials.1.text'),
+      results: t('socialProof.testimonials.1.results'),
     },
     {
-      name: 'Sophie Martin',
-      role: 'Directrice Marketing',
-      company: 'Beauty & Wellness',
+      name: t('socialProof.testimonials.2.name'),
+      role: t('socialProof.testimonials.2.role'),
+      company: t('socialProof.testimonials.2.company'),
       avatar: 'SM',
       rating: 5,
-      text: "Le CRM intégré nous permet de gérer toutes nos campagnes en un seul endroit. C'est un game-changer pour notre productivité.",
-      results: '+250% de conversions',
+      text: t('socialProof.testimonials.2.text'),
+      results: t('socialProof.testimonials.2.results'),
     },
   ];
 
   const stats = [
-    { number: '98%', label: 'Taux de satisfaction client' },
-    { number: '2,847+', label: 'Marques nous font confiance' },
-    { number: '250M+', label: 'Influenceurs référencés' },
-    { number: '10h', label: 'Économisées par semaine' },
+    { number: t('socialProof.stats.0.number'), label: t('socialProof.stats.0.label') },
+    { number: t('socialProof.stats.1.number'), label: t('socialProof.stats.1.label') },
+    { number: t('socialProof.stats.2.number'), label: t('socialProof.stats.2.label') },
+    { number: t('socialProof.stats.3.number'), label: t('socialProof.stats.3.label') },
   ];
 
   return (
@@ -48,18 +50,17 @@ export default function SocialProofSection() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-6">
             <StarIcon className="w-4 h-4 mr-2" />
-            Approuvé par 2,847+ marketeurs
+{t('socialProof.badge')}
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Ils nous font déjà
+{t('socialProof.title')}
             <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
               {' '}
-              confiance{' '}
+{t('socialProof.titleHighlight')}
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Découvrez pourquoi les plus grandes marques choisissent Spread pour
-            leurs campagnes d&apos;influence
+{t('socialProof.subtitle')}
           </p>
         </div>
 
@@ -130,10 +131,10 @@ export default function SocialProofSection() {
                 <StarIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">
-                Excellence Reconnue
+{t('socialProof.trustIndicators.excellence.title')}
               </h3>
               <p className="text-gray-600 text-sm">
-                Noté 4.9/5 sur Trustpilot avec plus de 500 avis vérifiés
+{t('socialProof.trustIndicators.excellence.description')}
               </p>
             </div>
 
@@ -141,9 +142,9 @@ export default function SocialProofSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
                 <UserGroupIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Support Dédié</h3>
+              <h3 className="font-bold text-gray-900 mb-2">{t('socialProof.trustIndicators.support.title')}</h3>
               <p className="text-gray-600 text-sm">
-                Équipe support francophone disponible 7j/7 pour vous accompagner
+{t('socialProof.trustIndicators.support.description')}
               </p>
             </div>
 
@@ -152,10 +153,10 @@ export default function SocialProofSection() {
                 <div className="text-white font-bold">🔒</div>
               </div>
               <h3 className="font-bold text-gray-900 mb-2">
-                Données Sécurisées
+{t('socialProof.trustIndicators.security.title')}
               </h3>
               <p className="text-gray-600 text-sm">
-                Conformité RGPD et chiffrement de niveau bancaire de vos données
+{t('socialProof.trustIndicators.security.description')}
               </p>
             </div>
           </div>
