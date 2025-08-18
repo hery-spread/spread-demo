@@ -459,7 +459,9 @@ export default function SharedCampaignPage() {
                 <div className="flex items-center justify-center mb-2">
                   <VideoCameraIcon className="w-5 h-5 text-gray-400 mr-2" />
                   <span className="text-2xl font-bold text-gray-900">
-                    {campaign.analytics.reach.averageVideoER ? `${campaign.analytics.reach.averageVideoER}%` : '-'}
+                    {campaign.analytics.reach.averageVideoER
+                      ? `${campaign.analytics.reach.averageVideoER}%`
+                      : '-'}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600">Avg. video ER</p>
@@ -543,7 +545,9 @@ export default function SharedCampaignPage() {
                     <div className="flex items-center justify-center mb-2">
                       <BanknotesIcon className="w-5 h-5 text-gray-400 mr-2" />
                       <span className="text-2xl font-bold text-gray-900">
-                        {formatCurrency(campaign.analytics.financials.averageCPM)}
+                        {formatCurrency(
+                          campaign.analytics.financials.averageCPM
+                        )}
                       </span>
                     </div>
                     <p className="text-sm text-gray-600">CPM</p>
@@ -555,11 +559,16 @@ export default function SharedCampaignPage() {
 
           {/* Campaign setup */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
-            <h3 className="text-lg font-bold text-gray-900 mb-6">Campaign setup</h3>
-            
+            <h3 className="text-lg font-bold text-gray-900 mb-6">
+              Campaign setup
+            </h3>
+
             <div className="space-y-4">
               {campaign.trackingConfig.links.map((link, index) => (
-                <div key={index} className="flex items-start justify-between p-4 bg-purple-50 rounded-lg border border-purple-100">
+                <div
+                  key={index}
+                  className="flex items-start justify-between p-4 bg-purple-50 rounded-lg border border-purple-100"
+                >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start space-x-3">
                       <div className="flex-1">
