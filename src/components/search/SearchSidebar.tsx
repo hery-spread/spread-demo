@@ -9,17 +9,16 @@ import {
 import { AdvancedSearchFilters, SearchUIState } from '@/types';
 import TextSearchSection from './TextSearchSection';
 import PlatformSearchCard from './PlatformSearchCard';
-import CreatorFiltersCard from './CreatorFiltersCard';
-import AudienceFiltersCard from './AudienceFiltersCard';
-import ContentFiltersCard from './ContentFiltersCard';
+import CreatorIdentityFiltersCard from './CreatorIdentityFiltersCard';
+import AudienceTargetingFiltersCard from './AudienceTargetingFiltersCard';
+import PerformanceFiltersCard from './PerformanceFiltersCard';
+import GrowthSponsoringFiltersCard from './GrowthSponsoringFiltersCard';
 
 interface SearchSidebarProps {
   searchState: SearchUIState;
   onSearchStateChange: (state: Partial<SearchUIState>) => void;
   onSearch: () => void;
   isSearching?: boolean;
-  calculationMethod?: 'median' | 'average';
-  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 export default function SearchSidebar({
@@ -27,8 +26,6 @@ export default function SearchSidebar({
   onSearchStateChange,
   onSearch,
   isSearching = false,
-  calculationMethod = 'median',
-  onCalculationMethodChange,
 }: SearchSidebarProps) {
   const updateFilters = (newFilters: AdvancedSearchFilters) => {
     onSearchStateChange({
@@ -53,9 +50,10 @@ export default function SearchSidebar({
       activeFilters: {},
       cardStates: {
         'platform-search': true,
-        'creator-filters': true,
-        'audience-filters': true,
-        'content-filters': true,
+        'creator-identity-filters': true,
+        'audience-targeting-filters': true,
+        'performance-filters': true,
+        'growth-sponsoring-filters': true,
       },
     });
   };
@@ -117,6 +115,59 @@ export default function SearchSidebar({
       count += contentKeys.length;
     }
 
+    // Compter les filtres de performance
+    if (filters.performance) {
+      const performanceKeys = Object.keys(filters.performance).filter((key) => {
+        const value = filters.performance![key as keyof typeof filters.performance];
+        if (
+          typeof value === 'object' &&
+          value !== null &&
+          !Array.isArray(value)
+        ) {
+          return Object.keys(value).length > 0;
+        }
+        if (Array.isArray(value)) return value.length > 0;
+        if (typeof value === 'string') return value.trim().length > 0;
+        return value !== undefined && value !== null;
+      });
+      count += performanceKeys.length;
+    }
+
+    // Compter les filtres de croissance
+    if (filters.growth) {
+      const growthKeys = Object.keys(filters.growth).filter((key) => {
+        const value = filters.growth![key as keyof typeof filters.growth];
+        if (
+          typeof value === 'object' &&
+          value !== null &&
+          !Array.isArray(value)
+        ) {
+          return Object.keys(value).length > 0;
+        }
+        if (typeof value === 'string') return value.trim().length > 0;
+        return value !== undefined && value !== null;
+      });
+      count += growthKeys.length;
+    }
+
+    // Compter les filtres de sponsoring
+    if (filters.sponsoring) {
+      const sponsoringKeys = Object.keys(filters.sponsoring).filter((key) => {
+        const value = filters.sponsoring![key as keyof typeof filters.sponsoring];
+        if (
+          typeof value === 'object' &&
+          value !== null &&
+          !Array.isArray(value)
+        ) {
+          return Object.keys(value).length > 0;
+        }
+        if (Array.isArray(value)) return value.length > 0;
+        if (typeof value === 'string') return value.trim().length > 0;
+        return value !== undefined && value !== null;
+      });
+      count += sponsoringKeys.length;
+    }
+
     return count;
   };
 
@@ -163,40 +214,48 @@ export default function SearchSidebar({
           onFiltersChange={updateFilters}
         />
 
-        {/* Card Plateforme */}
+        {/* Card Plateforme (sans calculationMethod) */}
         <PlatformSearchCard
           isOpen={searchState.cardStates['platform-search'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
-          calculationMethod={calculationMethod}
-          onCalculationMethodChange={onCalculationMethodChange}
         />
 
-        {/* Card Créateur */}
-        <CreatorFiltersCard
-          isOpen={searchState.cardStates['creator-filters'] ?? true}
+        {/* 1. Créateur (identité & thématique) - PRIORITAIRE */}
+        <CreatorIdentityFiltersCard
+          isOpen={searchState.cardStates['creator-identity-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
           selectedPlatform={searchState.activeFilters.platforms?.[0]}
         />
 
-        {/* Card Audience */}
-        <AudienceFiltersCard
-          isOpen={searchState.cardStates['audience-filters'] ?? true}
+        {/* 2. Audience (qui ils touchent) */}
+        <AudienceTargetingFiltersCard
+          isOpen={searchState.cardStates['audience-targeting-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
           selectedPlatform={searchState.activeFilters.platforms?.[0]}
         />
 
-        {/* Card Contenu */}
-        <ContentFiltersCard
-          isOpen={searchState.cardStates['content-filters'] ?? true}
+        {/* 3. Performance (taille & performance) */}
+        <PerformanceFiltersCard
+          isOpen={searchState.cardStates['performance-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
+          selectedPlatform={searchState.activeFilters.platforms?.[0]}
+        />
+
+        {/* 4. Croissance & Sponsoring */}
+        <GrowthSponsoringFiltersCard
+          isOpen={searchState.cardStates['growth-sponsoring-filters'] ?? true}
+          onToggle={updateCardState}
+          filters={searchState.activeFilters}
+          onFiltersChange={updateFilters}
+          selectedPlatform={searchState.activeFilters.platforms?.[0]}
         />
       </div>
 

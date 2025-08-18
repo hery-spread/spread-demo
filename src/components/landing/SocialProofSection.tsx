@@ -12,7 +12,7 @@ export default function SocialProofSection() {
       avatar: 'MD',
       rating: 5,
       text: 'Spread a révolutionné notre façon de travailler. Nous trouvons maintenant les influenceurs parfaits en quelques minutes au lieu de plusieurs heures.',
-      results: '+347% ROI sur nos campagnes'
+      results: '+347% ROI sur nos campagnes',
     },
     {
       name: 'Thomas Chen',
@@ -20,8 +20,8 @@ export default function SocialProofSection() {
       company: 'Tech Startup Inc.',
       avatar: 'TC',
       rating: 5,
-      text: 'La qualité des données d\'audience est exceptionnelle. Nous prenons enfin des décisions basées sur de vraies données, pas des approximations.',
-      results: '10h économisées par semaine'
+      text: "La qualité des données d'audience est exceptionnelle. Nous prenons enfin des décisions basées sur de vraies données, pas des approximations.",
+      results: '10h économisées par semaine',
     },
     {
       name: 'Sophie Martin',
@@ -29,20 +29,25 @@ export default function SocialProofSection() {
       company: 'Beauty & Wellness',
       avatar: 'SM',
       rating: 5,
-      text: 'Le CRM intégré nous permet de gérer toutes nos campagnes en un seul endroit. C\'est un game-changer pour notre productivité.',
-      results: '+250% de conversions'
-    }
+      text: "Le CRM intégré nous permet de gérer toutes nos campagnes en un seul endroit. C'est un game-changer pour notre productivité.",
+      results: '+250% de conversions',
+    },
   ];
 
   const companyLogos = [
-    'Sephora', 'L\'Oréal', 'Nike', 'Adidas', 'Samsung', 'Coca-Cola'
+    'Sephora',
+    "L'Oréal",
+    'Nike',
+    'Adidas',
+    'Samsung',
+    'Coca-Cola',
   ];
 
   const stats = [
     { number: '98%', label: 'Taux de satisfaction client' },
     { number: '2,847+', label: 'Marques nous font confiance' },
     { number: '1.2M+', label: 'Influenceurs référencés' },
-    { number: '10h', label: 'Économisées par semaine' }
+    { number: '10h', label: 'Économisées par semaine' },
   ];
 
   return (
@@ -56,10 +61,14 @@ export default function SocialProofSection() {
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Ils nous font déjà
-            <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent"> confiance </span>
+            <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              {' '}
+              confiance{' '}
+            </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Découvrez pourquoi les plus grandes marques choisissent Spread pour leurs campagnes d'influence
+            Découvrez pourquoi les plus grandes marques choisissent Spread pour
+            leurs campagnes d'influence
           </p>
         </div>
 
@@ -70,9 +79,7 @@ export default function SocialProofSection() {
               <div className="text-4xl lg:text-5xl font-bold text-purple-600 mb-2">
                 {stat.number}
               </div>
-              <div className="text-gray-600 font-medium">
-                {stat.label}
-              </div>
+              <div className="text-gray-600 font-medium">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -109,9 +116,15 @@ export default function SocialProofSection() {
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-gray-600 text-sm">{testimonial.role}</div>
-                  <div className="text-gray-500 text-xs">{testimonial.company}</div>
+                  <div className="font-semibold text-gray-900">
+                    {testimonial.name}
+                  </div>
+                  <div className="text-gray-600 text-sm">
+                    {testimonial.role}
+                  </div>
+                  <div className="text-gray-500 text-xs">
+                    {testimonial.company}
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,9 +142,7 @@ export default function SocialProofSection() {
                 key={index}
                 className="bg-white/50 backdrop-blur-sm rounded-2xl p-4 w-full h-16 flex items-center justify-center border border-gray-200/50 hover:opacity-100 transition-opacity duration-300"
               >
-                <div className="font-bold text-gray-600 text-lg">
-                  {company}
-                </div>
+                <div className="font-bold text-gray-600 text-lg">{company}</div>
               </div>
             ))}
           </div>
@@ -144,24 +155,34 @@ export default function SocialProofSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-4">
                 <StarIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Excellence Reconnue</h3>
-              <p className="text-gray-600 text-sm">Noté 4.9/5 sur Trustpilot avec plus de 500 avis vérifiés</p>
+              <h3 className="font-bold text-gray-900 mb-2">
+                Excellence Reconnue
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Noté 4.9/5 sur Trustpilot avec plus de 500 avis vérifiés
+              </p>
             </div>
-            
+
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
                 <UserGroupIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">Support Dédié</h3>
-              <p className="text-gray-600 text-sm">Équipe support francophone disponible 7j/7 pour vous accompagner</p>
+              <p className="text-gray-600 text-sm">
+                Équipe support francophone disponible 7j/7 pour vous accompagner
+              </p>
             </div>
-            
+
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
                 <div className="text-white font-bold">🔒</div>
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">Données Sécurisées</h3>
-              <p className="text-gray-600 text-sm">Conformité RGPD et chiffrement de niveau bancaire de vos données</p>
+              <h3 className="font-bold text-gray-900 mb-2">
+                Données Sécurisées
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Conformité RGPD et chiffrement de niveau bancaire de vos données
+              </p>
             </div>
           </div>
         </div>

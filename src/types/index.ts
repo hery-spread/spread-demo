@@ -521,22 +521,22 @@ export interface AdvancedSearchFilters {
     languages?: string[]; // Langues parlées (legacy)
   };
   
-  // Audience
+  // Audience (qui ils touchent)
   audience?: {
-    followersRange?: { min: number; max: number };
-    engagementRange?: { min: number; max: number }; // En pourcentage
-    avgLikesRange?: { min: number; max: number };
-    avgCommentsRange?: { min: number; max: number };
-    avgSharesRange?: { min: number; max: number };
-    avgViewsRange?: { min: number; max: number }; // Pour vidéos
+    // Géographie de l'audience
     locations?: {
       countries?: string[]; // Pays multi-select (simple)
       cities?: string[]; // Villes multi-select (simple)
     };
+    audienceLanguage?: string; // Langue principale de l'audience
+    
+    // Genre de l'audience
     audienceGender?: {
       malePercentage?: { min: number; max: number };
       femalePercentage?: { min: number; max: number };
     };
+    
+    // Âge de l'audience (avec système de poids Modash)
     audienceAgeRange?: {
       age13_17?: { min: number; max: number };
       age18_24?: { min: number; max: number };
@@ -545,10 +545,114 @@ export interface AdvancedSearchFilters {
       age45_54?: { min: number; max: number };
       age55plus?: { min: number; max: number };
     };
+    audienceAgeModash?: Array<{
+      id: string; // '13-17', '18-24', etc.
+      weight: number; // 0.1 à 1.0
+    }>;
+    
+    // Intérêts de l'audience (Instagram uniquement)
+    audienceInterests?: Array<{
+      id: number;
+      name: string;
+      weight: number;
+    }>;
+    
+    // Qualité de l'audience
+    audienceCredibility?: number; // 0 à 1 (crédibilité)
+    
+    // Filtres avancés avec poids Modash
+    audienceLocationModash?: Array<{
+      id: number;
+      name: string;
+      weight: number;
+    }>;
+    audienceLanguageModash?: Array<{
+      code: string;
+      name: string;
+      weight: number;
+    }>;
+    
+    // Legacy fields
+    followersRange?: { min: number; max: number };
+    engagementRange?: { min: number; max: number }; // En pourcentage
+    avgLikesRange?: { min: number; max: number };
+    avgCommentsRange?: { min: number; max: number };
+    avgSharesRange?: { min: number; max: number };
+    avgViewsRange?: { min: number; max: number }; // Pour vidéos
     audienceLocation?: {
       topCountries?: string[];
       excludeCountries?: string[];
     };
+  };
+  
+  // Performance (taille & performance)
+  performance?: {
+    // Taille de l'audience
+    followersRange?: { min: number; max: number };
+    
+    // Portée/Vues
+    avgViewsRange?: { min: number; max: number };
+    avgReelsViewsRange?: { min: number; max: number }; // Instagram
+    
+    // Engagement
+    engagementRateRange?: { min: number; max: number };
+    avgLikesRange?: { min: number; max: number };
+    avgCommentsRange?: { min: number; max: number };
+    avgSharesRange?: { min: number; max: number }; // TikTok
+    avgSavesRange?: { min: number; max: number }; // TikTok
+    
+    // Contactabilité
+    hasEmail?: boolean;
+    hasPhoneNumber?: boolean;
+    contactTypes?: string[]; // Types de contact disponibles
+    
+    // Métriques spécifiques par plateforme
+    avgVideoDuration?: { min: number; max: number }; // YouTube (minutes)
+    uploadFrequency?: string; // YouTube
+    storiesPostRatio?: string; // Instagram
+    hasReels?: boolean; // Instagram
+    avgTikTokDuration?: { min: number; max: number }; // TikTok (secondes)
+    usesTrends?: boolean; // TikTok
+  };
+  
+  // Croissance
+  growth?: {
+    // Croissance des followers
+    followersGrowthPeriod?: string;
+    followersGrowthRate?: { min: number; max: number };
+    
+    // Tendance générale
+    growthTrend?: 'declining' | 'stable' | 'growing' | 'fast-growing' | 'viral';
+    
+    // Croissance des vues (YouTube/TikTok)
+    viewsGrowthPeriod?: string;
+    viewsGrowthRate?: { min: number; max: number };
+    
+    // Croissance des likes (TikTok)
+    likesGrowthPeriod?: string;
+    likesGrowthRate?: { min: number; max: number };
+    
+    // Âge du compte
+    minAccountAge?: number;
+    maxAccountAge?: number;
+  };
+  
+  // Sponsoring
+  sponsoring?: {
+    // Posts sponsorisés
+    hasSponsoredPosts?: boolean;
+    sponsoredPostFrequency?: string;
+    collaborationRate?: { min: number; max: number };
+    
+    // Types de collaborations
+    collaborationTypes?: string[];
+    collaborationSectors?: string[];
+    
+    // Tarification
+    priceRange?: { min: number; max: number };
+    
+    // Disponibilité
+    availability?: string;
   };
   
   // Contenu

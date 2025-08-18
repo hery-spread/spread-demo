@@ -1,12 +1,11 @@
 'use client';
 
-import { 
-  ShieldCheckIcon, 
-  GlobeAltIcon, 
-
+import {
+  ShieldCheckIcon,
+  GlobeAltIcon,
   SparklesIcon,
   CheckBadgeIcon,
-  LockClosedIcon
+  LockClosedIcon,
 } from '@heroicons/react/24/outline';
 
 export default function TrustIndicators() {
@@ -14,46 +13,50 @@ export default function TrustIndicators() {
     {
       icon: ShieldCheckIcon,
       title: 'RGPD Compliant',
-      description: 'Conformité totale avec le règlement européen sur la protection des données'
+      description:
+        'Conformité totale avec le règlement européen sur la protection des données',
     },
     {
       icon: LockClosedIcon,
       title: 'SSL Certifié',
-      description: 'Chiffrement de niveau bancaire pour toutes vos données sensibles'
+      description:
+        'Chiffrement de niveau bancaire pour toutes vos données sensibles',
     },
     {
       icon: CheckBadgeIcon,
       title: 'ISO 27001',
-      description: 'Certification de sécurité des systèmes d\'information'
+      description: "Certification de sécurité des systèmes d'information",
     },
     {
       icon: GlobeAltIcon,
       title: 'Uptime 99.9%',
-      description: 'Disponibilité garantie avec infrastructure redondante'
-    }
+      description: 'Disponibilité garantie avec infrastructure redondante',
+    },
   ];
 
   const guarantees = [
     {
       icon: '💰',
       title: 'Garantie 30 jours',
-      description: 'Remboursement intégral sans question si vous n\'êtes pas satisfait'
+      description:
+        "Remboursement intégral sans question si vous n'êtes pas satisfait",
     },
     {
       icon: '🔄',
       title: 'Migration gratuite',
-      description: 'Nous migrons gratuitement vos données depuis votre outil actuel'
+      description:
+        'Nous migrons gratuitement vos données depuis votre outil actuel',
     },
     {
       icon: '📞',
       title: 'Formation incluse',
-      description: 'Session de formation personnalisée pour votre équipe'
+      description: 'Session de formation personnalisée pour votre équipe',
     },
     {
       icon: '⚡',
       title: 'Setup en 2 minutes',
-      description: 'Configuration automatique et prise en main immédiate'
-    }
+      description: 'Configuration automatique et prise en main immédiate',
+    },
   ];
 
   return (
@@ -69,7 +72,8 @@ export default function TrustIndicators() {
             Vos données entre de bonnes mains
           </h3>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Spread respecte les plus hauts standards de sécurité et de protection des données
+            Spread respecte les plus hauts standards de sécurité et de
+            protection des données
           </p>
         </div>
 
@@ -110,9 +114,7 @@ export default function TrustIndicators() {
             {guarantees.map((guarantee, index) => (
               <div key={index} className="text-center group">
                 <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 group-hover:from-purple-100 group-hover:to-indigo-100 transition-all duration-300">
-                  <div className="text-3xl mb-3">
-                    {guarantee.icon}
-                  </div>
+                  <div className="text-3xl mb-3">{guarantee.icon}</div>
                   <div className="font-semibold text-gray-900 mb-2 text-sm">
                     {guarantee.title}
                   </div>

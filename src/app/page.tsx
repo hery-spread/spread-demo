@@ -12,19 +12,19 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section (TOFU) */}
       <HeroSection />
-      
+
       {/* Features Section (MOFU) */}
       <FeaturesSection />
-      
+
       {/* Social Proof Section (MOFU) */}
       <SocialProofSection />
-      
+
       {/* Pricing Preview Section (BOFU) */}
       <PricingPreview />
-      
+
       {/* Call to Action Section (BOFU) */}
       <CTASection />
-      
+
       {/* Trust Indicators */}
       <TrustIndicators />
     </div>

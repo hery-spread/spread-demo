@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import { 
-  CheckIcon, 
+import {
+  CheckIcon,
   SparklesIcon,
   RocketLaunchIcon,
-  BuildingOfficeIcon
+  BuildingOfficeIcon,
 } from '@heroicons/react/24/outline';
 
 export default function PricingPreview() {
@@ -28,7 +28,7 @@ export default function PricingPreview() {
         'Support email',
       ],
       cta: 'Essai Gratuit 14 Jours',
-      color: 'gray'
+      color: 'gray',
     },
     {
       id: 'pro',
@@ -47,7 +47,7 @@ export default function PricingPreview() {
         'API access',
       ],
       cta: 'Essai Gratuit 14 Jours',
-      color: 'purple'
+      color: 'purple',
     },
     {
       id: 'elite',
@@ -67,7 +67,7 @@ export default function PricingPreview() {
         'Manager dédié',
       ],
       cta: 'Contactez les Ventes',
-      color: 'indigo'
+      color: 'indigo',
     },
   ];
 
@@ -88,8 +88,9 @@ export default function PricingPreview() {
       return {
         border: 'border-purple-500 border-2',
         bg: 'bg-gradient-to-br from-purple-50 to-indigo-50',
-        button: 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white',
-        iconBg: 'from-purple-500 to-indigo-500'
+        button:
+          'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white',
+        iconBg: 'from-purple-500 to-indigo-500',
       };
     }
 
@@ -98,20 +99,20 @@ export default function PricingPreview() {
         border: 'border-gray-200',
         bg: 'bg-white',
         button: 'bg-gray-900 hover:bg-gray-800 text-white',
-        iconBg: 'from-gray-500 to-gray-600'
+        iconBg: 'from-gray-500 to-gray-600',
       },
       purple: {
         border: 'border-purple-200',
         bg: 'bg-purple-50',
         button: 'bg-purple-600 hover:bg-purple-700 text-white',
-        iconBg: 'from-purple-500 to-purple-600'
+        iconBg: 'from-purple-500 to-purple-600',
       },
       indigo: {
         border: 'border-indigo-200',
         bg: 'bg-indigo-50',
         button: 'bg-indigo-600 hover:bg-indigo-700 text-white',
-        iconBg: 'from-indigo-500 to-indigo-600'
-      }
+        iconBg: 'from-indigo-500 to-indigo-600',
+      },
     };
     return colorMap[color as keyof typeof colorMap];
   };
@@ -127,7 +128,10 @@ export default function PricingPreview() {
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             Choisissez le plan
-            <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent"> parfait </span>
+            <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              {' '}
+              parfait{' '}
+            </span>
             pour votre équipe
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -176,7 +180,9 @@ export default function PricingPreview() {
               <div
                 key={plan.id}
                 className={`relative rounded-3xl p-8 ${colors.bg} ${colors.border} ${
-                  plan.popular ? 'shadow-2xl shadow-purple-500/20 transform scale-105' : 'shadow-lg hover:shadow-xl'
+                  plan.popular
+                    ? 'shadow-2xl shadow-purple-500/20 transform scale-105'
+                    : 'shadow-lg hover:shadow-xl'
                 } transition-all duration-300 hover:transform hover:scale-105`}
               >
                 {/* Popular Badge */}
@@ -190,10 +196,14 @@ export default function PricingPreview() {
 
                 {/* Plan Header */}
                 <div className="text-center mb-8">
-                  <div className={`inline-flex w-16 h-16 items-center justify-center rounded-2xl bg-gradient-to-br ${colors.iconBg} mb-4 shadow-lg`}>
+                  <div
+                    className={`inline-flex w-16 h-16 items-center justify-center rounded-2xl bg-gradient-to-br ${colors.iconBg} mb-4 shadow-lg`}
+                  >
                     <Icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    {plan.name}
+                  </h3>
                   <p className="text-gray-600">{plan.description}</p>
                 </div>
 
@@ -207,7 +217,13 @@ export default function PricingPreview() {
                   </div>
                   {billing === 'yearly' && (
                     <div className="text-sm text-green-600 font-medium mt-1">
-                      Économisez {((plan.price.monthly * 12 - plan.price.yearly) / (plan.price.monthly * 12) * 100).toFixed(0)}% avec l\'abonnement annuel
+                      Économisez{' '}
+                      {(
+                        ((plan.price.monthly * 12 - plan.price.yearly) /
+                          (plan.price.monthly * 12)) *
+                        100
+                      ).toFixed(0)}
+                      % avec l\'abonnement annuel
                     </div>
                   )}
                 </div>
@@ -258,7 +274,8 @@ export default function PricingPreview() {
                 💳 Puis-je changer de plan à tout moment ?
               </h4>
               <p className="text-gray-600 text-sm">
-                Oui, vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements sont pris en compte immédiatement.
+                Oui, vous pouvez upgrader ou downgrader votre plan à tout
+                moment. Les changements sont pris en compte immédiatement.
               </p>
             </div>
             <div>
@@ -266,7 +283,8 @@ export default function PricingPreview() {
                 🔄 Que se passe-t-il après l'essai gratuit ?
               </h4>
               <p className="text-gray-600 text-sm">
-                Votre compte passe automatiquement au plan sélectionné. Vous pouvez annuler à tout moment avant la fin de l\'essai.
+                Votre compte passe automatiquement au plan sélectionné. Vous
+                pouvez annuler à tout moment avant la fin de l\'essai.
               </p>
             </div>
             <div>
@@ -274,7 +292,8 @@ export default function PricingPreview() {
                 📊 Les crédits sont-ils reportés chaque mois ?
               </h4>
               <p className="text-gray-600 text-sm">
-                Non, les crédits se renouvellent chaque mois. Vous pouvez acheter des crédits supplémentaires si nécessaire.
+                Non, les crédits se renouvellent chaque mois. Vous pouvez
+                acheter des crédits supplémentaires si nécessaire.
               </p>
             </div>
             <div>
@@ -282,7 +301,8 @@ export default function PricingPreview() {
                 🎯 Y a-t-il des frais cachés ?
               </h4>
               <p className="text-gray-600 text-sm">
-                Aucun. Nos tarifs sont transparents et incluent toutes les fonctionnalités listées dans votre plan.
+                Aucun. Nos tarifs sont transparents et incluent toutes les
+                fonctionnalités listées dans votre plan.
               </p>
             </div>
           </div>

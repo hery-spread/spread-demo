@@ -47,7 +47,7 @@ Création d'une landing page moderne et convertissante à la racine du projet po
 - [ ] Modifier `src/app/page.tsx` pour intégrer la landing
 - [ ] Structurer selon les meilleures pratiques :
   - Hero avec CTA principal (TOFU)
-  - Fonctionnalités et bénéfices (MOFU)  
+  - Fonctionnalités et bénéfices (MOFU)
   - Social proof et réassurance (MOFU)
   - Tarification et urgence (BOFU)
   - CTA final optimisé (BOFU)
@@ -69,7 +69,7 @@ Création d'une landing page moderne et convertissante à la racine du projet po
 ### ✅ Étape 5 : Tests et validation
 
 - [ ] Vérifier `npm run lint`
-- [ ] Vérifier `npm run build`  
+- [ ] Vérifier `npm run build`
 - [ ] Tester la responsivité mobile
 - [ ] Valider l'accessibilité
 - [ ] Optimiser les performances
@@ -79,6 +79,7 @@ Création d'une landing page moderne et convertissante à la racine du projet po
 ### Sections de la Landing Page :
 
 **🚀 HERO SECTION (TOFU)**
+
 - Titre accrocheur : "Trouvez les Influenceurs Parfaits en 30 Secondes"
 - Sous-titre bénéfice : "La première plateforme IA qui révolutionne la recherche d'influenceurs"
 - CTA principal : "Essayer Gratuitement" (14 jours)
@@ -86,29 +87,34 @@ Création d'une landing page moderne et convertissante à la racine du projet po
 - Indicateurs de confiance : "Rejoignez 2,847+ marques"
 
 **✨ FEATURES SECTION (MOFU)**
+
 - 4 fonctionnalités clés avec icônes :
   1. 🔍 Recherche IA Multi-Plateformes
-  2. 📊 Rapports d'Audience Détaillés  
+  2. 📊 Rapports d'Audience Détaillés
   3. 💬 CRM & Communication Intégrée
   4. 📈 Analytics de Performance
 
 **👥 SOCIAL PROOF SECTION (MOFU)**
+
 - Témoignages clients avec avatars
 - Logos partenaires/clients
 - Statistiques d'usage impressionnantes
 - Avis et ratings
 
 **💰 PRICING PREVIEW (BOFU)**
+
 - Aperçu des 3 plans avec focus sur "Pro" (populaire)
 - Mise en avant de l'essai gratuit
 - Comparaison rapide des bénéfices
 
 **🎯 CTA FINAL SECTION (BOFU)**
+
 - Urgence : "Rejoignez 2,847+ marketeurs qui économisent 10h/semaine"
 - Garantie : "Essai gratuit 14 jours - Sans engagement"
 - CTA secondaire : "Réserver une démo"
 
 ### Principes Neuromarketing :
+
 - **Urgence** : Essai limité dans le temps
 - **Preuve sociale** : Témoignages et statistiques
 - **Autorité** : Expertise IA et données

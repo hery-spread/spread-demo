@@ -1,12 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { 
-  RocketLaunchIcon, 
+import {
+  RocketLaunchIcon,
   CalendarDaysIcon,
   SparklesIcon,
   ChartBarIcon,
-  UserGroupIcon
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
 
 export default function CTASection() {
@@ -22,25 +22,25 @@ export default function CTASection() {
     {
       icon: UserGroupIcon,
       number: '2,847+',
-      label: 'marketeurs nous font déjà confiance'
+      label: 'marketeurs nous font déjà confiance',
     },
     {
       icon: ChartBarIcon,
       number: '10h',
-      label: 'économisées par semaine en moyenne'
+      label: 'économisées par semaine en moyenne',
     },
     {
       icon: SparklesIcon,
       number: '347%',
-      label: 'd\'augmentation du ROI en moyenne'
-    }
+      label: "d'augmentation du ROI en moyenne",
+    },
   ];
 
   return (
     <section className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900"></div>
-      
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -59,14 +59,17 @@ export default function CTASection() {
           {/* Main Headline */}
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Rejoignez les 2,847+ marketeurs qui
-            <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent"> économisent 10h/semaine </span>
+            <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+              {' '}
+              économisent 10h/semaine{' '}
+            </span>
             avec Spread
           </h2>
 
           {/* Subheadline */}
           <p className="text-xl lg:text-2xl text-purple-100 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Arrêtez de perdre du temps sur des recherches manuelles d\'influenceurs. 
-            Laissez notre IA faire le travail pour vous.
+            Arrêtez de perdre du temps sur des recherches manuelles
+            d\'influenceurs. Laissez notre IA faire le travail pour vous.
           </p>
 
           {/* CTA Buttons */}
@@ -98,7 +101,9 @@ export default function CTASection() {
                   <span className="text-white font-bold">✓</span>
                 </div>
                 <div className="text-white font-semibold">Sans Engagement</div>
-                <div className="text-purple-200 text-sm">Annulez à tout moment</div>
+                <div className="text-purple-200 text-sm">
+                  Annulez à tout moment
+                </div>
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-3">
@@ -112,7 +117,9 @@ export default function CTASection() {
                   <span className="text-white font-bold">⚡</span>
                 </div>
                 <div className="text-white font-semibold">Accès Immédiat</div>
-                <div className="text-purple-200 text-sm">Configuration en 2 minutes</div>
+                <div className="text-purple-200 text-sm">
+                  Configuration en 2 minutes
+                </div>
               </div>
             </div>
           </div>
@@ -129,9 +136,7 @@ export default function CTASection() {
                   <div className="text-3xl lg:text-4xl font-bold text-white mb-1">
                     {stat.number}
                   </div>
-                  <div className="text-purple-200 text-sm">
-                    {stat.label}
-                  </div>
+                  <div className="text-purple-200 text-sm">{stat.label}</div>
                 </div>
               );
             })}
@@ -144,7 +149,8 @@ export default function CTASection() {
                 ⏰ Ne perdez plus de temps avec des recherches manuelles
               </div>
               <div className="text-white text-sm">
-                Pendant que vous hésitez, vos concurrents trouvent déjà les meilleurs influenceurs avec Spread
+                Pendant que vous hésitez, vos concurrents trouvent déjà les
+                meilleurs influenceurs avec Spread
               </div>
             </div>
           </div>
@@ -155,7 +161,9 @@ export default function CTASection() {
           <div className="flex flex-wrap justify-center items-center gap-8 text-center">
             <div className="flex items-center text-purple-200">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-              <span className="text-sm">2,847+ utilisateurs actifs maintenant</span>
+              <span className="text-sm">
+                2,847+ utilisateurs actifs maintenant
+              </span>
             </div>
             <div className="flex items-center text-purple-200">
               <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2 animate-pulse"></div>

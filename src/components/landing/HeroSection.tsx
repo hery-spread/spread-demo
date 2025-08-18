@@ -1,11 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { 
-  MagnifyingGlassIcon, 
-  ChartBarIcon, 
+import {
+  MagnifyingGlassIcon,
+  ChartBarIcon,
   UserGroupIcon,
-  SparklesIcon 
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 
 export default function HeroSection() {
@@ -40,24 +40,32 @@ export default function HeroSection() {
             {/* Main Headline */}
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Trouvez les
-              <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent"> Influenceurs Parfaits </span>
+              <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                {' '}
+                Influenceurs Parfaits{' '}
+              </span>
               en 30 Secondes
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
-              La première plateforme IA qui révolutionne la recherche d\'influenceurs avec des rapports d\'audience ultra-détaillés
+              La première plateforme IA qui révolutionne la recherche
+              d\'influenceurs avec des rapports d\'audience ultra-détaillés
             </p>
 
             {/* Benefits List */}
             <div className="grid sm:grid-cols-2 gap-4 mb-10">
               <div className="flex items-center">
                 <MagnifyingGlassIcon className="w-5 h-5 text-purple-600 mr-3" />
-                <span className="text-gray-700">Recherche IA Multi-Plateformes</span>
+                <span className="text-gray-700">
+                  Recherche IA Multi-Plateformes
+                </span>
               </div>
               <div className="flex items-center">
                 <ChartBarIcon className="w-5 h-5 text-purple-600 mr-3" />
-                <span className="text-gray-700">Rapports d'Audience Détaillés</span>
+                <span className="text-gray-700">
+                  Rapports d'Audience Détaillés
+                </span>
               </div>
               <div className="flex items-center">
                 <UserGroupIcon className="w-5 h-5 text-purple-600 mr-3" />
@@ -110,19 +118,40 @@ export default function HeroSection() {
                 {/* Results Mockup */}
                 <div className="space-y-4">
                   {[
-                    { name: '@fitcoach_marie', followers: '45.2K', engagement: '4.8%' },
-                    { name: '@healthy_lucas', followers: '32.1K', engagement: '5.2%' },
-                    { name: '@yoga_emma', followers: '28.5K', engagement: '6.1%' }
+                    {
+                      name: '@fitcoach_marie',
+                      followers: '45.2K',
+                      engagement: '4.8%',
+                    },
+                    {
+                      name: '@healthy_lucas',
+                      followers: '32.1K',
+                      engagement: '5.2%',
+                    },
+                    {
+                      name: '@yoga_emma',
+                      followers: '28.5K',
+                      engagement: '6.1%',
+                    },
                   ].map((influencer, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+                    >
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-indigo-400 rounded-full"></div>
                         <div>
-                          <div className="font-semibold text-gray-900">{influencer.name}</div>
-                          <div className="text-sm text-gray-500">{influencer.followers} followers</div>
+                          <div className="font-semibold text-gray-900">
+                            {influencer.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {influencer.followers} followers
+                          </div>
                         </div>
                       </div>
-                      <div className="text-green-600 font-bold">{influencer.engagement}</div>
+                      <div className="text-green-600 font-bold">
+                        {influencer.engagement}
+                      </div>
                     </div>
                   ))}
                 </div>
