@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import {
   ShareIcon,
@@ -183,7 +183,6 @@ const formatCurrency = (amount: number) => {
 
 export default function SharedCampaignPage() {
   const params = useParams();
-  const searchParams = useSearchParams();
   const shareId = params.shareId as string;
   
   const [campaignData, setCampaignData] = useState<{

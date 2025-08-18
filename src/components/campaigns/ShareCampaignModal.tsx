@@ -10,7 +10,6 @@ import {
   ClipboardIcon,
   EyeIcon,
   LockClosedIcon,
-  CurrencyEuroIcon,
 } from '@heroicons/react/24/outline';
 import { CampaignTracker } from '@/types';
 
