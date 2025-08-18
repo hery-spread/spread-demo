@@ -114,8 +114,8 @@ export default function FeaturesSection() {
             vos campagnes
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Une suite complète d'outils conçus pour les professionnels du
-            marketing d'influence moderne
+                         Une suite complète d&apos;outils conçus pour les professionnels du
+             marketing d&apos;influence moderne
           </p>
         </div>
 

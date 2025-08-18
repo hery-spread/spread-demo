@@ -67,8 +67,8 @@ export default function SocialProofSection() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Découvrez pourquoi les plus grandes marques choisissent Spread pour
-            leurs campagnes d'influence
+                         Découvrez pourquoi les plus grandes marques choisissent Spread pour
+             leurs campagnes d&apos;influence
           </p>
         </div>
 

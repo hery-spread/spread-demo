@@ -163,8 +163,7 @@ export default function PlatformSearchCard({
 
   // Calculer les filtres actifs
   const hasActiveFilters = !!currentPlatform || !!filters.userSearch;
-  const filterCount =
-    (currentPlatform ? 1 : 0) + (filters.userSearch ? 1 : 0);
+  const filterCount = (currentPlatform ? 1 : 0) + (filters.userSearch ? 1 : 0);
 
   return (
     <CollapsibleFilterCard
@@ -326,8 +325,6 @@ export default function PlatformSearchCard({
 
           {showAdvancedSettings && (
             <div className="mt-3 space-y-4 p-3 bg-gray-50 rounded-lg">
-
-
               {/* Champs spécifiques à la plateforme */}
               {currentPlatform && (
                 <div>

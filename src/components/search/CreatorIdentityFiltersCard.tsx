@@ -197,7 +197,9 @@ export default function CreatorIdentityFiltersCard({
 
         {/* 3. HASHTAGS/MENTIONS */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">#️⃣ Hashtags & Mentions</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            #️⃣ Hashtags & Mentions
+          </h4>
           <div className="space-y-3">
             <Input
               label="Hashtags utilisés"
@@ -214,10 +216,13 @@ export default function CreatorIdentityFiltersCard({
                   .map((h) => h.trim())
                   .filter((h) => h.length > 0)
                   .map((h) => ({ type: 'hashtag' as const, value: h }));
-                
-                const mentions = filters.creator?.textTags?.filter((tag) => tag.type === 'mention') || [];
+
+                const mentions =
+                  filters.creator?.textTags?.filter(
+                    (tag) => tag.type === 'mention'
+                  ) || [];
                 const allTags = [...hashtags, ...mentions];
-                
+
                 updateCreatorFilter(
                   'textTags',
                   allTags.length > 0 ? allTags : undefined
@@ -240,10 +245,13 @@ export default function CreatorIdentityFiltersCard({
                   .map((m) => m.trim())
                   .filter((m) => m.length > 0)
                   .map((m) => ({ type: 'mention' as const, value: m }));
-                
-                const hashtags = filters.creator?.textTags?.filter((tag) => tag.type === 'hashtag') || [];
+
+                const hashtags =
+                  filters.creator?.textTags?.filter(
+                    (tag) => tag.type === 'hashtag'
+                  ) || [];
                 const allTags = [...hashtags, ...mentions];
-                
+
                 updateCreatorFilter(
                   'textTags',
                   allTags.length > 0 ? allTags : undefined
@@ -263,7 +271,10 @@ export default function CreatorIdentityFiltersCard({
                   type="checkbox"
                   checked={filters.creator?.verified || false}
                   onChange={(e) =>
-                    updateCreatorFilter('verified', e.target.checked || undefined)
+                    updateCreatorFilter(
+                      'verified',
+                      e.target.checked || undefined
+                    )
                   }
                   className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                 />
@@ -331,7 +342,9 @@ export default function CreatorIdentityFiltersCard({
 
         {/* 5. MARQUES & INTÉRÊTS CRÉATEUR */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">🏢 Marques & intérêts</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            🏢 Marques & intérêts
+          </h4>
           <div className="space-y-3">
             <Input
               label="Marques mentionnées"
@@ -407,7 +420,9 @@ export default function CreatorIdentityFiltersCard({
 
         {/* 8. CARACTÉRISTIQUES DÉMOGRAPHIQUES */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">👤 Caractéristiques</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            👤 Caractéristiques
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select
               label="Genre affiché"
@@ -467,7 +482,9 @@ export default function CreatorIdentityFiltersCard({
 
         {/* 9. GÉOGRAPHIE DU CRÉATEUR (après les mots-clés) */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">🌍 Localisation du créateur</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            🌍 Localisation du créateur
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select
               label="Pays"
@@ -537,7 +554,10 @@ export default function CreatorIdentityFiltersCard({
                     type="checkbox"
                     checked={filters.creator?.hasEmail || false}
                     onChange={(e) =>
-                      updateCreatorFilter('hasEmail', e.target.checked || undefined)
+                      updateCreatorFilter(
+                        'hasEmail',
+                        e.target.checked || undefined
+                      )
                     }
                     className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   />

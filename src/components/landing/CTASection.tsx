@@ -32,7 +32,7 @@ export default function CTASection() {
     {
       icon: SparklesIcon,
       number: '347%',
-      label: "d'augmentation du ROI en moyenne",
+             label: "d&apos;augmentation du ROI en moyenne",
     },
   ];
 
@@ -68,8 +68,8 @@ export default function CTASection() {
 
           {/* Subheadline */}
           <p className="text-xl lg:text-2xl text-purple-100 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Arrêtez de perdre du temps sur des recherches manuelles
-            d\'influenceurs. Laissez notre IA faire le travail pour vous.
+                         Arrêtez de perdre du temps sur des recherches manuelles
+             d&apos;influenceurs. Laissez notre IA faire le travail pour vous.
           </p>
 
           {/* CTA Buttons */}

@@ -56,7 +56,7 @@ export default function GrowthSponsoringFiltersCard({
   // Calculer les filtres actifs
   const growthFilters = filters.growth || {};
   const sponsoringFilters = filters.sponsoring || {};
-  
+
   const growthActiveCount = Object.keys(growthFilters).filter((key) => {
     const value = growthFilters[key as keyof typeof growthFilters];
     if (typeof value === 'object' && value !== null) {
@@ -119,7 +119,10 @@ export default function GrowthSponsoringFiltersCard({
                   <Select
                     value={filters.growth?.followersGrowthPeriod || ''}
                     onChange={(e) =>
-                      updateGrowthFilter('followersGrowthPeriod', e.target.value)
+                      updateGrowthFilter(
+                        'followersGrowthPeriod',
+                        e.target.value
+                      )
                     }
                     options={[
                       { value: '', label: 'Toutes périodes' },
@@ -172,7 +175,9 @@ export default function GrowthSponsoringFiltersCard({
               </label>
               <Select
                 value={filters.growth?.growthTrend || ''}
-                onChange={(e) => updateGrowthFilter('growthTrend', e.target.value)}
+                onChange={(e) =>
+                  updateGrowthFilter('growthTrend', e.target.value)
+                }
                 options={[
                   { value: '', label: 'Toutes tendances' },
                   { value: 'declining', label: '📉 En déclin' },
@@ -185,7 +190,8 @@ export default function GrowthSponsoringFiltersCard({
             </div>
 
             {/* Croissance des vues (YouTube/TikTok) */}
-            {(selectedPlatform === 'youtube' || selectedPlatform === 'tiktok') && (
+            {(selectedPlatform === 'youtube' ||
+              selectedPlatform === 'tiktok') && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Croissance des vues
@@ -348,7 +354,9 @@ export default function GrowthSponsoringFiltersCard({
 
             {/* Suggestions de croissance */}
             <div>
-              <p className="text-xs text-gray-600 mb-2">Tendances suggérées :</p>
+              <p className="text-xs text-gray-600 mb-2">
+                Tendances suggérées :
+              </p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { label: 'Stable (0-5%)', trend: 'stable' },
@@ -358,7 +366,9 @@ export default function GrowthSponsoringFiltersCard({
                 ].map((option) => (
                   <button
                     key={option.trend}
-                    onClick={() => updateGrowthFilter('growthTrend', option.trend)}
+                    onClick={() =>
+                      updateGrowthFilter('growthTrend', option.trend)
+                    }
                     className="text-xs px-3 py-1 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition-colors"
                   >
                     {option.label}
@@ -405,12 +415,18 @@ export default function GrowthSponsoringFiltersCard({
                     <Select
                       value={filters.sponsoring?.sponsoredPostFrequency || ''}
                       onChange={(e) =>
-                        updateSponsoringFilter('sponsoredPostFrequency', e.target.value)
+                        updateSponsoringFilter(
+                          'sponsoredPostFrequency',
+                          e.target.value
+                        )
                       }
                       options={[
                         { value: '', label: 'Toute fréquence' },
                         { value: 'rare', label: '🔹 Rare (< 10%)' },
-                        { value: 'occasional', label: '🔸 Occasionnel (10-25%)' },
+                        {
+                          value: 'occasional',
+                          label: '🔸 Occasionnel (10-25%)',
+                        },
                         { value: 'regular', label: '🟡 Régulier (25-50%)' },
                         { value: 'frequent', label: '🟠 Fréquent (> 50%)' },
                       ]}
@@ -471,13 +487,16 @@ export default function GrowthSponsoringFiltersCard({
                   { value: 'long-term', label: '📅 Partenariat long' },
                 ].map((colabType) => {
                   const isSelected =
-                    filters.sponsoring?.collaborationTypes?.includes(colabType.value) || false;
+                    filters.sponsoring?.collaborationTypes?.includes(
+                      colabType.value
+                    ) || false;
 
                   return (
                     <button
                       key={colabType.value}
                       onClick={() => {
-                        const currentTypes = filters.sponsoring?.collaborationTypes || [];
+                        const currentTypes =
+                          filters.sponsoring?.collaborationTypes || [];
                         const newTypes = isSelected
                           ? currentTypes.filter((t) => t !== colabType.value)
                           : [...currentTypes, colabType.value];
@@ -521,13 +540,16 @@ export default function GrowthSponsoringFiltersCard({
                   { value: 'education', label: '📚 Éducation' },
                 ].map((sector) => {
                   const isSelected =
-                    filters.sponsoring?.collaborationSectors?.includes(sector.value) || false;
+                    filters.sponsoring?.collaborationSectors?.includes(
+                      sector.value
+                    ) || false;
 
                   return (
                     <button
                       key={sector.value}
                       onClick={() => {
-                        const currentSectors = filters.sponsoring?.collaborationSectors || [];
+                        const currentSectors =
+                          filters.sponsoring?.collaborationSectors || [];
                         const newSectors = isSelected
                           ? currentSectors.filter((s) => s !== sector.value)
                           : [...currentSectors, sector.value];
@@ -591,7 +613,9 @@ export default function GrowthSponsoringFiltersCard({
               </label>
               <Select
                 value={filters.sponsoring?.availability || ''}
-                onChange={(e) => updateSponsoringFilter('availability', e.target.value)}
+                onChange={(e) =>
+                  updateSponsoringFilter('availability', e.target.value)
+                }
                 options={[
                   { value: '', label: 'Toute disponibilité' },
                   { value: 'immediate', label: '⚡ Immédiate' },
@@ -613,10 +637,20 @@ export default function GrowthSponsoringFiltersCard({
                 Conseils pour la croissance et le sponsoring :
               </p>
               <ul className="space-y-1">
-                <li>• La croissance rapide peut indiquer un contenu viral récent</li>
-                <li>• Les comptes avec du contenu sponsorisé sont plus ouverts aux collaborations</li>
-                <li>• Vérifiez la cohérence entre la niche et les secteurs de collaboration</li>
-                <li>• Les comptes jeunes peuvent avoir des tarifs plus flexibles</li>
+                <li>
+                  • La croissance rapide peut indiquer un contenu viral récent
+                </li>
+                <li>
+                  • Les comptes avec du contenu sponsorisé sont plus ouverts aux
+                  collaborations
+                </li>
+                <li>
+                  • Vérifiez la cohérence entre la niche et les secteurs de
+                  collaboration
+                </li>
+                <li>
+                  • Les comptes jeunes peuvent avoir des tarifs plus flexibles
+                </li>
               </ul>
             </div>
           </div>

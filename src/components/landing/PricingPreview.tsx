@@ -223,7 +223,7 @@ export default function PricingPreview() {
                           (plan.price.monthly * 12)) *
                         100
                       ).toFixed(0)}
-                      % avec l\'abonnement annuel
+                                             % avec l&apos;abonnement annuel
                     </div>
                   )}
                 </div>
@@ -280,11 +280,11 @@ export default function PricingPreview() {
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-2">
-                🔄 Que se passe-t-il après l'essai gratuit ?
+                🔄 Que se passe-t-il après l&apos;essai gratuit ?
               </h4>
               <p className="text-gray-600 text-sm">
-                Votre compte passe automatiquement au plan sélectionné. Vous
-                pouvez annuler à tout moment avant la fin de l\'essai.
+                                 Votre compte passe automatiquement au plan sélectionné. Vous
+                 pouvez annuler à tout moment avant la fin de l&apos;essai.
               </p>
             </div>
             <div>

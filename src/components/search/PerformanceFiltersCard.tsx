@@ -400,7 +400,9 @@ export default function PerformanceFiltersCard({
 
             {/* Suggestions de taux d'engagement */}
             <div>
-              <p className="text-xs text-gray-600 mb-2">Taux d'engagement suggérés :</p>
+              <p className="text-xs text-gray-600 mb-2">
+                Taux d'engagement suggérés :
+              </p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { label: 'Faible (0.5-1%)', min: 0.5, max: 1.0 },
@@ -439,7 +441,10 @@ export default function PerformanceFiltersCard({
                 type="checkbox"
                 checked={filters.performance?.hasEmail || false}
                 onChange={(e) =>
-                  updatePerformanceFilter('hasEmail', e.target.checked || undefined)
+                  updatePerformanceFilter(
+                    'hasEmail',
+                    e.target.checked || undefined
+                  )
                 }
                 className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
               />
@@ -485,13 +490,16 @@ export default function PerformanceFiltersCard({
                   { value: 'linktree', label: '🌳 Linktree' },
                 ].map((contactType) => {
                   const isSelected =
-                    filters.performance?.contactTypes?.includes(contactType.value) || false;
+                    filters.performance?.contactTypes?.includes(
+                      contactType.value
+                    ) || false;
 
                   return (
                     <button
                       key={contactType.value}
                       onClick={() => {
-                        const currentTypes = filters.performance?.contactTypes || [];
+                        const currentTypes =
+                          filters.performance?.contactTypes || [];
                         const newTypes = isSelected
                           ? currentTypes.filter((t) => t !== contactType.value)
                           : [...currentTypes, contactType.value];
@@ -593,7 +601,10 @@ export default function PerformanceFiltersCard({
                   <Select
                     value={filters.performance?.storiesPostRatio || ''}
                     onChange={(e) =>
-                      updatePerformanceFilter('storiesPostRatio', e.target.value)
+                      updatePerformanceFilter(
+                        'storiesPostRatio',
+                        e.target.value
+                      )
                     }
                     options={[
                       { value: '', label: 'Tous ratios' },
@@ -609,7 +620,10 @@ export default function PerformanceFiltersCard({
                     type="checkbox"
                     checked={filters.performance?.hasReels || false}
                     onChange={(e) =>
-                      updatePerformanceFilter('hasReels', e.target.checked || undefined)
+                      updatePerformanceFilter(
+                        'hasReels',
+                        e.target.checked || undefined
+                      )
                     }
                     className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   />
@@ -660,7 +674,10 @@ export default function PerformanceFiltersCard({
                     type="checkbox"
                     checked={filters.performance?.usesTrends || false}
                     onChange={(e) =>
-                      updatePerformanceFilter('usesTrends', e.target.checked || undefined)
+                      updatePerformanceFilter(
+                        'usesTrends',
+                        e.target.checked || undefined
+                      )
                     }
                     className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
                   />

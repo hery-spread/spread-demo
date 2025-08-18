@@ -118,7 +118,8 @@ export default function SearchSidebar({
     // Compter les filtres de performance
     if (filters.performance) {
       const performanceKeys = Object.keys(filters.performance).filter((key) => {
-        const value = filters.performance![key as keyof typeof filters.performance];
+        const value =
+          filters.performance![key as keyof typeof filters.performance];
         if (
           typeof value === 'object' &&
           value !== null &&
@@ -153,7 +154,8 @@ export default function SearchSidebar({
     // Compter les filtres de sponsoring
     if (filters.sponsoring) {
       const sponsoringKeys = Object.keys(filters.sponsoring).filter((key) => {
-        const value = filters.sponsoring![key as keyof typeof filters.sponsoring];
+        const value =
+          filters.sponsoring![key as keyof typeof filters.sponsoring];
         if (
           typeof value === 'object' &&
           value !== null &&

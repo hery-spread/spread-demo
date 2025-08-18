@@ -91,31 +91,42 @@ export default function AudienceTargetingFiltersCard({
     });
   };
 
-  const updateAudienceAgeFilter = (
-    key: AgeKey,
-    weight: number
-  ) => {
+  const updateAudienceAgeFilter = (key: AgeKey, weight: number) => {
     const currentAges = filters.audience?.audienceAgeModash || [];
-    const existingIndex = currentAges.findIndex((age) => age.id === ageRanges.find(r => r.key === key)?.modashId);
-    
+    const existingIndex = currentAges.findIndex(
+      (age) => age.id === ageRanges.find((r) => r.key === key)?.modashId
+    );
+
     let newAges;
     if (existingIndex >= 0) {
       // Update existing
       newAges = [...currentAges];
-      newAges[existingIndex] = { id: ageRanges.find(r => r.key === key)!.modashId, weight };
+      newAges[existingIndex] = {
+        id: ageRanges.find((r) => r.key === key)!.modashId,
+        weight,
+      };
     } else {
       // Add new
-      newAges = [...currentAges, { id: ageRanges.find(r => r.key === key)!.modashId, weight }];
+      newAges = [
+        ...currentAges,
+        { id: ageRanges.find((r) => r.key === key)!.modashId, weight },
+      ];
     }
 
-    updateAudienceFilter('audienceAgeModash', newAges.length > 0 ? newAges : undefined);
+    updateAudienceFilter(
+      'audienceAgeModash',
+      newAges.length > 0 ? newAges : undefined
+    );
   };
 
   const removeAudienceAgeFilter = (key: AgeKey) => {
     const currentAges = filters.audience?.audienceAgeModash || [];
-    const modashId = ageRanges.find(r => r.key === key)?.modashId;
+    const modashId = ageRanges.find((r) => r.key === key)?.modashId;
     const newAges = currentAges.filter((age) => age.id !== modashId);
-    updateAudienceFilter('audienceAgeModash', newAges.length > 0 ? newAges : undefined);
+    updateAudienceFilter(
+      'audienceAgeModash',
+      newAges.length > 0 ? newAges : undefined
+    );
   };
 
   const updateLocationsFilter = (
@@ -233,11 +244,15 @@ export default function AudienceTargetingFiltersCard({
 
         {/* 2. LANGUE DE L'AUDIENCE */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">🗣️ Langue de l'audience</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            🗣️ Langue de l'audience
+          </h4>
           <Select
             label="Langue principale de l'audience"
             value={filters.audience?.audienceLanguage || ''}
-            onChange={(e) => updateAudienceFilter('audienceLanguage', e.target.value)}
+            onChange={(e) =>
+              updateAudienceFilter('audienceLanguage', e.target.value)
+            }
             options={[
               { value: '', label: 'Toutes les langues' },
               { value: 'fr', label: '🇫🇷 Français' },
@@ -258,7 +273,9 @@ export default function AudienceTargetingFiltersCard({
 
         {/* 3. GENRE DE L'AUDIENCE */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">👥 Genre de l'audience</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            👥 Genre de l'audience
+          </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -309,7 +326,8 @@ export default function AudienceTargetingFiltersCard({
                   min="0"
                   max="100"
                   value={
-                    filters.audience?.audienceGender?.femalePercentage?.min || ''
+                    filters.audience?.audienceGender?.femalePercentage?.min ||
+                    ''
                   }
                   onChange={(e) =>
                     updateAudienceGenderFilter('femalePercentage', {
@@ -324,7 +342,8 @@ export default function AudienceTargetingFiltersCard({
                   min="0"
                   max="100"
                   value={
-                    filters.audience?.audienceGender?.femalePercentage?.max || ''
+                    filters.audience?.audienceGender?.femalePercentage?.max ||
+                    ''
                   }
                   onChange={(e) =>
                     updateAudienceGenderFilter('femalePercentage', {
@@ -340,18 +359,21 @@ export default function AudienceTargetingFiltersCard({
 
         {/* 4. ÂGE DE L'AUDIENCE (avec système de poids Modash) */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">🎂 Âge de l'audience</h4>
-          
+          <h4 className="font-medium text-gray-900 mb-3">
+            🎂 Âge de l'audience
+          </h4>
+
           <div className="space-y-3">
             <p className="text-sm text-gray-600">
               Sélectionnez les tranches d'âge avec leur importance (poids) :
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {ageRanges.map((ageRange) => {
-                const existingFilter = filters.audience?.audienceAgeModash?.find(
-                  (age) => age.id === ageRange.modashId
-                );
+                const existingFilter =
+                  filters.audience?.audienceAgeModash?.find(
+                    (age) => age.id === ageRange.modashId
+                  );
                 const isSelected = !!existingFilter;
                 const currentWeight = existingFilter?.weight || 0.3;
 
@@ -383,7 +405,7 @@ export default function AudienceTargetingFiltersCard({
                         </span>
                       </label>
                     </div>
-                    
+
                     {isSelected && (
                       <div>
                         <label className="block text-xs text-gray-600 mb-1">
@@ -431,8 +453,9 @@ export default function AudienceTargetingFiltersCard({
                       Intérêts de l'audience (Instagram uniquement) :
                     </p>
                     <p>
-                      Filtrez par les centres d'intérêt de l'audience du créateur.
-                      Utilisez les poids pour définir l'importance de chaque intérêt.
+                      Filtrez par les centres d'intérêt de l'audience du
+                      créateur. Utilisez les poids pour définir l'importance de
+                      chaque intérêt.
                     </p>
                   </div>
                 </div>
@@ -498,9 +521,17 @@ export default function AudienceTargetingFiltersCard({
                             ]}
                             onChange={(e) => {
                               const weight = parseFloat(e.target.value);
-                              const currentInterests = filters.audience?.audienceInterests || [];
-                              const newInterest = { id: interest.id, name: interest.name, weight };
-                              updateAudienceFilter('audienceInterests', [...currentInterests, newInterest]);
+                              const currentInterests =
+                                filters.audience?.audienceInterests || [];
+                              const newInterest = {
+                                id: interest.id,
+                                name: interest.name,
+                                weight,
+                              };
+                              updateAudienceFilter('audienceInterests', [
+                                ...currentInterests,
+                                newInterest,
+                              ]);
                             }}
                             className="w-20"
                           />
@@ -512,49 +543,57 @@ export default function AudienceTargetingFiltersCard({
               </div>
 
               {/* Affichage des intérêts sélectionnés */}
-              {filters.audience?.audienceInterests && filters.audience.audienceInterests.length > 0 && (
-                <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
-                    Intérêts sélectionnés :
-                  </p>
-                  <div className="space-y-2">
-                    {filters.audience.audienceInterests.map((interest, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between p-2 bg-white rounded border"
-                      >
-                        <span className="text-sm">{interest.name}</span>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-xs text-gray-500">
-                            Poids: {(interest.weight * 100).toFixed(0)}%
-                          </span>
-                          <button
-                            onClick={() => {
-                              const newInterests = filters.audience?.audienceInterests?.filter(
-                                (_, i) => i !== index
-                              );
-                              updateAudienceFilter(
-                                'audienceInterests',
-                                newInterests?.length ? newInterests : undefined
-                              );
-                            }}
-                            className="text-red-500 hover:text-red-700"
+              {filters.audience?.audienceInterests &&
+                filters.audience.audienceInterests.length > 0 && (
+                  <div>
+                    <p className="text-sm font-medium text-gray-700 mb-2">
+                      Intérêts sélectionnés :
+                    </p>
+                    <div className="space-y-2">
+                      {filters.audience.audienceInterests.map(
+                        (interest, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between p-2 bg-white rounded border"
                           >
-                            ×
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                            <span className="text-sm">{interest.name}</span>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-xs text-gray-500">
+                                Poids: {(interest.weight * 100).toFixed(0)}%
+                              </span>
+                              <button
+                                onClick={() => {
+                                  const newInterests =
+                                    filters.audience?.audienceInterests?.filter(
+                                      (_, i) => i !== index
+                                    );
+                                  updateAudienceFilter(
+                                    'audienceInterests',
+                                    newInterests?.length
+                                      ? newInterests
+                                      : undefined
+                                  );
+                                }}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          </div>
+                        )
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
             </div>
           </div>
         )}
 
         {/* 6. QUALITÉ DE L'AUDIENCE */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">🛡️ Qualité de l'audience</h4>
+          <h4 className="font-medium text-gray-900 mb-3">
+            🛡️ Qualité de l'audience
+          </h4>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Crédibilité de l'audience (min %)
@@ -564,7 +603,11 @@ export default function AudienceTargetingFiltersCard({
               min="0"
               max="100"
               placeholder="Ex: 75 (75% d'audience authentique)"
-              value={filters.audience?.audienceCredibility ? (filters.audience.audienceCredibility * 100).toString() : ''}
+              value={
+                filters.audience?.audienceCredibility
+                  ? (filters.audience.audienceCredibility * 100).toString()
+                  : ''
+              }
               onChange={(e) => {
                 const value = parseInt(e.target.value);
                 updateAudienceFilter(
@@ -574,7 +617,8 @@ export default function AudienceTargetingFiltersCard({
               }}
             />
             <p className="text-xs text-gray-500 mt-1">
-              Plus le score est élevé, plus l'audience est authentique (moins de faux followers)
+              Plus le score est élevé, plus l'audience est authentique (moins de
+              faux followers)
             </p>
           </div>
         </div>
@@ -612,7 +656,8 @@ export default function AudienceTargetingFiltersCard({
                           Système de poids Modash :
                         </p>
                         <p>
-                          Définissez l'importance de chaque critère (0.1 = 10%, 0.5 = 50%, etc.)
+                          Définissez l'importance de chaque critère (0.1 = 10%,
+                          0.5 = 50%, etc.)
                         </p>
                       </div>
                     </div>
@@ -682,9 +727,18 @@ export default function AudienceTargetingFiltersCard({
                                 ]}
                                 onChange={(e) => {
                                   const weight = parseFloat(e.target.value);
-                                  const currentLocations = filters.audience?.audienceLocationModash || [];
-                                  const newLocation = { id: location.id, name: location.title, weight };
-                                  updateAudienceFilter('audienceLocationModash', [...currentLocations, newLocation]);
+                                  const currentLocations =
+                                    filters.audience?.audienceLocationModash ||
+                                    [];
+                                  const newLocation = {
+                                    id: location.id,
+                                    name: location.title,
+                                    weight,
+                                  };
+                                  updateAudienceFilter(
+                                    'audienceLocationModash',
+                                    [...currentLocations, newLocation]
+                                  );
                                 }}
                                 className="w-20"
                               />
@@ -696,42 +750,48 @@ export default function AudienceTargetingFiltersCard({
                   </div>
 
                   {/* Affichage des pays sélectionnés avec poids */}
-                  {filters.audience?.audienceLocationModash && filters.audience.audienceLocationModash.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-gray-700 mb-2">
-                        Pays sélectionnés :
-                      </p>
-                      <div className="space-y-2">
-                        {filters.audience.audienceLocationModash.map((location, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between p-2 bg-white rounded border"
-                          >
-                            <span className="text-sm">{location.name}</span>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-xs text-gray-500">
-                                Poids: {(location.weight * 100).toFixed(0)}%
-                              </span>
-                              <button
-                                onClick={() => {
-                                  const newLocations = filters.audience?.audienceLocationModash?.filter(
-                                    (_, i) => i !== index
-                                  );
-                                  updateAudienceFilter(
-                                    'audienceLocationModash',
-                                    newLocations?.length ? newLocations : undefined
-                                  );
-                                }}
-                                className="text-red-500 hover:text-red-700"
+                  {filters.audience?.audienceLocationModash &&
+                    filters.audience.audienceLocationModash.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">
+                          Pays sélectionnés :
+                        </p>
+                        <div className="space-y-2">
+                          {filters.audience.audienceLocationModash.map(
+                            (location, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center justify-between p-2 bg-white rounded border"
                               >
-                                ×
-                              </button>
-                            </div>
-                          </div>
-                        ))}
+                                <span className="text-sm">{location.name}</span>
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-xs text-gray-500">
+                                    Poids: {(location.weight * 100).toFixed(0)}%
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      const newLocations =
+                                        filters.audience?.audienceLocationModash?.filter(
+                                          (_, i) => i !== index
+                                        );
+                                      updateAudienceFilter(
+                                        'audienceLocationModash',
+                                        newLocations?.length
+                                          ? newLocations
+                                          : undefined
+                                      );
+                                    }}
+                                    className="text-red-500 hover:text-red-700"
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              </div>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
 
@@ -806,9 +866,18 @@ export default function AudienceTargetingFiltersCard({
                                 ]}
                                 onChange={(e) => {
                                   const weight = parseFloat(e.target.value);
-                                  const currentLanguages = filters.audience?.audienceLanguageModash || [];
-                                  const newLanguage = { code: language.code, name: language.name, weight };
-                                  updateAudienceFilter('audienceLanguageModash', [...currentLanguages, newLanguage]);
+                                  const currentLanguages =
+                                    filters.audience?.audienceLanguageModash ||
+                                    [];
+                                  const newLanguage = {
+                                    code: language.code,
+                                    name: language.name,
+                                    weight,
+                                  };
+                                  updateAudienceFilter(
+                                    'audienceLanguageModash',
+                                    [...currentLanguages, newLanguage]
+                                  );
                                 }}
                                 className="w-20"
                               />
@@ -820,42 +889,50 @@ export default function AudienceTargetingFiltersCard({
                   </div>
 
                   {/* Affichage des langues sélectionnées */}
-                  {filters.audience?.audienceLanguageModash && filters.audience.audienceLanguageModash.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-gray-700 mb-2">
-                        Langues sélectionnées :
-                      </p>
-                      <div className="space-y-2">
-                        {filters.audience.audienceLanguageModash.map((language, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-between p-2 bg-white rounded border"
-                          >
-                            <span className="text-sm">{language.name} ({language.code})</span>
-                            <div className="flex items-center space-x-2">
-                              <span className="text-xs text-gray-500">
-                                Poids: {(language.weight * 100).toFixed(0)}%
-                              </span>
-                              <button
-                                onClick={() => {
-                                  const newLanguages = filters.audience?.audienceLanguageModash?.filter(
-                                    (_, i) => i !== index
-                                  );
-                                  updateAudienceFilter(
-                                    'audienceLanguageModash',
-                                    newLanguages?.length ? newLanguages : undefined
-                                  );
-                                }}
-                                className="text-red-500 hover:text-red-700"
+                  {filters.audience?.audienceLanguageModash &&
+                    filters.audience.audienceLanguageModash.length > 0 && (
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">
+                          Langues sélectionnées :
+                        </p>
+                        <div className="space-y-2">
+                          {filters.audience.audienceLanguageModash.map(
+                            (language, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center justify-between p-2 bg-white rounded border"
                               >
-                                ×
-                              </button>
-                            </div>
-                          </div>
-                        ))}
+                                <span className="text-sm">
+                                  {language.name} ({language.code})
+                                </span>
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-xs text-gray-500">
+                                    Poids: {(language.weight * 100).toFixed(0)}%
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      const newLanguages =
+                                        filters.audience?.audienceLanguageModash?.filter(
+                                          (_, i) => i !== index
+                                        );
+                                      updateAudienceFilter(
+                                        'audienceLanguageModash',
+                                        newLanguages?.length
+                                          ? newLanguages
+                                          : undefined
+                                      );
+                                    }}
+                                    className="text-red-500 hover:text-red-700"
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              </div>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
 
@@ -868,10 +945,17 @@ export default function AudienceTargetingFiltersCard({
                       Système de poids Modash :
                     </p>
                     <ul className="space-y-1">
-                      <li>• Les poids déterminent l'importance de chaque critère</li>
+                      <li>
+                        • Les poids déterminent l'importance de chaque critère
+                      </li>
                       <li>• 0.1 = 10% d'importance, 1.0 = 100% d'importance</li>
-                      <li>• Combinez plusieurs critères pour des recherches précises</li>
-                      <li>• Les intérêts ne sont disponibles que sur Instagram</li>
+                      <li>
+                        • Combinez plusieurs critères pour des recherches
+                        précises
+                      </li>
+                      <li>
+                        • Les intérêts ne sont disponibles que sur Instagram
+                      </li>
                     </ul>
                   </div>
                 </div>
