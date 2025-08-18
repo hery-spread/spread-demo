@@ -12,7 +12,7 @@ import {
 
 export default function HeroSection() {
   const { t } = useI18n();
-  
+
   // États pour les animations
   const [currentText, setCurrentText] = useState('');
   const [showAnalysis, setShowAnalysis] = useState(false);
@@ -21,8 +21,9 @@ export default function HeroSection() {
   const [profileCount, setProfileCount] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   // Texte cible pour l'animation de frappe
-  const targetText = "Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans";
-  
+  const targetText =
+    'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
+
   // Filtres à révéler progressivement
   const filters = [
     { id: 'location', label: '📍 France', delay: 500 },
@@ -30,32 +31,35 @@ export default function HeroSection() {
     { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
     { id: 'category', label: '💄 Beauté', delay: 1100 },
     { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
-    { id: 'age', label: '🔢 18-35 ans', delay: 1500 }
+    { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
   ];
 
   // Animation de frappe
   useEffect(() => {
     if (currentText.length < targetText.length) {
-      const timer = setTimeout(() => {
-        setCurrentText(targetText.slice(0, currentText.length + 1));
-      }, 30 + Math.random() * 20);
+      const timer = setTimeout(
+        () => {
+          setCurrentText(targetText.slice(0, currentText.length + 1));
+        },
+        30 + Math.random() * 20
+      );
       return () => clearTimeout(timer);
     } else if (currentText.length === targetText.length && !showAnalysis) {
       // Démarrer l'analyse après la frappe
       setTimeout(() => {
         setIsAnalyzing(true);
         setShowAnalysis(true);
-        
+
         // Révéler les filtres progressivement
         filters.forEach((filter, index) => {
           setTimeout(() => {
-            setShowFilters(prev => [...prev, filter.id]);
+            setShowFilters((prev) => [...prev, filter.id]);
             if (index === filters.length - 1) {
               // Derniers filtres, montrer les résultats
               setTimeout(() => {
                 setIsAnalyzing(false);
                 setShowResults(true);
-                
+
                 // Animer le compteur
                 let count = 0;
                 const increment = 2847 / 50;
@@ -198,7 +202,9 @@ export default function HeroSection() {
                 </div>
                 {(showAnalysis || isAnalyzing) && (
                   <div className="absolute bottom-3 right-3 flex items-center space-x-1">
-                    <SparklesIcon className={`w-4 h-4 text-purple-600 ${isAnalyzing ? 'animate-spin' : 'animate-pulse'}`} />
+                    <SparklesIcon
+                      className={`w-4 h-4 text-purple-600 ${isAnalyzing ? 'animate-spin' : 'animate-pulse'}`}
+                    />
                     <span className="text-xs text-purple-600 font-medium">
                       {isAnalyzing ? 'Analyse en cours...' : 'Analyse terminée'}
                     </span>
@@ -217,20 +223,25 @@ export default function HeroSection() {
                       <span
                         key={filter.id}
                         className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full transition-all duration-500 ${
-                          showFilters.includes(filter.id) 
-                            ? 'animate-slideIn opacity-100 scale-100' 
+                          showFilters.includes(filter.id)
+                            ? 'animate-slideIn opacity-100 scale-100'
                             : 'opacity-0 scale-75'
                         } ${
-                          filter.id === 'location' ? 'bg-blue-100 text-blue-800' :
-                          filter.id === 'followers' ? 'bg-green-100 text-green-800' :
-                          filter.id === 'engagement' ? 'bg-purple-100 text-purple-800' :
-                          filter.id === 'category' ? 'bg-pink-100 text-pink-800' :
-                          filter.id === 'audience' ? 'bg-orange-100 text-orange-800' :
-                          'bg-indigo-100 text-indigo-800'
+                          filter.id === 'location'
+                            ? 'bg-blue-100 text-blue-800'
+                            : filter.id === 'followers'
+                              ? 'bg-green-100 text-green-800'
+                              : filter.id === 'engagement'
+                                ? 'bg-purple-100 text-purple-800'
+                                : filter.id === 'category'
+                                  ? 'bg-pink-100 text-pink-800'
+                                  : filter.id === 'audience'
+                                    ? 'bg-orange-100 text-orange-800'
+                                    : 'bg-indigo-100 text-indigo-800'
                         }`}
                         style={{
                           animationDelay: `${index * 0.1}s`,
-                          animationFillMode: 'both'
+                          animationFillMode: 'both',
                         }}
                       >
                         {filter.label}
@@ -339,46 +350,46 @@ export default function HeroSection() {
       {/* CSS pour les animations personnalisées */}
       <style jsx>{`
         @keyframes fadeIn {
-          from { 
-            opacity: 0; 
-            transform: translateY(10px); 
+          from {
+            opacity: 0;
+            transform: translateY(10px);
           }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
-        
+
         @keyframes slideIn {
-          from { 
-            opacity: 0; 
-            transform: translateX(-20px) scale(0.8); 
+          from {
+            opacity: 0;
+            transform: translateX(-20px) scale(0.8);
           }
-          to { 
-            opacity: 1; 
-            transform: translateX(0) scale(1); 
+          to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
           }
         }
 
         @keyframes slideUp {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
+          from {
+            opacity: 0;
+            transform: translateY(30px);
           }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
         @keyframes countUp {
-          from { 
-            transform: scale(0.8); 
-            opacity: 0.5; 
+          from {
+            transform: scale(0.8);
+            opacity: 0.5;
           }
-          to { 
-            transform: scale(1); 
-            opacity: 1; 
+          to {
+            transform: scale(1);
+            opacity: 1;
           }
         }
 

@@ -42,41 +42,48 @@ export default function CookiesPage() {
     },
   ];
 
-  return (
+    return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-orange-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center space-x-4 mb-6">
+      {/* Hero Header */}
+      <div className="relative bg-gradient-to-br from-orange-600 via-red-600 to-pink-600 overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-orange-400/20 to-red-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-tr from-red-400/20 to-orange-400/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
             <Link
               href="/"
-              className="flex items-center space-x-2 text-orange-600 hover:text-orange-800 transition-colors duration-300"
+              className="inline-flex items-center space-x-2 text-orange-200 hover:text-white transition-colors duration-300 mb-8"
             >
               <ArrowLeftIcon className="w-5 h-5" />
-              <span className="font-medium">{t('cookies.backToHome')}</span>
+              <span className="font-medium">Retour à l'accueil</span>
             </Link>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <CakeIcon className="w-8 h-8 text-white" />
+            
+            <div className="flex items-center justify-center space-x-4 mb-6">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-2xl">
+                <CakeIcon className="w-10 h-10 text-white" />
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                {t('cookies.title')}
-              </h1>
-              <p className="text-lg text-gray-600">{t('cookies.subtitle')}</p>
-            </div>
-          </div>
-
-          <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>{t('cookies.lastUpdated')}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-              <span>{t('cookies.effectiveDate')}</span>
+            
+            <h1 className="text-5xl font-bold text-white mb-4">
+              Politique de Cookies
+            </h1>
+            <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto">
+              Comment nous utilisons les cookies sur notre plateforme
+            </p>
+            
+            <div className="flex justify-center items-center space-x-8 text-sm text-orange-200">
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                <span>Mise à jour : 15 décembre 2024</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-orange-400 rounded-full"></span>
+                <span>En vigueur depuis : 1er janvier 2024</span>
+              </div>
             </div>
           </div>
         </div>

@@ -69,39 +69,46 @@ export default function GDPRPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center space-x-4 mb-6">
+      {/* Hero Header */}
+      <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-32 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-indigo-400/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
             <Link
               href="/"
-              className="flex items-center space-x-2 text-indigo-600 hover:text-indigo-800 transition-colors duration-300"
+              className="inline-flex items-center space-x-2 text-indigo-200 hover:text-white transition-colors duration-300 mb-8"
             >
               <ArrowLeftIcon className="w-5 h-5" />
-              <span className="font-medium">{t('gdpr.backToHome')}</span>
+              <span className="font-medium">Retour à l'accueil</span>
             </Link>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <ShieldExclamationIcon className="w-8 h-8 text-white" />
+            
+            <div className="flex items-center justify-center space-x-4 mb-6">
+              <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-2xl">
+                <ShieldExclamationIcon className="w-10 h-10 text-white" />
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                {t('gdpr.title')}
-              </h1>
-              <p className="text-lg text-gray-600">{t('gdpr.subtitle')}</p>
-            </div>
-          </div>
-
-          <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>{t('gdpr.lastUpdated')}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
-              <span>{t('gdpr.regulation')}</span>
+            
+            <h1 className="text-5xl font-bold text-white mb-4">
+              Conformité RGPD
+            </h1>
+            <p className="text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
+              Vos droits sous le Règlement Général sur la Protection des Données
+            </p>
+            
+            <div className="flex justify-center items-center space-x-8 text-sm text-indigo-200">
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                <span>Mise à jour : 15 décembre 2024</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+                <span>Règlement UE 2016/679</span>
+              </div>
             </div>
           </div>
         </div>
