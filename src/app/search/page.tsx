@@ -23,7 +23,8 @@ import {
 // Recherche avancée avec intégration Modash
 const performAdvancedSearch = async (
   filters: AdvancedSearchFilters,
-  query: string
+  query: string,
+  calculationMethod: 'median' | 'average' = 'median'
 ): Promise<SearchResults> => {
   const startTime = Date.now();
 
@@ -42,6 +43,7 @@ const performAdvancedSearch = async (
     // Préparer la requête Modash
     const modashRequest = {
       page: 0,
+      calculationMethod,
       sort: {
         field: 'followers',
         direction: 'desc' as const,
@@ -252,6 +254,9 @@ export default function AdvancedSearchPage() {
   const [showAddToListModal, setShowAddToListModal] = useState(false);
   const [selectedInfluencer, setSelectedInfluencer] =
     useState<Influencer | null>(null);
+  const [calculationMethod, setCalculationMethod] = useState<
+    'median' | 'average'
+  >('median');
 
   // Mettre à jour l'état de recherche
   const updateSearchState = useCallback((updates: Partial<SearchUIState>) => {
@@ -265,7 +270,8 @@ export default function AdvancedSearchPage() {
     try {
       const results = await performAdvancedSearch(
         searchState.activeFilters,
-        searchState.searchQuery
+        searchState.searchQuery,
+        calculationMethod
       );
 
       updateSearchState({
@@ -290,7 +296,12 @@ export default function AdvancedSearchPage() {
         },
       });
     }
-  }, [searchState.activeFilters, searchState.searchQuery, updateSearchState]);
+  }, [
+    searchState.activeFilters,
+    searchState.searchQuery,
+    calculationMethod,
+    updateSearchState,
+  ]);
 
   // Recherche initiale au chargement
   useEffect(() => {
@@ -324,6 +335,8 @@ export default function AdvancedSearchPage() {
           onSearchStateChange={updateSearchState}
           onSearch={performSearch}
           isSearching={searchState.isSearching}
+          calculationMethod={calculationMethod}
+          onCalculationMethodChange={setCalculationMethod}
         />
       </div>
 

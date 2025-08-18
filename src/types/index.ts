@@ -483,26 +483,42 @@ export interface AdvancedSearchFilters {
   userSearch?: string; // Recherche par nom ou @username
   directUsers?: string[]; // Recherche directe multi-@ (handles exacts)
   
-  // Créateur de contenu
+  // Créateur de contenu (réorganisé selon les 4 catégories)
   creator?: {
-    gender?: 'male' | 'female' | 'non-binary' | 'not-specified';
+    // Thématique & identité (prioritaire)
+    bioSearch?: string; // Recherche dans la bio
+    keywords?: string[]; // Mots-clés dans le contenu
+    categories?: string[]; // Catégories de contenu
+    relevance?: string[]; // Similarité de contenu (#hashtags @mentions)
+    audienceRelevance?: string[]; // Audience similaire à (@mentions)
+    textTags?: Array<{
+      type: 'hashtag' | 'mention';
+      value: string;
+    }>; // Hashtags et mentions utilisés
+    brands?: string[]; // Marques mentionnées
+    interests?: string[]; // Intérêts du créateur
+    language?: string; // Langue principale du créateur
+    lastPosted?: number; // Dernière activité (jours)
+    
+    // Caractéristiques démographiques
+    gender?: 'MALE' | 'FEMALE' | 'KNOWN' | 'UNKNOWN';
     ageRange?: { min: number; max: number };
-    languages?: string[]; // Langues parlées
-    verified?: boolean;
-    hasEmail?: boolean;
-    hasPhoneNumber?: boolean;
-    categories?: string[]; // Catégories de contenu (lifestyle, tech, gaming, etc.)
+    
+    // Géographie du créateur (après les mots-clés)
     location?: {
       country?: string;
       city?: string;
       continent?: 'europe' | 'america' | 'asia' | 'africa' | 'oceania';
     };
-    // Nouveaux champs Modash
-    keywords?: string[]; // Mots-clés dans le contenu
-    bioSearch?: string; // Recherche dans la bio
+    
+    // Types/flags
+    verified?: boolean;
+    hasEmail?: boolean;
+    hasPhoneNumber?: boolean;
     accountType?: 'personal' | 'business' | 'creator'; // Type de compte (Instagram)
     hasYouTube?: boolean; // Possède une chaîne YouTube (Instagram)
     isOfficialArtist?: boolean; // Artiste officiel (YouTube)
+    languages?: string[]; // Langues parlées (legacy)
   };
   
   // Audience
@@ -907,7 +923,6 @@ export interface ModashSearchFilters {
 
 export interface ModashSearchRequest {
   page?: number;
-  calculationMethod?: 'median' | 'average';
   sort?: {
     field: string;
     value?: number;

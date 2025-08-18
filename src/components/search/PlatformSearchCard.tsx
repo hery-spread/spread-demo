@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Select } from '@/components/ui/Select';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
@@ -21,6 +22,8 @@ interface PlatformSearchCardProps {
   onToggle: (id: string) => void;
   filters: AdvancedSearchFilters;
   onFiltersChange: (filters: AdvancedSearchFilters) => void;
+  calculationMethod?: 'median' | 'average';
+  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 // Icônes des plateformes
@@ -78,6 +81,8 @@ export default function PlatformSearchCard({
   onToggle,
   filters,
   onFiltersChange,
+  calculationMethod = 'median',
+  onCalculationMethodChange,
 }: PlatformSearchCardProps) {
   const [userSearchInput, setUserSearchInput] = useState(
     filters.userSearch || ''
@@ -162,8 +167,12 @@ export default function PlatformSearchCard({
   };
 
   // Calculer les filtres actifs
-  const hasActiveFilters = !!currentPlatform || !!filters.userSearch;
-  const filterCount = (currentPlatform ? 1 : 0) + (filters.userSearch ? 1 : 0);
+  const hasActiveFilters =
+    !!currentPlatform || !!filters.userSearch || calculationMethod !== 'median';
+  const filterCount =
+    (currentPlatform ? 1 : 0) +
+    (filters.userSearch ? 1 : 0) +
+    (calculationMethod !== 'median' ? 1 : 0);
 
   return (
     <CollapsibleFilterCard
@@ -325,6 +334,35 @@ export default function PlatformSearchCard({
 
           {showAdvancedSettings && (
             <div className="mt-3 space-y-4 p-3 bg-gray-50 rounded-lg">
+              {/* Méthode de calcul */}
+              {onCalculationMethodChange && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Méthode de calcul
+                  </label>
+                  <Select
+                    options={[
+                      { value: 'median', label: 'Médiane (recommandé)' },
+                      { value: 'average', label: 'Moyenne' },
+                    ]}
+                    value={calculationMethod}
+                    onChange={(e) =>
+                      onCalculationMethodChange(
+                        e.target.value as 'median' | 'average'
+                      )
+                    }
+                  />
+                  <div className="mt-1 flex items-start space-x-1">
+                    <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-gray-600">
+                      La médiane est moins sensible aux valeurs extrêmes et
+                      donne une meilleure représentation des performances
+                      typiques.
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {/* Champs spécifiques à la plateforme */}
               {currentPlatform && (
                 <div>

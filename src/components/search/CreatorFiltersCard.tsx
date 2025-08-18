@@ -107,48 +107,6 @@ export default function CreatorFiltersCard({
       filterCount={activeFilterCount}
     >
       <div className="space-y-6">
-        {/* Recherche par mots-clés et bio (prioritaire) */}
-        <div>
-          <h4 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
-            <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
-            <span>Recherche textuelle</span>
-          </h4>
-
-          <div className="space-y-3">
-            <Input
-              label="Mots-clés dans le contenu"
-              placeholder="Ex: fitness, motivation, lifestyle..."
-              value={keywordInput}
-              onChange={(e) => setKeywordInput(e.target.value)}
-              onBlur={() => {
-                if (keywordInput.trim()) {
-                  const keywords = keywordInput
-                    .split(',')
-                    .map((k) => k.trim())
-                    .filter((k) => k);
-                  updateCreatorFilter(
-                    'keywords',
-                    keywords.length > 0 ? keywords : undefined
-                  );
-                }
-              }}
-            />
-
-            <Input
-              label="Recherche dans la bio"
-              placeholder="Ex: entrepreneur, coach, influencer..."
-              value={bioSearchInput}
-              onChange={(e) => setBioSearchInput(e.target.value)}
-              onBlur={() => {
-                updateCreatorFilter(
-                  'bioSearch',
-                  bioSearchInput.trim() || undefined
-                );
-              }}
-            />
-          </div>
-        </div>
-
         {/* Genre et âge */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Select
@@ -363,6 +321,48 @@ export default function CreatorFiltersCard({
                 📱 Numéro de téléphone disponible
               </span>
             </label>
+          </div>
+        </div>
+
+        {/* Recherche par mots-clés et bio */}
+        <div>
+          <h4 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
+            <MagnifyingGlassIcon className="w-4 h-4 text-gray-500" />
+            <span>Recherche textuelle</span>
+          </h4>
+
+          <div className="space-y-3">
+            <Input
+              label="Mots-clés dans le contenu"
+              placeholder="Ex: fitness, motivation, lifestyle..."
+              value={keywordInput}
+              onChange={(e) => setKeywordInput(e.target.value)}
+              onBlur={() => {
+                if (keywordInput.trim()) {
+                  const keywords = keywordInput
+                    .split(',')
+                    .map((k) => k.trim())
+                    .filter((k) => k);
+                  updateCreatorFilter(
+                    'keywords',
+                    keywords.length > 0 ? keywords : undefined
+                  );
+                }
+              }}
+            />
+
+            <Input
+              label="Recherche dans la bio"
+              placeholder="Ex: entrepreneur, coach, influencer..."
+              value={bioSearchInput}
+              onChange={(e) => setBioSearchInput(e.target.value)}
+              onBlur={() => {
+                updateCreatorFilter(
+                  'bioSearch',
+                  bioSearchInput.trim() || undefined
+                );
+              }}
+            />
           </div>
         </div>
 

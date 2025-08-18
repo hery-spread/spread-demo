@@ -1,22 +1,11 @@
-"use client";
-
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import { usePathname } from "next/navigation";
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
-  const pathname = usePathname();
-
-  // Marketing/landing layout without app chrome
-  if (pathname === "/") {
-    return <main className="min-h-screen">{children}</main>;
-  }
-
-  // Default app layout with sidebar + header
   return (
     <div className="h-screen flex bg-gray-50">
       <Sidebar />
