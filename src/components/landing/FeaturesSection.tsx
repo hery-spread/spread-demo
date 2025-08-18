@@ -1,5 +1,6 @@
 'use client';
 
+import { useI18n } from '@/lib/i18n/context';
 import {
   MagnifyingGlassIcon,
   ChartBarIcon,
@@ -8,56 +9,53 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function FeaturesSection() {
+  const { t } = useI18n();
   const features = [
     {
       icon: MagnifyingGlassIcon,
-      title: 'Recherche IA Multi-Plateformes',
-      description:
-        'Trouvez des influenceurs sur Instagram, YouTube et TikTok avec notre IA qui comprend le langage naturel.',
+      title: t('features.aiSearch.title'),
+      description: t('features.aiSearch.description'),
       benefits: [
-        'Recherche vocale intelligente',
-        'Filtres avancés automatiques',
-        'Suggestions personnalisées',
-        'Base de données 250M+ profils',
+        t('features.aiSearch.benefits.0'),
+        t('features.aiSearch.benefits.1'),
+        t('features.aiSearch.benefits.2'),
+        t('features.aiSearch.benefits.3'),
       ],
       color: 'purple',
     },
     {
       icon: ChartBarIcon,
-      title: "Rapports d'Audience Ultra-Détaillés",
-      description:
-        "Accédez aux données d'audience les plus complètes du marché pour prendre les meilleures décisions.",
+      title: t('features.reports.title'),
+      description: t('features.reports.description'),
       benefits: [
-        'Démographie précise',
-        "Centres d'intérêt détaillés",
-        "Analyse de l'engagement",
-        'Détection de fake followers',
+        t('features.reports.benefits.0'),
+        t('features.reports.benefits.1'),
+        t('features.reports.benefits.2'),
+        t('features.reports.benefits.3'),
       ],
       color: 'indigo',
     },
     {
       icon: ChatBubbleLeftRightIcon,
-      title: 'CRM & Communication Intégrée',
-      description:
-        "Gérez vos campagnes avec un CRM conçu spécialement pour l'influence marketing.",
+      title: t('features.crm.title'),
+      description: t('features.crm.description'),
       benefits: [
-        'Pipeline de négociation',
-        'Intégration email native',
-        'Suivi automatisé',
-        'Campagnes groupées',
+        t('features.crm.benefits.0'),
+        t('features.crm.benefits.1'),
+        t('features.crm.benefits.2'),
+        t('features.crm.benefits.3'),
       ],
       color: 'green',
     },
     {
       icon: SparklesIcon,
-      title: 'Analytics de Performance',
-      description:
-        'Mesurez le ROI de vos campagnes avec des métriques avancées et des rapports personnalisés.',
+      title: t('features.analytics.title'),
+      description: t('features.analytics.description'),
       benefits: [
-        'ROI en temps réel',
-        "Métriques d'engagement",
-        'Rapports automatisés',
-        'Comparatif concurrentiel',
+        t('features.analytics.benefits.0'),
+        t('features.analytics.benefits.1'),
+        t('features.analytics.benefits.2'),
+        t('features.analytics.benefits.3'),
       ],
       color: 'blue',
     },

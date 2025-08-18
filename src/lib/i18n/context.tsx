@@ -34,7 +34,10 @@ interface I18nProviderProps {
   defaultLanguage?: Language;
 }
 
-export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderProps) {
+export function I18nProvider({
+  children,
+  defaultLanguage = 'fr',
+}: I18nProviderProps) {
   const [language, setLanguageState] = useState<Language>(defaultLanguage);
 
   // Fonction pour récupérer une traduction par clé avec support de paramètres
@@ -50,7 +53,12 @@ export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderP
         const fallbackKeys = key.split('.');
         let fallbackValue: unknown = translations.en;
         for (const fk of fallbackKeys) {
-          if (fallbackValue && typeof fallbackValue === 'object' && fallbackValue !== null && fk in fallbackValue) {
+          if (
+            fallbackValue &&
+            typeof fallbackValue === 'object' &&
+            fallbackValue !== null &&
+            fk in fallbackValue
+          ) {
             fallbackValue = (fallbackValue as Record<string, unknown>)[fk];
           } else {
             return `Missing translation: ${key}`;
@@ -68,7 +76,10 @@ export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderP
     // Remplacer les paramètres dans la chaîne de traduction
     if (params) {
       return Object.entries(params).reduce((str, [paramKey, paramValue]) => {
-        return str.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(paramValue));
+        return str.replace(
+          new RegExp(`{{${paramKey}}}`, 'g'),
+          String(paramValue)
+        );
       }, value);
     }
 
@@ -78,11 +89,11 @@ export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderP
   // Fonction pour changer la langue avec persistance
   const setLanguage = (newLanguage: Language) => {
     setLanguageState(newLanguage);
-    
+
     // Sauvegarder dans localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('spread-language', newLanguage);
-      
+
       // Mettre à jour l'attribut lang du document HTML
       document.documentElement.lang = newLanguage;
     }
@@ -92,13 +103,16 @@ export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderP
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedLanguage = localStorage.getItem('spread-language') as Language;
-      if (savedLanguage && availableLanguages.some(lang => lang.code === savedLanguage)) {
+      if (
+        savedLanguage &&
+        availableLanguages.some((lang) => lang.code === savedLanguage)
+      ) {
         setLanguageState(savedLanguage);
         document.documentElement.lang = savedLanguage;
       } else {
         // Détecter la langue du navigateur
         const browserLanguage = navigator.language.split('-')[0] as Language;
-        if (availableLanguages.some(lang => lang.code === browserLanguage)) {
+        if (availableLanguages.some((lang) => lang.code === browserLanguage)) {
           setLanguageState(browserLanguage);
           document.documentElement.lang = browserLanguage;
         } else {
@@ -115,11 +129,7 @@ export function I18nProvider({ children, defaultLanguage = 'fr' }: I18nProviderP
     availableLanguages,
   };
 
-  return (
-    <I18nContext.Provider value={value}>
-      {children}
-    </I18nContext.Provider>
-  );
+  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
 
 export function useI18n() {

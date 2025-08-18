@@ -3,7 +3,7 @@
     "brand": "Spread",
     "tagline": "Influence Marketing",
     "features": "Features",
-    "testimonials": "Testimonials", 
+    "testimonials": "Testimonials",
     "pricing": "Pricing",
     "signIn": "Sign In",
     "signUp": "Free Trial"
@@ -50,7 +50,7 @@
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
-      "brands": "Client brands", 
+      "brands": "Client brands",
       "influencers": "Referenced influencers",
       "satisfaction": "Satisfaction rate",
       "timeSaved": "Saved per week"
@@ -64,32 +64,42 @@
     "aiSearch": {
       "title": "Multi-Platform AI Search",
       "description": "Find influencers on Instagram, YouTube and TikTok with our AI that understands natural language.",
-      "benefits": [
-        "Smart voice search",
-        "Advanced automatic filters", 
-        "Personalized suggestions",
-        "250M+ profile database"
-      ]
+            "benefits": {
+        "0": "Smart voice search",
+        "1": "Advanced automatic filters", 
+        "2": "Personalized suggestions",
+        "3": "250M+ profile database"
+      }
     },
     "reports": {
       "title": "Ultra-Detailed Audience Reports",
       "description": "Access the most comprehensive audience data on the market to make the best decisions.",
-      "benefits": [
-        "Precise demographics",
-        "Detailed interests",
-        "Engagement analysis",
-        "Fake follower detection"
-      ]
+      "benefits": {
+        "0": "Precise demographics",
+        "1": "Detailed interests",
+        "2": "Engagement analysis",
+        "3": "Fake follower detection"
+      }
     },
     "crm": {
       "title": "CRM & Integrated Communication",
       "description": "Manage your campaigns with a CRM specially designed for influence marketing.",
-      "benefits": [
-        "Negotiation pipeline",
-        "Native email integration",
-        "Automated tracking", 
-        "Group campaigns"
-      ]
+            "benefits": {
+        "0": "Negotiation pipeline",
+        "1": "Native email integration",
+        "2": "Automated tracking", 
+        "3": "Group campaigns"
+      }
+    },
+    "analytics": {
+      "title": "Performance Analytics",
+      "description": "Measure your campaign ROI with advanced metrics and personalized reports.",
+      "benefits": {
+        "0": "Real-time ROI",
+        "1": "Engagement metrics",
+        "2": "Automated reports",
+        "3": "Competitive comparison"
+      }
     },
     "showcase": {
       "title": "Real Spread Features",
@@ -126,7 +136,7 @@
         "results": "+347% ROI"
       },
       {
-        "name": "Thomas Chen", 
+        "name": "Thomas Chen",
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "Spread's AI understands exactly what we're looking for. No more spending hours manually filtering. It's magic!",
@@ -146,12 +156,12 @@
         "label": "Customer satisfaction rate"
       },
       {
-        "number": "2,847+", 
+        "number": "2,847+",
         "label": "Brands trust us"
       },
       {
         "number": "250M+",
-        "label": "Referenced influencers" 
+        "label": "Referenced influencers"
       },
       {
         "number": "10h",
@@ -168,7 +178,7 @@
         "description": "Francophone team available 7/7 to support you"
       },
       "security": {
-        "title": "Secure Data", 
+        "title": "Secure Data",
         "description": "GDPR compliance, SSL and ISO 27001 certifications"
       }
     }
@@ -198,7 +208,7 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "For marketing teams", 
+        "description": "For marketing teams",
         "monthlyPrice": "€99",
         "annualPrice": "€79",
         "features": [
@@ -212,7 +222,7 @@
         "popular": "Most popular"
       },
       "enterprise": {
-        "name": "Enterprise", 
+        "name": "Enterprise",
         "description": "For large enterprises",
         "price": "Custom",
         "features": [
@@ -232,7 +242,7 @@
           "answer": "Absolutely! You can upgrade or downgrade your plan anytime without hidden fees."
         },
         {
-          "question": "Is there a commitment period?", 
+          "question": "Is there a commitment period?",
           "answer": "No commitment period. You can cancel your subscription at any time."
         },
         {
@@ -251,7 +261,7 @@
     "urgency": "🔥 Special offer: 20% off your first year!",
     "benefits": [
       "✅ Setup in less than 5 minutes",
-      "✅ Access to 250M+ influencer profiles", 
+      "✅ Access to 250M+ influencer profiles",
       "✅ Dedicated French support",
       "✅ 30-day money-back guarantee"
     ],
@@ -268,7 +278,7 @@
       "title": "Certifications & Security",
       "description": "We respect the highest security and compliance standards to protect your data.",
       "items": [
-        "🛡️ ISO 27001 certification", 
+        "🛡️ ISO 27001 certification",
         "🔒 Full GDPR compliance",
         "💳 Stripe secure payments"
       ]
@@ -278,7 +288,7 @@
       "description": "If you're not satisfied within the first 30 days, we'll fully refund you.",
       "items": [
         "💰 30-day guaranteed refund",
-        "🚀 ROI measured from the 1st month", 
+        "🚀 ROI measured from the 1st month",
         "📈 +200% average performance"
       ]
     },

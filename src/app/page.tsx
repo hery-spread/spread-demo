@@ -14,7 +14,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       {/* SEO Head */}
       <SEOHead pathname="/" />
-      
+
       {/* Landing Navbar */}
       <LandingNavbar />
 

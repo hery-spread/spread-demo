@@ -30,7 +30,10 @@ export default function LandingNavbar() {
 
   const navigationLinks = [
     { name: t('navbar.features'), action: () => scrollToSection('features') },
-    { name: t('navbar.testimonials'), action: () => scrollToSection('testimonials') },
+    {
+      name: t('navbar.testimonials'),
+      action: () => scrollToSection('testimonials'),
+    },
     { name: t('navbar.pricing'), action: () => scrollToSection('pricing') },
   ];
 

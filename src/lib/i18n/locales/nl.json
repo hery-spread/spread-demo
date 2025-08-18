@@ -3,7 +3,7 @@
     "brand": "Spread",
     "tagline": "Influence Marketing",
     "features": "Functionaliteiten",
-    "testimonials": "Getuigenissen", 
+    "testimonials": "Getuigenissen",
     "pricing": "Prijzen",
     "signIn": "Inloggen",
     "signUp": "Gratis Proefperiode"
@@ -50,7 +50,7 @@
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
-      "brands": "Klanten", 
+      "brands": "Klanten",
       "influencers": "Gerefereerde influencers",
       "satisfaction": "Tevredenheidspercentage",
       "timeSaved": "Bespaard per week"
@@ -64,32 +64,42 @@
     "aiSearch": {
       "title": "Multi-Platform AI Zoeken",
       "description": "Vind influencers op Instagram, YouTube en TikTok met onze AI die natuurlijke taal begrijpt.",
-      "benefits": [
-        "Slimme spraakzoekfunctie",
-        "Geavanceerde automatische filters", 
-        "Gepersonaliseerde suggesties",
-        "250M+ profieldatabase"
-      ]
+            "benefits": {
+        "0": "Slimme spraakzoekfunctie",
+        "1": "Geavanceerde automatische filters", 
+        "2": "Gepersonaliseerde suggesties",
+        "3": "250M+ profieldatabase"
+      }
     },
     "reports": {
       "title": "Ultragedetailleerde Publiekrapporten",
       "description": "Toegang tot de meest uitgebreide publieksdata op de markt om de beste beslissingen te nemen.",
-      "benefits": [
-        "Precieze demografie",
-        "Gedetailleerde interesses",
-        "Engagement analyse",
-        "Nepvolger detectie"
-      ]
+      "benefits": {
+        "0": "Precieze demografie",
+        "1": "Gedetailleerde interesses",
+        "2": "Engagement analyse",
+        "3": "Nepvolger detectie"
+      }
     },
     "crm": {
       "title": "CRM & Geïntegreerde Communicatie",
       "description": "Beheer je campagnes met een CRM speciaal ontworpen voor influence marketing.",
-      "benefits": [
-        "Onderhandelingspipeline",
-        "Native email integratie",
-        "Geautomatiseerde tracking", 
-        "Groepscampagnes"
-      ]
+            "benefits": {
+        "0": "Onderhandelingspipeline",
+        "1": "Native email integratie",
+        "2": "Geautomatiseerde tracking", 
+        "3": "Groepscampagnes"
+      }
+    },
+    "analytics": {
+      "title": "Prestatie Analytics",
+      "description": "Meet je campagne ROI met geavanceerde metrics en gepersonaliseerde rapporten.",
+      "benefits": {
+        "0": "Real-time ROI",
+        "1": "Engagement metrics",
+        "2": "Geautomatiseerde rapporten",
+        "3": "Concurrentie vergelijking"
+      }
     },
     "showcase": {
       "title": "Echte Spread Functionaliteiten",
@@ -127,7 +137,7 @@
         "results": "+347% ROI"
       },
       {
-        "name": "Thomas Chen", 
+        "name": "Thomas Chen",
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "Spread's AI begrijpt precies waar we naar zoeken. Geen uren meer besteden aan handmatig filteren. Het is magisch!",
@@ -147,12 +157,12 @@
         "label": "Klanttevredenheidspercentage"
       },
       {
-        "number": "2.847+", 
+        "number": "2.847+",
         "label": "Merken vertrouwen ons"
       },
       {
         "number": "250M+",
-        "label": "Gerefereerde influencers" 
+        "label": "Gerefereerde influencers"
       },
       {
         "number": "10u",
@@ -169,7 +179,7 @@
         "description": "Franstalig team beschikbaar 7/7 om je te ondersteunen"
       },
       "security": {
-        "title": "Veilige Data", 
+        "title": "Veilige Data",
         "description": "GDPR naleving, SSL en ISO 27001 certificeringen"
       }
     }
@@ -199,7 +209,7 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "Voor marketing teams", 
+        "description": "Voor marketing teams",
         "monthlyPrice": "€99",
         "annualPrice": "€79",
         "features": [
@@ -213,7 +223,7 @@
         "popular": "Meest populair"
       },
       "enterprise": {
-        "name": "Enterprise", 
+        "name": "Enterprise",
         "description": "Voor grote ondernemingen",
         "price": "Op maat",
         "features": [
@@ -233,7 +243,7 @@
           "answer": "Absoluut! Je kunt altijd upgraden of downgraden zonder verborgen kosten."
         },
         {
-          "question": "Is er een verplichte periode?", 
+          "question": "Is er een verplichte periode?",
           "answer": "Geen verplichte periode. Je kunt je abonnement altijd opzeggen."
         },
         {
@@ -252,7 +262,7 @@
     "urgency": "🔥 Speciale aanbieding: 20% korting op je eerste jaar!",
     "benefits": [
       "✅ Installatie in minder dan 5 minuten",
-      "✅ Toegang tot 250M+ influencer profielen", 
+      "✅ Toegang tot 250M+ influencer profielen",
       "✅ Toegewijde Nederlandse ondersteuning",
       "✅ 30 dagen geld-terug garantie"
     ],
@@ -269,7 +279,7 @@
       "title": "Certificeringen & Beveiliging",
       "description": "Wij respecteren de hoogste beveiligings- en nalevingsstandaarden om je data te beschermen.",
       "items": [
-        "🛡️ ISO 27001 certificering", 
+        "🛡️ ISO 27001 certificering",
         "🔒 Volledige GDPR naleving",
         "💳 Stripe veilige betalingen"
       ]
@@ -279,7 +289,7 @@
       "description": "Als je niet tevreden bent binnen de eerste 30 dagen, krijg je je geld volledig terug.",
       "items": [
         "💰 30 dagen gegarandeerde terugbetaling",
-        "🚀 ROI gemeten vanaf de 1e maand", 
+        "🚀 ROI gemeten vanaf de 1e maand",
         "📈 +200% gemiddelde prestatie"
       ]
     },

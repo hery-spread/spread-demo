@@ -3,7 +3,7 @@
     "brand": "Spread",
     "tagline": "Influence Marketing",
     "features": "Fonctionnalités",
-    "testimonials": "Témoignages", 
+    "testimonials": "Témoignages",
     "pricing": "Tarifs",
     "signIn": "Se connecter",
     "signUp": "Essai gratuit"
@@ -50,7 +50,7 @@
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
-      "brands": "Marques clientes", 
+      "brands": "Marques clientes",
       "influencers": "Influenceurs référencés",
       "satisfaction": "Taux de satisfaction",
       "timeSaved": "Économisées par semaine"
@@ -64,32 +64,42 @@
     "aiSearch": {
       "title": "Recherche IA Multi-Plateformes",
       "description": "Trouvez des influenceurs sur Instagram, YouTube et TikTok avec notre IA qui comprend le langage naturel.",
-      "benefits": [
-        "Recherche vocale intelligente",
-        "Filtres avancés automatiques", 
-        "Suggestions personnalisées",
-        "Base de données 250M+ profils"
-      ]
+          "benefits": {
+        "0": "Recherche vocale intelligente",
+        "1": "Filtres avancés automatiques", 
+        "2": "Suggestions personnalisées",
+        "3": "Base de données 250M+ profils"
+      }
     },
     "reports": {
       "title": "Rapports d'Audience Ultra-Détaillés",
       "description": "Accédez aux données d'audience les plus complètes du marché pour prendre les meilleures décisions.",
-      "benefits": [
-        "Démographie précise",
-        "Centres d'intérêt détaillés",
-        "Analyse de l'engagement",
-        "Détection de fake followers"
-      ]
+      "benefits": {
+        "0": "Démographie précise",
+        "1": "Centres d'intérêt détaillés",
+        "2": "Analyse de l'engagement",
+        "3": "Détection de fake followers"
+      }
     },
     "crm": {
       "title": "CRM & Communication Intégrée",
       "description": "Gérez vos campagnes avec un CRM conçu spécialement pour l'influence marketing.",
-      "benefits": [
-        "Pipeline de négociation",
-        "Intégration email native",
-        "Suivi automatisé", 
-        "Campagnes groupées"
-      ]
+            "benefits": {
+        "0": "Pipeline de négociation",
+        "1": "Intégration email native",
+        "2": "Suivi automatisé", 
+        "3": "Campagnes groupées"
+      }
+    },
+    "analytics": {
+      "title": "Analytics de Performance",
+      "description": "Mesurez le ROI de vos campagnes avec des métriques avancées et des rapports personnalisés.",
+      "benefits": {
+        "0": "ROI en temps réel",
+        "1": "Métriques d'engagement",
+        "2": "Rapports automatisés",
+        "3": "Comparatif concurrentiel"
+      }
     },
     "showcase": {
       "title": "Fonctionnalités Réelles de Spread",
@@ -126,7 +136,7 @@
         "results": "+347% de ROI"
       },
       {
-        "name": "Thomas Chen", 
+        "name": "Thomas Chen",
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "L'IA de Spread comprend exactement ce qu'on cherche. Plus besoin de passer des heures à filtrer manuellement. C'est magique !",
@@ -146,12 +156,12 @@
         "label": "Taux de satisfaction client"
       },
       {
-        "number": "2,847+", 
+        "number": "2,847+",
         "label": "Marques nous font confiance"
       },
       {
         "number": "250M+",
-        "label": "Influenceurs référencés" 
+        "label": "Influenceurs référencés"
       },
       {
         "number": "10h",
@@ -168,7 +178,7 @@
         "description": "Équipe francophone disponible 7j/7 pour vous accompagner"
       },
       "security": {
-        "title": "Données Sécurisées", 
+        "title": "Données Sécurisées",
         "description": "Conformité RGPD, SSL et certifications ISO 27001"
       }
     }
@@ -198,7 +208,7 @@
       },
       "pro": {
         "name": "Pro",
-        "description": "Pour les équipes marketing", 
+        "description": "Pour les équipes marketing",
         "monthlyPrice": "99€",
         "annualPrice": "79€",
         "features": [
@@ -212,7 +222,7 @@
         "popular": "Plus populaire"
       },
       "enterprise": {
-        "name": "Enterprise", 
+        "name": "Enterprise",
         "description": "Pour les grandes entreprises",
         "price": "Sur mesure",
         "features": [
@@ -232,7 +242,7 @@
           "answer": "Absolument ! Vous pouvez upgrader ou downgrader votre plan à tout moment sans frais cachés."
         },
         {
-          "question": "Y a-t-il une période d'engagement ?", 
+          "question": "Y a-t-il une période d'engagement ?",
           "answer": "Aucune période d'engagement. Vous pouvez annuler votre abonnement à tout moment."
         },
         {
@@ -251,7 +261,7 @@
     "urgency": "🔥 Offre spéciale : 20% de réduction sur votre première année !",
     "benefits": [
       "✅ Configuration en moins de 5 minutes",
-      "✅ Accès à 250M+ profils d'influenceurs", 
+      "✅ Accès à 250M+ profils d'influenceurs",
       "✅ Support dédié en français",
       "✅ Garantie satisfait ou remboursé 30 jours"
     ],
@@ -268,7 +278,7 @@
       "title": "Certifications & Sécurité",
       "description": "Nous respectons les plus hauts standards de sécurité et de conformité pour protéger vos données.",
       "items": [
-        "🛡️ Certification ISO 27001", 
+        "🛡️ Certification ISO 27001",
         "🔒 Conformité RGPD complète",
         "💳 Paiements sécurisés Stripe"
       ]
@@ -278,7 +288,7 @@
       "description": "Si vous n'êtes pas satisfait dans les 30 premiers jours, nous vous remboursons intégralement.",
       "items": [
         "💰 Remboursement garanti 30j",
-        "🚀 ROI mesuré dès le 1er mois", 
+        "🚀 ROI mesuré dès le 1er mois",
         "📈 +200% de performance moyenne"
       ]
     },

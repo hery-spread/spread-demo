@@ -73,7 +73,9 @@ export default function HeroSection() {
               </div>
               <div className="flex items-center">
                 <SparklesIcon className="w-5 h-5 text-purple-600 mr-3" />
-                <span className="text-gray-700">{t('hero.benefits.analytics')}</span>
+                <span className="text-gray-700">
+                  {t('hero.benefits.analytics')}
+                </span>
               </div>
             </div>
 
@@ -112,7 +114,9 @@ export default function HeroSection() {
                   <SparklesIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">{t('hero.aiSearch.title')}</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    {t('hero.aiSearch.title')}
+                  </h4>
                   <p className="text-xs text-gray-500">
                     {t('hero.aiSearch.subtitle')}
                   </p>
@@ -183,7 +187,9 @@ export default function HeroSection() {
                       <div className="text-lg font-bold text-green-700">
                         2,847
                       </div>
-                      <div className="text-xs text-green-600">{t('hero.aiSearch.stats.profiles')}</div>
+                      <div className="text-xs text-green-600">
+                        {t('hero.aiSearch.stats.profiles')}
+                      </div>
                     </div>
                     <div>
                       <div className="text-lg font-bold text-blue-700">
@@ -237,15 +243,21 @@ export default function HeroSection() {
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">250M+</div>
-              <div className="text-gray-600">{t('hero.statsBar.influencers')}</div>
+              <div className="text-gray-600">
+                {t('hero.statsBar.influencers')}
+              </div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">98%</div>
-              <div className="text-gray-600">{t('hero.statsBar.satisfaction')}</div>
+              <div className="text-gray-600">
+                {t('hero.statsBar.satisfaction')}
+              </div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">10h</div>
-              <div className="text-gray-600">{t('hero.statsBar.timeSaved')}</div>
+              <div className="text-gray-600">
+                {t('hero.statsBar.timeSaved')}
+              </div>
             </div>
           </div>
         </div>
