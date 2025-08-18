@@ -103,75 +103,109 @@ export default function HeroSection() {
             </p>
           </div>
 
-          {/* Visual Right */}
+          {/* Visual Right - Real AI Search Interface */}
           <div className="relative">
-            {/* Glass Card Mockup */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-8 border border-gray-200/50">
-              <div className="space-y-6">
-                {/* Search Bar Mockup */}
-                <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl">
-                  <MagnifyingGlassIcon className="w-6 h-6 text-purple-600" />
-                  <div className="flex-1 text-gray-600 text-lg">
-                    &quot;Micro-influenceurs fitness France&quot;
+            {/* AI Search Interface Mockup */}
+            <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
+              
+              {/* Header */}
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                  <SparklesIcon className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Recherche IA</h4>
+                  <p className="text-xs text-gray-500">Langage naturel → Filtres automatiques</p>
+                </div>
+              </div>
+
+              {/* AI Search Input */}
+              <div className="relative mb-6">
+                <div className="w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium">
+                  Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement &gt;4%, audience féminine 18-35 ans
+                </div>
+                <div className="absolute bottom-3 right-3 flex items-center space-x-1">
+                  <SparklesIcon className="w-4 h-4 text-purple-600 animate-pulse" />
+                  <span className="text-xs text-purple-600 font-medium">Analyse IA</span>
+                </div>
+              </div>
+
+              {/* AI Analysis Results */}
+              <div className="space-y-3 mb-6">
+                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">Filtres détectés automatiquement :</div>
+                
+                <div className="flex flex-wrap gap-2">
+                  <div className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                    📍 France
+                  </div>
+                  <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                    👥 50K-500K followers
+                  </div>
+                  <div className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                    📈 +4% engagement
                   </div>
                 </div>
 
-                {/* Results Mockup */}
-                <div className="space-y-4">
-                  {[
-                    {
-                      name: '@fitcoach_marie',
-                      followers: '45.2K',
-                      engagement: '4.8%',
-                    },
-                    {
-                      name: '@healthy_lucas',
-                      followers: '32.1K',
-                      engagement: '5.2%',
-                    },
-                    {
-                      name: '@yoga_emma',
-                      followers: '28.5K',
-                      engagement: '6.1%',
-                    },
-                  ].map((influencer, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-indigo-400 rounded-full"></div>
-                        <div>
-                          <div className="font-semibold text-gray-900">
-                            {influencer.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {influencer.followers} followers
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-green-600 font-bold">
-                        {influencer.engagement}
-                      </div>
+                <div className="flex flex-wrap gap-2">
+                  <div className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-medium">
+                    💄 Beauté
+                  </div>
+                  <div className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                    👩 Audience féminine
+                  </div>
+                  <div className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">
+                    🔢 18-35 ans
+                  </div>
+                </div>
+              </div>
+
+              {/* Search Results Preview */}
+              <div className="border-t border-gray-100 pt-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-gray-600">Résultats trouvés</span>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-green-600 font-medium">2,847 profils</span>
+                  </div>
+                </div>
+                
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-lg font-bold text-green-700">2,847</div>
+                      <div className="text-xs text-green-600">Profils</div>
                     </div>
-                  ))}
-                </div>
-
-                {/* CTA in mockup */}
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold">
-                    🔓 Débloquer les Rapports d&apos;Audience
+                    <div>
+                      <div className="text-lg font-bold text-blue-700">~156K</div>
+                      <div className="text-xs text-blue-600">Followers moy.</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-purple-700">5.2%</div>
+                      <div className="text-xs text-purple-600">Engagement moy.</div>
+                    </div>
                   </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-6">
+                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm">
+                  🔍 Voir les 2,847 Profils Trouvés
                 </div>
               </div>
             </div>
 
-            {/* Floating Elements */}
-            <div className="absolute -top-6 -left-6 w-16 h-16 bg-gradient-to-br from-green-400 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <ChartBarIcon className="w-8 h-8 text-white" />
+            {/* Floating AI Elements */}
+            <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <SparklesIcon className="w-6 h-6 text-white" />
             </div>
-            <div className="absolute -bottom-6 -right-6 w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <UserGroupIcon className="w-8 h-8 text-white" />
+            <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <MagnifyingGlassIcon className="w-6 h-6 text-white" />
+            </div>
+            
+            {/* Performance Badge */}
+            <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+              ⚡ &lt; 30s
             </div>
           </div>
         </div>

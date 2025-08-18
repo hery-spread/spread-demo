@@ -110,7 +110,7 @@ export default function LandingNavbar() {
             className="fixed inset-0 bg-black/20 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           ></div>
-          
+
           {/* Menu Panel */}
           <div className="fixed top-20 left-4 right-4 bg-white/95 backdrop-blur-xl shadow-2xl shadow-gray-500/20 rounded-2xl border border-white/20 p-6">
             {/* Navigation Links */}
