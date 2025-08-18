@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
-import { 
-  UsersIcon, 
+import MultiSelect from '@/components/ui/MultiSelect';
+import {
+  UsersIcon,
   GlobeAltIcon,
   HeartIcon,
   InformationCircleIcon,
@@ -31,10 +32,16 @@ export default function AudienceFiltersCard({
   selectedPlatform,
 }: AudienceFiltersCardProps) {
   // États pour les composants avancés
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [locationSuggestions, setLocationSuggestions] = useState<Array<{id: number, name: string, title: string}>>([]);
-  const [interestSuggestions, setInterestSuggestions] = useState<Array<{id: number, name: string}>>([]);
-  const [languageSuggestions, setLanguageSuggestions] = useState<Array<{code: string, name: string}>>([]);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(true);
+  const [locationSuggestions, setLocationSuggestions] = useState<
+    Array<{ id: number; name: string; title: string }>
+  >([]);
+  const [interestSuggestions, setInterestSuggestions] = useState<
+    Array<{ id: number; name: string }>
+  >([]);
+  const [languageSuggestions, setLanguageSuggestions] = useState<
+    Array<{ code: string; name: string }>
+  >([]);
   const [isLoadingLocations, setIsLoadingLocations] = useState(false);
   const [isLoadingInterests, setIsLoadingInterests] = useState(false);
   const [isLoadingLanguages, setIsLoadingLanguages] = useState(false);
@@ -115,6 +122,22 @@ export default function AudienceFiltersCard({
         audienceLocation: {
           ...filters.audience?.audienceLocation,
           [key]: value || undefined,
+        },
+      },
+    });
+  };
+
+  const updateLocationsFilter = (
+    key: 'countries' | 'cities',
+    value: string[]
+  ) => {
+    onFiltersChange({
+      ...filters,
+      audience: {
+        ...filters.audience,
+        locations: {
+          ...filters.audience?.locations,
+          [key]: value.length > 0 ? value : undefined,
         },
       },
     });
@@ -352,6 +375,65 @@ export default function AudienceFiltersCard({
           </div>
         </div>
 
+        {/* Localisation simple */}
+        <div>
+          <h4 className="font-medium text-gray-900 mb-3">
+            Localisation de l&apos;audience
+          </h4>
+          <div className="space-y-4">
+            <MultiSelect
+              label="Pays"
+              placeholder="Sélectionner des pays..."
+              values={[
+                { value: 'FR', label: '🇫🇷 France' },
+                { value: 'US', label: '🇺🇸 États-Unis' },
+                { value: 'GB', label: '🇬🇧 Royaume-Uni' },
+                { value: 'DE', label: '🇩🇪 Allemagne' },
+                { value: 'ES', label: '🇪🇸 Espagne' },
+                { value: 'IT', label: '🇮🇹 Italie' },
+                { value: 'CA', label: '🇨🇦 Canada' },
+                { value: 'AU', label: '🇦🇺 Australie' },
+                { value: 'BR', label: '🇧🇷 Brésil' },
+                { value: 'MX', label: '🇲🇽 Mexique' },
+                { value: 'JP', label: '🇯🇵 Japon' },
+                { value: 'KR', label: '🇰🇷 Corée du Sud' },
+                { value: 'IN', label: '🇮🇳 Inde' },
+                { value: 'CN', label: '🇨🇳 Chine' },
+                { value: 'RU', label: '🇷🇺 Russie' },
+              ]}
+              selected={filters.audience?.locations?.countries || []}
+              onChange={(selected) =>
+                updateLocationsFilter('countries', selected)
+              }
+              searchable={true}
+            />
+
+            <MultiSelect
+              label="Villes"
+              placeholder="Sélectionner des villes..."
+              values={[
+                { value: 'paris', label: '🏙️ Paris' },
+                { value: 'london', label: '🏙️ Londres' },
+                { value: 'newyork', label: '🏙️ New York' },
+                { value: 'losangeles', label: '🏙️ Los Angeles' },
+                { value: 'madrid', label: '🏙️ Madrid' },
+                { value: 'berlin', label: '🏙️ Berlin' },
+                { value: 'rome', label: '🏙️ Rome' },
+                { value: 'toronto', label: '🏙️ Toronto' },
+                { value: 'sydney', label: '🏙️ Sydney' },
+                { value: 'tokyo', label: '🏙️ Tokyo' },
+                { value: 'seoul', label: '🏙️ Séoul' },
+                { value: 'mumbai', label: '🏙️ Mumbai' },
+                { value: 'shanghai', label: '🏙️ Shanghai' },
+                { value: 'moscow', label: '🏙️ Moscou' },
+              ]}
+              selected={filters.audience?.locations?.cities || []}
+              onChange={(selected) => updateLocationsFilter('cities', selected)}
+              searchable={true}
+            />
+          </div>
+        </div>
+
         {/* Démographie de l'audience */}
         <div>
           <h4 className="font-medium text-gray-900 mb-3">
@@ -522,16 +604,23 @@ export default function AudienceFiltersCard({
               <div>
                 <h5 className="font-medium text-gray-800 mb-3 flex items-center space-x-2">
                   <GlobeAltIcon className="w-4 h-4 text-blue-500" />
-                  <span>Localisation de l&apos;audience (système de poids)</span>
+                  <span>
+                    Localisation de l&apos;audience (système de poids)
+                  </span>
                 </h5>
-                
+
                 <div className="space-y-4">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                     <div className="flex items-start space-x-2">
                       <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
                       <div className="text-xs text-blue-700">
-                        <p className="font-medium mb-1">Système de poids Modash :</p>
-                        <p>Définissez l&apos;importance de chaque critère (0.1 = 10%, 0.5 = 50%, etc.)</p>
+                        <p className="font-medium mb-1">
+                          Système de poids Modash :
+                        </p>
+                        <p>
+                          Définissez l&apos;importance de chaque critère (0.1 =
+                          10%, 0.5 = 50%, etc.)
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -550,7 +639,11 @@ export default function AudienceFiltersCard({
                           if (query.length > 1 && selectedPlatform) {
                             setIsLoadingLocations(true);
                             try {
-                              const result = await getLocations(selectedPlatform, query, 10);
+                              const result = await getLocations(
+                                selectedPlatform,
+                                query,
+                                10
+                              );
                               setLocationSuggestions(result.locations);
                             } catch (error) {
                               console.error('Error fetching locations:', error);
@@ -563,21 +656,28 @@ export default function AudienceFiltersCard({
                         }}
                       />
                     </div>
-                    
+
                     {isLoadingLocations && (
                       <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
                         <span>Recherche en cours...</span>
                       </div>
                     )}
-                    
+
                     {locationSuggestions.length > 0 && (
                       <div className="mt-2 space-y-2">
-                        <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                        <p className="text-xs text-gray-600">
+                          Cliquez pour ajouter avec un poids :
+                        </p>
                         <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
                           {locationSuggestions.map((location) => (
-                            <div key={location.id} className="flex items-center space-x-2 p-2 bg-white rounded border">
-                              <span className="text-sm flex-1">{location.title}</span>
+                            <div
+                              key={location.id}
+                              className="flex items-center space-x-2 p-2 bg-white rounded border"
+                            >
+                              <span className="text-sm flex-1">
+                                {location.title}
+                              </span>
                               <Select
                                 options={[
                                   { value: '0.1', label: '10%' },
@@ -590,9 +690,14 @@ export default function AudienceFiltersCard({
                                 onChange={(e) => {
                                   const weight = parseFloat(e.target.value);
                                   // Ajouter la location avec son poids
-                                  const currentLocations = filters.audience?.audienceLocation?.topCountries || [];
+                                  const currentLocations =
+                                    filters.audience?.audienceLocation
+                                      ?.topCountries || [];
                                   const newLocation = `${location.title}:${weight}`;
-                                  updateAudienceLocationFilter('topCountries', [...currentLocations, newLocation]);
+                                  updateAudienceLocationFilter('topCountries', [
+                                    ...currentLocations,
+                                    newLocation,
+                                  ]);
                                 }}
                                 className="w-20"
                               />
@@ -604,33 +709,52 @@ export default function AudienceFiltersCard({
                   </div>
 
                   {/* Affichage des pays sélectionnés avec poids */}
-                  {filters.audience?.audienceLocation?.topCountries && filters.audience.audienceLocation.topCountries.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-gray-700 mb-2">Pays sélectionnés :</p>
-                      <div className="space-y-2">
-                        {filters.audience.audienceLocation.topCountries.map((country, index) => {
-                          const [name, weight] = country.split(':');
-                          return (
-                            <div key={index} className="flex items-center justify-between p-2 bg-white rounded border">
-                              <span className="text-sm">{name}</span>
-                              <div className="flex items-center space-x-2">
-                                <span className="text-xs text-gray-500">Poids: {weight || '1.0'}</span>
-                                <button
-                                  onClick={() => {
-                                    const newCountries = filters.audience?.audienceLocation?.topCountries?.filter((_, i) => i !== index);
-                                    updateAudienceLocationFilter('topCountries', newCountries?.length ? newCountries : undefined);
-                                  }}
-                                  className="text-red-500 hover:text-red-700"
+                  {filters.audience?.audienceLocation?.topCountries &&
+                    filters.audience.audienceLocation.topCountries.length >
+                      0 && (
+                      <div>
+                        <p className="text-sm font-medium text-gray-700 mb-2">
+                          Pays sélectionnés :
+                        </p>
+                        <div className="space-y-2">
+                          {filters.audience.audienceLocation.topCountries.map(
+                            (country, index) => {
+                              const [name, weight] = country.split(':');
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex items-center justify-between p-2 bg-white rounded border"
                                 >
-                                  ×
-                                </button>
-                              </div>
-                            </div>
-                          );
-                        })}
+                                  <span className="text-sm">{name}</span>
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-xs text-gray-500">
+                                      Poids: {weight || '1.0'}
+                                    </span>
+                                    <button
+                                      onClick={() => {
+                                        const newCountries =
+                                          filters.audience?.audienceLocation?.topCountries?.filter(
+                                            (_, i) => i !== index
+                                          );
+                                        updateAudienceLocationFilter(
+                                          'topCountries',
+                                          newCountries?.length
+                                            ? newCountries
+                                            : undefined
+                                        );
+                                      }}
+                                      className="text-red-500 hover:text-red-700"
+                                    >
+                                      ×
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               </div>
 
@@ -641,7 +765,7 @@ export default function AudienceFiltersCard({
                     <HeartIcon className="w-4 h-4 text-pink-500" />
                     <span>Intérêts de l&apos;audience</span>
                   </h5>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -660,7 +784,10 @@ export default function AudienceFiltersCard({
                                 const result = await getInterests(query, 10);
                                 setInterestSuggestions(result.interests);
                               } catch (error) {
-                                console.error('Error fetching interests:', error);
+                                console.error(
+                                  'Error fetching interests:',
+                                  error
+                                );
                               } finally {
                                 setIsLoadingInterests(false);
                               }
@@ -670,21 +797,28 @@ export default function AudienceFiltersCard({
                           }}
                         />
                       </div>
-                      
+
                       {isLoadingInterests && (
                         <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
                           <span>Recherche en cours...</span>
                         </div>
                       )}
-                      
+
                       {interestSuggestions.length > 0 && (
                         <div className="mt-2 space-y-2">
-                          <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                          <p className="text-xs text-gray-600">
+                            Cliquez pour ajouter avec un poids :
+                          </p>
                           <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
                             {interestSuggestions.map((interest) => (
-                              <div key={interest.id} className="flex items-center space-x-2 p-2 bg-white rounded border">
-                                <span className="text-sm flex-1">{interest.name}</span>
+                              <div
+                                key={interest.id}
+                                className="flex items-center space-x-2 p-2 bg-white rounded border"
+                              >
+                                <span className="text-sm flex-1">
+                                  {interest.name}
+                                </span>
                                 <Select
                                   options={[
                                     { value: '0.1', label: '10%' },
@@ -697,7 +831,9 @@ export default function AudienceFiltersCard({
                                   onChange={(e) => {
                                     const weight = parseFloat(e.target.value);
                                     // Ajouter l'intérêt avec son poids (logique à implémenter)
-                                    console.log(`Adding interest ${interest.name} with weight ${weight}`);
+                                    console.log(
+                                      `Adding interest ${interest.name} with weight ${weight}`
+                                    );
                                   }}
                                   className="w-20"
                                 />
@@ -713,8 +849,10 @@ export default function AudienceFiltersCard({
 
               {/* Langues avec weights */}
               <div>
-                <h5 className="font-medium text-gray-800 mb-3">Langues de l&apos;audience</h5>
-                
+                <h5 className="font-medium text-gray-800 mb-3">
+                  Langues de l&apos;audience
+                </h5>
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -730,7 +868,11 @@ export default function AudienceFiltersCard({
                           if (query.length > 1 && selectedPlatform) {
                             setIsLoadingLanguages(true);
                             try {
-                              const result = await getLanguages(selectedPlatform, query, 10);
+                              const result = await getLanguages(
+                                selectedPlatform,
+                                query,
+                                10
+                              );
                               setLanguageSuggestions(result.languages);
                             } catch (error) {
                               console.error('Error fetching languages:', error);
@@ -743,21 +885,28 @@ export default function AudienceFiltersCard({
                         }}
                       />
                     </div>
-                    
+
                     {isLoadingLanguages && (
                       <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
                         <span>Recherche en cours...</span>
                       </div>
                     )}
-                    
+
                     {languageSuggestions.length > 0 && (
                       <div className="mt-2 space-y-2">
-                        <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                        <p className="text-xs text-gray-600">
+                          Cliquez pour ajouter avec un poids :
+                        </p>
                         <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
                           {languageSuggestions.map((language) => (
-                            <div key={language.code} className="flex items-center space-x-2 p-2 bg-white rounded border">
-                              <span className="text-sm flex-1">{language.name} ({language.code})</span>
+                            <div
+                              key={language.code}
+                              className="flex items-center space-x-2 p-2 bg-white rounded border"
+                            >
+                              <span className="text-sm flex-1">
+                                {language.name} ({language.code})
+                              </span>
                               <Select
                                 options={[
                                   { value: '0.1', label: '10%' },
@@ -770,7 +919,9 @@ export default function AudienceFiltersCard({
                                 onChange={(e) => {
                                   const weight = parseFloat(e.target.value);
                                   // Ajouter la langue avec son poids (logique à implémenter)
-                                  console.log(`Adding language ${language.name} with weight ${weight}`);
+                                  console.log(
+                                    `Adding language ${language.name} with weight ${weight}`
+                                  );
                                 }}
                                 className="w-20"
                               />
@@ -788,12 +939,25 @@ export default function AudienceFiltersCard({
                 <div className="flex items-start space-x-2">
                   <InformationCircleIcon className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
                   <div className="text-xs text-purple-700">
-                    <p className="font-medium mb-1">Système de poids Modash :</p>
+                    <p className="font-medium mb-1">
+                      Système de poids Modash :
+                    </p>
                     <ul className="space-y-1">
-                      <li>• Les poids déterminent l&apos;importance de chaque critère</li>
-                      <li>• 0.1 = 10% d&apos;importance, 1.0 = 100% d&apos;importance</li>
-                      <li>• Combinez plusieurs critères pour des recherches précises</li>
-                      <li>• Les intérêts ne sont disponibles que sur Instagram</li>
+                      <li>
+                        • Les poids déterminent l&apos;importance de chaque
+                        critère
+                      </li>
+                      <li>
+                        • 0.1 = 10% d&apos;importance, 1.0 = 100%
+                        d&apos;importance
+                      </li>
+                      <li>
+                        • Combinez plusieurs critères pour des recherches
+                        précises
+                      </li>
+                      <li>
+                        • Les intérêts ne sont disponibles que sur Instagram
+                      </li>
                     </ul>
                   </div>
                 </div>

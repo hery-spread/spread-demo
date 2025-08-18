@@ -20,7 +20,7 @@ export default function SearchFilters({
   onSearch,
   loading = false,
 }: SearchFiltersProps) {
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(true);
 
   const updateFilter = (
     key: keyof ISearchFilters,

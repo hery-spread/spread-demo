@@ -2,6 +2,7 @@
 
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+import MultiSelect from '@/components/ui/MultiSelect';
 import { DocumentTextIcon } from '@heroicons/react/24/outline';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
@@ -62,6 +63,36 @@ export default function ContentFiltersCard({
       filterCount={activeFilterCount}
     >
       <div className="space-y-6">
+        {/* Catégories de contenu */}
+        <div>
+          <MultiSelect
+            label="Catégories de contenu"
+            placeholder="Sélectionner des catégories..."
+            values={[
+              { value: 'lifestyle', label: '✨ Lifestyle' },
+              { value: 'beaute', label: '💄 Beauté' },
+              { value: 'mode', label: '👗 Mode' },
+              { value: 'fitness', label: '💪 Fitness' },
+              { value: 'food', label: '🍽️ Food' },
+              { value: 'voyage', label: '✈️ Voyage' },
+              { value: 'tech', label: '💻 Tech' },
+              { value: 'gaming', label: '🎮 Gaming' },
+              { value: 'musique', label: '🎵 Musique' },
+              { value: 'art', label: '🎨 Art' },
+              { value: 'education', label: '📚 Éducation' },
+              { value: 'business', label: '💼 Business' },
+            ]}
+            selected={filters.content?.categories || []}
+            onChange={(selected) =>
+              updateContentFilter(
+                'categories',
+                selected.length > 0 ? selected : undefined
+              )
+            }
+            searchable={true}
+          />
+        </div>
+
         {/* Activité et fréquence */}
         <div>
           <h4 className="font-medium text-gray-900 mb-3">

@@ -15,13 +15,15 @@ import {
 import SearchSidebar from '@/components/search/SearchSidebar';
 import SearchResultsTable from '@/components/search/SearchResultsTable';
 import { Button } from '@/components/ui/Button';
-import { searchInfluencers as modashSearchInfluencers, transformAdvancedFiltersToModash } from '@/lib/modash';
+import {
+  searchInfluencers as modashSearchInfluencers,
+  transformAdvancedFiltersToModash,
+} from '@/lib/modash';
 
 // Recherche avancée avec intégration Modash
 const performAdvancedSearch = async (
   filters: AdvancedSearchFilters,
-  query: string,
-  calculationMethod: 'median' | 'average' = 'median'
+  query: string
 ): Promise<SearchResults> => {
   const startTime = Date.now();
 
@@ -33,14 +35,13 @@ const performAdvancedSearch = async (
     }
 
     const platform = filters.platforms[0];
-    
+
     // Transformer les filtres avancés vers le format Modash
     const modashFilters = transformAdvancedFiltersToModash(filters);
-    
+
     // Préparer la requête Modash
     const modashRequest = {
       page: 0,
-      calculationMethod,
       sort: {
         field: 'followers',
         direction: 'desc' as const,
@@ -49,8 +50,11 @@ const performAdvancedSearch = async (
     };
 
     // Appel à l'API Modash
-    const modashResponse = await modashSearchInfluencers(platform, modashRequest);
-    
+    const modashResponse = await modashSearchInfluencers(
+      platform,
+      modashRequest
+    );
+
     // Transformer la réponse Modash vers notre format
     const influencers: Influencer[] = [
       ...modashResponse.lookalikes,
@@ -87,7 +91,7 @@ const performAdvancedSearch = async (
         suggestedRefinements: [
           'Affiner la tranche de followers',
           'Ajouter des filtres géographiques',
-          'Préciser les intérêts de l\'audience',
+          "Préciser les intérêts de l'audience",
         ],
         alternativeQueries: [
           'Influenceurs similaires',
@@ -98,7 +102,7 @@ const performAdvancedSearch = async (
     };
   } catch (error) {
     console.error('Erreur lors de la recherche Modash:', error);
-    
+
     // Fallback sur les données mockées en cas d'erreur
     return performLegacySearch(filters, query);
   }
@@ -248,9 +252,6 @@ export default function AdvancedSearchPage() {
   const [showAddToListModal, setShowAddToListModal] = useState(false);
   const [selectedInfluencer, setSelectedInfluencer] =
     useState<Influencer | null>(null);
-  const [calculationMethod, setCalculationMethod] = useState<
-    'median' | 'average'
-  >('median');
 
   // Mettre à jour l'état de recherche
   const updateSearchState = useCallback((updates: Partial<SearchUIState>) => {
@@ -264,8 +265,7 @@ export default function AdvancedSearchPage() {
     try {
       const results = await performAdvancedSearch(
         searchState.activeFilters,
-        searchState.searchQuery,
-        calculationMethod
+        searchState.searchQuery
       );
 
       updateSearchState({
@@ -290,7 +290,7 @@ export default function AdvancedSearchPage() {
         },
       });
     }
-  }, [searchState.activeFilters, searchState.searchQuery, calculationMethod, updateSearchState]);
+  }, [searchState.activeFilters, searchState.searchQuery, updateSearchState]);
 
   // Recherche initiale au chargement
   useEffect(() => {
@@ -324,8 +324,6 @@ export default function AdvancedSearchPage() {
           onSearchStateChange={updateSearchState}
           onSearch={performSearch}
           isSearching={searchState.isSearching}
-          calculationMethod={calculationMethod}
-          onCalculationMethodChange={setCalculationMethod}
         />
       </div>
 

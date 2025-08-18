@@ -51,3 +51,4 @@ LISTS-06,LISTS,"En tant qu'utilisateur, je veux pouvoir sélectionner individuel
 COMM-01,COMMUNICATION,"En tant qu'utilisateur, je veux un système de communication harmonisé et centralisé qui unifie toutes les interfaces d'envoi d'emails et de gestion des conversations.",8,15,100
 NAV-01,NAVIGATION,"En tant qu'utilisateur, je veux une navigation regroupée par cas d'utilisation (Recherche, Communication, Gestion, Analytics) pour améliorer ma productivité et la découvrabilité des fonctionnalités.",3,6,0
 ANALYTICS-01,ANALYTICS,"En tant qu'utilisateur, je veux un système d'analyse des campagnes avec métriques de performance, ROI et rapports détaillés pour mesurer l'efficacité de mes actions de communication.",6,12,0
+LANDING-01,LANDING,"En tant que visiteur, je veux une landing page claire et convaincante à la racine qui me présente la proposition de valeur et m'incite à lancer un essai gratuit.",2,4,100

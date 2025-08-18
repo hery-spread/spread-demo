@@ -481,6 +481,7 @@ export interface AdvancedSearchFilters {
   // Plateforme et identification
   platforms?: ('instagram' | 'youtube' | 'tiktok')[];
   userSearch?: string; // Recherche par nom ou @username
+  directUsers?: string[]; // Recherche directe multi-@ (handles exacts)
   
   // Créateur de contenu
   creator?: {
@@ -512,6 +513,10 @@ export interface AdvancedSearchFilters {
     avgCommentsRange?: { min: number; max: number };
     avgSharesRange?: { min: number; max: number };
     avgViewsRange?: { min: number; max: number }; // Pour vidéos
+    locations?: {
+      countries?: string[]; // Pays multi-select (simple)
+      cities?: string[]; // Villes multi-select (simple)
+    };
     audienceGender?: {
       malePercentage?: { min: number; max: number };
       femalePercentage?: { min: number; max: number };
@@ -532,6 +537,7 @@ export interface AdvancedSearchFilters {
   
   // Contenu
   content?: {
+    categories?: string[]; // Catégories de contenu (lifestyle, beauté, mode, etc.)
     postFrequency?: 'very-low' | 'low' | 'medium' | 'high' | 'very-high';
     totalPostsRange?: { min: number; max: number };
     recentActivityDays?: number; // Dernière activité (en jours)

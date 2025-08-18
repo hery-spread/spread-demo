@@ -18,8 +18,6 @@ interface SearchSidebarProps {
   onSearchStateChange: (state: Partial<SearchUIState>) => void;
   onSearch: () => void;
   isSearching?: boolean;
-  calculationMethod?: 'median' | 'average';
-  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 export default function SearchSidebar({
@@ -27,8 +25,6 @@ export default function SearchSidebar({
   onSearchStateChange,
   onSearch,
   isSearching = false,
-  calculationMethod = 'median',
-  onCalculationMethodChange,
 }: SearchSidebarProps) {
   const updateFilters = (newFilters: AdvancedSearchFilters) => {
     onSearchStateChange({
@@ -52,10 +48,10 @@ export default function SearchSidebar({
       searchQuery: '',
       activeFilters: {},
       cardStates: {
-        'platform-search': false,
-        'creator-filters': false,
-        'audience-filters': false,
-        'content-filters': false,
+        'platform-search': true,
+        'creator-filters': true,
+        'audience-filters': true,
+        'content-filters': true,
       },
     });
   };
@@ -165,17 +161,15 @@ export default function SearchSidebar({
 
         {/* Card Plateforme */}
         <PlatformSearchCard
-          isOpen={searchState.cardStates['platform-search'] || false}
+          isOpen={searchState.cardStates['platform-search'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
-          calculationMethod={calculationMethod}
-          onCalculationMethodChange={onCalculationMethodChange}
         />
 
         {/* Card Créateur */}
         <CreatorFiltersCard
-          isOpen={searchState.cardStates['creator-filters'] || false}
+          isOpen={searchState.cardStates['creator-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
@@ -184,7 +178,7 @@ export default function SearchSidebar({
 
         {/* Card Audience */}
         <AudienceFiltersCard
-          isOpen={searchState.cardStates['audience-filters'] || false}
+          isOpen={searchState.cardStates['audience-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
@@ -193,7 +187,7 @@ export default function SearchSidebar({
 
         {/* Card Contenu */}
         <ContentFiltersCard
-          isOpen={searchState.cardStates['content-filters'] || false}
+          isOpen={searchState.cardStates['content-filters'] ?? true}
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
