@@ -38,14 +38,17 @@ export default function ShareCampaignModal({
 
   const generateShareLink = async () => {
     setIsGenerating(true);
-    
+
     // Simuler la génération d'un lien unique
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     const shareId = `camp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+    const baseUrl =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : 'http://localhost:3000';
     const link = `${baseUrl}/share/campaign/${shareId}`;
-    
+
     setShareLink(link);
     setIsGenerating(false);
   };
@@ -112,7 +115,7 @@ export default function ShareCampaignModal({
                     Campaign Overview Preview
                   </h3>
                   <p className="text-sm text-gray-600">
-                    Recipients will see campaign performance, content metrics, 
+                    Recipients will see campaign performance, content metrics,
                     and creator information in a beautiful branded report.
                   </p>
                 </div>
@@ -121,17 +124,21 @@ export default function ShareCampaignModal({
 
             {/* Paramètres de visibilité */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Visibility Settings</h3>
-              
+              <h3 className="text-lg font-semibold text-gray-900">
+                Visibility Settings
+              </h3>
+
               <div className="space-y-3">
                 <label className="flex items-start space-x-3">
                   <input
                     type="checkbox"
                     checked={shareSettings.includeFinancials}
-                    onChange={(e) => setShareSettings(prev => ({
-                      ...prev,
-                      includeFinancials: e.target.checked
-                    }))}
+                    onChange={(e) =>
+                      setShareSettings((prev) => ({
+                        ...prev,
+                        includeFinancials: e.target.checked,
+                      }))
+                    }
                     className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1"
                   />
                   <div>
@@ -148,10 +155,12 @@ export default function ShareCampaignModal({
                   <input
                     type="checkbox"
                     checked={shareSettings.includeBudgets}
-                    onChange={(e) => setShareSettings(prev => ({
-                      ...prev,
-                      includeBudgets: e.target.checked
-                    }))}
+                    onChange={(e) =>
+                      setShareSettings((prev) => ({
+                        ...prev,
+                        includeBudgets: e.target.checked,
+                      }))
+                    }
                     className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1"
                   />
                   <div>
@@ -168,8 +177,10 @@ export default function ShareCampaignModal({
 
             {/* Type de partage */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Access Control</h3>
-              
+              <h3 className="text-lg font-semibold text-gray-900">
+                Access Control
+              </h3>
+
               <div className="space-y-2">
                 <label className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                   <input
@@ -177,16 +188,20 @@ export default function ShareCampaignModal({
                     name="shareType"
                     value="public"
                     checked={shareSettings.shareType === 'public'}
-                    onChange={(e) => setShareSettings(prev => ({
-                      ...prev,
-                      shareType: e.target.value as 'public' | 'private'
-                    }))}
+                    onChange={(e) =>
+                      setShareSettings((prev) => ({
+                        ...prev,
+                        shareType: e.target.value as 'public' | 'private',
+                      }))
+                    }
                     className="w-4 h-4 text-purple-600"
                   />
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
                       <LinkIcon className="w-4 h-4 text-green-500" />
-                      <span className="text-sm font-medium text-gray-900">Public link</span>
+                      <span className="text-sm font-medium text-gray-900">
+                        Public link
+                      </span>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       Anyone with the link can view the report
@@ -200,16 +215,20 @@ export default function ShareCampaignModal({
                     name="shareType"
                     value="private"
                     checked={shareSettings.shareType === 'private'}
-                    onChange={(e) => setShareSettings(prev => ({
-                      ...prev,
-                      shareType: e.target.value as 'public' | 'private'
-                    }))}
+                    onChange={(e) =>
+                      setShareSettings((prev) => ({
+                        ...prev,
+                        shareType: e.target.value as 'public' | 'private',
+                      }))
+                    }
                     className="w-4 h-4 text-purple-600"
                   />
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
                       <LockClosedIcon className="w-4 h-4 text-orange-500" />
-                      <span className="text-sm font-medium text-gray-900">Password protected</span>
+                      <span className="text-sm font-medium text-gray-900">
+                        Password protected
+                      </span>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       Requires a password to access the report
@@ -224,10 +243,12 @@ export default function ShareCampaignModal({
                     type="password"
                     placeholder="Enter password"
                     value={shareSettings.password}
-                    onChange={(e) => setShareSettings(prev => ({
-                      ...prev,
-                      password: e.target.value
-                    }))}
+                    onChange={(e) =>
+                      setShareSettings((prev) => ({
+                        ...prev,
+                        password: e.target.value,
+                      }))
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   />
                 </div>
@@ -246,7 +267,11 @@ export default function ShareCampaignModal({
               </Button>
               <Button
                 onClick={generateShareLink}
-                disabled={isGenerating || (shareSettings.shareType === 'private' && !shareSettings.password)}
+                disabled={
+                  isGenerating ||
+                  (shareSettings.shareType === 'private' &&
+                    !shareSettings.password)
+                }
                 className="flex-1 flex items-center justify-center space-x-2"
               >
                 {isGenerating ? (
@@ -274,7 +299,8 @@ export default function ShareCampaignModal({
                 Share Link Created!
               </h3>
               <p className="text-gray-600">
-                Your campaign report is ready to share. The link is valid and can be accessed immediately.
+                Your campaign report is ready to share. The link is valid and
+                can be accessed immediately.
               </p>
             </div>
 
@@ -315,13 +341,19 @@ export default function ShareCampaignModal({
               <div className="flex items-start space-x-3">
                 <EyeIcon className="w-5 h-5 text-blue-600 mt-1" />
                 <div>
-                  <h4 className="font-medium text-blue-900 mb-2">What&apos;s included in this report:</h4>
+                  <h4 className="font-medium text-blue-900 mb-2">
+                    What&apos;s included in this report:
+                  </h4>
                   <ul className="text-sm text-blue-800 space-y-1">
                     <li>• Campaign overview and performance metrics</li>
                     <li>• Content breakdown (posts, stories, reels)</li>
                     <li>• Creator information and engagement data</li>
-                    {shareSettings.includeFinancials && <li>• Financial metrics (EMV, ROAS, CPM)</li>}
-                    {shareSettings.includeBudgets && <li>• Budget and cost information</li>}
+                    {shareSettings.includeFinancials && (
+                      <li>• Financial metrics (EMV, ROAS, CPM)</li>
+                    )}
+                    {shareSettings.includeBudgets && (
+                      <li>• Budget and cost information</li>
+                    )}
                     <li>• Branded Spread call-to-action</li>
                   </ul>
                 </div>
@@ -337,10 +369,7 @@ export default function ShareCampaignModal({
               >
                 Preview Report
               </Button>
-              <Button
-                onClick={handleClose}
-                className="flex-1"
-              >
+              <Button onClick={handleClose} className="flex-1">
                 Done
               </Button>
             </div>

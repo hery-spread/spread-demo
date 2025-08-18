@@ -198,8 +198,8 @@ export default function CampaignDetailPage() {
 
           {/* Actions */}
           <div className="flex items-center space-x-3 ml-6">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="flex items-center space-x-2"
               onClick={() => setShowShareModal(true)}
             >

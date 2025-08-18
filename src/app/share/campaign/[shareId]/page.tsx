@@ -19,14 +19,14 @@ import {
   CursorArrowRaysIcon,
   UsersIcon,
 } from '@heroicons/react/24/outline';
-import {
-  PlayCircleIcon as PlayCircleIconSolid,
-} from '@heroicons/react/24/solid';
+import { PlayCircleIcon as PlayCircleIconSolid } from '@heroicons/react/24/solid';
 import { Button } from '@/components/ui/Button';
 import { CampaignTracker, SharedCampaign } from '@/types';
 
 // Simuler la récupération des données de campagne partagée
-function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareData: SharedCampaign } | null {
+function getSharedCampaign(
+  shareId: string
+): { campaign: CampaignTracker; shareData: SharedCampaign } | null {
   // Dans un vrai projet, ça ferait un appel API avec le shareId
   // Pour le mock, on simule la validation du shareId
   if (!shareId || shareId.length < 8) {
@@ -38,13 +38,21 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
     campaign: {
       id: 'camp_1',
       name: 'Samsung Galaxy S25 Launch',
-      description: 'Campagne de lancement du nouveau Galaxy S25 avec focus sur la photographie',
-      
+      description:
+        'Campagne de lancement du nouveau Galaxy S25 avec focus sur la photographie',
+
       trackingConfig: {
         links: [
-          { url: 'https://samsung.com/s25-launch', label: 'Page officielle S25', budget: 5000 },
-          { url: 'https://store.samsung.com/galaxy-s25', label: 'Boutique S25' },
-          { url: 'https://samsung.fr/promo-s25', budget: 2500 }
+          {
+            url: 'https://samsung.com/s25-launch',
+            label: 'Page officielle S25',
+            budget: 5000,
+          },
+          {
+            url: 'https://store.samsung.com/galaxy-s25',
+            label: 'Boutique S25',
+          },
+          { url: 'https://samsung.fr/promo-s25', budget: 2500 },
         ],
         mentions: ['@samsung', '@samsungfrance'],
         keywords: ['Galaxy S25', 'Samsung', 'nouveau smartphone'],
@@ -53,10 +61,10 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
         flagMissingDisclosure: true,
         eventMode: false,
       },
-      
+
       startDate: '2025-01-20T00:00:00Z',
       endDate: '2025-02-20T23:59:59Z',
-      
+
       creators: [
         {
           influencerId: 'inf_1',
@@ -83,7 +91,7 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
           contractedAt: '2025-01-15T10:00:00Z',
         },
       ],
-      
+
       analytics: {
         content: {
           totalPosts: 5,
@@ -93,7 +101,7 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
           creatorsPosted: 2,
           totalCreators: 3,
         },
-        
+
         engagement: {
           totalEngagements: 45200,
           averageER: 6.8,
@@ -102,14 +110,14 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
           totalShares: 2800,
           totalSaves: 1100,
         },
-        
+
         reach: {
           totalImpressions: 850000,
           totalReach: 640000,
           averageVideoER: 7.4,
           totalViews: 156000,
         },
-        
+
         performance: {
           totalLinks: 12,
           totalClicks: 3250,
@@ -117,7 +125,7 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
           totalConversions: 156,
           conversionRate: 4.8,
         },
-        
+
         financials: {
           totalCreatorCost: 10200,
           totalEMV: 85400,
@@ -126,7 +134,7 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
           roas: 8.37,
           costPerEngagement: 0.23,
         },
-        
+
         byPlatform: {
           instagram: {
             posts: 3,
@@ -143,11 +151,11 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
             emv: 33400,
           },
         },
-        
+
         topCreators: [],
-        timeline: []
+        timeline: [],
       },
-      
+
       status: 'active',
       createdBy: 'user_1',
       createdAt: '2025-01-15T09:00:00Z',
@@ -164,7 +172,7 @@ function getSharedCampaign(shareId: string): { campaign: CampaignTracker; shareD
       includeFinancials: true,
       includeBudgets: false,
       trackingEnabled: true,
-    }
+    },
   };
 }
 
@@ -184,7 +192,7 @@ const formatCurrency = (amount: number) => {
 export default function SharedCampaignPage() {
   const params = useParams();
   const shareId = params.shareId as string;
-  
+
   const [campaignData, setCampaignData] = useState<{
     campaign: CampaignTracker;
     shareData: SharedCampaign;
@@ -201,7 +209,10 @@ export default function SharedCampaignPage() {
         }
         setCampaignData(data);
       } catch (error) {
-        console.error('Erreur lors du chargement de la campagne partagée:', error);
+        console.error(
+          'Erreur lors du chargement de la campagne partagée:',
+          error
+        );
         notFound();
       } finally {
         setLoading(false);
@@ -236,14 +247,17 @@ export default function SharedCampaignPage() {
                 <ShareIcon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold text-gray-900">Campaign Report</h1>
+                <h1 className="text-lg font-semibold text-gray-900">
+                  Campaign Report
+                </h1>
                 <p className="text-sm text-gray-500">Powered by Spread</p>
               </div>
             </div>
-            
+
             <div className="text-right">
               <p className="text-sm text-gray-500">
-                {shareData.viewCount} vues • Partagé le {new Date(shareData.createdAt).toLocaleDateString('fr-FR')}
+                {shareData.viewCount} vues • Partagé le{' '}
+                {new Date(shareData.createdAt).toLocaleDateString('fr-FR')}
               </p>
             </div>
           </div>
@@ -263,13 +277,15 @@ export default function SharedCampaignPage() {
                     Active
                   </span>
                 </div>
-                
+
                 <h2 className="text-4xl font-bold text-gray-900 mb-3">
                   {campaign.name}
                 </h2>
-                
+
                 {campaign.description && (
-                  <p className="text-xl text-gray-600 mb-6">{campaign.description}</p>
+                  <p className="text-xl text-gray-600 mb-6">
+                    {campaign.description}
+                  </p>
                 )}
 
                 <div className="flex items-center space-x-8 text-gray-500">
@@ -278,7 +294,13 @@ export default function SharedCampaignPage() {
                     <span>
                       {new Date(campaign.startDate).toLocaleDateString('fr-FR')}
                       {campaign.endDate && (
-                        <> - {new Date(campaign.endDate).toLocaleDateString('fr-FR')}</>
+                        <>
+                          {' '}
+                          -{' '}
+                          {new Date(campaign.endDate).toLocaleDateString(
+                            'fr-FR'
+                          )}
+                        </>
                       )}
                     </span>
                   </div>
@@ -300,8 +322,12 @@ export default function SharedCampaignPage() {
                   {formatNumber(campaign.analytics.reach.totalImpressions)}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-700">Impressions</h3>
-              <p className="text-sm text-gray-500 mt-1">Total reach across all platforms</p>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Impressions
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Total reach across all platforms
+              </p>
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
@@ -311,8 +337,12 @@ export default function SharedCampaignPage() {
                   {formatNumber(campaign.analytics.engagement.totalEngagements)}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-700">Engagements</h3>
-              <p className="text-sm text-gray-500 mt-1">{campaign.analytics.engagement.averageER}% average ER</p>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Engagements
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                {campaign.analytics.engagement.averageER}% average ER
+              </p>
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
@@ -322,8 +352,12 @@ export default function SharedCampaignPage() {
                   {campaign.analytics.content.totalPosts}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-700">Content pieces</h3>
-              <p className="text-sm text-gray-500 mt-1">Posts, stories, reels & videos</p>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Content pieces
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Posts, stories, reels & videos
+              </p>
             </div>
 
             <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
@@ -333,8 +367,12 @@ export default function SharedCampaignPage() {
                   {campaign.analytics.performance.totalClicks}
                 </span>
               </div>
-              <h3 className="text-lg font-semibold text-gray-700">Link clicks</h3>
-              <p className="text-sm text-gray-500 mt-1">{campaign.analytics.performance.ctr}% CTR</p>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Link clicks
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                {campaign.analytics.performance.ctr}% CTR
+              </p>
             </div>
           </div>
 
@@ -342,8 +380,10 @@ export default function SharedCampaignPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Content breakdown */}
             <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Content Breakdown</h3>
-              
+              <h3 className="text-xl font-bold text-gray-900 mb-6">
+                Content Breakdown
+              </h3>
+
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -371,7 +411,8 @@ export default function SharedCampaignPage() {
                     <span className="text-gray-700">Reels & Videos</span>
                   </div>
                   <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.content.totalReels + campaign.analytics.content.totalVideos}
+                    {campaign.analytics.content.totalReels +
+                      campaign.analytics.content.totalVideos}
                   </span>
                 </div>
 
@@ -381,7 +422,8 @@ export default function SharedCampaignPage() {
                     <span className="text-gray-700">Creators posted</span>
                   </div>
                   <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.content.creatorsPosted}/{campaign.analytics.content.totalCreators}
+                    {campaign.analytics.content.creatorsPosted}/
+                    {campaign.analytics.content.totalCreators}
                   </span>
                 </div>
               </div>
@@ -389,8 +431,10 @@ export default function SharedCampaignPage() {
 
             {/* Performance metrics */}
             <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Performance</h3>
-              
+              <h3 className="text-xl font-bold text-gray-900 mb-6">
+                Performance
+              </h3>
+
               <div className="space-y-4">
                 {shareData.includeFinancials && (
                   <>
@@ -410,7 +454,9 @@ export default function SharedCampaignPage() {
                         <span className="text-gray-700">ROAS</span>
                       </div>
                       <span className="text-lg font-semibold text-gray-900">
-                        {campaign.analytics.financials.roas ? `${campaign.analytics.financials.roas}x` : '-'}
+                        {campaign.analytics.financials.roas
+                          ? `${campaign.analytics.financials.roas}x`
+                          : '-'}
                       </span>
                     </div>
 
@@ -420,7 +466,9 @@ export default function SharedCampaignPage() {
                         <span className="text-gray-700">CPM</span>
                       </div>
                       <span className="text-lg font-semibold text-gray-900">
-                        {formatCurrency(campaign.analytics.financials.averageCPM)}
+                        {formatCurrency(
+                          campaign.analytics.financials.averageCPM
+                        )}
                       </span>
                     </div>
                   </>
@@ -455,10 +503,10 @@ export default function SharedCampaignPage() {
               Want to create campaigns like this?
             </h3>
             <p className="text-purple-100 text-lg mb-6 max-w-2xl mx-auto">
-              Spread helps you find the perfect creators, track campaign performance, 
-              and measure ROI with advanced analytics.
+              Spread helps you find the perfect creators, track campaign
+              performance, and measure ROI with advanced analytics.
             </p>
-            <Button 
+            <Button
               className="bg-white text-purple-600 hover:bg-gray-50 text-lg px-8 py-3 font-semibold"
               onClick={() => window.open('https://spread.com', '_blank')}
             >
@@ -473,15 +521,15 @@ export default function SharedCampaignPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400">
             This campaign report was created with{' '}
-            <a 
-              href="https://spread.com" 
+            <a
+              href="https://spread.com"
               className="text-purple-400 hover:text-purple-300 font-medium"
-              target="_blank" 
+              target="_blank"
               rel="noopener noreferrer"
             >
               Spread
-            </a>
-            {' '}— The all-in-one influencer marketing platform
+            </a>{' '}
+            — The all-in-one influencer marketing platform
           </p>
         </div>
       </div>
