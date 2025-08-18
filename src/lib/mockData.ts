@@ -3462,12 +3462,15 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
     description: 'Campagne de lancement du nouveau Galaxy S25 avec focus sur la photographie',
     
     trackingConfig: {
-      hashtags: ['#SamsungS25', '#GalaxyS25Launch', '#SamsungPartner'],
+      links: [
+        { url: 'https://samsung.com/s25-launch', label: 'Page officielle S25', budget: 5000 },
+        { url: 'https://store.samsung.com/galaxy-s25', label: 'Boutique S25' },
+        { url: 'https://samsung.fr/promo-s25', budget: 2500 }
+      ],
       mentions: ['@samsung', '@samsungfrance'],
       keywords: ['Galaxy S25', 'Samsung', 'nouveau smartphone'],
       platforms: ['instagram', 'youtube', 'tiktok'],
       autoImport: true,
-      flagMissingHashtags: true,
       flagMissingDisclosure: true,
       eventMode: false,
     },
@@ -3634,12 +3637,15 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
     description: 'Campagne été 2025 pour la nouvelle collection sportswear',
     
     trackingConfig: {
-      hashtags: ['#SportSummer2025', '#FitnessMotivation', '#SportPartner'],
+      links: [
+        { url: 'https://sportbrand.com/summer-collection', label: 'Collection Été 2025', budget: 3000 },
+        { url: 'https://store.sportbrand.com/fitness', label: 'Boutique Fitness' },
+        { url: 'https://sportbrand.com/promo-summer', label: 'Promo Été', budget: 1500 }
+      ],
       mentions: ['@sportbrand', '@fitnesscollection'],
       keywords: ['sport', 'été', 'collection', 'fitness'],
       platforms: ['instagram', 'tiktok'],
       autoImport: true,
-      flagMissingHashtags: true,
       flagMissingDisclosure: true,
       eventMode: false,
     },
@@ -3806,7 +3812,7 @@ export const mockCampaignContents: CampaignContent[] = [
     publishedAt: '2025-01-21T15:30:00Z',
     detectedAt: '2025-01-21T15:45:00Z',
     
-    trackedHashtags: ['#SamsungS25', '#GalaxyS25Launch', '#SamsungPartner', '#ad'],
+    trackedLinks: ['https://samsung.com/s25-launch', 'https://store.samsung.com/galaxy-s25'],
     trackedMentions: ['@samsung', '@samsungfrance'],
     trackedKeywords: ['Galaxy S25', 'Samsung', 'nouveau smartphone', 'photographie'],
     
@@ -3850,7 +3856,7 @@ export const mockCampaignContents: CampaignContent[] = [
     publishedAt: '2025-01-23T18:00:00Z',
     detectedAt: '2025-01-23T18:15:00Z',
     
-    trackedHashtags: ['#SamsungS25', '#SamsungPartner'],
+    trackedLinks: ['https://samsung.com/s25-launch'],
     trackedMentions: ['@samsung'],
     trackedKeywords: ['Galaxy S25', 'Samsung', 'test', 'review', 'tech'],
     
@@ -3905,12 +3911,11 @@ export const createCampaign = async (campaignData: Partial<CampaignTracker>): Pr
     name: campaignData.name || '',
     description: campaignData.description || '',
     trackingConfig: campaignData.trackingConfig || {
-      hashtags: [],
+      links: [],
       mentions: [],
       keywords: [],
       platforms: ['instagram'],
       autoImport: false,
-      flagMissingHashtags: false,
       flagMissingDisclosure: false,
       eventMode: false,
     },

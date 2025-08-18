@@ -26,7 +26,11 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/spread', icon: '💼' },
+    {
+      label: 'LinkedIn',
+      href: 'https://linkedin.com/company/spread',
+      icon: '💼',
+    },
     { label: 'Twitter', href: 'https://twitter.com/spread', icon: '🐦' },
     { label: 'YouTube', href: 'https://youtube.com/@spread', icon: '📺' },
     { label: 'Instagram', href: 'https://instagram.com/spread', icon: '📸' },
@@ -42,7 +46,6 @@ export default function Footer() {
         {/* Main Footer Content */}
         <div className="py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
@@ -58,7 +61,7 @@ export default function Footer() {
                   </p>
                 </div>
               </div>
-              
+
               <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-md">
                 {t('footer.brand.description')}
               </p>
@@ -122,7 +125,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-              
+
               {/* Support Button */}
               <div className="mt-8">
                 <a
@@ -139,7 +142,6 @@ export default function Footer() {
         {/* Social Media & Stats */}
         <div className="py-8 border-t border-purple-800/50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            
             {/* Social Links */}
             <div>
               <h4 className="text-lg font-bold text-white mb-4">
@@ -167,12 +169,20 @@ export default function Footer() {
             <div className="text-right">
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-300 mb-2">250M+</div>
-                  <div className="text-sm text-gray-400">{t('footer.stats.influencers')}</div>
+                  <div className="text-3xl font-bold text-purple-300 mb-2">
+                    250M+
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    {t('footer.stats.influencers')}
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-300 mb-2">2,847+</div>
-                  <div className="text-sm text-gray-400">{t('footer.stats.clients')}</div>
+                  <div className="text-3xl font-bold text-purple-300 mb-2">
+                    2,847+
+                  </div>
+                  <div className="text-sm text-gray-400">
+                    {t('footer.stats.clients')}
+                  </div>
                 </div>
               </div>
             </div>
@@ -182,7 +192,6 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-purple-800/50">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            
             {/* Copyright */}
             <div className="text-gray-400 text-sm">
               {t('footer.copyright', { year: new Date().getFullYear() })}
@@ -193,7 +202,9 @@ export default function Footer() {
               onClick={scrollToTop}
               className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 backdrop-blur-sm rounded-xl text-purple-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/40 hover:to-indigo-600/40 transition-all duration-300 group"
             >
-              <span className="text-sm font-medium">{t('footer.backToTop')}</span>
+              <span className="text-sm font-medium">
+                {t('footer.backToTop')}
+              </span>
               <span className="text-lg group-hover:-translate-y-1 transition-transform duration-300">
                 ↑
               </span>
