@@ -186,11 +186,12 @@ export default function AISearchCard({
       setAiResult(result);
 
       // Appliquer automatiquement les filtres détectés avec un délai
-      setTimeout(() => {
-        if (result.parsedFilters) {
+      if (result.parsedFilters) {
+        const filterKeys = Object.keys(result.parsedFilters);
+        setTimeout(() => {
           onFiltersChange(result.parsedFilters);
-        }
-      }, filterKeys.length * 300 + 500);
+        }, filterKeys.length * 300 + 500);
+      }
       
     } catch (error) {
       console.error("Erreur lors de l'analyse IA:", error);

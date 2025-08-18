@@ -162,7 +162,7 @@ export default function CampaignDetailPage() {
           </div>
         </div>
 
-                  <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between">
           <div className="flex-1">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               {campaign.name}
@@ -211,7 +211,10 @@ export default function CampaignDetailPage() {
           <nav className="-mb-px flex space-x-8">
             {[
               { id: 'overview', label: 'Campaign overview' },
-              { id: 'creators', label: `Creators (${campaign.creators.length})` },
+              {
+                id: 'creators',
+                label: `Creators (${campaign.creators.length})`,
+              },
               { id: 'content', label: 'Published content (0)' },
             ].map((tab) => (
               <button
@@ -236,7 +239,7 @@ export default function CampaignDetailPage() {
           {/* Section Content */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
             <h2 className="text-lg font-bold text-gray-900 mb-6">Content</h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
@@ -244,7 +247,9 @@ export default function CampaignDetailPage() {
                   <span className="text-2xl font-bold text-gray-900">
                     {campaign.analytics.content.creatorsPosted}
                   </span>
-                  <span className="text-gray-500 ml-1">out of {campaign.analytics.content.totalCreators}</span>
+                  <span className="text-gray-500 ml-1">
+                    out of {campaign.analytics.content.totalCreators}
+                  </span>
                 </div>
                 <p className="text-sm text-gray-600">Creators posted</p>
               </div>
@@ -291,14 +296,18 @@ export default function CampaignDetailPage() {
 
           {/* Section Awareness & engagement */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-900 mb-6">Awareness &amp; engagement</h2>
-            
+            <h2 className="text-lg font-bold text-gray-900 mb-6">
+              Awareness &amp; engagement
+            </h2>
+
             <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-8">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
                   <HeartIcon className="w-5 h-5 text-gray-400 mr-2" />
                   <span className="text-2xl font-bold text-gray-900">
-                    {formatNumber(campaign.analytics.engagement.totalEngagements)}
+                    {formatNumber(
+                      campaign.analytics.engagement.totalEngagements
+                    )}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600">Total engagements</p>
@@ -391,11 +400,15 @@ export default function CampaignDetailPage() {
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-gray-900">Performance</h2>
-              <Button variant="outline" size="sm" className="text-purple-600 border-purple-200">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-purple-600 border-purple-200"
+              >
                 + View clicks report
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
               <div className="text-center">
                 <div className="flex items-center justify-center mb-2">
@@ -421,7 +434,9 @@ export default function CampaignDetailPage() {
                 <div className="flex items-center justify-center mb-2">
                   <CurrencyEuroIcon className="w-5 h-5 text-gray-400 mr-2" />
                   <span className="text-2xl font-bold text-gray-900">
-                    {formatCurrency(campaign.analytics.financials.totalCreatorCost)}
+                    {formatCurrency(
+                      campaign.analytics.financials.totalCreatorCost
+                    )}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600">Total creator cost</p>
@@ -431,7 +446,9 @@ export default function CampaignDetailPage() {
                 <div className="flex items-center justify-center mb-2">
                   <TrophyIcon className="w-5 h-5 text-gray-400 mr-2" />
                   <span className="text-2xl font-bold text-gray-900">
-                    {campaign.analytics.financials.roas ? `${campaign.analytics.financials.roas}x` : '-'}
+                    {campaign.analytics.financials.roas
+                      ? `${campaign.analytics.financials.roas}x`
+                      : '-'}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600">ROAS</p>
@@ -466,7 +483,9 @@ export default function CampaignDetailPage() {
                       <h3 className="font-medium text-gray-900">
                         {link.label || new URL(link.url).hostname}
                       </h3>
-                      <p className="text-sm text-gray-500 break-all">{link.url}</p>
+                      <p className="text-sm text-gray-500 break-all">
+                        {link.url}
+                      </p>
                     </div>
                     <LinkIcon className="w-4 h-4 text-gray-400 ml-2 mt-1" />
                   </div>
@@ -566,7 +585,8 @@ export default function CampaignDetailPage() {
               No published content yet
             </h3>
             <p className="text-gray-600">
-              Published content from creators will appear here once the campaign is running.
+              Published content from creators will appear here once the campaign
+              is running.
             </p>
           </div>
         </div>
