@@ -369,7 +369,7 @@
         "content": "Nous ne vendons jamais vos données personnelles. Nous pouvons partager vos informations uniquement dans les cas suivants :<br><br>• Avec votre consentement explicite<br>• Avec nos prestataires de services techniques (hébergement, paiement, analyse)<br>• Pour respecter une obligation légale ou une décision de justice<br>• Pour protéger les droits, la propriété ou la sécurité de Spread ou de nos utilisateurs"
       },
       "dataSecurity": {
-        "title": "Sécurité des Données", 
+        "title": "Sécurité des Données",
         "content": "Nous mettons en œuvre des mesures de sécurité robustes :<br><br>• Chiffrement SSL/TLS pour toutes les transmissions de données<br>• Authentification multi-facteurs pour les comptes sensibles<br>• Accès aux données strictement limité aux employés autorisés<br>• Sauvegardes régulières et plan de récupération d'urgence<br>• Audits de sécurité réguliers par des tiers indépendants"
       },
       "userRights": {
@@ -394,7 +394,7 @@
   "terms": {
     "title": "Conditions d'Utilisation",
     "subtitle": "Les règles d'utilisation de la plateforme Spread",
-    "backToHome": "Retour à l'accueil", 
+    "backToHome": "Retour à l'accueil",
     "lastUpdated": "Mise à jour : 15 décembre 2024",
     "effectiveDate": "En vigueur depuis : 1er janvier 2024",
     "intro": {
@@ -445,7 +445,7 @@
     "title": "Politique de Cookies",
     "subtitle": "Comment nous utilisons les cookies sur notre plateforme",
     "backToHome": "Retour à l'accueil",
-    "lastUpdated": "Mise à jour : 15 décembre 2024", 
+    "lastUpdated": "Mise à jour : 15 décembre 2024",
     "effectiveDate": "En vigueur depuis : 1er janvier 2024",
     "examples": "Exemples",
     "intro": {
@@ -544,7 +544,7 @@
         "items": "Nom et prénom | Adresse e-mail | Numéro de téléphone | Entreprise | Fonction"
       },
       "technical": {
-        "title": "Données Techniques", 
+        "title": "Données Techniques",
         "items": "Adresse IP | Type de navigateur | Système d'exploitation | Cookies | Logs de connexion"
       },
       "behavioral": {
@@ -603,7 +603,7 @@
       "subtitle": "Pour les problèmes critiques affectant votre activité",
       "phone": "Téléphone d'Urgence",
       "phoneHours": "24h/24 pour clients Enterprise",
-      "email": "E-mail d'Urgence", 
+      "email": "E-mail d'Urgence",
       "emailResponse": "Réponse sous 15 minutes"
     },
     "faqSection": {

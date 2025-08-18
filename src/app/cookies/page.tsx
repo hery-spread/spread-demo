@@ -18,7 +18,7 @@ export default function CookiesPage() {
     },
     {
       title: t('cookies.types.analytics.title'),
-      description: t('cookies.types.analytics.description'), 
+      description: t('cookies.types.analytics.description'),
       examples: t('cookies.types.analytics.examples'),
       icon: '📊',
       color: 'from-blue-500 to-indigo-500',
@@ -56,7 +56,7 @@ export default function CookiesPage() {
               <span className="font-medium">{t('cookies.backToHome')}</span>
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg">
               <CakeIcon className="w-8 h-8 text-white" />
@@ -65,12 +65,10 @@ export default function CookiesPage() {
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 {t('cookies.title')}
               </h1>
-              <p className="text-lg text-gray-600">
-                {t('cookies.subtitle')}
-              </p>
+              <p className="text-lg text-gray-600">{t('cookies.subtitle')}</p>
             </div>
           </div>
-          
+
           <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -86,7 +84,6 @@ export default function CookiesPage() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
         {/* Introduction */}
         <div className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
@@ -107,23 +104,21 @@ export default function CookiesPage() {
               className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center space-x-4 mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${type.bgColor} rounded-xl flex items-center justify-center`}>
+                <div
+                  className={`w-12 h-12 bg-gradient-to-br ${type.bgColor} rounded-xl flex items-center justify-center`}
+                >
                   <span className="text-2xl">{type.icon}</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">
                   {type.title}
                 </h3>
               </div>
-              <p className="text-gray-600 mb-4">
-                {type.description}
-              </p>
+              <p className="text-gray-600 mb-4">{type.description}</p>
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-sm font-medium text-gray-700 mb-1">
                   {t('cookies.examples')}
                 </p>
-                <p className="text-sm text-gray-600">
-                  {type.examples}
-                </p>
+                <p className="text-sm text-gray-600">{type.examples}</p>
               </div>
             </div>
           ))}
@@ -144,7 +139,11 @@ export default function CookiesPage() {
                   {t('cookies.management.browser.title')}
                 </h3>
                 <div className="prose prose-sm text-gray-600">
-                  <div dangerouslySetInnerHTML={{ __html: t('cookies.management.browser.content') }} />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: t('cookies.management.browser.content'),
+                    }}
+                  />
                 </div>
               </div>
               <div>
@@ -155,7 +154,11 @@ export default function CookiesPage() {
                   {t('cookies.management.preferences.title')}
                 </h3>
                 <div className="prose prose-sm text-gray-600">
-                  <div dangerouslySetInnerHTML={{ __html: t('cookies.management.preferences.content') }} />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: t('cookies.management.preferences.content'),
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -169,7 +172,11 @@ export default function CookiesPage() {
               {t('cookies.thirdParty.title')}
             </h2>
             <div className="prose prose-lg text-gray-600 max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: t('cookies.thirdParty.content') }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: t('cookies.thirdParty.content'),
+                }}
+              />
             </div>
           </div>
         </div>
@@ -194,8 +201,12 @@ export default function CookiesPage() {
               <div className="flex items-center space-x-3">
                 <span className="text-2xl">🍪</span>
                 <div>
-                  <div className="font-medium">{t('cookies.contactSection.preferences')}</div>
-                  <div className="text-orange-200">{t('cookies.contactSection.manage')}</div>
+                  <div className="font-medium">
+                    {t('cookies.contactSection.preferences')}
+                  </div>
+                  <div className="text-orange-200">
+                    {t('cookies.contactSection.manage')}
+                  </div>
                 </div>
               </div>
             </div>

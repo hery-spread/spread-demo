@@ -1,7 +1,10 @@
 'use client';
 
 import { useI18n } from '@/lib/i18n/context';
-import { ArrowLeftIcon, ShieldExclamationIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftIcon,
+  ShieldExclamationIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function GDPRPage() {
@@ -78,7 +81,7 @@ export default function GDPRPage() {
               <span className="font-medium">{t('gdpr.backToHome')}</span>
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
               <ShieldExclamationIcon className="w-8 h-8 text-white" />
@@ -87,12 +90,10 @@ export default function GDPRPage() {
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 {t('gdpr.title')}
               </h1>
-              <p className="text-lg text-gray-600">
-                {t('gdpr.subtitle')}
-              </p>
+              <p className="text-lg text-gray-600">{t('gdpr.subtitle')}</p>
             </div>
           </div>
-          
+
           <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -108,7 +109,6 @@ export default function GDPRPage() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
         {/* Introduction */}
         <div className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
@@ -133,16 +133,16 @@ export default function GDPRPage() {
                 className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${right.color} rounded-xl flex items-center justify-center shadow-lg`}>
+                  <div
+                    className={`w-12 h-12 bg-gradient-to-br ${right.color} rounded-xl flex items-center justify-center shadow-lg`}
+                  >
                     <span className="text-2xl">{right.icon}</span>
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">
                     {right.title}
                   </h3>
                 </div>
-                <p className="text-gray-600 text-sm">
-                  {right.description}
-                </p>
+                <p className="text-gray-600 text-sm">{right.description}</p>
               </div>
             ))}
           </div>
@@ -181,7 +181,11 @@ export default function GDPRPage() {
               {t('gdpr.legalBasis.title')}
             </h2>
             <div className="prose prose-lg text-gray-600 max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: t('gdpr.legalBasis.content') }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: t('gdpr.legalBasis.content'),
+                }}
+              />
             </div>
           </div>
         </div>
@@ -201,21 +205,31 @@ export default function GDPRPage() {
                   <span className="text-2xl">📧</span>
                 </div>
                 <div className="font-medium mb-1">Email</div>
-                <div className="text-indigo-200 text-sm">privacy@spread.app</div>
+                <div className="text-indigo-200 text-sm">
+                  privacy@spread.app
+                </div>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">📋</span>
                 </div>
-                <div className="font-medium mb-1">{t('gdpr.exerciseSection.form')}</div>
-                <div className="text-indigo-200 text-sm">{t('gdpr.exerciseSection.formDesc')}</div>
+                <div className="font-medium mb-1">
+                  {t('gdpr.exerciseSection.form')}
+                </div>
+                <div className="text-indigo-200 text-sm">
+                  {t('gdpr.exerciseSection.formDesc')}
+                </div>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl">⏱️</span>
                 </div>
-                <div className="font-medium mb-1">{t('gdpr.exerciseSection.response')}</div>
-                <div className="text-indigo-200 text-sm">{t('gdpr.exerciseSection.responseTime')}</div>
+                <div className="font-medium mb-1">
+                  {t('gdpr.exerciseSection.response')}
+                </div>
+                <div className="text-indigo-200 text-sm">
+                  {t('gdpr.exerciseSection.responseTime')}
+                </div>
               </div>
             </div>
           </div>

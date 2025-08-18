@@ -152,23 +152,52 @@ export default function AISearchCard({
 }: AISearchCardProps) {
   const [aiResult, setAiResult] = useState<AISearchInput | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [animatingFilters, setAnimatingFilters] = useState<string[]>([]);
+  const [pulseIndex, setPulseIndex] = useState(0);
+
+  // Animation des points de chargement
+  React.useEffect(() => {
+    if (isAnalyzing) {
+      const pulseTimer = setInterval(() => {
+        setPulseIndex(prev => (prev + 1) % 3);
+      }, 500);
+      return () => clearInterval(pulseTimer);
+    }
+  }, [isAnalyzing]);
 
   const handleAIAnalysis = async () => {
     if (!searchQuery.trim()) return;
 
     setIsAnalyzing(true);
+    setAnimatingFilters([]);
     try {
       const result = await simulateAIParsing(searchQuery);
+      
+      // Animation progressive des filtres détectés
+      if (result.parsedFilters) {
+        const filterKeys = Object.keys(result.parsedFilters);
+        filterKeys.forEach((key, index) => {
+          setTimeout(() => {
+            setAnimatingFilters(prev => [...prev, key]);
+          }, index * 300);
+        });
+      }
+      
       setAiResult(result);
 
-      // Appliquer automatiquement les filtres détectés
-      if (result.parsedFilters) {
-        onFiltersChange(result.parsedFilters);
-      }
+      // Appliquer automatiquement les filtres détectés avec un délai
+      setTimeout(() => {
+        if (result.parsedFilters) {
+          onFiltersChange(result.parsedFilters);
+        }
+      }, filterKeys.length * 300 + 500);
+      
     } catch (error) {
       console.error("Erreur lors de l'analyse IA:", error);
     } finally {
-      setIsAnalyzing(false);
+      setTimeout(() => {
+        setIsAnalyzing(false);
+      }, 2000);
     }
   };
 
@@ -205,7 +234,17 @@ export default function AISearchCard({
             {isAnalyzing ? (
               <>
                 <SparklesIconSolid className="w-4 h-4 animate-spin" />
-                <span className="text-xs">Analyse...</span>
+                <span className="text-xs">Analyse</span>
+                <div className="flex space-x-1 ml-1">
+                  {[0, 1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className={`w-1 h-1 bg-white rounded-full transition-all duration-300 ${
+                        pulseIndex === i ? 'scale-125 opacity-100' : 'scale-75 opacity-40'
+                      }`}
+                    />
+                  ))}
+                </div>
               </>
             ) : (
               <>

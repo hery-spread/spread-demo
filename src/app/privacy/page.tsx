@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       icon: '📊',
     },
     {
-      title: t('privacy.sections.dataUsage.title'), 
+      title: t('privacy.sections.dataUsage.title'),
       content: t('privacy.sections.dataUsage.content'),
       icon: '🔄',
     },
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
               <span className="font-medium">{t('privacy.backToHome')}</span>
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
               <ShieldCheckIcon className="w-8 h-8 text-white" />
@@ -68,12 +68,10 @@ export default function PrivacyPage() {
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 {t('privacy.title')}
               </h1>
-              <p className="text-lg text-gray-600">
-                {t('privacy.subtitle')}
-              </p>
+              <p className="text-lg text-gray-600">{t('privacy.subtitle')}</p>
             </div>
           </div>
-          
+
           <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -89,7 +87,6 @@ export default function PrivacyPage() {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
         {/* Introduction */}
         <div className="mb-12">
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
@@ -144,7 +141,9 @@ export default function PrivacyPage() {
               <div className="flex items-center space-x-3">
                 <span className="text-2xl">🏢</span>
                 <div>
-                  <div className="font-medium">{t('privacy.contactSection.address')}</div>
+                  <div className="font-medium">
+                    {t('privacy.contactSection.address')}
+                  </div>
                   <div className="text-purple-200">Paris, France</div>
                 </div>
               </div>

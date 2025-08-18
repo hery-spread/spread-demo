@@ -1,7 +1,10 @@
 'use client';
 
 import { useI18n } from '@/lib/i18n/context';
-import { ArrowLeftIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftIcon,
+  ChatBubbleLeftRightIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export default function SupportPage() {
@@ -74,7 +77,7 @@ export default function SupportPage() {
               <span className="font-medium">{t('support.backToHome')}</span>
             </Link>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
               <ChatBubbleLeftRightIcon className="w-8 h-8 text-white" />
@@ -83,12 +86,10 @@ export default function SupportPage() {
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 {t('support.title')}
               </h1>
-              <p className="text-lg text-gray-600">
-                {t('support.subtitle')}
-              </p>
+              <p className="text-lg text-gray-600">{t('support.subtitle')}</p>
             </div>
           </div>
-          
+
           <div className="mt-6 flex items-center space-x-6 text-sm text-gray-500">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
@@ -104,7 +105,6 @@ export default function SupportPage() {
 
       {/* Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
         {/* Support Channels */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -117,7 +117,9 @@ export default function SupportPage() {
                 className={`bg-gradient-to-br ${channel.bgColor} rounded-2xl shadow-lg border border-gray-200 p-8 hover:shadow-xl transition-all duration-300 hover:scale-105`}
               >
                 <div className="flex items-center space-x-4 mb-6">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${channel.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+                  <div
+                    className={`w-16 h-16 bg-gradient-to-br ${channel.color} rounded-2xl flex items-center justify-center shadow-lg`}
+                  >
                     <span className="text-3xl">{channel.icon}</span>
                   </div>
                   <div>
@@ -129,9 +131,7 @@ export default function SupportPage() {
                     </p>
                   </div>
                 </div>
-                <p className="text-gray-700 mb-6">
-                  {channel.description}
-                </p>
+                <p className="text-gray-700 mb-6">{channel.description}</p>
                 <div className="bg-white/70 backdrop-blur-sm rounded-xl p-4">
                   <div className="font-medium text-gray-900 text-sm mb-1">
                     {t('support.contact')}
@@ -163,14 +163,22 @@ export default function SupportPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="font-medium mb-2">{t('support.emergency.phone')}</div>
+                <div className="font-medium mb-2">
+                  {t('support.emergency.phone')}
+                </div>
                 <div className="text-xl font-mono">+33 1 23 45 67 89</div>
-                <div className="text-sm text-red-100 mt-1">{t('support.emergency.phoneHours')}</div>
+                <div className="text-sm text-red-100 mt-1">
+                  {t('support.emergency.phoneHours')}
+                </div>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
-                <div className="font-medium mb-2">{t('support.emergency.email')}</div>
+                <div className="font-medium mb-2">
+                  {t('support.emergency.email')}
+                </div>
                 <div className="text-xl font-mono">urgent@spread.app</div>
-                <div className="text-sm text-red-100 mt-1">{t('support.emergency.emailResponse')}</div>
+                <div className="text-sm text-red-100 mt-1">
+                  {t('support.emergency.emailResponse')}
+                </div>
               </div>
             </div>
           </div>
