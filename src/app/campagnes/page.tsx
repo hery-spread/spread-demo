@@ -110,7 +110,7 @@ export default function SimpleCampaignsPage() {
   const handleCreateCampaign = async (campaignData: {
     name: string;
     description: string;
-    links: { url: string; label?: string; budget?: number; }[];
+    links: { url: string; label?: string; budget?: number }[];
     platforms: string[];
   }) => {
     try {

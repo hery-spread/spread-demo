@@ -3,7 +3,12 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { XMarkIcon, PlusIcon, TrashIcon, LinkIcon } from '@heroicons/react/24/outline';
+import {
+  XMarkIcon,
+  PlusIcon,
+  TrashIcon,
+  LinkIcon,
+} from '@heroicons/react/24/outline';
 
 interface CampaignLink {
   url: string;
@@ -48,7 +53,9 @@ export default function CreateCampaignModal({
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Filtrer les liens valides (au moins une URL)
-    const validLinks = formData.links.filter((link) => link.url.trim().length > 0);
+    const validLinks = formData.links.filter(
+      (link) => link.url.trim().length > 0
+    );
 
     onCreate({
       name: formData.name,
@@ -94,12 +101,24 @@ export default function CreateCampaignModal({
     }
   };
 
-  const updateLink = (index: number, field: keyof CampaignLink, value: string | number) => {
+  const updateLink = (
+    index: number,
+    field: keyof CampaignLink,
+    value: string | number
+  ) => {
     setFormData((prev) => ({
       ...prev,
-      links: prev.links.map((link, i) => 
-        i === index 
-          ? { ...link, [field]: field === 'budget' ? (value === '' ? undefined : Number(value)) : value }
+      links: prev.links.map((link, i) =>
+        i === index
+          ? {
+              ...link,
+              [field]:
+                field === 'budget'
+                  ? value === ''
+                    ? undefined
+                    : Number(value)
+                  : value,
+            }
           : link
       ),
     }));
@@ -171,10 +190,13 @@ export default function CreateCampaignModal({
                 <span>Ajouter un lien</span>
               </button>
             </div>
-            
+
             <div className="space-y-3">
               {formData.links.map((link, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded-lg p-4 bg-gray-50"
+                >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
                       <LinkIcon className="w-4 h-4 text-gray-500" />
@@ -192,7 +214,7 @@ export default function CreateCampaignModal({
                       </button>
                     )}
                   </div>
-                  
+
                   <div className="space-y-3">
                     <Input
                       label="URL *"
@@ -201,15 +223,17 @@ export default function CreateCampaignModal({
                       onChange={(e) => updateLink(index, 'url', e.target.value)}
                       required
                     />
-                    
+
                     <div className="grid grid-cols-2 gap-3">
                       <Input
                         label="Libellé (optionnel)"
                         placeholder="Nom du lien"
                         value={link.label || ''}
-                        onChange={(e) => updateLink(index, 'label', e.target.value)}
+                        onChange={(e) =>
+                          updateLink(index, 'label', e.target.value)
+                        }
                       />
-                      
+
                       <Input
                         label="Budget (optionnel)"
                         placeholder="1000"
@@ -217,16 +241,19 @@ export default function CreateCampaignModal({
                         min="0"
                         step="0.01"
                         value={link.budget || ''}
-                        onChange={(e) => updateLink(index, 'budget', e.target.value)}
+                        onChange={(e) =>
+                          updateLink(index, 'budget', e.target.value)
+                        }
                       />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            
+
             <p className="text-xs text-gray-500 mt-2">
-              Ajoutez jusqu&apos;à 5 liens pour suivre les performances de votre campagne.
+              Ajoutez jusqu&apos;à 5 liens pour suivre les performances de votre
+              campagne.
             </p>
           </div>
 
@@ -282,5 +309,3 @@ export default function CreateCampaignModal({
     </div>
   );
 }
-
-

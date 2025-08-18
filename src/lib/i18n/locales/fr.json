@@ -344,5 +344,302 @@
     },
     "copyright": "© {{year}} Spread. Tous droits réservés.",
     "backToTop": "Retour en haut"
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "subtitle": "Comment nous protégeons et utilisons vos données personnelles",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdated": "Mise à jour : 15 décembre 2024",
+    "effectiveDate": "En vigueur depuis : 1er janvier 2024",
+    "intro": {
+      "title": "Introduction",
+      "content": "Chez Spread, nous prenons la protection de vos données personnelles très au sérieux. Cette politique de confidentialité explique comment nous collectons, utilisons, partageons et protégeons vos informations personnelles lorsque vous utilisez notre plateforme d'intelligence marketing d'influence."
+    },
+    "sections": {
+      "dataCollection": {
+        "title": "Collecte des Données",
+        "content": "Nous collectons différents types d'informations :<br><br><strong>Données d'inscription :</strong> Nom, prénom, adresse e-mail, entreprise, numéro de téléphone.<br><br><strong>Données d'utilisation :</strong> Interactions avec la plateforme, préférences de recherche, historique des campagnes.<br><br><strong>Données techniques :</strong> Adresse IP, type de navigateur, système d'exploitation, cookies.<br><br><strong>Données de paiement :</strong> Informations de facturation (traitées de manière sécurisée par nos partenaires de paiement)."
+      },
+      "dataUsage": {
+        "title": "Utilisation des Données",
+        "content": "Vos données sont utilisées pour :<br><br>• Fournir et améliorer nos services d'analyse d'influenceurs<br>• Personnaliser votre expérience utilisateur<br>• Traiter vos paiements et gérer votre compte<br>• Vous envoyer des communications importantes sur le service<br>• Respecter nos obligations légales et réglementaires<br>• Prévenir la fraude et assurer la sécurité de la plateforme"
+      },
+      "dataSharing": {
+        "title": "Partage des Données",
+        "content": "Nous ne vendons jamais vos données personnelles. Nous pouvons partager vos informations uniquement dans les cas suivants :<br><br>• Avec votre consentement explicite<br>• Avec nos prestataires de services techniques (hébergement, paiement, analyse)<br>• Pour respecter une obligation légale ou une décision de justice<br>• Pour protéger les droits, la propriété ou la sécurité de Spread ou de nos utilisateurs"
+      },
+      "dataSecurity": {
+        "title": "Sécurité des Données", 
+        "content": "Nous mettons en œuvre des mesures de sécurité robustes :<br><br>• Chiffrement SSL/TLS pour toutes les transmissions de données<br>• Authentification multi-facteurs pour les comptes sensibles<br>• Accès aux données strictement limité aux employés autorisés<br>• Sauvegardes régulières et plan de récupération d'urgence<br>• Audits de sécurité réguliers par des tiers indépendants"
+      },
+      "userRights": {
+        "title": "Vos Droits",
+        "content": "Conformément au RGPD, vous disposez des droits suivants :<br><br>• <strong>Droit d'accès :</strong> Obtenir une copie de vos données personnelles<br>• <strong>Droit de rectification :</strong> Corriger des données inexactes ou incomplètes<br>• <strong>Droit à l'effacement :</strong> Supprimer vos données dans certains cas<br>• <strong>Droit à la portabilité :</strong> Récupérer vos données dans un format structuré<br>• <strong>Droit d'opposition :</strong> S'opposer au traitement de vos données"
+      },
+      "cookies": {
+        "title": "Cookies et Technologies Similaires",
+        "content": "Nous utilisons des cookies pour améliorer votre expérience :<br><br>• <strong>Cookies essentiels :</strong> Nécessaires au fonctionnement du site<br>• <strong>Cookies d'analyse :</strong> Pour comprendre l'utilisation de la plateforme<br>• <strong>Cookies de préférences :</strong> Pour sauvegarder vos paramètres<br><br>Vous pouvez gérer vos préférences de cookies dans les paramètres de votre navigateur."
+      },
+      "contact": {
+        "title": "Nous Contacter",
+        "content": "Pour toute question concernant cette politique de confidentialité ou pour exercer vos droits, contactez notre équipe de protection des données :<br><br>• E-mail : privacy@spread.app<br>• Téléphone : +33 1 23 45 67 89<br>• Adresse : Paris, France<br><br>Nous nous engageons à répondre à toute demande dans un délai de 30 jours maximum."
+      }
+    },
+    "contactSection": {
+      "title": "Une Question sur vos Données ?",
+      "description": "Notre équipe dédiée à la protection des données est là pour vous aider.",
+      "address": "Adresse"
+    }
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "subtitle": "Les règles d'utilisation de la plateforme Spread",
+    "backToHome": "Retour à l'accueil", 
+    "lastUpdated": "Mise à jour : 15 décembre 2024",
+    "effectiveDate": "En vigueur depuis : 1er janvier 2024",
+    "intro": {
+      "title": "Introduction",
+      "content": "Bienvenue sur Spread ! Ces conditions d'utilisation régissent votre accès et votre utilisation de notre plateforme d'intelligence marketing d'influence. En utilisant nos services, vous acceptez d'être lié par ces conditions."
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Acceptation des Conditions",
+        "content": "En accédant à Spread ou en utilisant nos services, vous confirmez que :<br><br>• Vous avez lu et compris ces conditions d'utilisation<br>• Vous acceptez d'être lié par ces conditions<br>• Vous avez l'autorité légale pour conclure cet accord<br>• Vous êtes âgé d'au moins 18 ans ou représentez une entreprise<br><br>Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser nos services."
+      },
+      "services": {
+        "title": "Description des Services",
+        "content": "Spread fournit une plateforme SaaS d'intelligence marketing d'influence qui inclut :<br><br>• Base de données de plus de 250 millions d'influenceurs<br>• Outils d'analyse et de recherche avancés<br>• Gestion de campagnes et suivi des performances<br>• Rapports détaillés et analyses de ROI<br>• API et intégrations tierces<br><br>Nous nous réservons le droit de modifier, suspendre ou arrêter tout ou partie de nos services."
+      },
+      "userAccounts": {
+        "title": "Comptes Utilisateur",
+        "content": "Pour utiliser Spread, vous devez créer un compte en fournissant des informations exactes et à jour. Vous êtes responsable de :<br><br>• Maintenir la confidentialité de vos identifiants de connexion<br>• Toutes les activités qui se produisent sous votre compte<br>• Nous notifier immédiatement de tout accès non autorisé<br>• Respecter les limites d'utilisation de votre abonnement"
+      },
+      "usage": {
+        "title": "Règles d'Utilisation",
+        "content": "Vous vous engagez à utiliser Spread de manière légale et éthique. Il est interdit de :<br><br>• Violer des lois ou réglementations applicables<br>• Porter atteinte aux droits de propriété intellectuelle<br>• Utiliser nos services pour harceler ou diffamer des tiers<br>• Tenter de contourner nos mesures de sécurité<br>• Revendre ou redistribuer nos données sans autorisation<br>• Utiliser des robots ou scripts automatisés sans permission"
+      },
+      "payment": {
+        "title": "Conditions de Paiement",
+        "content": "Les conditions de paiement incluent :<br><br>• Les frais sont facturés selon votre plan d'abonnement choisi<br>• Les paiements sont dus d'avance, généralement mensuellement ou annuellement<br>• Les prix peuvent être modifiés avec un préavis de 30 jours<br>• Les remboursements sont soumis à notre politique de remboursement<br>• En cas de non-paiement, l'accès aux services peut être suspendu"
+      },
+      "intellectual": {
+        "title": "Propriété Intellectuelle",
+        "content": "Spread et ses services sont protégés par des droits de propriété intellectuelle :<br><br>• Tous les contenus, logiciels et données appartiennent à Spread<br>• Vous conservez les droits sur le contenu que vous créez<br>• Nous accordons une licence limitée d'utilisation de nos services<br>• Vous ne pouvez pas copier, modifier ou distribuer notre plateforme<br>• Les marques commerciales Spread sont notre propriété exclusive"
+      },
+      "liability": {
+        "title": "Limitation de Responsabilité",
+        "content": "Dans les limites autorisées par la loi :<br><br>• Spread fournit ses services 'en l'état' sans garantie<br>• Nous ne garantissons pas l'exactitude à 100% des données d'influence<br>• Notre responsabilité est limitée au montant payé au cours des 12 derniers mois<br>• Nous ne sommes pas responsables des dommages indirects ou consécutifs<br>• Vous utilisez nos services à vos propres risques"
+      },
+      "termination": {
+        "title": "Résiliation",
+        "content": "Ces conditions restent en vigueur jusqu'à leur résiliation :<br><br>• Vous pouvez résilier votre compte à tout moment<br>• Nous pouvons suspendre ou résilier votre accès en cas de violation<br>• Certaines clauses survivront à la résiliation (propriété intellectuelle, limitation de responsabilité)<br>• Les données de votre compte seront supprimées conformément à notre politique de conservation"
+      }
+    },
+    "contactSection": {
+      "title": "Questions Juridiques ?",
+      "description": "Notre équipe juridique est disponible pour clarifier ces conditions.",
+      "address": "Adresse"
+    }
+  },
+  "cookies": {
+    "title": "Politique de Cookies",
+    "subtitle": "Comment nous utilisons les cookies sur notre plateforme",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdated": "Mise à jour : 15 décembre 2024", 
+    "effectiveDate": "En vigueur depuis : 1er janvier 2024",
+    "examples": "Exemples",
+    "intro": {
+      "title": "Qu'est-ce qu'un Cookie ?",
+      "content": "Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez notre site web. Ils nous permettent de reconnaître votre navigateur et de capturer et mémoriser certaines informations pour améliorer votre expérience utilisateur."
+    },
+    "types": {
+      "essential": {
+        "title": "Cookies Essentiels",
+        "description": "Ces cookies sont nécessaires au fonctionnement de base de notre site web et ne peuvent pas être désactivés.",
+        "examples": "session_id, csrf_token, user_auth"
+      },
+      "analytics": {
+        "title": "Cookies d'Analyse",
+        "description": "Ces cookies nous aident à comprendre comment vous interagissez avec notre site en collectant et rapportant des informations de manière anonyme.",
+        "examples": "Google Analytics, Hotjar, Mixpanel"
+      },
+      "marketing": {
+        "title": "Cookies Marketing",
+        "description": "Ces cookies sont utilisés pour suivre les visiteurs sur les sites web afin d'afficher des publicités pertinentes et engageantes.",
+        "examples": "Google Ads, Facebook Pixel, LinkedIn Insight"
+      },
+      "functional": {
+        "title": "Cookies Fonctionnels",
+        "description": "Ces cookies permettent au site web de fournir des fonctionnalités et une personnalisation améliorées.",
+        "examples": "Préférences de langue, thème sombre/clair, paramètres utilisateur"
+      }
+    },
+    "management": {
+      "title": "Gestion des Cookies",
+      "browser": {
+        "title": "Paramètres du Navigateur",
+        "content": "Vous pouvez contrôler les cookies via les paramètres de votre navigateur :<br><br>• <strong>Chrome :</strong> Paramètres > Confidentialité et sécurité > Cookies<br>• <strong>Firefox :</strong> Paramètres > Vie privée et sécurité > Cookies<br>• <strong>Safari :</strong> Préférences > Confidentialité > Cookies<br>• <strong>Edge :</strong> Paramètres > Cookies et autorisations de site"
+      },
+      "preferences": {
+        "title": "Centre de Préférences",
+        "content": "Utilisez notre centre de préférences pour :<br><br>• Accepter ou refuser les cookies par catégorie<br>• Voir quels cookies sont actifs sur votre compte<br>• Modifier vos choix à tout moment<br>• Télécharger un rapport de vos données de cookies"
+      }
+    },
+    "thirdParty": {
+      "title": "Services Tiers",
+      "content": "Nous utilisons plusieurs services tiers qui peuvent placer leurs propres cookies :<br><br><strong>Google Analytics :</strong> Pour l'analyse du trafic et du comportement utilisateur<br><strong>Stripe :</strong> Pour le traitement sécurisé des paiements<br><strong>Intercom :</strong> Pour le support client et la messagerie<br><strong>Hotjar :</strong> Pour l'analyse de l'expérience utilisateur<br><br>Ces services ont leurs propres politiques de cookies que nous vous encourageons à consulter."
+    },
+    "contactSection": {
+      "title": "Questions sur les Cookies ?",
+      "description": "Notre équipe est là pour vous aider à comprendre et gérer vos préférences de cookies.",
+      "preferences": "Préférences Cookies",
+      "manage": "Gérer mes préférences"
+    }
+  },
+  "gdpr": {
+    "title": "Conformité RGPD",
+    "subtitle": "Vos droits sous le Règlement Général sur la Protection des Données",
+    "backToHome": "Retour à l'accueil",
+    "lastUpdated": "Mise à jour : 15 décembre 2024",
+    "regulation": "Règlement UE 2016/679",
+    "intro": {
+      "title": "Notre Engagement RGPD",
+      "content": "En tant que plateforme européenne, Spread respecte pleinement le Règlement Général sur la Protection des Données (RGPD). Nous nous engageons à protéger vos droits fondamentaux et libertés concernant le traitement de vos données personnelles."
+    },
+    "rightsSection": {
+      "title": "Vos Droits RGPD"
+    },
+    "rights": {
+      "access": {
+        "title": "Droit d'Accès",
+        "description": "Vous avez le droit de savoir si nous traitons vos données personnelles et d'obtenir une copie de celles-ci."
+      },
+      "rectification": {
+        "title": "Droit de Rectification",
+        "description": "Vous pouvez demander la correction de données personnelles inexactes ou incomplètes."
+      },
+      "erasure": {
+        "title": "Droit à l'Effacement",
+        "description": "Vous pouvez demander la suppression de vos données personnelles dans certaines circonstances."
+      },
+      "portability": {
+        "title": "Droit à la Portabilité",
+        "description": "Vous pouvez recevoir vos données dans un format structuré et les transmettre à un autre responsable."
+      },
+      "restriction": {
+        "title": "Droit de Limitation",
+        "description": "Vous pouvez demander la restriction du traitement de vos données personnelles."
+      },
+      "objection": {
+        "title": "Droit d'Opposition",
+        "description": "Vous pouvez vous opposer au traitement de vos données pour des raisons légitimes."
+      }
+    },
+    "dataSection": {
+      "title": "Données que Nous Traitons"
+    },
+    "dataTypes": {
+      "personal": {
+        "title": "Données Personnelles",
+        "items": "Nom et prénom | Adresse e-mail | Numéro de téléphone | Entreprise | Fonction"
+      },
+      "technical": {
+        "title": "Données Techniques", 
+        "items": "Adresse IP | Type de navigateur | Système d'exploitation | Cookies | Logs de connexion"
+      },
+      "behavioral": {
+        "title": "Données Comportementales",
+        "items": "Historique de navigation | Préférences de recherche | Interactions avec la plateforme | Campagnes créées"
+      }
+    },
+    "legalBasis": {
+      "title": "Base Légale du Traitement",
+      "content": "Nous traitons vos données personnelles sur la base de :<br><br><strong>Contrat :</strong> Pour exécuter nos services selon votre abonnement<br><strong>Intérêts légitimes :</strong> Pour améliorer nos services et assurer la sécurité<br><strong>Consentement :</strong> Pour les communications marketing et cookies non-essentiels<br><strong>Obligations légales :</strong> Pour respecter les exigences fiscales et comptables<br><br>Nous évaluons régulièrement la proportionnalité de nos traitements et respectons le principe de minimisation des données."
+    },
+    "exerciseSection": {
+      "title": "Exercer Vos Droits",
+      "description": "Pour exercer vos droits RGPD, contactez-nous par les moyens suivants :",
+      "form": "Formulaire Dédié",
+      "formDesc": "Accessible dans votre compte",
+      "response": "Délai de Réponse",
+      "responseTime": "Maximum 30 jours"
+    },
+    "dpo": {
+      "title": "Délégué à la Protection des Données",
+      "content": "Notre Délégué à la Protection des Données (DPO) supervise la conformité RGPD et est votre point de contact privilégié pour toute question relative à la protection de vos données personnelles.",
+      "contact": "Contact DPO"
+    }
+  },
+  "support": {
+    "title": "Support Client",
+    "subtitle": "Nous sommes là pour vous aider à réussir avec Spread",
+    "backToHome": "Retour à l'accueil",
+    "available": "24h/24, 7j/7 disponible",
+    "languages": "Support en français, anglais et néerlandais",
+    "contact": "Contact",
+    "channelsSection": {
+      "title": "Nos Canaux de Support"
+    },
+    "channels": {
+      "email": {
+        "title": "Support E-mail",
+        "description": "Pour les questions générales, demandes de fonctionnalités et problèmes techniques non-urgents.",
+        "responseTime": "Réponse sous 2h en moyenne"
+      },
+      "chat": {
+        "title": "Chat en Direct",
+        "description": "Assistance immédiate pour les questions rapides et l'aide à la navigation sur la plateforme.",
+        "responseTime": "Réponse immédiate",
+        "contact": "Via l'interface de la plateforme"
+      },
+      "phone": {
+        "title": "Support Téléphonique",
+        "description": "Pour les clients premium et les situations nécessitant une assistance vocale personnalisée.",
+        "responseTime": "Lun-Ven 9h-18h CET"
+      }
+    },
+    "emergency": {
+      "title": "Support d'Urgence",
+      "subtitle": "Pour les problèmes critiques affectant votre activité",
+      "phone": "Téléphone d'Urgence",
+      "phoneHours": "24h/24 pour clients Enterprise",
+      "email": "E-mail d'Urgence", 
+      "emailResponse": "Réponse sous 15 minutes"
+    },
+    "faqSection": {
+      "title": "Questions Fréquentes"
+    },
+    "faq": {
+      "account": {
+        "title": "Gestion de Compte",
+        "questions": "Comment modifier mon mot de passe ? | Comment changer mon plan d'abonnement ? | Comment ajouter des utilisateurs à mon équipe ? | Comment exporter mes données ?"
+      },
+      "billing": {
+        "title": "Facturation",
+        "questions": "Comment mettre à jour mes informations de paiement ? | Puis-je obtenir un remboursement ? | Comment obtenir une facture ? | Quels modes de paiement acceptez-vous ?"
+      },
+      "technical": {
+        "title": "Support Technique",
+        "questions": "Pourquoi la plateforme est-elle lente ? | Comment résoudre les erreurs de connexion ? | Comment utiliser l'API ? | La plateforme est-elle compatible avec mon navigateur ?"
+      },
+      "features": {
+        "title": "Fonctionnalités",
+        "questions": "Comment rechercher des influenceurs spécifiques ? | Comment créer une campagne ? | Comment analyser les performances ? | Comment exporter un rapport ?"
+      }
+    },
+    "resources": {
+      "title": "Ressources Supplémentaires",
+      "documentation": "Documentation",
+      "documentationDesc": "Guides complets et références API",
+      "videos": "Tutoriels Vidéo",
+      "videosDesc": "Formations pas-à-pas en vidéo",
+      "community": "Communauté",
+      "communityDesc": "Forum d'entraide entre utilisateurs"
+    },
+    "contactForm": {
+      "title": "Vous Ne Trouvez Pas de Réponse ?",
+      "description": "Notre équipe d'experts est prête à vous aider personnellement.",
+      "button": "Nous Contacter"
+    }
   }
 }
