@@ -22,6 +22,7 @@ import {
   PlusIcon,
   CheckIcon,
   ChatBubbleLeftIcon,
+  ShareIcon,
 } from '@heroicons/react/24/outline';
 import {
   PlayCircleIcon as PlayCircleIconSolid,
@@ -30,6 +31,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { CampaignTracker } from '@/types';
 import { getCampaignById } from '@/lib/mockData';
+import ShareCampaignModal from '@/components/campaigns/ShareCampaignModal';
 
 // Fonction pour obtenir l'icône du statut
 const getStatusIcon = (status: CampaignTracker['status']) => {
@@ -85,6 +87,7 @@ export default function CampaignDetailPage() {
   const [campaign, setCampaign] = useState<CampaignTracker | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     const loadCampaignData = async () => {
@@ -195,6 +198,14 @@ export default function CampaignDetailPage() {
 
           {/* Actions */}
           <div className="flex items-center space-x-3 ml-6">
+            <Button 
+              variant="outline" 
+              className="flex items-center space-x-2"
+              onClick={() => setShowShareModal(true)}
+            >
+              <ShareIcon className="w-4 h-4" />
+              <span>Share campaign</span>
+            </Button>
             <Button variant="outline" className="flex items-center space-x-2">
               <PlusIcon className="w-4 h-4" />
               <span>Add creators</span>
@@ -590,6 +601,15 @@ export default function CampaignDetailPage() {
             </p>
           </div>
         </div>
+      )}
+
+      {/* Modal de partage */}
+      {campaign && (
+        <ShareCampaignModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          campaign={campaign}
+        />
       )}
     </div>
   );

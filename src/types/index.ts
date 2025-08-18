@@ -159,6 +159,35 @@ export interface ShareStats {
   viewsOverTime: { date: string; views: number }[];
 }
 
+// Types pour le partage de campagnes
+export interface SharedCampaign {
+  id: string;
+  campaignId: string;
+  shareType: 'public' | 'private';
+  createdAt: string;
+  expiresAt?: string;
+  password?: string;
+  viewCount: number;
+  lastViewedAt?: string;
+  includeFinancials: boolean;
+  includeBudgets: boolean;
+  trackingEnabled: boolean;
+  utmParameters?: {
+    source?: string;
+    medium?: string;
+    campaign?: string;
+  };
+}
+
+export interface CampaignShareStats {
+  totalViews: number;
+  uniqueViews: number;
+  averageViewTime: number;
+  topReferrers: { source: string; views: number }[];
+  viewsOverTime: { date: string; views: number }[];
+  geographicViews: { country: string; views: number }[];
+}
+
 // Types pour l'onboarding
 export interface OnboardingData {
   step: number;

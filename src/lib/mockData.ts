@@ -6,6 +6,7 @@ import {
   UnlockedReport,
   CampaignTracker,
   CampaignContent,
+  SharedCampaign,
 } from "@/types";
 
 // Données mockées des influenceurs
@@ -3957,4 +3958,77 @@ export const updateCampaign = async (campaignId: string, updates: Partial<Campai
   };
   
   return mockAdvancedCampaigns[campaignIndex];
+};
+
+// Mock data pour les campagnes partagées
+export const mockSharedCampaigns: SharedCampaign[] = [
+  {
+    id: 'share_camp_1_12345',
+    campaignId: 'camp_1',
+    shareType: 'public',
+    createdAt: '2025-01-25T16:30:00Z',
+    viewCount: 42,
+    includeFinancials: true,
+    includeBudgets: false,
+    trackingEnabled: true,
+    lastViewedAt: '2025-01-26T10:15:00Z',
+    utmParameters: {
+      source: 'email',
+      medium: 'share',
+      campaign: 'client_report'
+    }
+  },
+  {
+    id: 'share_camp_2_67890',
+    campaignId: 'camp_2',
+    shareType: 'private',
+    createdAt: '2025-01-24T14:20:00Z',
+    password: 'client123',
+    viewCount: 18,
+    includeFinancials: false,
+    includeBudgets: true,
+    trackingEnabled: true,
+    lastViewedAt: '2025-01-25T09:45:00Z',
+    expiresAt: '2025-02-24T14:20:00Z'
+  }
+];
+
+// Fonctions pour les campagnes partagées
+export const getSharedCampaign = async (shareId: string): Promise<{ campaign: CampaignTracker; shareData: SharedCampaign } | null> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  const shareData = mockSharedCampaigns.find(s => s.id === shareId);
+  if (!shareData) return null;
+  
+  const campaign = mockAdvancedCampaigns.find(c => c.id === shareData.campaignId);
+  if (!campaign) return null;
+  
+  return { campaign, shareData };
+};
+
+export const createCampaignShare = async (campaignId: string, settings: {
+  shareType: 'public' | 'private';
+  includeFinancials: boolean;
+  includeBudgets: boolean;
+  password?: string;
+}): Promise<SharedCampaign> => {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  
+  const shareId = `share_${campaignId}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  
+  const newShare: SharedCampaign = {
+    id: shareId,
+    campaignId,
+    shareType: settings.shareType,
+    createdAt: new Date().toISOString(),
+    password: settings.password,
+    viewCount: 0,
+    includeFinancials: settings.includeFinancials,
+    includeBudgets: settings.includeBudgets,
+    trackingEnabled: true,
+    ...(settings.shareType === 'private' && { expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() })
+  };
+  
+  mockSharedCampaigns.push(newShare);
+  return newShare;
 };

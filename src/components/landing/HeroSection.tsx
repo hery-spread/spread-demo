@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -11,6 +12,70 @@ import {
 
 export default function HeroSection() {
   const { t } = useI18n();
+  
+  // États pour les animations
+  const [currentText, setCurrentText] = useState('');
+  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [showFilters, setShowFilters] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const [profileCount, setProfileCount] = useState(0);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  // Texte cible pour l'animation de frappe
+  const targetText = "Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans";
+  
+  // Filtres à révéler progressivement
+  const filters = [
+    { id: 'location', label: '📍 France', delay: 500 },
+    { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
+    { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
+    { id: 'category', label: '💄 Beauté', delay: 1100 },
+    { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
+    { id: 'age', label: '🔢 18-35 ans', delay: 1500 }
+  ];
+
+  // Animation de frappe
+  useEffect(() => {
+    if (currentText.length < targetText.length) {
+      const timer = setTimeout(() => {
+        setCurrentText(targetText.slice(0, currentText.length + 1));
+      }, 30 + Math.random() * 20);
+      return () => clearTimeout(timer);
+    } else if (currentText.length === targetText.length && !showAnalysis) {
+      // Démarrer l'analyse après la frappe
+      setTimeout(() => {
+        setIsAnalyzing(true);
+        setShowAnalysis(true);
+        
+        // Révéler les filtres progressivement
+        filters.forEach((filter, index) => {
+          setTimeout(() => {
+            setShowFilters(prev => [...prev, filter.id]);
+            if (index === filters.length - 1) {
+              // Derniers filtres, montrer les résultats
+              setTimeout(() => {
+                setIsAnalyzing(false);
+                setShowResults(true);
+                
+                // Animer le compteur
+                let count = 0;
+                const increment = 2847 / 50;
+                const counterTimer = setInterval(() => {
+                  count += increment;
+                  if (count >= 2847) {
+                    setProfileCount(2847);
+                    clearInterval(counterTimer);
+                  } else {
+                    setProfileCount(Math.floor(count));
+                  }
+                }, 30);
+              }, 800);
+            }
+          }, filter.delay);
+        });
+      }, 1000);
+    }
+  }, [currentText, targetText, showAnalysis]);
+
   const handleStartTrial = () => {
     // Redirection vers l'inscription/onboarding
     window.location.href = '/onboarding';
@@ -123,49 +188,57 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* AI Search Input */}
+              {/* AI Search Input Animé */}
               <div className="relative mb-6">
-                <div className="w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium">
-                  {t('hero.aiSearch.placeholder')}
+                <div className="w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium min-h-[60px] flex items-center">
+                  {currentText}
+                  {currentText.length < targetText.length && (
+                    <span className="animate-pulse bg-purple-500 w-0.5 h-4 inline-block ml-1"></span>
+                  )}
                 </div>
-                <div className="absolute bottom-3 right-3 flex items-center space-x-1">
-                  <SparklesIcon className="w-4 h-4 text-purple-600 animate-pulse" />
-                  <span className="text-xs text-purple-600 font-medium">
-                    {t('hero.aiSearch.analyzing')}
-                  </span>
-                </div>
+                {(showAnalysis || isAnalyzing) && (
+                  <div className="absolute bottom-3 right-3 flex items-center space-x-1">
+                    <SparklesIcon className={`w-4 h-4 text-purple-600 ${isAnalyzing ? 'animate-spin' : 'animate-pulse'}`} />
+                    <span className="text-xs text-purple-600 font-medium">
+                      {isAnalyzing ? 'Analyse en cours...' : 'Analyse terminée'}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* AI Analysis Results */}
-              <div className="space-y-3 mb-6">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                  {t('hero.aiSearch.filtersDetected')}
+              {/* AI Analysis Results Animés */}
+              {showAnalysis && (
+                <div className="space-y-3 mb-6 animate-fadeIn">
+                  <p className="text-xs font-medium text-gray-600">
+                    Filtres détectés automatiquement :
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {filters.map((filter, index) => (
+                      <span
+                        key={filter.id}
+                        className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full transition-all duration-500 ${
+                          showFilters.includes(filter.id) 
+                            ? 'animate-slideIn opacity-100 scale-100' 
+                            : 'opacity-0 scale-75'
+                        } ${
+                          filter.id === 'location' ? 'bg-blue-100 text-blue-800' :
+                          filter.id === 'followers' ? 'bg-green-100 text-green-800' :
+                          filter.id === 'engagement' ? 'bg-purple-100 text-purple-800' :
+                          filter.id === 'category' ? 'bg-pink-100 text-pink-800' :
+                          filter.id === 'audience' ? 'bg-orange-100 text-orange-800' :
+                          'bg-indigo-100 text-indigo-800'
+                        }`}
+                        style={{
+                          animationDelay: `${index * 0.1}s`,
+                          animationFillMode: 'both'
+                        }}
+                      >
+                        {filter.label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                <div className="flex flex-wrap gap-2">
-                  <div className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.location')}
-                  </div>
-                  <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.followers')}
-                  </div>
-                  <div className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.engagement')}
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  <div className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.niche')}
-                  </div>
-                  <div className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.audience')}
-                  </div>
-                  <div className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">
-                    {t('hero.aiSearch.filters.age')}
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Search Results Preview */}
               <div className="border-t border-gray-100 pt-4">
@@ -262,6 +335,69 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* CSS pour les animations personnalisées */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { 
+            opacity: 0; 
+            transform: translateY(10px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
+        }
+        
+        @keyframes slideIn {
+          from { 
+            opacity: 0; 
+            transform: translateX(-20px) scale(0.8); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateX(0) scale(1); 
+          }
+        }
+
+        @keyframes slideUp {
+          from { 
+            opacity: 0; 
+            transform: translateY(30px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateY(0); 
+          }
+        }
+
+        @keyframes countUp {
+          from { 
+            transform: scale(0.8); 
+            opacity: 0.5; 
+          }
+          to { 
+            transform: scale(1); 
+            opacity: 1; 
+          }
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.6s ease-out;
+        }
+
+        .animate-slideIn {
+          animation: slideIn 0.5s ease-out;
+        }
+
+        .animate-slideUp {
+          animation: slideUp 0.7s ease-out;
+        }
+
+        .animate-countUp {
+          animation: countUp 0.8s ease-out;
+        }
+      `}</style>
     </section>
   );
 }

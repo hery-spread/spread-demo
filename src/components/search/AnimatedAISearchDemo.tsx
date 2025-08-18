@@ -30,15 +30,52 @@ export default function AnimatedAISearchDemo() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [pulseIndex, setPulseIndex] = useState(0);
 
-  const targetText = 'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
-  
+  const targetText =
+    'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
+
   const filters: DetectedFilter[] = [
-    { id: 'location', label: '📍 France', value: 'France', icon: '🇫🇷', delay: 200 },
-    { id: 'followers', label: '👥 50K-500K followers', value: '50K-500K', icon: '📊', delay: 400 },
-    { id: 'engagement', label: '📈 +4% engagement', value: '>4%', icon: '⚡', delay: 600 },
-    { id: 'category', label: '💄 Beauté', value: 'Beauté', icon: '✨', delay: 800 },
-    { id: 'audience', label: '👩 Audience féminine', value: 'Féminine', icon: '💗', delay: 1000 },
-    { id: 'age', label: '🔢 18-35 ans', value: '18-35', icon: '🎯', delay: 1200 },
+    {
+      id: 'location',
+      label: '📍 France',
+      value: 'France',
+      icon: '🇫🇷',
+      delay: 200,
+    },
+    {
+      id: 'followers',
+      label: '👥 50K-500K followers',
+      value: '50K-500K',
+      icon: '📊',
+      delay: 400,
+    },
+    {
+      id: 'engagement',
+      label: '📈 +4% engagement',
+      value: '>4%',
+      icon: '⚡',
+      delay: 600,
+    },
+    {
+      id: 'category',
+      label: '💄 Beauté',
+      value: 'Beauté',
+      icon: '✨',
+      delay: 800,
+    },
+    {
+      id: 'audience',
+      label: '👩 Audience féminine',
+      value: 'Féminine',
+      icon: '💗',
+      delay: 1000,
+    },
+    {
+      id: 'age',
+      label: '🔢 18-35 ans',
+      value: '18-35',
+      icon: '🎯',
+      delay: 1200,
+    },
   ];
 
   const finalResults: SearchResults = {
@@ -50,9 +87,12 @@ export default function AnimatedAISearchDemo() {
   // Effect de frappe pour le texte
   useEffect(() => {
     if (currentText.length < targetText.length) {
-      const timer = setTimeout(() => {
-        setCurrentText(targetText.slice(0, currentText.length + 1));
-      }, 50 + Math.random() * 30); // Vitesse variable pour plus de réalisme
+      const timer = setTimeout(
+        () => {
+          setCurrentText(targetText.slice(0, currentText.length + 1));
+        },
+        50 + Math.random() * 30
+      ); // Vitesse variable pour plus de réalisme
       return () => clearTimeout(timer);
     } else if (currentText.length === targetText.length && !showAnalysis) {
       // Démarrer l'analyse après la frappe
@@ -68,7 +108,7 @@ export default function AnimatedAISearchDemo() {
     if (showAnalysis && isAnalyzing) {
       filters.forEach((filter, index) => {
         setTimeout(() => {
-          setDetectedFilters(prev => [...prev, filter]);
+          setDetectedFilters((prev) => [...prev, filter]);
           if (index === filters.length - 1) {
             // Derniers filtres détectés, lancer la recherche
             setTimeout(() => {
@@ -90,7 +130,7 @@ export default function AnimatedAISearchDemo() {
       const profileTimer = setInterval(() => {
         current += increment;
         if (current >= finalResults.profiles) {
-          setCurrentResults(prev => ({
+          setCurrentResults((prev) => ({
             ...prev,
             profiles: finalResults.profiles,
             avgFollowers: finalResults.avgFollowers,
@@ -98,7 +138,10 @@ export default function AnimatedAISearchDemo() {
           }));
           clearInterval(profileTimer);
         } else {
-          setCurrentResults(prev => ({ ...prev, profiles: Math.floor(current) }));
+          setCurrentResults((prev) => ({
+            ...prev,
+            profiles: Math.floor(current),
+          }));
         }
       }, 50);
 
@@ -110,7 +153,7 @@ export default function AnimatedAISearchDemo() {
   useEffect(() => {
     if (isAnalyzing) {
       const pulseTimer = setInterval(() => {
-        setPulseIndex(prev => (prev + 1) % 3);
+        setPulseIndex((prev) => (prev + 1) % 3);
       }, 500);
       return () => clearInterval(pulseTimer);
     }
@@ -154,9 +197,7 @@ export default function AnimatedAISearchDemo() {
             <MagnifyingGlassIcon className="w-5 h-5 text-purple-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">
-              Recherche IA
-            </h3>
+            <h3 className="font-semibold text-gray-900">Recherche IA</h3>
             <p className="text-sm text-gray-600">
               Langage naturel → Filtres automatiques
             </p>
@@ -178,7 +219,9 @@ export default function AnimatedAISearchDemo() {
       {showAnalysis && (
         <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg animate-fadeIn">
           <div className="flex items-center space-x-3 mb-6">
-            <SparklesIcon className={`w-6 h-6 text-purple-600 ${isAnalyzing ? 'animate-spin' : ''}`} />
+            <SparklesIcon
+              className={`w-6 h-6 text-purple-600 ${isAnalyzing ? 'animate-spin' : ''}`}
+            />
             <h3 className="font-semibold text-gray-900">
               {isAnalyzing ? 'Analyse IA en cours' : 'Analyse IA'}
             </h3>
@@ -188,7 +231,9 @@ export default function AnimatedAISearchDemo() {
                   <div
                     key={i}
                     className={`w-2 h-2 bg-purple-600 rounded-full transition-all duration-300 ${
-                      pulseIndex === i ? 'scale-125 opacity-100' : 'scale-75 opacity-40'
+                      pulseIndex === i
+                        ? 'scale-125 opacity-100'
+                        : 'scale-75 opacity-40'
                     }`}
                   />
                 ))}
@@ -208,7 +253,7 @@ export default function AnimatedAISearchDemo() {
                   className="flex items-center space-x-2 bg-purple-50 rounded-xl px-3 py-2 animate-slideInUp"
                   style={{
                     animationDelay: `${index * 0.1}s`,
-                    animationFillMode: 'both'
+                    animationFillMode: 'both',
                   }}
                 >
                   <span className="text-lg">{filter.icon}</span>
@@ -230,9 +275,7 @@ export default function AnimatedAISearchDemo() {
               <span className="text-green-600 text-lg">🎯</span>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">
-                Résultats trouvés
-              </h3>
+              <h3 className="font-semibold text-gray-900">Résultats trouvés</h3>
               <p className="text-sm text-gray-600">
                 Recherche terminée avec succès
               </p>
@@ -251,13 +294,17 @@ export default function AnimatedAISearchDemo() {
               <div className="text-4xl font-bold text-green-600 mb-2">
                 {currentResults.avgFollowers}
               </div>
-              <div className="text-sm font-medium text-gray-700">Followers moy.</div>
+              <div className="text-sm font-medium text-gray-700">
+                Followers moy.
+              </div>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-green-600 mb-2">
                 {currentResults.avgEngagement}
               </div>
-              <div className="text-sm font-medium text-gray-700">Engagement moy.</div>
+              <div className="text-sm font-medium text-gray-700">
+                Engagement moy.
+              </div>
             </div>
           </div>
 
@@ -265,7 +312,10 @@ export default function AnimatedAISearchDemo() {
           <div className="mt-6 text-center">
             <button className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 mx-auto">
               <span>🔍</span>
-              <span>Voir les {currentResults.profiles.toLocaleString()} Profils Trouvés</span>
+              <span>
+                Voir les {currentResults.profiles.toLocaleString()} Profils
+                Trouvés
+              </span>
             </button>
           </div>
         </div>
@@ -274,18 +324,36 @@ export default function AnimatedAISearchDemo() {
       {/* CSS pour les animations personnalisées */}
       <style jsx>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        
+
         @keyframes slideInUp {
-          from { opacity: 0; transform: translateY(30px) scale(0.9); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
         }
 
         @keyframes countUp {
-          from { transform: scale(0.5); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
+          from {
+            transform: scale(0.5);
+            opacity: 0;
+          }
+          to {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
 
         .animate-fadeIn {

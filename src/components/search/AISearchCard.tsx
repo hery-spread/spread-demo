@@ -159,7 +159,7 @@ export default function AISearchCard({
   React.useEffect(() => {
     if (isAnalyzing) {
       const pulseTimer = setInterval(() => {
-        setPulseIndex(prev => (prev + 1) % 3);
+        setPulseIndex((prev) => (prev + 1) % 3);
       }, 500);
       return () => clearInterval(pulseTimer);
     }
@@ -172,27 +172,29 @@ export default function AISearchCard({
     setAnimatingFilters([]);
     try {
       const result = await simulateAIParsing(searchQuery);
-      
+
       // Animation progressive des filtres détectés
       if (result.parsedFilters) {
         const filterKeys = Object.keys(result.parsedFilters);
         filterKeys.forEach((key, index) => {
           setTimeout(() => {
-            setAnimatingFilters(prev => [...prev, key]);
+            setAnimatingFilters((prev) => [...prev, key]);
           }, index * 300);
         });
       }
-      
+
       setAiResult(result);
 
       // Appliquer automatiquement les filtres détectés avec un délai
       if (result.parsedFilters) {
         const filterKeys = Object.keys(result.parsedFilters);
-        setTimeout(() => {
-          onFiltersChange(result.parsedFilters);
-        }, filterKeys.length * 300 + 500);
+        setTimeout(
+          () => {
+            onFiltersChange(result.parsedFilters);
+          },
+          filterKeys.length * 300 + 500
+        );
       }
-      
     } catch (error) {
       console.error("Erreur lors de l'analyse IA:", error);
     } finally {
@@ -241,7 +243,9 @@ export default function AISearchCard({
                     <div
                       key={i}
                       className={`w-1 h-1 bg-white rounded-full transition-all duration-300 ${
-                        pulseIndex === i ? 'scale-125 opacity-100' : 'scale-75 opacity-40'
+                        pulseIndex === i
+                          ? 'scale-125 opacity-100'
+                          : 'scale-75 opacity-40'
                       }`}
                     />
                   ))}

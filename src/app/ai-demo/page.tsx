@@ -19,14 +19,15 @@ export default function AIDemoPage() {
               <span className="font-medium">Retour à l'accueil</span>
             </Link>
           </div>
-          
+
           <div className="text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               🤖 Démonstration IA Interactive
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez comment notre IA analyse vos recherches en langage naturel 
-              et détecte automatiquement les filtres pertinents en temps réel.
+              Découvrez comment notre IA analyse vos recherches en langage
+              naturel et détecte automatiquement les filtres pertinents en temps
+              réel.
             </p>
           </div>
         </div>
@@ -52,7 +53,8 @@ export default function AIDemoPage() {
                 1. Saisie Naturelle
               </h4>
               <p className="text-gray-600 text-sm">
-                Décrivez ce que vous cherchez en langage naturel, comme si vous parliez à un humain.
+                Décrivez ce que vous cherchez en langage naturel, comme si vous
+                parliez à un humain.
               </p>
             </div>
             <div className="text-center">
@@ -63,7 +65,8 @@ export default function AIDemoPage() {
                 2. Analyse IA
               </h4>
               <p className="text-gray-600 text-sm">
-                Notre IA comprend votre demande et identifie automatiquement tous les filtres pertinents.
+                Notre IA comprend votre demande et identifie automatiquement
+                tous les filtres pertinents.
               </p>
             </div>
             <div className="text-center">
@@ -74,7 +77,8 @@ export default function AIDemoPage() {
                 3. Résultats Précis
               </h4>
               <p className="text-gray-600 text-sm">
-                Obtenez instantanément des résultats ultra-précis basés sur vos critères exacts.
+                Obtenez instantanément des résultats ultra-précis basés sur vos
+                critères exacts.
               </p>
             </div>
           </div>
