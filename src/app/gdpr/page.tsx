@@ -86,20 +86,20 @@ export default function GDPRPage() {
               <ArrowLeftIcon className="w-5 h-5" />
               <span className="font-medium">Retour à l'accueil</span>
             </Link>
-            
+
             <div className="flex items-center justify-center space-x-4 mb-6">
               <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-3xl flex items-center justify-center shadow-2xl">
                 <ShieldExclamationIcon className="w-10 h-10 text-white" />
               </div>
             </div>
-            
+
             <h1 className="text-5xl font-bold text-white mb-4">
               Conformité RGPD
             </h1>
             <p className="text-xl text-indigo-100 mb-8 max-w-3xl mx-auto">
               Vos droits sous le Règlement Général sur la Protection des Données
             </p>
-            
+
             <div className="flex justify-center items-center space-x-8 text-sm text-indigo-200">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-green-400 rounded-full"></span>

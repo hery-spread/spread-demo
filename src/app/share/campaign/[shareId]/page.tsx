@@ -18,6 +18,7 @@ import {
   BanknotesIcon,
   CursorArrowRaysIcon,
   UsersIcon,
+  ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline';
 import { PlayCircleIcon as PlayCircleIconSolid } from '@heroicons/react/24/solid';
 import { Button } from '@/components/ui/Button';
@@ -105,7 +106,7 @@ function getSharedCampaign(
         engagement: {
           totalEngagements: 45200,
           averageER: 6.8,
-          totalLikes: 32400,
+          totalLikes: 32500,
           totalComments: 8900,
           totalShares: 2800,
           totalSaves: 1100,
@@ -113,14 +114,14 @@ function getSharedCampaign(
 
         reach: {
           totalImpressions: 850000,
-          totalReach: 640000,
+          totalReach: 620000,
           averageVideoER: 7.4,
-          totalViews: 156000,
+          totalViews: 145000,
         },
 
         performance: {
-          totalLinks: 12,
-          totalClicks: 3250,
+          totalLinks: 8,
+          totalClicks: 3240,
           ctr: 3.8,
           totalConversions: 156,
           conversionRate: 4.8,
@@ -313,187 +314,272 @@ export default function SharedCampaignPage() {
             </div>
           </div>
 
-          {/* Métriques principales */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <div className="flex items-center justify-between mb-4">
-                <EyeIcon className="w-10 h-10 text-purple-600" />
-                <span className="text-3xl font-bold text-gray-900">
-                  {formatNumber(campaign.analytics.reach.totalImpressions)}
-                </span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700">
-                Impressions
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                Total reach across all platforms
-              </p>
-            </div>
+          {/* Section Content */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-6">Content</h2>
 
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <div className="flex items-center justify-between mb-4">
-                <HeartIcon className="w-10 h-10 text-red-500" />
-                <span className="text-3xl font-bold text-gray-900">
-                  {formatNumber(campaign.analytics.engagement.totalEngagements)}
-                </span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700">
-                Engagements
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                {campaign.analytics.engagement.averageER}% average ER
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <div className="flex items-center justify-between mb-4">
-                <PhotoIcon className="w-10 h-10 text-blue-600" />
-                <span className="text-3xl font-bold text-gray-900">
-                  {campaign.analytics.content.totalPosts}
-                </span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700">
-                Content pieces
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                Posts, stories, reels & videos
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <div className="flex items-center justify-between mb-4">
-                <CursorArrowRaysIcon className="w-10 h-10 text-green-600" />
-                <span className="text-3xl font-bold text-gray-900">
-                  {campaign.analytics.performance.totalClicks}
-                </span>
-              </div>
-              <h3 className="text-lg font-semibold text-gray-700">
-                Link clicks
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                {campaign.analytics.performance.ctr}% CTR
-              </p>
-            </div>
-          </div>
-
-          {/* Détail des métriques */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Content breakdown */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Content Breakdown
-              </h3>
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <PhotoIcon className="w-5 h-5 text-blue-500" />
-                    <span className="text-gray-700">Posts</span>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <UsersIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <div>
+                    <span className="text-2xl font-bold text-gray-900">
+                      {campaign.analytics.content.creatorsPosted}
+                    </span>
+                    <span className="text-gray-500 ml-1">
+                      out of {campaign.analytics.content.totalCreators}
+                    </span>
                   </div>
-                  <span className="text-lg font-semibold text-gray-900">
+                </div>
+                <p className="text-sm text-gray-600">Creators posted</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <FireIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">0</span>
+                </div>
+                <p className="text-sm text-gray-600">Content today</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <PhotoIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
                     {campaign.analytics.content.totalPosts}
                   </span>
                 </div>
+                <p className="text-sm text-gray-600">Total posts</p>
+              </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <FireIcon className="w-5 h-5 text-orange-500" />
-                    <span className="text-gray-700">Stories</span>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-900">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <FireIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
                     {campaign.analytics.content.totalStories}
                   </span>
                 </div>
+                <p className="text-sm text-gray-600">Total Stories</p>
+              </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <VideoCameraIcon className="w-5 h-5 text-red-500" />
-                    <span className="text-gray-700">Reels & Videos</span>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.content.totalReels +
-                      campaign.analytics.content.totalVideos}
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <VideoCameraIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {campaign.analytics.content.totalReels}
                   </span>
                 </div>
+                <p className="text-sm text-gray-600">Total Reels</p>
+              </div>
+            </div>
+          </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                  <div className="flex items-center space-x-3">
-                    <UsersIcon className="w-5 h-5 text-purple-500" />
-                    <span className="text-gray-700">Creators posted</span>
-                  </div>
-                  <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.content.creatorsPosted}/
-                    {campaign.analytics.content.totalCreators}
+          {/* Section Awareness & engagement */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+            <h2 className="text-lg font-bold text-gray-900 mb-6">
+              Awareness &amp; engagement
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-8">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <HeartIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(
+                      campaign.analytics.engagement.totalEngagements
+                    )}
                   </span>
                 </div>
+                <p className="text-sm text-gray-600">Total engagements</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <TrophyIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {campaign.analytics.engagement.averageER}%
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Avg. ER%</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <EyeIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(campaign.analytics.reach.totalImpressions)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Est. impressions</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <UsersIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(campaign.analytics.reach.totalReach)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Est. reach</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <HeartIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(campaign.analytics.engagement.totalLikes)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Total likes</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <ChatBubbleLeftIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(campaign.analytics.engagement.totalComments)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Total comments</p>
               </div>
             </div>
 
-            {/* Performance metrics */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-200/50">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Performance
-              </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <EyeIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {formatNumber(campaign.analytics.reach.totalViews)}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Views</p>
+              </div>
 
-              <div className="space-y-4">
-                {shareData.includeFinancials && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <BanknotesIcon className="w-5 h-5 text-green-500" />
-                        <span className="text-gray-700">Total EMV</span>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">
-                        {formatCurrency(campaign.analytics.financials.totalEMV)}
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <VideoCameraIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {campaign.analytics.reach.averageVideoER ? `${campaign.analytics.reach.averageVideoER}%` : '-'}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Avg. video ER</p>
+              </div>
+
+              {shareData.includeFinancials && (
+                <div className="text-center">
+                  <div className="flex items-center justify-center mb-2">
+                    <CurrencyEuroIcon className="w-5 h-5 text-gray-400 mr-2" />
+                    <span className="text-2xl font-bold text-gray-900">
+                      {formatCurrency(campaign.analytics.financials.totalEMV)}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">EMV</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Section Performance */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-lg font-bold text-gray-900">Performance</h2>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-purple-600 border-purple-200"
+              >
+                + View clicks report
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <LinkIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {campaign.analytics.performance.totalLinks}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Total links</p>
+              </div>
+
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <CursorArrowRaysIcon className="w-5 h-5 text-gray-400 mr-2" />
+                  <span className="text-2xl font-bold text-gray-900">
+                    {campaign.analytics.performance.totalClicks}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-600">Total clicks</p>
+              </div>
+
+              {shareData.includeFinancials && (
+                <>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <CurrencyEuroIcon className="w-5 h-5 text-gray-400 mr-2" />
+                      <span className="text-2xl font-bold text-gray-900">
+                        {formatCurrency(
+                          campaign.analytics.financials.totalCreatorCost
+                        )}
                       </span>
                     </div>
+                    <p className="text-sm text-gray-600">Total creator cost</p>
+                  </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <TrophyIcon className="w-5 h-5 text-yellow-500" />
-                        <span className="text-gray-700">ROAS</span>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <TrophyIcon className="w-5 h-5 text-gray-400 mr-2" />
+                      <span className="text-2xl font-bold text-gray-900">
                         {campaign.analytics.financials.roas
                           ? `${campaign.analytics.financials.roas}x`
                           : '-'}
                       </span>
                     </div>
+                    <p className="text-sm text-gray-600">ROAS</p>
+                  </div>
 
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <CurrencyEuroIcon className="w-5 h-5 text-blue-500" />
-                        <span className="text-gray-700">CPM</span>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">
-                        {formatCurrency(
-                          campaign.analytics.financials.averageCPM
-                        )}
+                  <div className="text-center">
+                    <div className="flex items-center justify-center mb-2">
+                      <BanknotesIcon className="w-5 h-5 text-gray-400 mr-2" />
+                      <span className="text-2xl font-bold text-gray-900">
+                        {formatCurrency(campaign.analytics.financials.averageCPM)}
                       </span>
                     </div>
-                  </>
-                )}
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <LinkIcon className="w-5 h-5 text-purple-500" />
-                    <span className="text-gray-700">Total links</span>
+                    <p className="text-sm text-gray-600">CPM</p>
                   </div>
-                  <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.performance.totalLinks}
-                  </span>
-                </div>
+                </>
+              )}
+            </div>
+          </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <CursorArrowRaysIcon className="w-5 h-5 text-indigo-500" />
-                    <span className="text-gray-700">Click-through rate</span>
+          {/* Campaign setup */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-6">Campaign setup</h3>
+            
+            <div className="space-y-4">
+              {campaign.trackingConfig.links.map((link, index) => (
+                <div key={index} className="flex items-start justify-between p-4 bg-purple-50 rounded-lg border border-purple-100">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-1">
+                        <h3 className="text-sm font-medium text-purple-900 mb-1">
+                          {link.label || new URL(link.url).hostname}
+                        </h3>
+                        <p className="text-sm text-gray-500 break-all">
+                          {link.url}
+                        </p>
+                        {shareData.includeBudgets && link.budget && (
+                          <p className="text-sm font-medium text-purple-700 mt-2">
+                            Budget: {formatCurrency(link.budget)}
+                          </p>
+                        )}
+                      </div>
+                      <LinkIcon className="w-4 h-4 text-gray-400 ml-2 mt-1" />
+                    </div>
                   </div>
-                  <span className="text-lg font-semibold text-gray-900">
-                    {campaign.analytics.performance.ctr}%
-                  </span>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
