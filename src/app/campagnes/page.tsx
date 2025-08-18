@@ -9,7 +9,7 @@ import {
   PlusIcon,
   ChartBarIcon,
   MagnifyingGlassIcon,
-  HashtagIcon,
+  LinkIcon,
   CalendarDaysIcon,
   EyeIcon,
 } from '@heroicons/react/24/outline';
@@ -110,7 +110,7 @@ export default function SimpleCampaignsPage() {
   const handleCreateCampaign = async (campaignData: {
     name: string;
     description: string;
-    hashtags: string[];
+    links: { url: string; label?: string; budget?: number; }[];
     platforms: string[];
   }) => {
     try {
@@ -118,7 +118,7 @@ export default function SimpleCampaignsPage() {
         name: campaignData.name,
         description: campaignData.description,
         trackingConfig: {
-          hashtags: campaignData.hashtags,
+          links: campaignData.links,
           mentions: [],
           keywords: [],
           platforms: campaignData.platforms as (
@@ -127,7 +127,6 @@ export default function SimpleCampaignsPage() {
             | 'tiktok'
           )[],
           autoImport: true,
-          flagMissingHashtags: true,
           flagMissingDisclosure: true,
           eventMode: false,
         },
@@ -310,22 +309,25 @@ export default function SimpleCampaignsPage() {
                     <p className="text-gray-600 mb-3">{campaign.description}</p>
                   )}
 
-                  {/* Hashtags */}
+                  {/* Liens de tracking */}
                   <div className="flex flex-wrap items-center gap-2">
-                    {campaign.trackingConfig.hashtags
+                    {campaign.trackingConfig.links
                       .slice(0, 4)
-                      .map((hashtag) => (
+                      .map((link, index) => (
                         <span
-                          key={hashtag}
-                          className="inline-flex items-center space-x-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full"
+                          key={index}
+                          className="inline-flex items-center space-x-1 px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full"
                         >
-                          <HashtagIcon className="w-3 h-3" />
-                          <span>{hashtag}</span>
+                          <LinkIcon className="w-3 h-3" />
+                          <span>
+                            {link.label || new URL(link.url).hostname}
+                            {link.budget && ` (${link.budget}€)`}
+                          </span>
                         </span>
                       ))}
-                    {campaign.trackingConfig.hashtags.length > 4 && (
+                    {campaign.trackingConfig.links.length > 4 && (
                       <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                        +{campaign.trackingConfig.hashtags.length - 4}
+                        +{campaign.trackingConfig.links.length - 4}
                       </span>
                     )}
                   </div>

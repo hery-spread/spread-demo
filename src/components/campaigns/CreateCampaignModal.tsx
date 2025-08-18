@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, PlusIcon, TrashIcon, LinkIcon } from '@heroicons/react/24/outline';
+
+interface CampaignLink {
+  url: string;
+  label?: string;
+  budget?: number;
+}
 
 interface CreateCampaignModalProps {
   isOpen: boolean;
@@ -11,7 +17,7 @@ interface CreateCampaignModalProps {
   onCreate: (campaignData: {
     name: string;
     description: string;
-    hashtags: string[];
+    links: CampaignLink[];
     platforms: string[];
   }) => void;
 }
@@ -24,7 +30,7 @@ export default function CreateCampaignModal({
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    hashtags: '',
+    links: [{ url: '', label: '', budget: undefined }] as CampaignLink[],
     platforms: [] as string[],
   });
 
@@ -41,16 +47,13 @@ export default function CreateCampaignModal({
     // Simulation création
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const hashtags = formData.hashtags
-      .split(',')
-      .map((tag) => tag.trim())
-      .filter((tag) => tag.length > 0)
-      .map((tag) => (tag.startsWith('#') ? tag : `#${tag}`));
+    // Filtrer les liens valides (au moins une URL)
+    const validLinks = formData.links.filter((link) => link.url.trim().length > 0);
 
     onCreate({
       name: formData.name,
       description: formData.description,
-      hashtags,
+      links: validLinks,
       platforms: formData.platforms,
     });
 
@@ -58,7 +61,7 @@ export default function CreateCampaignModal({
     setFormData({
       name: '',
       description: '',
-      hashtags: '',
+      links: [{ url: '', label: '', budget: undefined }],
       platforms: [],
     });
     onClose();
@@ -70,6 +73,35 @@ export default function CreateCampaignModal({
       platforms: prev.platforms.includes(platform)
         ? prev.platforms.filter((p) => p !== platform)
         : [...prev.platforms, platform],
+    }));
+  };
+
+  const addLink = () => {
+    if (formData.links.length < 5) {
+      setFormData((prev) => ({
+        ...prev,
+        links: [...prev.links, { url: '', label: '', budget: undefined }],
+      }));
+    }
+  };
+
+  const removeLink = (index: number) => {
+    if (formData.links.length > 1) {
+      setFormData((prev) => ({
+        ...prev,
+        links: prev.links.filter((_, i) => i !== index),
+      }));
+    }
+  };
+
+  const updateLink = (index: number, field: keyof CampaignLink, value: string | number) => {
+    setFormData((prev) => ({
+      ...prev,
+      links: prev.links.map((link, i) => 
+        i === index 
+          ? { ...link, [field]: field === 'budget' ? (value === '' ? undefined : Number(value)) : value }
+          : link
+      ),
     }));
   };
 
@@ -123,19 +155,78 @@ export default function CreateCampaignModal({
             />
           </div>
 
-          {/* Hashtags */}
+          {/* Liens à suivre */}
           <div>
-            <Input
-              label="Hashtags à suivre"
-              placeholder="Ex: #SamsungPartner, #GalaxyS25, #TechReview"
-              value={formData.hashtags}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, hashtags: e.target.value }))
-              }
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Séparez les hashtags par des virgules. Le # sera ajouté
-              automatiquement.
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-sm font-medium text-gray-700">
+                Liens à suivre
+              </label>
+              <button
+                type="button"
+                onClick={addLink}
+                disabled={formData.links.length >= 5}
+                className="flex items-center space-x-1 text-sm text-purple-600 hover:text-purple-700 disabled:text-gray-400 disabled:cursor-not-allowed"
+              >
+                <PlusIcon className="w-4 h-4" />
+                <span>Ajouter un lien</span>
+              </button>
+            </div>
+            
+            <div className="space-y-3">
+              {formData.links.map((link, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2">
+                      <LinkIcon className="w-4 h-4 text-gray-500" />
+                      <span className="text-sm font-medium text-gray-700">
+                        Lien {index + 1}
+                      </span>
+                    </div>
+                    {formData.links.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeLink(index)}
+                        className="text-red-500 hover:text-red-700 transition-colors"
+                      >
+                        <TrashIcon className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <Input
+                      label="URL *"
+                      placeholder="https://exemple.com/campagne"
+                      value={link.url}
+                      onChange={(e) => updateLink(index, 'url', e.target.value)}
+                      required
+                    />
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <Input
+                        label="Libellé (optionnel)"
+                        placeholder="Nom du lien"
+                        value={link.label || ''}
+                        onChange={(e) => updateLink(index, 'label', e.target.value)}
+                      />
+                      
+                      <Input
+                        label="Budget (optionnel)"
+                        placeholder="1000"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={link.budget || ''}
+                        onChange={(e) => updateLink(index, 'budget', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <p className="text-xs text-gray-500 mt-2">
+              Ajoutez jusqu&apos;à 5 liens pour suivre les performances de votre campagne.
             </p>
           </div>
 

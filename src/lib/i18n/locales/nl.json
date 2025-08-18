@@ -64,9 +64,9 @@
     "aiSearch": {
       "title": "Multi-Platform AI Zoeken",
       "description": "Vind influencers op Instagram, YouTube en TikTok met onze AI die natuurlijke taal begrijpt.",
-            "benefits": {
+      "benefits": {
         "0": "Slimme spraakzoekfunctie",
-        "1": "Geavanceerde automatische filters", 
+        "1": "Geavanceerde automatische filters",
         "2": "Gepersonaliseerde suggesties",
         "3": "250M+ profieldatabase"
       }
@@ -84,10 +84,10 @@
     "crm": {
       "title": "CRM & Geïntegreerde Communicatie",
       "description": "Beheer je campagnes met een CRM speciaal ontworpen voor influence marketing.",
-            "benefits": {
+      "benefits": {
         "0": "Onderhandelingspipeline",
         "1": "Native email integratie",
-        "2": "Geautomatiseerde tracking", 
+        "2": "Geautomatiseerde tracking",
         "3": "Groepscampagnes"
       }
     },
@@ -128,7 +128,7 @@
     "titleHighlight": " vertrouwen ons ",
     "titleEnd": "al",
     "subtitle": "Sluit je aan bij duizenden marketeers die hun influence strategie hebben getransformeerd met Spread.",
-        "testimonials": {
+    "testimonials": {
       "0": {
         "name": "Marie Dubois",
         "role": "Marketing Manager",
@@ -137,7 +137,7 @@
         "results": "+347% ROI"
       },
       "1": {
-        "name": "Thomas Chen", 
+        "name": "Thomas Chen",
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "Spread's AI begrijpt precies waar we naar zoeken. Geen uren meer besteden aan handmatig filteren. Het is magisch!",
@@ -151,18 +151,18 @@
         "results": "+250% conversies"
       }
     },
-        "stats": {
+    "stats": {
       "0": {
         "number": "98%",
         "label": "Klanttevredenheidspercentage"
       },
       "1": {
-        "number": "2.847+", 
+        "number": "2.847+",
         "label": "Merken vertrouwen ons"
       },
       "2": {
         "number": "250M+",
-        "label": "Gerefereerde influencers" 
+        "label": "Gerefereerde influencers"
       },
       "3": {
         "number": "10u",
@@ -306,5 +306,44 @@
         "🎓 Gratis training inbegrepen"
       ]
     }
+  },
+  "footer": {
+    "brand": {
+      "name": "Spread",
+      "tagline": "Influence Marketing Intelligence",
+      "description": "Het eerste AI-platform dat influence marketing revolutioneert met ultra-precieze data en geavanceerde tools om je ROI te maximaliseren."
+    },
+    "contact": {
+      "email": "contact@spread.app",
+      "phone": "+33 1 23 45 67 89",
+      "address": "Parijs, Frankrijk",
+      "website": "www.spread.app"
+    },
+    "quickLinks": {
+      "title": "Snelle Links",
+      "features": "Functionaliteiten",
+      "pricing": "Prijzen",
+      "testimonials": "Getuigenissen",
+      "demo": "Boek een Demo"
+    },
+    "legal": {
+      "title": "Juridisch & Support",
+      "privacy": "Privacybeleid",
+      "terms": "Servicevoorwaarden",
+      "cookies": "Cookiebeleid",
+      "gdpr": "GDPR Naleving"
+    },
+    "support": {
+      "button": "Klantondersteuning"
+    },
+    "social": {
+      "title": "Volg Ons"
+    },
+    "stats": {
+      "influencers": "Influencers",
+      "clients": "Klanten"
+    },
+    "copyright": "© {{year}} Spread. Alle rechten voorbehouden.",
+    "backToTop": "Terug naar Boven"
   }
 }

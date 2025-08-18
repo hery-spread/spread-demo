@@ -7,6 +7,7 @@ import SocialProofSection from '@/components/landing/SocialProofSection';
 import PricingPreview from '@/components/landing/PricingPreview';
 import CTASection from '@/components/landing/CTASection';
 import TrustIndicators from '@/components/landing/TrustIndicators';
+import Footer from '@/components/landing/Footer';
 import SEOHead from '@/components/layout/SEOHead';
 
 export default function HomePage() {
@@ -43,6 +44,9 @@ export default function HomePage() {
 
       {/* Trust Indicators */}
       <TrustIndicators />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

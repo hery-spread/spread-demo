@@ -64,9 +64,9 @@
     "aiSearch": {
       "title": "Recherche IA Multi-Plateformes",
       "description": "Trouvez des influenceurs sur Instagram, YouTube et TikTok avec notre IA qui comprend le langage naturel.",
-          "benefits": {
+      "benefits": {
         "0": "Recherche vocale intelligente",
-        "1": "Filtres avancés automatiques", 
+        "1": "Filtres avancés automatiques",
         "2": "Suggestions personnalisées",
         "3": "Base de données 250M+ profils"
       }
@@ -84,10 +84,10 @@
     "crm": {
       "title": "CRM & Communication Intégrée",
       "description": "Gérez vos campagnes avec un CRM conçu spécialement pour l'influence marketing.",
-            "benefits": {
+      "benefits": {
         "0": "Pipeline de négociation",
         "1": "Intégration email native",
-        "2": "Suivi automatisé", 
+        "2": "Suivi automatisé",
         "3": "Campagnes groupées"
       }
     },
@@ -127,16 +127,16 @@
     "title": "Ils nous font déjà",
     "titleHighlight": " confiance ",
     "subtitle": "Rejoignez des milliers de marketeurs qui ont transformé leur stratégie d'influence avec Spread.",
-        "testimonials": {
+    "testimonials": {
       "0": {
         "name": "Marie Dubois",
-        "role": "Marketing Manager", 
+        "role": "Marketing Manager",
         "company": "Beauty Brand Paris",
         "text": "Spread nous a permis d'identifier les influenceurs parfaits pour notre marque. Notre ROI a augmenté de 347% en 6 mois !",
         "results": "+347% de ROI"
       },
       "1": {
-        "name": "Thomas Chen", 
+        "name": "Thomas Chen",
         "role": "Founder",
         "company": "TechStart SAS",
         "text": "L'IA de Spread comprend exactement ce qu'on cherche. Plus besoin de passer des heures à filtrer manuellement. C'est magique !",
@@ -150,18 +150,18 @@
         "results": "+250% de conversions"
       }
     },
-        "stats": {
+    "stats": {
       "0": {
         "number": "98%",
         "label": "Taux de satisfaction client"
       },
       "1": {
-        "number": "2,847+", 
+        "number": "2,847+",
         "label": "Marques nous font confiance"
       },
       "2": {
         "number": "250M+",
-        "label": "Influenceurs référencés" 
+        "label": "Influenceurs référencés"
       },
       "3": {
         "number": "10h",
@@ -305,5 +305,44 @@
         "🎓 Formation gratuite incluse"
       ]
     }
+  },
+  "footer": {
+    "brand": {
+      "name": "Spread",
+      "tagline": "Influence Marketing Intelligence",
+      "description": "La première plateforme IA qui révolutionne le marketing d'influence avec des données ultra-précises et des outils avancés pour maximiser votre ROI."
+    },
+    "contact": {
+      "email": "contact@spread.app",
+      "phone": "+33 1 23 45 67 89",
+      "address": "Paris, France",
+      "website": "www.spread.app"
+    },
+    "quickLinks": {
+      "title": "Liens Rapides",
+      "features": "Fonctionnalités",
+      "pricing": "Tarifs",
+      "testimonials": "Témoignages",
+      "demo": "Réserver une Démo"
+    },
+    "legal": {
+      "title": "Légal & Support",
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation",
+      "cookies": "Politique de Cookies",
+      "gdpr": "Conformité RGPD"
+    },
+    "support": {
+      "button": "Support Client"
+    },
+    "social": {
+      "title": "Suivez-nous"
+    },
+    "stats": {
+      "influencers": "Influenceurs",
+      "clients": "Clients"
+    },
+    "copyright": "© {{year}} Spread. Tous droits réservés.",
+    "backToTop": "Retour en haut"
   }
 }

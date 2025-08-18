@@ -18,7 +18,7 @@ export default function SocialProofSection() {
     },
     {
       name: t('socialProof.testimonials.1.name'),
-      role: t('socialProof.testimonials.1.role'), 
+      role: t('socialProof.testimonials.1.role'),
       company: t('socialProof.testimonials.1.company'),
       avatar: 'TC',
       rating: 5,
@@ -37,10 +37,22 @@ export default function SocialProofSection() {
   ];
 
   const stats = [
-    { number: t('socialProof.stats.0.number'), label: t('socialProof.stats.0.label') },
-    { number: t('socialProof.stats.1.number'), label: t('socialProof.stats.1.label') },
-    { number: t('socialProof.stats.2.number'), label: t('socialProof.stats.2.label') },
-    { number: t('socialProof.stats.3.number'), label: t('socialProof.stats.3.label') },
+    {
+      number: t('socialProof.stats.0.number'),
+      label: t('socialProof.stats.0.label'),
+    },
+    {
+      number: t('socialProof.stats.1.number'),
+      label: t('socialProof.stats.1.label'),
+    },
+    {
+      number: t('socialProof.stats.2.number'),
+      label: t('socialProof.stats.2.label'),
+    },
+    {
+      number: t('socialProof.stats.3.number'),
+      label: t('socialProof.stats.3.label'),
+    },
   ];
 
   return (
@@ -50,17 +62,17 @@ export default function SocialProofSection() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-6">
             <StarIcon className="w-4 h-4 mr-2" />
-{t('socialProof.badge')}
+            {t('socialProof.badge')}
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-{t('socialProof.title')}
+            {t('socialProof.title')}
             <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
               {' '}
-{t('socialProof.titleHighlight')}
+              {t('socialProof.titleHighlight')}
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-{t('socialProof.subtitle')}
+            {t('socialProof.subtitle')}
           </p>
         </div>
 
@@ -131,10 +143,10 @@ export default function SocialProofSection() {
                 <StarIcon className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-bold text-gray-900 mb-2">
-{t('socialProof.trustIndicators.excellence.title')}
+                {t('socialProof.trustIndicators.excellence.title')}
               </h3>
               <p className="text-gray-600 text-sm">
-{t('socialProof.trustIndicators.excellence.description')}
+                {t('socialProof.trustIndicators.excellence.description')}
               </p>
             </div>
 
@@ -142,9 +154,11 @@ export default function SocialProofSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
                 <UserGroupIcon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-bold text-gray-900 mb-2">{t('socialProof.trustIndicators.support.title')}</h3>
+              <h3 className="font-bold text-gray-900 mb-2">
+                {t('socialProof.trustIndicators.support.title')}
+              </h3>
               <p className="text-gray-600 text-sm">
-{t('socialProof.trustIndicators.support.description')}
+                {t('socialProof.trustIndicators.support.description')}
               </p>
             </div>
 
@@ -153,10 +167,10 @@ export default function SocialProofSection() {
                 <div className="text-white font-bold">🔒</div>
               </div>
               <h3 className="font-bold text-gray-900 mb-2">
-{t('socialProof.trustIndicators.security.title')}
+                {t('socialProof.trustIndicators.security.title')}
               </h3>
               <p className="text-gray-600 text-sm">
-{t('socialProof.trustIndicators.security.description')}
+                {t('socialProof.trustIndicators.security.description')}
               </p>
             </div>
           </div>
