@@ -172,7 +172,8 @@ export default function FeaturesSection() {
                 Fonctionnalités Avancées
               </h3>
               <p className="text-lg text-gray-600 mb-8">
-                Des outils puissants conçus spécialement pour maximiser le ROI de vos campagnes d&apos;influence marketing.
+                Des outils puissants conçus spécialement pour maximiser le ROI
+                de vos campagnes d&apos;influence marketing.
               </p>
 
               <div className="grid grid-cols-1 gap-6">
@@ -181,8 +182,12 @@ export default function FeaturesSection() {
                     <MagnifyingGlassIcon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Recherche IA Multi-Plateformes</h4>
-                    <p className="text-gray-600 text-sm mb-2">Instagram • YouTube • TikTok</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      Recherche IA Multi-Plateformes
+                    </h4>
+                    <p className="text-gray-600 text-sm mb-2">
+                      Instagram • YouTube • TikTok
+                    </p>
                     <div className="flex items-center text-green-600 text-sm font-medium">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                       Base de données 1.2M+ profils
@@ -195,8 +200,12 @@ export default function FeaturesSection() {
                     <ChartBarIcon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Rapports d&apos;Audience Ultra-Précis</h4>
-                    <p className="text-gray-600 text-sm mb-2">Démographie • Centres d&apos;intérêt • Fake followers</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      Rapports d&apos;Audience Ultra-Précis
+                    </h4>
+                    <p className="text-gray-600 text-sm mb-2">
+                      Démographie • Centres d&apos;intérêt • Fake followers
+                    </p>
                     <div className="flex items-center text-green-600 text-sm font-medium">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                       Précision 98.5% validée
@@ -209,8 +218,12 @@ export default function FeaturesSection() {
                     <ChatBubbleLeftRightIcon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">CRM & Communication Intégrée</h4>
-                    <p className="text-gray-600 text-sm mb-2">Pipeline • Emails • Suivi automatisé</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      CRM & Communication Intégrée
+                    </h4>
+                    <p className="text-gray-600 text-sm mb-2">
+                      Pipeline • Emails • Suivi automatisé
+                    </p>
                     <div className="flex items-center text-green-600 text-sm font-medium">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                       +250% taux de réponse moyen
@@ -224,7 +237,9 @@ export default function FeaturesSection() {
               {/* Real Features Mockup */}
               <div className="bg-white rounded-2xl shadow-2xl p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h4 className="font-semibold text-gray-900">Tableau de Bord</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    Tableau de Bord
+                  </h4>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     <span className="text-sm text-gray-500">Live</span>
@@ -234,24 +249,36 @@ export default function FeaturesSection() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
                     <div>
-                      <div className="font-medium text-gray-900">Recherches ce mois</div>
-                      <div className="text-2xl font-bold text-green-600">247 / 500</div>
+                      <div className="font-medium text-gray-900">
+                        Recherches ce mois
+                      </div>
+                      <div className="text-2xl font-bold text-green-600">
+                        247 / 500
+                      </div>
                     </div>
                     <div className="text-3xl">📈</div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
                     <div>
-                      <div className="font-medium text-gray-900">Rapports débloqués</div>
-                      <div className="text-2xl font-bold text-blue-600">89 / 100</div>
+                      <div className="font-medium text-gray-900">
+                        Rapports débloqués
+                      </div>
+                      <div className="text-2xl font-bold text-blue-600">
+                        89 / 100
+                      </div>
                     </div>
                     <div className="text-3xl">📊</div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
                     <div>
-                      <div className="font-medium text-gray-900">Campagnes actives</div>
-                      <div className="text-2xl font-bold text-purple-600">12</div>
+                      <div className="font-medium text-gray-900">
+                        Campagnes actives
+                      </div>
+                      <div className="text-2xl font-bold text-purple-600">
+                        12
+                      </div>
                     </div>
                     <div className="text-3xl">🚀</div>
                   </div>

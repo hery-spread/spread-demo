@@ -27,7 +27,7 @@ export default function HeroSection() {
         <div className="absolute -bottom-40 -left-32 w-80 h-80 bg-gradient-to-tr from-indigo-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-40">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Content Left */}
           <div className="text-center lg:text-left">

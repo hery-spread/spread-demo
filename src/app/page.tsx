@@ -1,5 +1,6 @@
 'use client';
 
+import LandingNavbar from '@/components/landing/LandingNavbar';
 import HeroSection from '@/components/landing/HeroSection';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import SocialProofSection from '@/components/landing/SocialProofSection';
@@ -10,21 +11,32 @@ import TrustIndicators from '@/components/landing/TrustIndicators';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Landing Navbar */}
+      <LandingNavbar />
+      
       {/* Hero Section (TOFU) */}
-      <HeroSection />
-
+      <div id="hero">
+        <HeroSection />
+      </div>
+      
       {/* Features Section (MOFU) */}
-      <FeaturesSection />
-
+      <div id="features">
+        <FeaturesSection />
+      </div>
+      
       {/* Social Proof Section (MOFU) */}
-      <SocialProofSection />
-
+      <div id="testimonials">
+        <SocialProofSection />
+      </div>
+      
       {/* Pricing Preview Section (BOFU) */}
-      <PricingPreview />
-
+      <div id="pricing">
+        <PricingPreview />
+      </div>
+      
       {/* Call to Action Section (BOFU) */}
       <CTASection />
-
+      
       {/* Trust Indicators */}
       <TrustIndicators />
     </div>
