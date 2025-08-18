@@ -46,7 +46,7 @@ export default function SocialProofSection() {
   const stats = [
     { number: '98%', label: 'Taux de satisfaction client' },
     { number: '2,847+', label: 'Marques nous font confiance' },
-    { number: '1.2M+', label: 'Influenceurs référencés' },
+    { number: '250M+', label: 'Influenceurs référencés' },
     { number: '10h', label: 'Économisées par semaine' },
   ];
 

@@ -107,7 +107,6 @@ export default function HeroSection() {
           <div className="relative">
             {/* AI Search Interface Mockup */}
             <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
-              
               {/* Header */}
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
@@ -115,25 +114,33 @@ export default function HeroSection() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">Recherche IA</h4>
-                  <p className="text-xs text-gray-500">Langage naturel → Filtres automatiques</p>
+                  <p className="text-xs text-gray-500">
+                    Langage naturel → Filtres automatiques
+                  </p>
                 </div>
               </div>
 
               {/* AI Search Input */}
               <div className="relative mb-6">
                 <div className="w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium">
-                  Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement &gt;4%, audience féminine 18-35 ans
+                  Influenceuses beauté françaises entre 50k et 500k followers
+                  sur Instagram, taux engagement &gt;4%, audience féminine 18-35
+                  ans
                 </div>
                 <div className="absolute bottom-3 right-3 flex items-center space-x-1">
                   <SparklesIcon className="w-4 h-4 text-purple-600 animate-pulse" />
-                  <span className="text-xs text-purple-600 font-medium">Analyse IA</span>
+                  <span className="text-xs text-purple-600 font-medium">
+                    Analyse IA
+                  </span>
                 </div>
               </div>
 
               {/* AI Analysis Results */}
               <div className="space-y-3 mb-6">
-                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">Filtres détectés automatiquement :</div>
-                
+                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                  Filtres détectés automatiquement :
+                </div>
+
                 <div className="flex flex-wrap gap-2">
                   <div className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
                     📍 France
@@ -162,26 +169,40 @@ export default function HeroSection() {
               {/* Search Results Preview */}
               <div className="border-t border-gray-100 pt-4">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-gray-600">Résultats trouvés</span>
+                  <span className="text-sm font-medium text-gray-600">
+                    Résultats trouvés
+                  </span>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-green-600 font-medium">2,847 profils</span>
+                    <span className="text-xs text-green-600 font-medium">
+                      2,847 profils
+                    </span>
                   </div>
                 </div>
-                
+
                 <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
-                      <div className="text-lg font-bold text-green-700">2,847</div>
+                      <div className="text-lg font-bold text-green-700">
+                        2,847
+                      </div>
                       <div className="text-xs text-green-600">Profils</div>
                     </div>
                     <div>
-                      <div className="text-lg font-bold text-blue-700">~156K</div>
-                      <div className="text-xs text-blue-600">Followers moy.</div>
+                      <div className="text-lg font-bold text-blue-700">
+                        ~156K
+                      </div>
+                      <div className="text-xs text-blue-600">
+                        Followers moy.
+                      </div>
                     </div>
                     <div>
-                      <div className="text-lg font-bold text-purple-700">5.2%</div>
-                      <div className="text-xs text-purple-600">Engagement moy.</div>
+                      <div className="text-lg font-bold text-purple-700">
+                        5.2%
+                      </div>
+                      <div className="text-xs text-purple-600">
+                        Engagement moy.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -202,7 +223,7 @@ export default function HeroSection() {
             <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
               <MagnifyingGlassIcon className="w-6 h-6 text-white" />
             </div>
-            
+
             {/* Performance Badge */}
             <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
               ⚡ &lt; 30s
@@ -218,7 +239,7 @@ export default function HeroSection() {
               <div className="text-gray-600">Marques clientes</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">1.2M+</div>
+              <div className="text-3xl font-bold text-purple-600">250M+</div>
               <div className="text-gray-600">Influenceurs référencés</div>
             </div>
             <div>

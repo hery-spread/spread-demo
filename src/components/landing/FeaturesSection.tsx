@@ -18,7 +18,7 @@ export default function FeaturesSection() {
         'Recherche vocale intelligente',
         'Filtres avancés automatiques',
         'Suggestions personnalisées',
-        'Base de données 1.2M+ profils',
+        'Base de données 250M+ profils',
       ],
       color: 'purple',
     },
@@ -190,7 +190,7 @@ export default function FeaturesSection() {
                     </p>
                     <div className="flex items-center text-green-600 text-sm font-medium">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Base de données 1.2M+ profils
+                      Base de données 250M+ profils
                     </div>
                   </div>
                 </div>
