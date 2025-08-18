@@ -34,8 +34,6 @@ export default function SocialProofSection() {
     },
   ];
 
-
-
   const stats = [
     { number: '98%', label: 'Taux de satisfaction client' },
     { number: '2,847+', label: 'Marques nous font confiance' },
@@ -123,8 +121,6 @@ export default function SocialProofSection() {
             </div>
           ))}
         </div>
-
-
 
         {/* Trust Indicators */}
         <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/50">

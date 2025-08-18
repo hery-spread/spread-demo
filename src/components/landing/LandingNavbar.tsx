@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import LanguageSelector from '@/components/ui/LanguageSelector';
+import { useI18n } from '@/lib/i18n/context';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useI18n();
 
   const handleSignIn = () => {
     // Redirection vers page de connexion ou modal
@@ -26,9 +29,9 @@ export default function LandingNavbar() {
   };
 
   const navigationLinks = [
-    { name: 'Fonctionnalités', action: () => scrollToSection('features') },
-    { name: 'Témoignages', action: () => scrollToSection('testimonials') },
-    { name: 'Tarifs', action: () => scrollToSection('pricing') },
+    { name: t('navbar.features'), action: () => scrollToSection('features') },
+    { name: t('navbar.testimonials'), action: () => scrollToSection('testimonials') },
+    { name: t('navbar.pricing'), action: () => scrollToSection('pricing') },
   ];
 
   return (
@@ -45,10 +48,10 @@ export default function LandingNavbar() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
-                    Spread
+                    {t('navbar.brand')}
                   </h1>
                   <p className="text-xs text-gray-500 font-medium hidden sm:block">
-                    Influence Marketing
+                    {t('navbar.tagline')}
                   </p>
                 </div>
               </div>
@@ -69,18 +72,19 @@ export default function LandingNavbar() {
 
               {/* Desktop Auth Buttons */}
               <div className="hidden md:flex items-center space-x-4">
+                <LanguageSelector variant="compact" />
                 <Button
                   onClick={handleSignIn}
                   variant="outline"
                   className="border-purple-200 text-purple-700 hover:bg-purple-50 font-medium px-6"
                 >
-                  Se connecter
+                  {t('navbar.signIn')}
                 </Button>
                 <Button
                   onClick={handleSignUp}
                   className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold px-6 shadow-lg shadow-purple-500/25 transform transition-all duration-300 hover:scale-105"
                 >
-                  Essai gratuit
+                  {t('navbar.signUp')}
                 </Button>
               </div>
 
@@ -128,18 +132,21 @@ export default function LandingNavbar() {
 
             {/* Mobile Auth Buttons */}
             <div className="space-y-3 pt-6 border-t border-gray-100">
+              <div className="flex justify-center pb-3">
+                <LanguageSelector />
+              </div>
               <Button
                 onClick={handleSignIn}
                 variant="outline"
                 className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 font-medium py-3"
               >
-                Se connecter
+                {t('navbar.signIn')}
               </Button>
               <Button
                 onClick={handleSignUp}
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-3 shadow-lg shadow-purple-500/25"
               >
-                🚀 Essai gratuit
+                🚀 {t('navbar.signUp')}
               </Button>
             </div>
           </div>

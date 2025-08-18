@@ -1,0 +1,295 @@
+{
+  "navbar": {
+    "brand": "Spread",
+    "tagline": "Influence Marketing",
+    "features": "Fonctionnalités",
+    "testimonials": "Témoignages", 
+    "pricing": "Tarifs",
+    "signIn": "Se connecter",
+    "signUp": "Essai gratuit"
+  },
+  "hero": {
+    "trustBadge": "Rejoignez 2,847+ marketeurs qui nous font confiance",
+    "headline": "Trouvez les",
+    "headlineHighlight": " Influenceurs Parfaits ",
+    "headlineEnd": "en 30 Secondes",
+    "subheadline": "La première plateforme IA qui révolutionne la recherche d'influenceurs avec des rapports d'audience ultra-détaillés",
+    "benefits": {
+      "aiSearch": "Recherche IA Multi-Plateformes",
+      "reports": "Rapports d'Audience Détaillés",
+      "crm": "CRM Intégré",
+      "analytics": "Analytics de Performance"
+    },
+    "cta": {
+      "trial": "🚀 Essai Gratuit 14 Jours",
+      "demo": "📅 Réserver une Démo"
+    },
+    "trustIndicators": "✨ Sans engagement • 🔐 Sécurisé • 💳 Sans CB requise",
+    "aiSearch": {
+      "title": "Recherche IA",
+      "subtitle": "Langage naturel → Filtres automatiques",
+      "placeholder": "Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans",
+      "analyzing": "Analyse IA",
+      "filtersDetected": "Filtres détectés automatiquement :",
+      "filters": {
+        "location": "📍 France",
+        "followers": "👥 50K-500K followers",
+        "engagement": "📈 +4% engagement",
+        "niche": "💄 Beauté",
+        "audience": "👩 Audience féminine",
+        "age": "🔢 18-35 ans"
+      },
+      "results": "Résultats trouvés",
+      "profilesCount": "2,847 profils",
+      "stats": {
+        "profiles": "Profils",
+        "avgFollowers": "Followers moy.",
+        "avgEngagement": "Engagement moy."
+      },
+      "ctaButton": "🔍 Voir les 2,847 Profils Trouvés",
+      "performanceBadge": "⚡ < 30s"
+    },
+    "statsBar": {
+      "brands": "Marques clientes", 
+      "influencers": "Influenceurs référencés",
+      "satisfaction": "Taux de satisfaction",
+      "timeSaved": "Économisées par semaine"
+    }
+  },
+  "features": {
+    "title": "Pourquoi Choisir",
+    "titleHighlight": " Spread ",
+    "titleEnd": "?",
+    "subtitle": "Découvrez les fonctionnalités qui font de Spread la plateforme #1 pour l'influence marketing",
+    "aiSearch": {
+      "title": "Recherche IA Multi-Plateformes",
+      "description": "Trouvez des influenceurs sur Instagram, YouTube et TikTok avec notre IA qui comprend le langage naturel.",
+      "benefits": [
+        "Recherche vocale intelligente",
+        "Filtres avancés automatiques", 
+        "Suggestions personnalisées",
+        "Base de données 250M+ profils"
+      ]
+    },
+    "reports": {
+      "title": "Rapports d'Audience Ultra-Détaillés",
+      "description": "Accédez aux données d'audience les plus complètes du marché pour prendre les meilleures décisions.",
+      "benefits": [
+        "Démographie précise",
+        "Centres d'intérêt détaillés",
+        "Analyse de l'engagement",
+        "Détection de fake followers"
+      ]
+    },
+    "crm": {
+      "title": "CRM & Communication Intégrée",
+      "description": "Gérez vos campagnes avec un CRM conçu spécialement pour l'influence marketing.",
+      "benefits": [
+        "Pipeline de négociation",
+        "Intégration email native",
+        "Suivi automatisé", 
+        "Campagnes groupées"
+      ]
+    },
+    "showcase": {
+      "title": "Fonctionnalités Réelles de Spread",
+      "subtitle": "Une plateforme complète avec des fonctionnalités qui changent vraiment la donne",
+      "aiSearchTitle": "🧠 Recherche IA Avancée",
+      "aiSearchDesc": "Recherche en langage naturel avec détection automatique de filtres complexes. Trouvez exactement ce que vous cherchez sans configuration manuelle.",
+      "reportsTitle": "📊 Rapports d'Audience",
+      "reportsDesc": "Analyses démographiques, géographiques et comportementales ultra-détaillées. Prenez des décisions data-driven.",
+      "crmTitle": "💼 CRM Influence Marketing",
+      "crmDesc": "Pipeline de négociation, suivi des campagnes, intégration emails. Tout pour gérer vos relations influenceurs.",
+      "analyticsTitle": "📈 Analytics de Performance",
+      "analyticsDesc": "Mesurez le ROI de vos campagnes avec des métriques précises et des rapports automatisés.",
+      "dashboardTitle": "Dashboard en Temps Réel",
+      "quotas": {
+        "title": "Vos quotas aujourd'hui",
+        "searches": "Recherches IA",
+        "reports": "Rapports audience",
+        "exports": "Exports de listes",
+        "emails": "Emails envoyés"
+      }
+    }
+  },
+  "socialProof": {
+    "badge": "Approuvé par 2,847+ marketeurs",
+    "title": "Ils nous font déjà",
+    "titleHighlight": " confiance ",
+    "subtitle": "Rejoignez des milliers de marketeurs qui ont transformé leur stratégie d'influence avec Spread.",
+    "testimonials": [
+      {
+        "name": "Marie Dubois",
+        "role": "Marketing Manager",
+        "company": "Beauty Brand Paris",
+        "text": "Spread nous a permis d'identifier les influenceurs parfaits pour notre marque. Notre ROI a augmenté de 347% en 6 mois !",
+        "results": "+347% de ROI"
+      },
+      {
+        "name": "Thomas Chen", 
+        "role": "Founder",
+        "company": "TechStart SAS",
+        "text": "L'IA de Spread comprend exactement ce qu'on cherche. Plus besoin de passer des heures à filtrer manuellement. C'est magique !",
+        "results": "10h économisées/semaine"
+      },
+      {
+        "name": "Sophie Martin",
+        "role": "Directrice Marketing",
+        "company": "Fashion House",
+        "text": "Le CRM intégré nous permet de gérer toutes nos campagnes en un seul endroit. C'est un game-changer pour notre productivité.",
+        "results": "+250% de conversions"
+      }
+    ],
+    "stats": [
+      {
+        "number": "98%",
+        "label": "Taux de satisfaction client"
+      },
+      {
+        "number": "2,847+", 
+        "label": "Marques nous font confiance"
+      },
+      {
+        "number": "250M+",
+        "label": "Influenceurs référencés" 
+      },
+      {
+        "number": "10h",
+        "label": "Économisées par semaine"
+      }
+    ],
+    "trustIndicators": {
+      "excellence": {
+        "title": "Excellence Reconnue",
+        "description": "4.9/5 sur Trustpilot avec plus de 500 avis vérifiés"
+      },
+      "support": {
+        "title": "Support Dédié",
+        "description": "Équipe francophone disponible 7j/7 pour vous accompagner"
+      },
+      "security": {
+        "title": "Données Sécurisées", 
+        "description": "Conformité RGPD, SSL et certifications ISO 27001"
+      }
+    }
+  },
+  "pricingPreview": {
+    "badge": "Tarification transparente",
+    "title": "Choisissez Votre",
+    "titleHighlight": " Plan Parfait",
+    "subtitle": "Commencez gratuitement, puis passez au plan qui correspond à vos besoins. Aucun engagement, changez à tout moment.",
+    "toggle": {
+      "monthly": "Mensuel",
+      "annual": "Annuel",
+      "save": "Économisez 20%"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Parfait pour découvrir Spread",
+        "price": "Gratuit",
+        "features": [
+          "10 recherches IA par mois",
+          "Rapports d'audience basiques",
+          "Export CSV limité",
+          "Support par email"
+        ],
+        "cta": "Commencer Gratuitement"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Pour les équipes marketing", 
+        "monthlyPrice": "99€",
+        "annualPrice": "79€",
+        "features": [
+          "Recherches IA illimitées",
+          "Rapports d'audience complets",
+          "CRM intégré",
+          "Exports illimités",
+          "Support prioritaire"
+        ],
+        "cta": "Essai Gratuit 14 Jours",
+        "popular": "Plus populaire"
+      },
+      "enterprise": {
+        "name": "Enterprise", 
+        "description": "Pour les grandes entreprises",
+        "price": "Sur mesure",
+        "features": [
+          "Tout du plan Pro",
+          "API personnalisée",
+          "Formation dédiée",
+          "Support téléphonique 24/7"
+        ],
+        "cta": "Contactez-nous"
+      }
+    },
+    "faq": {
+      "title": "Questions Fréquentes",
+      "items": [
+        {
+          "question": "Puis-je changer de plan à tout moment ?",
+          "answer": "Absolument ! Vous pouvez upgrader ou downgrader votre plan à tout moment sans frais cachés."
+        },
+        {
+          "question": "Y a-t-il une période d'engagement ?", 
+          "answer": "Aucune période d'engagement. Vous pouvez annuler votre abonnement à tout moment."
+        },
+        {
+          "question": "Que comprend l'essai gratuit ?",
+          "answer": "L'essai gratuit de 14 jours vous donne accès à toutes les fonctionnalités du plan Pro, sans limitation."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "badge": "Dernière chance",
+    "title": "Prêt à Révolutionner Votre",
+    "titleHighlight": " Influence Marketing ",
+    "titleEnd": "?",
+    "subtitle": "Rejoignez 2,847+ marques qui ont déjà transformé leur stratégie avec Spread. Commencez votre essai gratuit maintenant.",
+    "urgency": "🔥 Offre spéciale : 20% de réduction sur votre première année !",
+    "benefits": [
+      "✅ Configuration en moins de 5 minutes",
+      "✅ Accès à 250M+ profils d'influenceurs", 
+      "✅ Support dédié en français",
+      "✅ Garantie satisfait ou remboursé 30 jours"
+    ],
+    "cta": {
+      "primary": "🚀 Commencer Mon Essai Gratuit",
+      "secondary": "📞 Parler à un Expert"
+    },
+    "guarantee": "💰 Garantie satisfait ou remboursé 30 jours",
+    "security": "🔐 Paiement 100% sécurisé • RGPD • SSL"
+  },
+  "trustIndicators": {
+    "title": "Votre Succès, Notre Priorité",
+    "certifications": {
+      "title": "Certifications & Sécurité",
+      "description": "Nous respectons les plus hauts standards de sécurité et de conformité pour protéger vos données.",
+      "items": [
+        "🛡️ Certification ISO 27001", 
+        "🔒 Conformité RGPD complète",
+        "💳 Paiements sécurisés Stripe"
+      ]
+    },
+    "guarantee": {
+      "title": "Garantie de Performance",
+      "description": "Si vous n'êtes pas satisfait dans les 30 premiers jours, nous vous remboursons intégralement.",
+      "items": [
+        "💰 Remboursement garanti 30j",
+        "🚀 ROI mesuré dès le 1er mois", 
+        "📈 +200% de performance moyenne"
+      ]
+    },
+    "support": {
+      "title": "Support Expert Français",
+      "description": "Notre équipe d'experts vous accompagne pour maximiser votre succès avec Spread.",
+      "items": [
+        "👥 Équipe dédiée francophone",
+        "⚡ Réponse sous 2h en moyenne",
+        "🎓 Formation gratuite incluse"
+      ]
+    }
+  }
+}

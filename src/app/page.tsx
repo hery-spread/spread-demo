@@ -7,10 +7,14 @@ import SocialProofSection from '@/components/landing/SocialProofSection';
 import PricingPreview from '@/components/landing/PricingPreview';
 import CTASection from '@/components/landing/CTASection';
 import TrustIndicators from '@/components/landing/TrustIndicators';
+import SEOHead from '@/components/layout/SEOHead';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* SEO Head */}
+      <SEOHead pathname="/" />
+      
       {/* Landing Navbar */}
       <LandingNavbar />
 

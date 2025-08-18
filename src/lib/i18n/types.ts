@@ -1,0 +1,143 @@
+export type Language = 'fr' | 'en' | 'nl';
+
+export interface LanguageOption {
+  code: Language;
+  name: string;
+  flag: string;
+}
+
+// Type pour accéder aux clés de traduction de manière type-safe
+export type TranslationKey = 
+  | 'navbar.brand'
+  | 'navbar.tagline' 
+  | 'navbar.features'
+  | 'navbar.testimonials'
+  | 'navbar.pricing'
+  | 'navbar.signIn'
+  | 'navbar.signUp'
+  | 'hero.trustBadge'
+  | 'hero.headline'
+  | 'hero.headlineHighlight'
+  | 'hero.headlineEnd'
+  | 'hero.subheadline'
+  | 'hero.benefits.aiSearch'
+  | 'hero.benefits.reports'
+  | 'hero.benefits.crm'
+  | 'hero.benefits.analytics'
+  | 'hero.cta.trial'
+  | 'hero.cta.demo'
+  | 'hero.trustIndicators'
+  | 'hero.aiSearch.title'
+  | 'hero.aiSearch.subtitle'
+  | 'hero.aiSearch.placeholder'
+  | 'hero.aiSearch.analyzing'
+  | 'hero.aiSearch.filtersDetected'
+  | 'hero.aiSearch.filters.location'
+  | 'hero.aiSearch.filters.followers'
+  | 'hero.aiSearch.filters.engagement'
+  | 'hero.aiSearch.filters.niche'
+  | 'hero.aiSearch.filters.audience'
+  | 'hero.aiSearch.filters.age'
+  | 'hero.aiSearch.results'
+  | 'hero.aiSearch.profilesCount'
+  | 'hero.aiSearch.stats.profiles'
+  | 'hero.aiSearch.stats.avgFollowers'
+  | 'hero.aiSearch.stats.avgEngagement'
+  | 'hero.aiSearch.ctaButton'
+  | 'hero.aiSearch.performanceBadge'
+  | 'hero.statsBar.brands'
+  | 'hero.statsBar.influencers'
+  | 'hero.statsBar.satisfaction'
+  | 'hero.statsBar.timeSaved'
+  | 'features.title'
+  | 'features.titleHighlight'
+  | 'features.titleEnd'
+  | 'features.subtitle'
+  | 'features.aiSearch.title'
+  | 'features.aiSearch.description'
+  | 'features.reports.title'
+  | 'features.reports.description'
+  | 'features.crm.title'
+  | 'features.crm.description'
+  | 'features.showcase.title'
+  | 'features.showcase.subtitle'
+  | 'features.showcase.aiSearchTitle'
+  | 'features.showcase.aiSearchDesc'
+  | 'features.showcase.reportsTitle'
+  | 'features.showcase.reportsDesc'
+  | 'features.showcase.crmTitle'
+  | 'features.showcase.crmDesc'
+  | 'features.showcase.analyticsTitle'
+  | 'features.showcase.analyticsDesc'
+  | 'features.showcase.dashboardTitle'
+  | 'features.showcase.quotas.title'
+  | 'features.showcase.quotas.searches'
+  | 'features.showcase.quotas.reports'
+  | 'features.showcase.quotas.exports'
+  | 'features.showcase.quotas.emails'
+  | 'socialProof.badge'
+  | 'socialProof.title'
+  | 'socialProof.titleHighlight'
+  | 'socialProof.subtitle'
+  | 'socialProof.stats'
+  | 'socialProof.trustIndicators.excellence.title'
+  | 'socialProof.trustIndicators.excellence.description'
+  | 'socialProof.trustIndicators.support.title'
+  | 'socialProof.trustIndicators.support.description'
+  | 'socialProof.trustIndicators.security.title'
+  | 'socialProof.trustIndicators.security.description'
+  | 'pricingPreview.badge'
+  | 'pricingPreview.title'
+  | 'pricingPreview.titleHighlight'
+  | 'pricingPreview.subtitle'
+  | 'pricingPreview.toggle.monthly'
+  | 'pricingPreview.toggle.annual'
+  | 'pricingPreview.toggle.save'
+  | 'pricingPreview.plans.starter.name'
+  | 'pricingPreview.plans.starter.description'
+  | 'pricingPreview.plans.starter.price'
+  | 'pricingPreview.plans.starter.cta'
+  | 'pricingPreview.plans.pro.name'
+  | 'pricingPreview.plans.pro.description'
+  | 'pricingPreview.plans.pro.monthlyPrice'
+  | 'pricingPreview.plans.pro.annualPrice'
+  | 'pricingPreview.plans.pro.cta'
+  | 'pricingPreview.plans.pro.popular'
+  | 'pricingPreview.plans.enterprise.name'
+  | 'pricingPreview.plans.enterprise.description'
+  | 'pricingPreview.plans.enterprise.price'
+  | 'pricingPreview.plans.enterprise.cta'
+  | 'pricingPreview.faq.title'
+  | 'cta.badge'
+  | 'cta.title'
+  | 'cta.titleHighlight'
+  | 'cta.titleEnd'
+  | 'cta.subtitle'
+  | 'cta.urgency'
+  | 'cta.cta.primary'
+  | 'cta.cta.secondary'
+  | 'cta.guarantee'
+  | 'cta.security'
+  | 'trustIndicators.title'
+  | 'trustIndicators.certifications.title'
+  | 'trustIndicators.certifications.description'
+  | 'trustIndicators.guarantee.title'
+  | 'trustIndicators.guarantee.description'
+  | 'trustIndicators.support.title'
+  | 'trustIndicators.support.description';
+
+// Interface pour les métadonnées SEO
+export interface SEOMetadata {
+  title: string;
+  description: string;
+  keywords: string;
+  ogTitle: string;
+  ogDescription: string;
+  twitterTitle: string;
+  twitterDescription: string;
+}
+
+// Mapping des langues vers métadonnées SEO
+export interface LanguageSEOMapping {
+  [key: string]: SEOMetadata;
+}

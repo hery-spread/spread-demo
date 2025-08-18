@@ -2,6 +2,7 @@ export { Button } from './Button';
 export { Input } from './Input';
 export { Select } from './Select';
 export { default as MultiSelect } from './MultiSelect';
+export { default as LanguageSelector } from './LanguageSelector';
 export {
   Table,
   TableHeader,

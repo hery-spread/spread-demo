@@ -1,0 +1,296 @@
+{
+  "navbar": {
+    "brand": "Spread",
+    "tagline": "Influence Marketing",
+    "features": "Functionaliteiten",
+    "testimonials": "Getuigenissen", 
+    "pricing": "Prijzen",
+    "signIn": "Inloggen",
+    "signUp": "Gratis Proefperiode"
+  },
+  "hero": {
+    "trustBadge": "Sluit je aan bij 2.847+ marketeers die ons vertrouwen",
+    "headline": "Vind de",
+    "headlineHighlight": " Perfecte Influencers ",
+    "headlineEnd": "in 30 Seconden",
+    "subheadline": "Het eerste AI-platform dat influencer zoeken revolutioneert met ultragedetailleerde publiekrapporten",
+    "benefits": {
+      "aiSearch": "Multi-Platform AI Zoeken",
+      "reports": "Gedetailleerde Publiekrapporten",
+      "crm": "Geïntegreerde CRM",
+      "analytics": "Prestatie Analytics"
+    },
+    "cta": {
+      "trial": "🚀 14 Dagen Gratis Proberen",
+      "demo": "📅 Boek een Demo"
+    },
+    "trustIndicators": "✨ Geen verplichting • 🔐 Veilig • 💳 Geen creditcard vereist",
+    "aiSearch": {
+      "title": "AI Zoeken",
+      "subtitle": "Natuurlijke taal → Automatische filters",
+      "placeholder": "Franse beauty influencers tussen 50k en 500k volgers op Instagram, engagement rate >4%, vrouwelijk publiek 18-35 jaar",
+      "analyzing": "AI Analyse",
+      "filtersDetected": "Automatisch gedetecteerde filters:",
+      "filters": {
+        "location": "📍 Frankrijk",
+        "followers": "👥 50K-500K volgers",
+        "engagement": "📈 +4% engagement",
+        "niche": "💄 Beauty",
+        "audience": "👩 Vrouwelijk publiek",
+        "age": "🔢 18-35 jaar"
+      },
+      "results": "Gevonden resultaten",
+      "profilesCount": "2.847 profielen",
+      "stats": {
+        "profiles": "Profielen",
+        "avgFollowers": "Gem. volgers",
+        "avgEngagement": "Gem. engagement"
+      },
+      "ctaButton": "🔍 Bekijk 2.847 Gevonden Profielen",
+      "performanceBadge": "⚡ < 30s"
+    },
+    "statsBar": {
+      "brands": "Klanten", 
+      "influencers": "Gerefereerde influencers",
+      "satisfaction": "Tevredenheidspercentage",
+      "timeSaved": "Bespaard per week"
+    }
+  },
+  "features": {
+    "title": "Waarom Kiezen voor",
+    "titleHighlight": " Spread ",
+    "titleEnd": "?",
+    "subtitle": "Ontdek de functionaliteiten die Spread het #1 platform maken voor influence marketing",
+    "aiSearch": {
+      "title": "Multi-Platform AI Zoeken",
+      "description": "Vind influencers op Instagram, YouTube en TikTok met onze AI die natuurlijke taal begrijpt.",
+      "benefits": [
+        "Slimme spraakzoekfunctie",
+        "Geavanceerde automatische filters", 
+        "Gepersonaliseerde suggesties",
+        "250M+ profieldatabase"
+      ]
+    },
+    "reports": {
+      "title": "Ultragedetailleerde Publiekrapporten",
+      "description": "Toegang tot de meest uitgebreide publieksdata op de markt om de beste beslissingen te nemen.",
+      "benefits": [
+        "Precieze demografie",
+        "Gedetailleerde interesses",
+        "Engagement analyse",
+        "Nepvolger detectie"
+      ]
+    },
+    "crm": {
+      "title": "CRM & Geïntegreerde Communicatie",
+      "description": "Beheer je campagnes met een CRM speciaal ontworpen voor influence marketing.",
+      "benefits": [
+        "Onderhandelingspipeline",
+        "Native email integratie",
+        "Geautomatiseerde tracking", 
+        "Groepscampagnes"
+      ]
+    },
+    "showcase": {
+      "title": "Echte Spread Functionaliteiten",
+      "subtitle": "Een compleet platform met functionaliteiten die echt het verschil maken",
+      "aiSearchTitle": "🧠 Geavanceerd AI Zoeken",
+      "aiSearchDesc": "Zoeken in natuurlijke taal met automatische detectie van complexe filters. Vind precies wat je zoekt zonder handmatige configuratie.",
+      "reportsTitle": "📊 Publiekrapporten",
+      "reportsDesc": "Ultragedetailleerde demografische, geografische en gedragsanalyse. Neem data-gedreven beslissingen.",
+      "crmTitle": "💼 Influence Marketing CRM",
+      "crmDesc": "Onderhandelingspipeline, campagne tracking, email integratie. Alles om je influencer relaties te beheren.",
+      "analyticsTitle": "📈 Prestatie Analytics",
+      "analyticsDesc": "Meet je campagne ROI met precieze metrics en geautomatiseerde rapporten.",
+      "dashboardTitle": "Real-time Dashboard",
+      "quotas": {
+        "title": "Je quota's vandaag",
+        "searches": "AI zoekopdrachten",
+        "reports": "Publiekrapporten",
+        "exports": "Lijst exports",
+        "emails": "Verzonden emails"
+      }
+    }
+  },
+  "socialProof": {
+    "badge": "Goedgekeurd door 2.847+ marketeers",
+    "title": "Zij",
+    "titleHighlight": " vertrouwen ons ",
+    "titleEnd": "al",
+    "subtitle": "Sluit je aan bij duizenden marketeers die hun influence strategie hebben getransformeerd met Spread.",
+    "testimonials": [
+      {
+        "name": "Marie Dubois",
+        "role": "Marketing Manager",
+        "company": "Beauty Brand Paris",
+        "text": "Spread heeft ons geholpen de perfecte influencers voor ons merk te identificeren. Onze ROI steeg met 347% in 6 maanden!",
+        "results": "+347% ROI"
+      },
+      {
+        "name": "Thomas Chen", 
+        "role": "Founder",
+        "company": "TechStart SAS",
+        "text": "Spread's AI begrijpt precies waar we naar zoeken. Geen uren meer besteden aan handmatig filteren. Het is magisch!",
+        "results": "10u bespaard/week"
+      },
+      {
+        "name": "Sophie Martin",
+        "role": "Marketing Directeur",
+        "company": "Fashion House",
+        "text": "De geïntegreerde CRM stelt ons in staat om al onze campagnes op één plek te beheren. Het verandert de productiviteit volledig.",
+        "results": "+250% conversies"
+      }
+    ],
+    "stats": [
+      {
+        "number": "98%",
+        "label": "Klanttevredenheidspercentage"
+      },
+      {
+        "number": "2.847+", 
+        "label": "Merken vertrouwen ons"
+      },
+      {
+        "number": "250M+",
+        "label": "Gerefereerde influencers" 
+      },
+      {
+        "number": "10u",
+        "label": "Bespaard per week"
+      }
+    ],
+    "trustIndicators": {
+      "excellence": {
+        "title": "Erkende Excellentie",
+        "description": "4.9/5 op Trustpilot met meer dan 500 geverifieerde beoordelingen"
+      },
+      "support": {
+        "title": "Toegewijde Ondersteuning",
+        "description": "Franstalig team beschikbaar 7/7 om je te ondersteunen"
+      },
+      "security": {
+        "title": "Veilige Data", 
+        "description": "GDPR naleving, SSL en ISO 27001 certificeringen"
+      }
+    }
+  },
+  "pricingPreview": {
+    "badge": "Transparante prijsstelling",
+    "title": "Kies Je",
+    "titleHighlight": " Perfecte Plan",
+    "subtitle": "Begin gratis, upgrade daarna naar het plan dat bij je behoeften past. Geen verplichting, wijzig altijd.",
+    "toggle": {
+      "monthly": "Maandelijks",
+      "annual": "Jaarlijks",
+      "save": "Bespaar 20%"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfect om Spread te ontdekken",
+        "price": "Gratis",
+        "features": [
+          "10 AI zoekopdrachten per maand",
+          "Basis publiekrapporten",
+          "Beperkte CSV export",
+          "Email ondersteuning"
+        ],
+        "cta": "Begin Gratis"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Voor marketing teams", 
+        "monthlyPrice": "€99",
+        "annualPrice": "€79",
+        "features": [
+          "Onbeperkte AI zoekopdrachten",
+          "Volledige publiekrapporten",
+          "Geïntegreerde CRM",
+          "Onbeperkte exports",
+          "Prioriteit ondersteuning"
+        ],
+        "cta": "14 Dagen Gratis Proberen",
+        "popular": "Meest populair"
+      },
+      "enterprise": {
+        "name": "Enterprise", 
+        "description": "Voor grote ondernemingen",
+        "price": "Op maat",
+        "features": [
+          "Alles van Pro",
+          "Aangepaste API",
+          "Toegewijde training",
+          "24/7 telefoon ondersteuning"
+        ],
+        "cta": "Contact Opnemen"
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde Vragen",
+      "items": [
+        {
+          "question": "Kan ik altijd van plan wisselen?",
+          "answer": "Absoluut! Je kunt altijd upgraden of downgraden zonder verborgen kosten."
+        },
+        {
+          "question": "Is er een verplichte periode?", 
+          "answer": "Geen verplichte periode. Je kunt je abonnement altijd opzeggen."
+        },
+        {
+          "question": "Wat is inbegrepen in de gratis proefperiode?",
+          "answer": "De 14-dagen gratis proefperiode geeft je toegang tot alle Pro functionaliteiten, zonder beperkingen."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "badge": "Laatste kans",
+    "title": "Klaar om Je",
+    "titleHighlight": " Influence Marketing ",
+    "titleEnd": "te Revolutioneren?",
+    "subtitle": "Sluit je aan bij 2.847+ merken die hun strategie al hebben getransformeerd met Spread. Start nu je gratis proefperiode.",
+    "urgency": "🔥 Speciale aanbieding: 20% korting op je eerste jaar!",
+    "benefits": [
+      "✅ Installatie in minder dan 5 minuten",
+      "✅ Toegang tot 250M+ influencer profielen", 
+      "✅ Toegewijde Nederlandse ondersteuning",
+      "✅ 30 dagen geld-terug garantie"
+    ],
+    "cta": {
+      "primary": "🚀 Start Mijn Gratis Proefperiode",
+      "secondary": "📞 Praat met een Expert"
+    },
+    "guarantee": "💰 30 dagen geld-terug garantie",
+    "security": "🔐 100% veilige betaling • GDPR • SSL"
+  },
+  "trustIndicators": {
+    "title": "Jouw Succes, Onze Prioriteit",
+    "certifications": {
+      "title": "Certificeringen & Beveiliging",
+      "description": "Wij respecteren de hoogste beveiligings- en nalevingsstandaarden om je data te beschermen.",
+      "items": [
+        "🛡️ ISO 27001 certificering", 
+        "🔒 Volledige GDPR naleving",
+        "💳 Stripe veilige betalingen"
+      ]
+    },
+    "guarantee": {
+      "title": "Prestatie Garantie",
+      "description": "Als je niet tevreden bent binnen de eerste 30 dagen, krijg je je geld volledig terug.",
+      "items": [
+        "💰 30 dagen gegarandeerde terugbetaling",
+        "🚀 ROI gemeten vanaf de 1e maand", 
+        "📈 +200% gemiddelde prestatie"
+      ]
+    },
+    "support": {
+      "title": "Nederlandse Expert Ondersteuning",
+      "description": "Ons expertteam ondersteunt je om je succes met Spread te maximaliseren.",
+      "items": [
+        "👥 Toegewijd Nederlandstalig team",
+        "⚡ 2u gemiddelde reactietijd",
+        "🎓 Gratis training inbegrepen"
+      ]
+    }
+  }
+}

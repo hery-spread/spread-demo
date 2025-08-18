@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
+import { useI18n } from '@/lib/i18n/context';
 import {
   MagnifyingGlassIcon,
   ChartBarIcon,
@@ -9,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function HeroSection() {
+  const { t } = useI18n();
   const handleStartTrial = () => {
     // Redirection vers l'inscription/onboarding
     window.location.href = '/onboarding';
@@ -34,24 +36,21 @@ export default function HeroSection() {
             {/* Trust Badge */}
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700 text-sm font-medium mb-6">
               <SparklesIcon className="w-4 h-4 mr-2" />
-              Rejoignez 2,847+ marketeurs qui nous font confiance
+              {t('hero.trustBadge')}
             </div>
 
             {/* Main Headline */}
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Trouvez les
+              {t('hero.headline')}
               <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                {' '}
-                Influenceurs Parfaits{' '}
+                {t('hero.headlineHighlight')}
               </span>
-              en 30 Secondes
+              {t('hero.headlineEnd')}
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
-              La première plateforme IA qui révolutionne la recherche
-              d&apos;influenceurs avec des rapports d&apos;audience
-              ultra-détaillés
+              {t('hero.subheadline')}
             </p>
 
             {/* Benefits List */}
@@ -59,22 +58,22 @@ export default function HeroSection() {
               <div className="flex items-center">
                 <MagnifyingGlassIcon className="w-5 h-5 text-purple-600 mr-3" />
                 <span className="text-gray-700">
-                  Recherche IA Multi-Plateformes
+                  {t('hero.benefits.aiSearch')}
                 </span>
               </div>
               <div className="flex items-center">
                 <ChartBarIcon className="w-5 h-5 text-purple-600 mr-3" />
                 <span className="text-gray-700">
-                  Rapports d&apos;Audience Détaillés
+                  {t('hero.benefits.reports')}
                 </span>
               </div>
               <div className="flex items-center">
                 <UserGroupIcon className="w-5 h-5 text-purple-600 mr-3" />
-                <span className="text-gray-700">CRM Intégré</span>
+                <span className="text-gray-700">{t('hero.benefits.crm')}</span>
               </div>
               <div className="flex items-center">
                 <SparklesIcon className="w-5 h-5 text-purple-600 mr-3" />
-                <span className="text-gray-700">Analytics de Performance</span>
+                <span className="text-gray-700">{t('hero.benefits.analytics')}</span>
               </div>
             </div>
 
@@ -85,7 +84,7 @@ export default function HeroSection() {
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 text-lg font-semibold shadow-xl shadow-purple-500/25 transform transition-all duration-300 hover:scale-105"
               >
-                🚀 Essai Gratuit 14 Jours
+                {t('hero.cta.trial')}
               </Button>
               <Button
                 onClick={handleBookDemo}
@@ -93,13 +92,13 @@ export default function HeroSection() {
                 size="lg"
                 className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-4 text-lg font-semibold"
               >
-                📅 Réserver une Démo
+                {t('hero.cta.demo')}
               </Button>
             </div>
 
             {/* Trust Indicators */}
             <p className="text-sm text-gray-500 mt-6">
-              ✨ Sans engagement • 🔐 Sécurisé • 💳 Sans CB requise
+              {t('hero.trustIndicators')}
             </p>
           </div>
 
@@ -113,9 +112,9 @@ export default function HeroSection() {
                   <SparklesIcon className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Recherche IA</h4>
+                  <h4 className="font-semibold text-gray-900">{t('hero.aiSearch.title')}</h4>
                   <p className="text-xs text-gray-500">
-                    Langage naturel → Filtres automatiques
+                    {t('hero.aiSearch.subtitle')}
                   </p>
                 </div>
               </div>
@@ -123,14 +122,12 @@ export default function HeroSection() {
               {/* AI Search Input */}
               <div className="relative mb-6">
                 <div className="w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium">
-                  Influenceuses beauté françaises entre 50k et 500k followers
-                  sur Instagram, taux engagement &gt;4%, audience féminine 18-35
-                  ans
+                  {t('hero.aiSearch.placeholder')}
                 </div>
                 <div className="absolute bottom-3 right-3 flex items-center space-x-1">
                   <SparklesIcon className="w-4 h-4 text-purple-600 animate-pulse" />
                   <span className="text-xs text-purple-600 font-medium">
-                    Analyse IA
+                    {t('hero.aiSearch.analyzing')}
                   </span>
                 </div>
               </div>
@@ -138,30 +135,30 @@ export default function HeroSection() {
               {/* AI Analysis Results */}
               <div className="space-y-3 mb-6">
                 <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                  Filtres détectés automatiquement :
+                  {t('hero.aiSearch.filtersDetected')}
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   <div className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
-                    📍 France
+                    {t('hero.aiSearch.filters.location')}
                   </div>
                   <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
-                    👥 50K-500K followers
+                    {t('hero.aiSearch.filters.followers')}
                   </div>
                   <div className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
-                    📈 +4% engagement
+                    {t('hero.aiSearch.filters.engagement')}
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   <div className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-medium">
-                    💄 Beauté
+                    {t('hero.aiSearch.filters.niche')}
                   </div>
                   <div className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
-                    👩 Audience féminine
+                    {t('hero.aiSearch.filters.audience')}
                   </div>
                   <div className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">
-                    🔢 18-35 ans
+                    {t('hero.aiSearch.filters.age')}
                   </div>
                 </div>
               </div>
@@ -170,12 +167,12 @@ export default function HeroSection() {
               <div className="border-t border-gray-100 pt-4">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-medium text-gray-600">
-                    Résultats trouvés
+                    {t('hero.aiSearch.results')}
                   </span>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     <span className="text-xs text-green-600 font-medium">
-                      2,847 profils
+                      {t('hero.aiSearch.profilesCount')}
                     </span>
                   </div>
                 </div>
@@ -186,14 +183,14 @@ export default function HeroSection() {
                       <div className="text-lg font-bold text-green-700">
                         2,847
                       </div>
-                      <div className="text-xs text-green-600">Profils</div>
+                      <div className="text-xs text-green-600">{t('hero.aiSearch.stats.profiles')}</div>
                     </div>
                     <div>
                       <div className="text-lg font-bold text-blue-700">
                         ~156K
                       </div>
                       <div className="text-xs text-blue-600">
-                        Followers moy.
+                        {t('hero.aiSearch.stats.avgFollowers')}
                       </div>
                     </div>
                     <div>
@@ -201,7 +198,7 @@ export default function HeroSection() {
                         5.2%
                       </div>
                       <div className="text-xs text-purple-600">
-                        Engagement moy.
+                        {t('hero.aiSearch.stats.avgEngagement')}
                       </div>
                     </div>
                   </div>
@@ -211,7 +208,7 @@ export default function HeroSection() {
               {/* CTA */}
               <div className="mt-6">
                 <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm">
-                  🔍 Voir les 2,847 Profils Trouvés
+                  {t('hero.aiSearch.ctaButton')}
                 </div>
               </div>
             </div>
@@ -226,7 +223,7 @@ export default function HeroSection() {
 
             {/* Performance Badge */}
             <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-              ⚡ &lt; 30s
+              {t('hero.aiSearch.performanceBadge')}
             </div>
           </div>
         </div>
@@ -236,19 +233,19 @@ export default function HeroSection() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-purple-600">2,847+</div>
-              <div className="text-gray-600">Marques clientes</div>
+              <div className="text-gray-600">{t('hero.statsBar.brands')}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">250M+</div>
-              <div className="text-gray-600">Influenceurs référencés</div>
+              <div className="text-gray-600">{t('hero.statsBar.influencers')}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">98%</div>
-              <div className="text-gray-600">Taux de satisfaction</div>
+              <div className="text-gray-600">{t('hero.statsBar.satisfaction')}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">10h</div>
-              <div className="text-gray-600">Économisées par semaine</div>
+              <div className="text-gray-600">{t('hero.statsBar.timeSaved')}</div>
             </div>
           </div>
         </div>

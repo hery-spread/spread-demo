@@ -1,0 +1,295 @@
+{
+  "navbar": {
+    "brand": "Spread",
+    "tagline": "Influence Marketing",
+    "features": "Features",
+    "testimonials": "Testimonials", 
+    "pricing": "Pricing",
+    "signIn": "Sign In",
+    "signUp": "Free Trial"
+  },
+  "hero": {
+    "trustBadge": "Join 2,847+ marketers who trust us",
+    "headline": "Find the",
+    "headlineHighlight": " Perfect Influencers ",
+    "headlineEnd": "in 30 Seconds",
+    "subheadline": "The first AI platform that revolutionizes influencer search with ultra-detailed audience reports",
+    "benefits": {
+      "aiSearch": "Multi-Platform AI Search",
+      "reports": "Detailed Audience Reports",
+      "crm": "Integrated CRM",
+      "analytics": "Performance Analytics"
+    },
+    "cta": {
+      "trial": "🚀 14-Day Free Trial",
+      "demo": "📅 Book a Demo"
+    },
+    "trustIndicators": "✨ No commitment • 🔐 Secure • 💳 No credit card required",
+    "aiSearch": {
+      "title": "AI Search",
+      "subtitle": "Natural language → Automatic filters",
+      "placeholder": "French beauty influencers between 50k and 500k followers on Instagram, engagement rate >4%, female audience 18-35 years",
+      "analyzing": "AI Analysis",
+      "filtersDetected": "Automatically detected filters:",
+      "filters": {
+        "location": "📍 France",
+        "followers": "👥 50K-500K followers",
+        "engagement": "📈 +4% engagement",
+        "niche": "💄 Beauty",
+        "audience": "👩 Female audience",
+        "age": "🔢 18-35 years"
+      },
+      "results": "Results found",
+      "profilesCount": "2,847 profiles",
+      "stats": {
+        "profiles": "Profiles",
+        "avgFollowers": "Avg followers",
+        "avgEngagement": "Avg engagement"
+      },
+      "ctaButton": "🔍 View 2,847 Found Profiles",
+      "performanceBadge": "⚡ < 30s"
+    },
+    "statsBar": {
+      "brands": "Client brands", 
+      "influencers": "Referenced influencers",
+      "satisfaction": "Satisfaction rate",
+      "timeSaved": "Saved per week"
+    }
+  },
+  "features": {
+    "title": "Why Choose",
+    "titleHighlight": " Spread ",
+    "titleEnd": "?",
+    "subtitle": "Discover the features that make Spread the #1 platform for influence marketing",
+    "aiSearch": {
+      "title": "Multi-Platform AI Search",
+      "description": "Find influencers on Instagram, YouTube and TikTok with our AI that understands natural language.",
+      "benefits": [
+        "Smart voice search",
+        "Advanced automatic filters", 
+        "Personalized suggestions",
+        "250M+ profile database"
+      ]
+    },
+    "reports": {
+      "title": "Ultra-Detailed Audience Reports",
+      "description": "Access the most comprehensive audience data on the market to make the best decisions.",
+      "benefits": [
+        "Precise demographics",
+        "Detailed interests",
+        "Engagement analysis",
+        "Fake follower detection"
+      ]
+    },
+    "crm": {
+      "title": "CRM & Integrated Communication",
+      "description": "Manage your campaigns with a CRM specially designed for influence marketing.",
+      "benefits": [
+        "Negotiation pipeline",
+        "Native email integration",
+        "Automated tracking", 
+        "Group campaigns"
+      ]
+    },
+    "showcase": {
+      "title": "Real Spread Features",
+      "subtitle": "A complete platform with features that really make the difference",
+      "aiSearchTitle": "🧠 Advanced AI Search",
+      "aiSearchDesc": "Natural language search with automatic detection of complex filters. Find exactly what you're looking for without manual configuration.",
+      "reportsTitle": "📊 Audience Reports",
+      "reportsDesc": "Ultra-detailed demographic, geographic and behavioral analysis. Make data-driven decisions.",
+      "crmTitle": "💼 Influence Marketing CRM",
+      "crmDesc": "Negotiation pipeline, campaign tracking, email integration. Everything to manage your influencer relationships.",
+      "analyticsTitle": "📈 Performance Analytics",
+      "analyticsDesc": "Measure your campaign ROI with precise metrics and automated reports.",
+      "dashboardTitle": "Real-Time Dashboard",
+      "quotas": {
+        "title": "Your quotas today",
+        "searches": "AI searches",
+        "reports": "Audience reports",
+        "exports": "List exports",
+        "emails": "Emails sent"
+      }
+    }
+  },
+  "socialProof": {
+    "badge": "Approved by 2,847+ marketers",
+    "title": "They already",
+    "titleHighlight": " trust us ",
+    "subtitle": "Join thousands of marketers who have transformed their influence strategy with Spread.",
+    "testimonials": [
+      {
+        "name": "Marie Dubois",
+        "role": "Marketing Manager",
+        "company": "Beauty Brand Paris",
+        "text": "Spread helped us identify the perfect influencers for our brand. Our ROI increased by 347% in 6 months!",
+        "results": "+347% ROI"
+      },
+      {
+        "name": "Thomas Chen", 
+        "role": "Founder",
+        "company": "TechStart SAS",
+        "text": "Spread's AI understands exactly what we're looking for. No more spending hours manually filtering. It's magic!",
+        "results": "10h saved/week"
+      },
+      {
+        "name": "Sophie Martin",
+        "role": "Marketing Director",
+        "company": "Fashion House",
+        "text": "The integrated CRM allows us to manage all our campaigns in one place. It's a game-changer for our productivity.",
+        "results": "+250% conversions"
+      }
+    ],
+    "stats": [
+      {
+        "number": "98%",
+        "label": "Customer satisfaction rate"
+      },
+      {
+        "number": "2,847+", 
+        "label": "Brands trust us"
+      },
+      {
+        "number": "250M+",
+        "label": "Referenced influencers" 
+      },
+      {
+        "number": "10h",
+        "label": "Saved per week"
+      }
+    ],
+    "trustIndicators": {
+      "excellence": {
+        "title": "Recognized Excellence",
+        "description": "4.9/5 on Trustpilot with over 500 verified reviews"
+      },
+      "support": {
+        "title": "Dedicated Support",
+        "description": "Francophone team available 7/7 to support you"
+      },
+      "security": {
+        "title": "Secure Data", 
+        "description": "GDPR compliance, SSL and ISO 27001 certifications"
+      }
+    }
+  },
+  "pricingPreview": {
+    "badge": "Transparent pricing",
+    "title": "Choose Your",
+    "titleHighlight": " Perfect Plan",
+    "subtitle": "Start free, then upgrade to the plan that fits your needs. No commitment, change anytime.",
+    "toggle": {
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "save": "Save 20%"
+    },
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfect to discover Spread",
+        "price": "Free",
+        "features": [
+          "10 AI searches per month",
+          "Basic audience reports",
+          "Limited CSV export",
+          "Email support"
+        ],
+        "cta": "Get Started Free"
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "For marketing teams", 
+        "monthlyPrice": "€99",
+        "annualPrice": "€79",
+        "features": [
+          "Unlimited AI searches",
+          "Complete audience reports",
+          "Integrated CRM",
+          "Unlimited exports",
+          "Priority support"
+        ],
+        "cta": "14-Day Free Trial",
+        "popular": "Most popular"
+      },
+      "enterprise": {
+        "name": "Enterprise", 
+        "description": "For large enterprises",
+        "price": "Custom",
+        "features": [
+          "Everything in Pro",
+          "Custom API",
+          "Dedicated training",
+          "24/7 phone support"
+        ],
+        "cta": "Contact Us"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "Can I change plans anytime?",
+          "answer": "Absolutely! You can upgrade or downgrade your plan anytime without hidden fees."
+        },
+        {
+          "question": "Is there a commitment period?", 
+          "answer": "No commitment period. You can cancel your subscription at any time."
+        },
+        {
+          "question": "What's included in the free trial?",
+          "answer": "The 14-day free trial gives you access to all Pro plan features, without limitations."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "badge": "Last chance",
+    "title": "Ready to Revolutionize Your",
+    "titleHighlight": " Influence Marketing ",
+    "titleEnd": "?",
+    "subtitle": "Join 2,847+ brands who have already transformed their strategy with Spread. Start your free trial now.",
+    "urgency": "🔥 Special offer: 20% off your first year!",
+    "benefits": [
+      "✅ Setup in less than 5 minutes",
+      "✅ Access to 250M+ influencer profiles", 
+      "✅ Dedicated French support",
+      "✅ 30-day money-back guarantee"
+    ],
+    "cta": {
+      "primary": "🚀 Start My Free Trial",
+      "secondary": "📞 Talk to an Expert"
+    },
+    "guarantee": "💰 30-day money-back guarantee",
+    "security": "🔐 100% secure payment • GDPR • SSL"
+  },
+  "trustIndicators": {
+    "title": "Your Success, Our Priority",
+    "certifications": {
+      "title": "Certifications & Security",
+      "description": "We respect the highest security and compliance standards to protect your data.",
+      "items": [
+        "🛡️ ISO 27001 certification", 
+        "🔒 Full GDPR compliance",
+        "💳 Stripe secure payments"
+      ]
+    },
+    "guarantee": {
+      "title": "Performance Guarantee",
+      "description": "If you're not satisfied within the first 30 days, we'll fully refund you.",
+      "items": [
+        "💰 30-day guaranteed refund",
+        "🚀 ROI measured from the 1st month", 
+        "📈 +200% average performance"
+      ]
+    },
+    "support": {
+      "title": "French Expert Support",
+      "description": "Our expert team supports you to maximize your success with Spread.",
+      "items": [
+        "👥 Dedicated francophone team",
+        "⚡ 2h average response time",
+        "🎓 Free training included"
+      ]
+    }
+  }
+}
