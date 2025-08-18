@@ -49,8 +49,9 @@ export default function HeroSection() {
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
-                            La première plateforme IA qui révolutionne la recherche
-               d&apos;influenceurs avec des rapports d&apos;audience ultra-détaillés
+              La première plateforme IA qui révolutionne la recherche
+              d&apos;influenceurs avec des rapports d&apos;audience
+              ultra-détaillés
             </p>
 
             {/* Benefits List */}
@@ -64,7 +65,7 @@ export default function HeroSection() {
               <div className="flex items-center">
                 <ChartBarIcon className="w-5 h-5 text-purple-600 mr-3" />
                 <span className="text-gray-700">
-                                     Rapports d&apos;Audience Détaillés
+                  Rapports d&apos;Audience Détaillés
                 </span>
               </div>
               <div className="flex items-center">
