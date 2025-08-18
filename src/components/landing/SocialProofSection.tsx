@@ -34,14 +34,7 @@ export default function SocialProofSection() {
     },
   ];
 
-  const companyLogos = [
-    'Sephora',
-    "L'Oréal",
-    'Nike',
-    'Adidas',
-    'Samsung',
-    'Coca-Cola',
-  ];
+
 
   const stats = [
     { number: '98%', label: 'Taux de satisfaction client' },
@@ -131,22 +124,7 @@ export default function SocialProofSection() {
           ))}
         </div>
 
-        {/* Company Logos */}
-        <div className="text-center mb-16">
-          <p className="text-gray-500 text-sm font-medium mb-8 uppercase tracking-wide">
-            Ils nous font confiance
-          </p>
-          <div className="grid grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
-            {companyLogos.map((company, index) => (
-              <div
-                key={index}
-                className="bg-white/50 backdrop-blur-sm rounded-2xl p-4 w-full h-16 flex items-center justify-center border border-gray-200/50 hover:opacity-100 transition-opacity duration-300"
-              >
-                <div className="font-bold text-gray-600 text-lg">{company}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+
 
         {/* Trust Indicators */}
         <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/50">
