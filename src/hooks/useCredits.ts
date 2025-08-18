@@ -29,7 +29,7 @@ export const useCredits = () => {
   });
 
   const unlockReports = (influencerIds: string[]) => {
-    const creditsNeeded = influencerIds.length * 2;
+    const creditsNeeded = influencerIds.length * 1;
     
     if (credits.remainingCredits >= creditsNeeded) {
       setCredits((prev) => ({
@@ -71,7 +71,7 @@ export const useCredits = () => {
 
   const getCreditsForAction = (action: string) => {
     const costs = {
-      unlock_report: 2,
+      unlock_report: 1,
       search: 5,
       export_detailed: 1,
     };

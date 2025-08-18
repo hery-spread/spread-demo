@@ -46,7 +46,9 @@ export default function ShareReportModal({
     if (!isOpen) return;
     const shareId = `${influencer.id}_${Date.now()}`;
     const baseUrl =
-      typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : 'http://localhost:3000';
     const link = `${baseUrl}/share/${shareId}`;
     setGeneratedLink(link);
     onShare(shareData);
@@ -89,39 +91,39 @@ export default function ShareReportModal({
           </button>
         </div>
         {/* Lien direct à copier */}
-            <div className="mb-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Lien de partage
-                </label>
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="text"
+        <div className="mb-6">
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Lien de partage
+            </label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
                 value={generatedLink ?? ''}
-                    readOnly
-                    className="flex-1 p-2 border border-gray-300 rounded-lg bg-white text-sm"
-                  />
-                  <Button
-                    onClick={handleCopyLink}
-                    variant="outline"
-                    className="flex items-center space-x-1"
-                  >
-                    {linkCopied ? (
-                      <CheckIcon className="w-4 h-4 text-green-600" />
-                    ) : (
-                      <ClipboardDocumentIcon className="w-4 h-4" />
-                    )}
-                    <span>{linkCopied ? 'Copié' : 'Copier'}</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-        <div className="flex">
-              <Button variant="outline" onClick={onClose} className="flex-1">
-                Fermer
+                readOnly
+                className="flex-1 p-2 border border-gray-300 rounded-lg bg-white text-sm"
+              />
+              <Button
+                onClick={handleCopyLink}
+                variant="outline"
+                className="flex items-center space-x-1"
+              >
+                {linkCopied ? (
+                  <CheckIcon className="w-4 h-4 text-green-600" />
+                ) : (
+                  <ClipboardDocumentIcon className="w-4 h-4" />
+                )}
+                <span>{linkCopied ? 'Copié' : 'Copier'}</span>
               </Button>
             </div>
+          </div>
+        </div>
+
+        <div className="flex">
+          <Button variant="outline" onClick={onClose} className="flex-1">
+            Fermer
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -71,3 +71,5 @@ Refactoriser la navigation en supprimant Dashboard et CRM, ajoutant Campagnes, e
 
 - Vérifier que tous les liens internes pointent vers des pages existantes
 - S'assurer que la suppression de Dashboard n'affecte pas d'autres composants
+
+

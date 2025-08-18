@@ -496,6 +496,12 @@ export interface AdvancedSearchFilters {
       city?: string;
       continent?: 'europe' | 'america' | 'asia' | 'africa' | 'oceania';
     };
+    // Nouveaux champs Modash
+    keywords?: string[]; // Mots-clés dans le contenu
+    bioSearch?: string; // Recherche dans la bio
+    accountType?: 'personal' | 'business' | 'creator'; // Type de compte (Instagram)
+    hasYouTube?: boolean; // Possède une chaîne YouTube (Instagram)
+    isOfficialArtist?: boolean; // Artiste officiel (YouTube)
   };
   
   // Audience
@@ -749,4 +755,748 @@ export interface CampaignRecipient {
   nextEmailAt?: string;
   hasReplied: boolean;
   repliedAt?: string;
+}
+
+// ========================================
+// TYPES MODASH API - INTÉGRATION COMPLÈTE
+// ========================================
+
+// Types de base pour les dictionnaires Modash
+export interface ModashLanguage {
+  code: string;
+  name: string;
+}
+
+export interface ModashLocation {
+  id: number;
+  name: string;
+  title: string;
+}
+
+export interface ModashBrand {
+  id: number;
+  name: string;
+}
+
+export interface ModashInterest {
+  id: number;
+  name: string;
+}
+
+export interface ModashUser {
+  userId: string;
+  username: string;
+  fullname: string;
+  picture: string;
+  followers: number;
+  isVerified: boolean;
+  handle?: string; // YouTube uniquement
+}
+
+// Types pour les filtres de recherche Modash enrichis
+export interface ModashInfluencerFilters {
+  // Métriques de base
+  followers?: { min?: number; max?: number };
+  engagementRate?: number;
+  location?: number[]; // IDs des locations
+  language?: string; // Code langue
+  lastposted?: number; // Jours depuis dernier post
+  
+  // Pertinence et contenu
+  relevance?: string[]; // Hashtags/mentions pour pertinence
+  audienceRelevance?: string[]; // Mentions pour pertinence audience
+  bio?: string; // Recherche dans la bio
+  keywords?: string; // Mots-clés
+  textTags?: Array<{
+    type: 'hashtag' | 'mention';
+    value: string;
+  }>;
+  
+  // Démographie créateur
+  gender?: 'MALE' | 'FEMALE';
+  age?: { min?: number; max?: number };
+  isVerified?: boolean;
+  
+  // Croissance et activité
+  followersGrowthRate?: {
+    interval: 'i1month' | 'i3months' | 'i6months' | 'i1year';
+    value: number;
+    operator: 'gt' | 'lt' | 'eq';
+  };
+  
+  // Performance et engagement
+  views?: { min?: number; max?: number };
+  engagements?: { min?: number; max?: number };
+  hasContactDetails?: Array<{
+    contactType: 'email' | 'phone' | 'website';
+    filterAction: 'must' | 'should' | 'must_not';
+  }>;
+  
+  // Champs spécifiques Instagram
+  hasYouTube?: boolean;
+  accountTypes?: number[]; // 1=Regular, 2=Business, 3=Creator
+  brands?: number[]; // IDs des marques
+  interests?: number[]; // IDs des intérêts
+  reelsPlays?: { min?: number; max?: number };
+  hasSponsoredPosts?: boolean;
+  
+  // Champs spécifiques YouTube
+  isOfficialArtist?: boolean;
+  viewsGrowthRate?: {
+    interval: 'i1month' | 'i3months' | 'i6months' | 'i1year';
+    value: number;
+    operator: 'gt' | 'lt' | 'eq';
+  };
+  
+  // Champs spécifiques TikTok
+  shares?: { min?: number; max?: number };
+  saves?: { min?: number; max?: number };
+  likesGrowthRate?: {
+    interval: 'i1month' | 'i3months' | 'i6months' | 'i1year';
+    value: number;
+    operator: 'gt' | 'lt' | 'eq';
+  };
+  
+  // Opérations logiques
+  filterOperations?: Array<{
+    operator: 'and' | 'or';
+    filter: string;
+  }>;
+}
+
+export interface ModashAudienceFilters {
+  location?: Array<{
+    id: number;
+    weight: number;
+  }>;
+  language?: {
+    id: string;
+    weight: number;
+  };
+  gender?: {
+    id: 'MALE' | 'FEMALE';
+    weight: number;
+  };
+  age?: Array<{
+    id: '13-17' | '18-24' | '25-34' | '35-44' | '45-64' | '65-';
+    weight: number;
+  }>;
+  ageRange?: {
+    min: string;
+    max: string;
+    weight: number;
+  };
+  // Instagram uniquement
+  interests?: Array<{
+    id: number;
+    weight: number;
+  }>;
+  credibility?: number; // Score de crédibilité (0-1)
+}
+
+export interface ModashSearchFilters {
+  influencer?: ModashInfluencerFilters;
+  audience?: ModashAudienceFilters;
+}
+
+export interface ModashSearchRequest {
+  page?: number;
+  calculationMethod?: 'median' | 'average';
+  sort?: {
+    field: string;
+    value?: number;
+    direction: 'asc' | 'desc';
+  };
+  filter?: ModashSearchFilters;
+}
+
+// Types pour les réponses de recherche Modash
+export interface ModashInfluencerProfile {
+  userId: string;
+  fullname?: string;
+  username: string;
+  url: string;
+  picture: string;
+  followers: number;
+  engagements: number;
+  engagementRate: number;
+  averageViews?: number; // YouTube
+  handle?: string; // YouTube
+}
+
+export interface ModashInfluencerResponse {
+  userId: string;
+  profile: ModashInfluencerProfile;
+  match?: {
+    field?: string;
+    value?: number;
+  };
+}
+
+export interface ModashSearchResponse {
+  error: boolean;
+  total: number;
+  lookalikes: ModashInfluencerResponse[];
+  directs: ModashInfluencerResponse[];
+  isExactMatch: boolean;
+}
+
+// Types pour les rapports détaillés Modash
+export interface ModashContact {
+  type: 'email' | 'phone' | 'website';
+  value: string;
+}
+
+export interface ModashTag {
+  tag: string;
+  weight: number;
+}
+
+export interface ModashWeightWithCode {
+  code: string;
+  weight: number;
+}
+
+export interface ModashWeightWithCodeName {
+  name: string;
+  weight: number;
+  code: string;
+}
+
+export interface ModashGenderPerAge {
+  code: string;
+  male: number;
+  female: number;
+}
+
+export interface ModashAudienceLanguage {
+  code: string;
+  name: string;
+  weight: number;
+}
+
+export interface ModashMonthlyStat {
+  month: string;
+  followers: number;
+  following: number;
+  avgLikes: number;
+  avgViews: number;
+  avgComments: number;
+  avgShares?: number;
+}
+
+export interface ModashRecentPost {
+  id: string;
+  text: string;
+  url: string;
+  created: string;
+  likes?: number;
+  comments?: number;
+  views?: number;
+  shares?: number;
+  mentions?: string[];
+  hashtags?: string[];
+  video?: string;
+  image?: string;
+  thumbnail?: string;
+  type?: string;
+  title?: string;
+}
+
+export interface ModashSponsoredPost {
+  id: string;
+  text: string;
+  url: string;
+  created: string;
+  likes?: number;
+  comments?: number;
+  views?: number;
+  video?: string;
+  image?: string;
+  thumbnail: string;
+  type: string;
+  title: string;
+  sponsors?: Array<{
+    name: string;
+    url?: string;
+    logo?: string;
+  }>;
+}
+
+// Types spécialisés par plateforme
+export interface ModashInstagramReportProfile {
+  userId: string;
+  profile: {
+    userId: string;
+    fullname?: string;
+    username: string;
+    url: string;
+    picture: string;
+    followers: number;
+    following: number;
+    isPrivate: boolean;
+    isVerified: boolean;
+    accountType: 'Regular' | 'Business' | 'Creator';
+  };
+  
+  // Contenu et hashtags
+  hashtags: ModashTag[];
+  mentions: ModashTag[];
+  
+  // Statistiques par type de contenu
+  statsByContentType: {
+    posts?: {
+      count: number;
+      avgLikes: number;
+      avgComments: number;
+      avgViews: number;
+    };
+    reels?: {
+      count: number;
+      avgLikes: number;
+      avgComments: number;
+      avgViews: number;
+    };
+  };
+  
+  // Audience détaillée (16 propriétés)
+  audience: {
+    genders: ModashWeightWithCode[];
+    ages: ModashWeightWithCode[];
+    geoCountries: ModashWeightWithCodeName[];
+    geoCities: ModashWeightWithCodeName[];
+    languages: ModashAudienceLanguage[];
+    interests: Array<{ id: number; name: string; weight: number }>;
+    credibility: number;
+    notable: number;
+    notableUsers: ModashUser[];
+    audienceLookalikes: ModashUser[];
+    gendersPerAge: ModashGenderPerAge[];
+    // ... autres propriétés audience
+  };
+  
+  // Posts et contenu
+  recentPosts: ModashRecentPost[];
+  popularPosts: ModashRecentPost[];
+  
+  // Informations personnelles
+  city?: string;
+  state?: string;
+  country?: string;
+  gender?: 'MALE' | 'FEMALE';
+  ageGroup?: '13-17' | '18-24' | '25-34' | '35-44' | '45-64' | '65-';
+  language?: ModashLanguage;
+  contacts?: ModashContact[];
+  
+  // Métriques
+  postsCounts: number;
+  postsCount: number;
+  avgLikes: number;
+  avgComments: number;
+  avgViews: number;
+  avgReelsPlays: number;
+  bio: string;
+  
+  // Intérêts et marques
+  interests: ModashInterest[];
+  brandAffinity: ModashBrand[];
+  
+  // Posts sponsorisés et performance
+  sponsoredPosts: ModashSponsoredPost[];
+  paidPostPerformance?: number;
+  paidPostPerformanceViews: number;
+  sponsoredPostsMedianViews: number;
+  sponsoredPostsMedianLikes: number;
+  nonSponsoredPostsMedianViews: number;
+  nonSponsoredPostsMedianLikes: number;
+  
+  // Historique et évolution
+  statHistory: ModashMonthlyStat[];
+  lookalikes: ModashUser[];
+  
+  // Données supplémentaires
+  audienceExtra?: {
+    brandAffinity?: ModashBrand[];
+    interests?: ModashInterest[];
+    ethnicities?: ModashWeightWithCodeName[];
+  };
+}
+
+export interface ModashYouTubeReportProfile {
+  userId: string;
+  profile: {
+    userId: string;
+    fullname?: string;
+    username: string;
+    url: string;
+    picture: string;
+    followers: number;
+    isVerified: boolean;
+    handle?: string;
+    description: string;
+    totalViews: number;
+  };
+  
+  // Audience spécialisée YouTube
+  audience: {
+    genders: ModashWeightWithCode[];
+    ages: ModashWeightWithCode[];
+    geoCountries: ModashWeightWithCodeName[];
+    languages: ModashAudienceLanguage[];
+    notable: number;
+    notableUsers: ModashUser[];
+    audienceLookalikes: ModashUser[];
+    gendersPerAge: ModashGenderPerAge[];
+  };
+  
+  // Audience des commentateurs (spécifique YouTube)
+  audienceCommenters: {
+    notable: number;
+    genders: ModashWeightWithCode[];
+    geoCountries: ModashWeightWithCodeName[];
+    ages: ModashWeightWithCode[];
+    gendersPerAge: ModashGenderPerAge[];
+    languages: ModashAudienceLanguage[];
+    notableUsers: ModashUser[];
+    audienceLookalikes: ModashUser[];
+  };
+  
+  // Statistiques par type de contenu
+  statsByContentType: {
+    videos?: {
+      count: number;
+      avgLikes: number;
+      avgComments: number;
+      avgViews: number;
+    };
+    shorts?: {
+      count: number;
+      avgLikes: number;
+      avgComments: number;
+      avgViews: number;
+    };
+  };
+  
+  // Posts et contenu
+  recentPosts: ModashRecentPost[];
+  popularPosts: ModashRecentPost[];
+  
+  // Informations personnelles
+  city?: string;
+  state?: string;
+  country?: string;
+  gender?: 'MALE' | 'FEMALE';
+  ageGroup?: '18-24' | '25-34' | '35-44' | '45-64' | '65-';
+  contacts?: ModashContact[];
+  
+  // Métriques
+  postsCount: number;
+  avgLikes: number;
+  avgComments: number;
+  description: string;
+  
+  // Intérêts et recommandations
+  interests: ModashInterest[];
+  lookalikesByTopics: ModashUser[];
+  
+  // Posts sponsorisés et performance
+  sponsoredPosts: ModashSponsoredPost[];
+  paidPostPerformance?: number;
+  paidPostPerformanceViews: number;
+  sponsoredPostsMedianViews: number;
+  sponsoredPostsMedianLikes: number;
+  nonSponsoredPostsMedianViews: number;
+  nonSponsoredPostsMedianLikes: number;
+  
+  // Historique
+  statHistory: ModashMonthlyStat[];
+  
+  // Données supplémentaires
+  audienceExtra?: {
+    brandAffinity?: ModashBrand[];
+    interests?: ModashInterest[];
+  };
+}
+
+export interface ModashTikTokReportProfile {
+  userId: string;
+  profile: {
+    userId: string;
+    fullname?: string;
+    username: string;
+    url: string;
+    picture: string;
+    followers: number;
+    following: number;
+    isPrivate: boolean;
+    isVerified: boolean;
+    bio: string;
+  };
+  
+  // Audience
+  audience: {
+    genders: ModashWeightWithCode[];
+    ages: ModashWeightWithCode[];
+    geoCountries: ModashWeightWithCodeName[];
+    geoCities: ModashWeightWithCodeName[];
+    languages: ModashAudienceLanguage[];
+    interests: Array<{ id: number; name: string; weight: number }>;
+    notable: number;
+    notableUsers: ModashUser[];
+    gendersPerAge: ModashGenderPerAge[];
+  };
+  
+  // Identifiant spécifique TikTok
+  secUid: string;
+  
+  // Statistiques par type de contenu
+  statsByContentType: {
+    posts?: {
+      count: number;
+      avgLikes: number;
+      avgComments: number;
+      avgViews: number;
+      avgShares: number;
+    };
+  };
+  
+  // Posts et contenu
+  recentPosts: ModashRecentPost[];
+  popularPosts: ModashRecentPost[];
+  
+  // Informations personnelles
+  city?: string;
+  state?: string;
+  country?: string;
+  gender?: 'MALE' | 'FEMALE';
+  ageGroup?: '18-24' | '25-34' | '35-44' | '45-64' | '65-';
+  contacts?: ModashContact[];
+  
+  // Métriques
+  postsCount: number;
+  avgLikes: number;
+  totalLikes: number;
+  avgComments: number;
+  bio: string;
+  
+  // Intérêts et recommandations
+  interests: ModashInterest[];
+  lookalikes: ModashUser[];
+  
+  // Posts sponsorisés et performance
+  sponsoredPosts: ModashSponsoredPost[];
+  paidPostPerformance?: number;
+  paidPostPerformanceViews: number;
+  sponsoredPostsMedianViews: number;
+  sponsoredPostsMedianLikes: number;
+  nonSponsoredPostsMedianViews: number;
+  nonSponsoredPostsMedianLikes: number;
+  
+  // Historique
+  statHistory: ModashMonthlyStat[];
+  
+  // Données supplémentaires
+  audienceExtra?: {
+    brandAffinity?: ModashBrand[];
+    interests?: ModashInterest[];
+  };
+}
+
+// Type unifié pour les rapports Modash
+export type ModashReportProfile = ModashInstagramReportProfile | ModashYouTubeReportProfile | ModashTikTokReportProfile;
+
+export interface ModashReportResponse {
+  error: boolean;
+  profile: ModashReportProfile;
+}
+
+// Types pour les données de performance
+export interface ModashPerformanceMetric {
+  numberOfItems: number;
+  value: number;
+}
+
+export interface ModashPerformanceData {
+  posts?: {
+    total: number;
+    posts_with_hidden_likes?: number;
+    posts_with_hidden_comments?: number;
+    videos_with_turned_off_comments?: number;
+    shorts_with_turned_off_comments?: number;
+    likes: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    comments: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    views: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    engagement_rate: ModashPerformanceMetric[];
+    posting_statistics: {
+      weekDay?: {
+        mean: {
+          numberOfItems: number;
+          value: Record<string, number>;
+        };
+      };
+      weekDayHour?: {
+        mean: {
+          numberOfItems: number;
+          value: number;
+        };
+      };
+      daily: {
+        mean: {
+          numberOfItems: number;
+          value: number;
+        };
+      };
+    };
+  };
+  reels?: {
+    total: number;
+    reels_with_hidden_likes: number;
+    likes: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    comments: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    views: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    engagement_rate: ModashPerformanceMetric[];
+    posting_statistics: {
+      weekDayHour: {
+        mean: {
+          numberOfItems: number;
+          value: number;
+        };
+      };
+      daily: {
+        mean: {
+          numberOfItems: number;
+          value: number;
+        };
+      };
+    };
+  };
+  videos?: {
+    total: number;
+    videos_with_turned_off_comments: number;
+    likes: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    views: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    comments: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    engagement_rate: ModashPerformanceMetric[];
+    posting_statistics: {
+      weekDay: {
+        mean: {
+          numberOfItems: number;
+          value: Record<string, number>;
+        };
+      };
+      daily: {
+        mean: {
+          numberOfItems: number;
+          value: number;
+        };
+      };
+    };
+  };
+  shorts?: {
+    total: number;
+    shorts_with_turned_off_comments: number;
+    likes: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    views: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    comments: {
+      mean: ModashPerformanceMetric[];
+      min: ModashPerformanceMetric[];
+      max: ModashPerformanceMetric[];
+      median: ModashPerformanceMetric[];
+    };
+    engagement_rate: ModashPerformanceMetric[];
+  };
+}
+
+// Types pour l'audience overlap
+export interface ModashOverlapReport {
+  userId: string;
+  username: string;
+  followers: number;
+  uniquePercentage: number;
+  overlappingPercentage: number;
+}
+
+export interface ModashAudienceOverlapResponse {
+  error: boolean;
+  reportInfo: {
+    totalFollowers: number;
+    totalUniqueFollowers: number;
+  };
+  data: ModashOverlapReport[];
+}
+
+// Types pour la recherche par email
+export interface ModashMatchedEmail {
+  email: string;
+  accounts: Array<{
+    platform: 'instagram' | 'youtube' | 'tiktok';
+    userId: string;
+    username: string;
+    fullname?: string;
+    picture: string;
+    followers: number;
+    isVerified: boolean;
+  }>;
+}
+
+export interface ModashEmailSearchResponse {
+  error: boolean;
+  matchedEmails: ModashMatchedEmail[];
+  notMatchedEmails: string[];
+  totalMatches: number;
 } 

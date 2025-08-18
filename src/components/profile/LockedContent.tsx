@@ -54,7 +54,7 @@ export default function LockedContent({
         </span>
       </div>
 
-      {/* Bouton de déverrouillage */}
+      {/* Bouton de déverrouillage (consommation directe, sans modale) */}
       <Button onClick={onUnlock} size="lg">
         <LockClosedIcon className="w-4 h-4 mr-2" />
         Débloquer maintenant

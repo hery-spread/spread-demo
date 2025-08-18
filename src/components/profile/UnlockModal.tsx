@@ -94,7 +94,7 @@ export default function UnlockModal({
             <div className="flex items-center space-x-2">
               <LockClosedIcon className="w-5 h-5 text-purple-600" />
               <span className="font-medium text-purple-900">
-                Rapport détaillé
+                Rapport d&apos;audience
               </span>
             </div>
             <div className="flex items-center space-x-1">
@@ -125,7 +125,7 @@ export default function UnlockModal({
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-green-500">✓</span>
-                <span>Statistiques de performance avancées</span>
+                <span>Analyse d&apos;audience et publications</span>
               </li>
               <li className="flex items-center space-x-2">
                 <span className="text-green-500">✓</span>

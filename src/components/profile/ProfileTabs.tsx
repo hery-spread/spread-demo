@@ -39,7 +39,7 @@ export default function ProfileTabs({
     },
     {
       id: 'performance' as ProfileTab,
-      name: 'Performance',
+      name: "Rapport d'audience",
       icon: '📈',
       available: hasDetailedData,
     },

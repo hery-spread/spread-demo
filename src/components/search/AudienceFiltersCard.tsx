@@ -1,15 +1,26 @@
 'use client';
 
+import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { UsersIcon } from '@heroicons/react/24/outline';
+import { Select } from '@/components/ui/Select';
+import { 
+  UsersIcon, 
+  GlobeAltIcon,
+  HeartIcon,
+  InformationCircleIcon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
+import { getLocations, getInterests, getLanguages } from '@/lib/modash';
 
 interface AudienceFiltersCardProps {
   isOpen: boolean;
   onToggle: (id: string) => void;
   filters: AdvancedSearchFilters;
   onFiltersChange: (filters: AdvancedSearchFilters) => void;
+  selectedPlatform?: 'instagram' | 'youtube' | 'tiktok';
 }
 
 export default function AudienceFiltersCard({
@@ -17,7 +28,16 @@ export default function AudienceFiltersCard({
   onToggle,
   filters,
   onFiltersChange,
+  selectedPlatform,
 }: AudienceFiltersCardProps) {
+  // États pour les composants avancés
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [locationSuggestions, setLocationSuggestions] = useState<Array<{id: number, name: string, title: string}>>([]);
+  const [interestSuggestions, setInterestSuggestions] = useState<Array<{id: number, name: string}>>([]);
+  const [languageSuggestions, setLanguageSuggestions] = useState<Array<{code: string, name: string}>>([]);
+  const [isLoadingLocations, setIsLoadingLocations] = useState(false);
+  const [isLoadingInterests, setIsLoadingInterests] = useState(false);
+  const [isLoadingLanguages, setIsLoadingLanguages] = useState(false);
   type AgeKey =
     | 'age13_17'
     | 'age18_24'
@@ -481,58 +501,305 @@ export default function AudienceFiltersCard({
           </div>
         </div>
 
-        {/* Localisation de l'audience */}
+        {/* Filtres avancés avec système de weights Modash */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-3">
-            Localisation de l&apos;audience
-          </h4>
-          <div className="space-y-3">
-            <div>
-              <Input
-                label="Pays principaux"
-                placeholder="Ex: France, États-Unis, Royaume-Uni... (séparés par des virgules)"
-                value={
-                  filters.audience?.audienceLocation?.topCountries?.join(
-                    ', '
-                  ) || ''
-                }
-                onChange={(e) => {
-                  const countries = e.target.value
-                    .split(',')
-                    .map((country) => country.trim())
-                    .filter((country) => country.length > 0);
+          <button
+            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <GlobeAltIcon className="w-4 h-4" />
+            <span>Filtres avancés Modash</span>
+            <ChevronDownIcon
+              className={`w-4 h-4 transition-transform ${
+                showAdvancedFilters ? 'rotate-180' : 'rotate-0'
+              }`}
+            />
+          </button>
 
-                  updateAudienceLocationFilter(
-                    'topCountries',
-                    countries.length > 0 ? countries : undefined
-                  );
-                }}
-              />
+          {showAdvancedFilters && (
+            <div className="mt-4 space-y-6 p-4 bg-gray-50 rounded-lg">
+              {/* Localisation avec weights */}
+              <div>
+                <h5 className="font-medium text-gray-800 mb-3 flex items-center space-x-2">
+                  <GlobeAltIcon className="w-4 h-4 text-blue-500" />
+                  <span>Localisation de l&apos;audience (système de poids)</span>
+                </h5>
+                
+                <div className="space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div className="flex items-start space-x-2">
+                      <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                      <div className="text-xs text-blue-700">
+                        <p className="font-medium mb-1">Système de poids Modash :</p>
+                        <p>Définissez l&apos;importance de chaque critère (0.1 = 10%, 0.5 = 50%, etc.)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Rechercher des pays
+                    </label>
+                    <div className="relative">
+                      <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Input
+                        placeholder="Tapez pour rechercher des pays..."
+                        className="pl-9"
+                        onChange={async (e) => {
+                          const query = e.target.value;
+                          if (query.length > 1 && selectedPlatform) {
+                            setIsLoadingLocations(true);
+                            try {
+                              const result = await getLocations(selectedPlatform, query, 10);
+                              setLocationSuggestions(result.locations);
+                            } catch (error) {
+                              console.error('Error fetching locations:', error);
+                            } finally {
+                              setIsLoadingLocations(false);
+                            }
+                          } else {
+                            setLocationSuggestions([]);
+                          }
+                        }}
+                      />
+                    </div>
+                    
+                    {isLoadingLocations && (
+                      <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                        <span>Recherche en cours...</span>
+                      </div>
+                    )}
+                    
+                    {locationSuggestions.length > 0 && (
+                      <div className="mt-2 space-y-2">
+                        <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
+                          {locationSuggestions.map((location) => (
+                            <div key={location.id} className="flex items-center space-x-2 p-2 bg-white rounded border">
+                              <span className="text-sm flex-1">{location.title}</span>
+                              <Select
+                                options={[
+                                  { value: '0.1', label: '10%' },
+                                  { value: '0.2', label: '20%' },
+                                  { value: '0.3', label: '30%' },
+                                  { value: '0.5', label: '50%' },
+                                  { value: '0.7', label: '70%' },
+                                  { value: '1.0', label: '100%' },
+                                ]}
+                                onChange={(e) => {
+                                  const weight = parseFloat(e.target.value);
+                                  // Ajouter la location avec son poids
+                                  const currentLocations = filters.audience?.audienceLocation?.topCountries || [];
+                                  const newLocation = `${location.title}:${weight}`;
+                                  updateAudienceLocationFilter('topCountries', [...currentLocations, newLocation]);
+                                }}
+                                className="w-20"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Affichage des pays sélectionnés avec poids */}
+                  {filters.audience?.audienceLocation?.topCountries && filters.audience.audienceLocation.topCountries.length > 0 && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-700 mb-2">Pays sélectionnés :</p>
+                      <div className="space-y-2">
+                        {filters.audience.audienceLocation.topCountries.map((country, index) => {
+                          const [name, weight] = country.split(':');
+                          return (
+                            <div key={index} className="flex items-center justify-between p-2 bg-white rounded border">
+                              <span className="text-sm">{name}</span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-xs text-gray-500">Poids: {weight || '1.0'}</span>
+                                <button
+                                  onClick={() => {
+                                    const newCountries = filters.audience?.audienceLocation?.topCountries?.filter((_, i) => i !== index);
+                                    updateAudienceLocationFilter('topCountries', newCountries?.length ? newCountries : undefined);
+                                  }}
+                                  className="text-red-500 hover:text-red-700"
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Intérêts (Instagram uniquement) */}
+              {selectedPlatform === 'instagram' && (
+                <div>
+                  <h5 className="font-medium text-gray-800 mb-3 flex items-center space-x-2">
+                    <HeartIcon className="w-4 h-4 text-pink-500" />
+                    <span>Intérêts de l&apos;audience</span>
+                  </h5>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Rechercher des intérêts
+                      </label>
+                      <div className="relative">
+                        <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Input
+                          placeholder="Tapez pour rechercher des intérêts..."
+                          className="pl-9"
+                          onChange={async (e) => {
+                            const query = e.target.value;
+                            if (query.length > 1) {
+                              setIsLoadingInterests(true);
+                              try {
+                                const result = await getInterests(query, 10);
+                                setInterestSuggestions(result.interests);
+                              } catch (error) {
+                                console.error('Error fetching interests:', error);
+                              } finally {
+                                setIsLoadingInterests(false);
+                              }
+                            } else {
+                              setInterestSuggestions([]);
+                            }
+                          }}
+                        />
+                      </div>
+                      
+                      {isLoadingInterests && (
+                        <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                          <span>Recherche en cours...</span>
+                        </div>
+                      )}
+                      
+                      {interestSuggestions.length > 0 && (
+                        <div className="mt-2 space-y-2">
+                          <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                          <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
+                            {interestSuggestions.map((interest) => (
+                              <div key={interest.id} className="flex items-center space-x-2 p-2 bg-white rounded border">
+                                <span className="text-sm flex-1">{interest.name}</span>
+                                <Select
+                                  options={[
+                                    { value: '0.1', label: '10%' },
+                                    { value: '0.2', label: '20%' },
+                                    { value: '0.3', label: '30%' },
+                                    { value: '0.5', label: '50%' },
+                                    { value: '0.7', label: '70%' },
+                                    { value: '1.0', label: '100%' },
+                                  ]}
+                                  onChange={(e) => {
+                                    const weight = parseFloat(e.target.value);
+                                    // Ajouter l'intérêt avec son poids (logique à implémenter)
+                                    console.log(`Adding interest ${interest.name} with weight ${weight}`);
+                                  }}
+                                  className="w-20"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Langues avec weights */}
+              <div>
+                <h5 className="font-medium text-gray-800 mb-3">Langues de l&apos;audience</h5>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Rechercher des langues
+                    </label>
+                    <div className="relative">
+                      <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Input
+                        placeholder="Tapez pour rechercher des langues..."
+                        className="pl-9"
+                        onChange={async (e) => {
+                          const query = e.target.value;
+                          if (query.length > 1 && selectedPlatform) {
+                            setIsLoadingLanguages(true);
+                            try {
+                              const result = await getLanguages(selectedPlatform, query, 10);
+                              setLanguageSuggestions(result.languages);
+                            } catch (error) {
+                              console.error('Error fetching languages:', error);
+                            } finally {
+                              setIsLoadingLanguages(false);
+                            }
+                          } else {
+                            setLanguageSuggestions([]);
+                          }
+                        }}
+                      />
+                    </div>
+                    
+                    {isLoadingLanguages && (
+                      <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                        <span>Recherche en cours...</span>
+                      </div>
+                    )}
+                    
+                    {languageSuggestions.length > 0 && (
+                      <div className="mt-2 space-y-2">
+                        <p className="text-xs text-gray-600">Cliquez pour ajouter avec un poids :</p>
+                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
+                          {languageSuggestions.map((language) => (
+                            <div key={language.code} className="flex items-center space-x-2 p-2 bg-white rounded border">
+                              <span className="text-sm flex-1">{language.name} ({language.code})</span>
+                              <Select
+                                options={[
+                                  { value: '0.1', label: '10%' },
+                                  { value: '0.2', label: '20%' },
+                                  { value: '0.3', label: '30%' },
+                                  { value: '0.5', label: '50%' },
+                                  { value: '0.7', label: '70%' },
+                                  { value: '1.0', label: '100%' },
+                                ]}
+                                onChange={(e) => {
+                                  const weight = parseFloat(e.target.value);
+                                  // Ajouter la langue avec son poids (logique à implémenter)
+                                  console.log(`Adding language ${language.name} with weight ${weight}`);
+                                }}
+                                className="w-20"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Aide contextuelle */}
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                <div className="flex items-start space-x-2">
+                  <InformationCircleIcon className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
+                  <div className="text-xs text-purple-700">
+                    <p className="font-medium mb-1">Système de poids Modash :</p>
+                    <ul className="space-y-1">
+                      <li>• Les poids déterminent l&apos;importance de chaque critère</li>
+                      <li>• 0.1 = 10% d&apos;importance, 1.0 = 100% d&apos;importance</li>
+                      <li>• Combinez plusieurs critères pour des recherches précises</li>
+                      <li>• Les intérêts ne sont disponibles que sur Instagram</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div>
-              <Input
-                label="Pays à exclure"
-                placeholder="Ex: Russie, Chine... (séparés par des virgules)"
-                value={
-                  filters.audience?.audienceLocation?.excludeCountries?.join(
-                    ', '
-                  ) || ''
-                }
-                onChange={(e) => {
-                  const countries = e.target.value
-                    .split(',')
-                    .map((country) => country.trim())
-                    .filter((country) => country.length > 0);
-
-                  updateAudienceLocationFilter(
-                    'excludeCountries',
-                    countries.length > 0 ? countries : undefined
-                  );
-                }}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </CollapsibleFilterCard>

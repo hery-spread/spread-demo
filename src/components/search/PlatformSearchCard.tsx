@@ -3,21 +3,27 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Select } from '@/components/ui/Select';
 import {
   DevicePhoneMobileIcon,
   MagnifyingGlassIcon,
   AtSymbolIcon,
   XMarkIcon,
+  InformationCircleIcon,
+  CogIcon,
 } from '@heroicons/react/24/outline';
 import { DevicePhoneMobileIcon as DevicePhoneMobileIconSolid } from '@heroicons/react/24/solid';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
+import { getUsers } from '@/lib/modash';
 
 interface PlatformSearchCardProps {
   isOpen: boolean;
   onToggle: (id: string) => void;
   filters: AdvancedSearchFilters;
   onFiltersChange: (filters: AdvancedSearchFilters) => void;
+  calculationMethod?: 'median' | 'average';
+  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 // Icônes des plateformes
@@ -45,17 +51,46 @@ const PlatformLabels = {
   tiktok: 'TikTok',
 };
 
+// Champs spécifiques par plateforme
+const PlatformSpecificFields = {
+  instagram: [
+    'Reels performance',
+    'Account type (Regular/Business/Creator)',
+    'Brand partnerships',
+    'Interests & topics',
+    'Audience credibility score',
+  ],
+  youtube: [
+    'Videos vs Shorts analytics',
+    'Channel handle',
+    'Official artist status',
+    'Subscriber growth rate',
+    'Average view duration',
+  ],
+  tiktok: [
+    'Shares & saves metrics',
+    'Viral content detection',
+    'Sound usage analytics',
+    'Duets & collaborations',
+    'Trend participation',
+  ],
+};
+
 export default function PlatformSearchCard({
   isOpen,
   onToggle,
   filters,
   onFiltersChange,
+  calculationMethod = 'median',
+  onCalculationMethodChange,
 }: PlatformSearchCardProps) {
   const [userSearchInput, setUserSearchInput] = useState(
     filters.userSearch || ''
   );
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
+  const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
 
   // Gestion plateforme (sélection exclusive)
   const currentPlatform =
@@ -68,27 +103,38 @@ export default function PlatformSearchCard({
     });
   };
 
-  // Gestion de la recherche utilisateur
-  const handleUserSearchChange = (value: string) => {
+  // Gestion de la recherche utilisateur avec API Modash
+  const handleUserSearchChange = async (value: string) => {
     setUserSearchInput(value);
 
-    // Simulation de suggestions (en réalité, ça viendrait d'une API)
-    if (value.length > 1) {
-      const mockSuggestions = [
-        '@cristiano',
-        '@selenagomez',
-        '@kyliejenner',
-        '@therock',
-        '@mrbeast',
-        '@pewdiepie',
-      ]
-        .filter((suggestion) =>
-          suggestion.toLowerCase().includes(value.toLowerCase())
-        )
-        .slice(0, 5);
+    if (value.length > 1 && currentPlatform) {
+      setIsLoadingSuggestions(true);
+      try {
+        const result = await getUsers(currentPlatform, value, 5);
+        const suggestions = result.users.map((user) => `@${user.username}`);
+        setSearchSuggestions(suggestions);
+        setShowSuggestions(suggestions.length > 0);
+      } catch (error) {
+        console.error('Error fetching user suggestions:', error);
+        // Fallback sur des suggestions mockées
+        const mockSuggestions = [
+          '@cristiano',
+          '@selenagomez',
+          '@kyliejenner',
+          '@therock',
+          '@mrbeast',
+          '@pewdiepie',
+        ]
+          .filter((suggestion) =>
+            suggestion.toLowerCase().includes(value.toLowerCase())
+          )
+          .slice(0, 5);
 
-      setSearchSuggestions(mockSuggestions);
-      setShowSuggestions(true);
+        setSearchSuggestions(mockSuggestions);
+        setShowSuggestions(mockSuggestions.length > 0);
+      } finally {
+        setIsLoadingSuggestions(false);
+      }
     } else {
       setShowSuggestions(false);
       setSearchSuggestions([]);
@@ -121,8 +167,12 @@ export default function PlatformSearchCard({
   };
 
   // Calculer les filtres actifs
-  const hasActiveFilters = !!currentPlatform || !!filters.userSearch;
-  const filterCount = (currentPlatform ? 1 : 0) + (filters.userSearch ? 1 : 0);
+  const hasActiveFilters =
+    !!currentPlatform || !!filters.userSearch || calculationMethod !== 'median';
+  const filterCount =
+    (currentPlatform ? 1 : 0) +
+    (filters.userSearch ? 1 : 0) +
+    (calculationMethod !== 'median' ? 1 : 0);
 
   return (
     <CollapsibleFilterCard
@@ -149,7 +199,9 @@ export default function PlatformSearchCard({
               type="text"
               placeholder="Nom d'utilisateur ou @handle (ex: @zidane)"
               value={userSearchInput}
-              onChange={(e) => handleUserSearchChange(e.target.value)}
+              onChange={(e) => {
+                handleUserSearchChange(e.target.value);
+              }}
               className="pl-9"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -168,20 +220,33 @@ export default function PlatformSearchCard({
           </div>
 
           {/* Suggestions de recherche */}
-          {showSuggestions && searchSuggestions.length > 0 && (
+          {showSuggestions && (
             <div className="mt-2 bg-white border border-gray-200 rounded-lg shadow-lg absolute z-10 w-full">
-              {searchSuggestions.map((suggestion, index) => (
-                <button
-                  key={index}
-                  onClick={() => selectSuggestion(suggestion)}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg border-b border-gray-100 last:border-b-0"
-                >
-                  <div className="flex items-center space-x-2">
-                    <AtSymbolIcon className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm text-gray-700">{suggestion}</span>
-                  </div>
-                </button>
-              ))}
+              {isLoadingSuggestions ? (
+                <div className="px-3 py-2 text-sm text-gray-500 flex items-center space-x-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
+                  <span>Recherche en cours...</span>
+                </div>
+              ) : searchSuggestions.length > 0 ? (
+                searchSuggestions.map((suggestion, index) => (
+                  <button
+                    key={index}
+                    onClick={() => selectSuggestion(suggestion)}
+                    className="w-full text-left px-3 py-2 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg border-b border-gray-100 last:border-b-0"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <AtSymbolIcon className="w-4 h-4 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        {suggestion}
+                      </span>
+                    </div>
+                  </button>
+                ))
+              ) : (
+                <div className="px-3 py-2 text-sm text-gray-500">
+                  Aucun utilisateur trouvé
+                </div>
+              )}
             </div>
           )}
 
@@ -248,6 +313,102 @@ export default function PlatformSearchCard({
                   <XMarkIcon className="w-3 h-3" />
                 </button>
               </span>
+            </div>
+          )}
+        </div>
+
+        {/* Paramètres avancés */}
+        <div>
+          <button
+            onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
+            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            <CogIcon className="w-4 h-4" />
+            <span>Paramètres avancés</span>
+            <XMarkIcon
+              className={`w-3 h-3 transition-transform ${
+                showAdvancedSettings ? 'rotate-45' : 'rotate-0'
+              }`}
+            />
+          </button>
+
+          {showAdvancedSettings && (
+            <div className="mt-3 space-y-4 p-3 bg-gray-50 rounded-lg">
+              {/* Méthode de calcul */}
+              {onCalculationMethodChange && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Méthode de calcul
+                  </label>
+                  <Select
+                    options={[
+                      { value: 'median', label: 'Médiane (recommandé)' },
+                      { value: 'average', label: 'Moyenne' },
+                    ]}
+                    value={calculationMethod}
+                    onChange={(e) =>
+                      onCalculationMethodChange(
+                        e.target.value as 'median' | 'average'
+                      )
+                    }
+                  />
+                  <div className="mt-1 flex items-start space-x-1">
+                    <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <p className="text-xs text-gray-600">
+                      La médiane est moins sensible aux valeurs extrêmes et
+                      donne une meilleure représentation des performances
+                      typiques.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Champs spécifiques à la plateforme */}
+              {currentPlatform && (
+                <div>
+                  <h5 className="text-sm font-medium text-gray-700 mb-2">
+                    Données spécifiques à {PlatformLabels[currentPlatform]}
+                  </h5>
+                  <div className="space-y-1">
+                    {PlatformSpecificFields[currentPlatform].map(
+                      (field, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2 text-xs text-gray-600"
+                        >
+                          <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                          <span>{field}</span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                  <div className="mt-2 text-xs text-gray-500">
+                    Ces métriques seront automatiquement incluses dans vos
+                    résultats de recherche.
+                  </div>
+                </div>
+              )}
+
+              {/* Aide contextuelle */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="flex items-start space-x-2">
+                  <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <div className="text-xs text-blue-700">
+                    <p className="font-medium mb-1">Conseils de recherche :</p>
+                    <ul className="space-y-1">
+                      <li>
+                        • Sélectionnez une plateforme pour des résultats plus
+                        précis
+                      </li>
+                      <li>
+                        • Utilisez @ pour rechercher des utilisateurs
+                        spécifiques
+                      </li>
+                      <li>• La recherche directe ignore les autres filtres</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

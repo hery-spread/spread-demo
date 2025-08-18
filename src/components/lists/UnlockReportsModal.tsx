@@ -29,7 +29,7 @@ export default function UnlockReportsModal({
   const [selectedInfluencers, setSelectedInfluencers] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
 
-  const creditsPerReport = 2;
+  const creditsPerReport = 1;
   const totalCreditsNeeded = selectedInfluencers.length * creditsPerReport;
   const canUnlock = totalCreditsNeeded <= creditsAvailable;
 

@@ -113,3 +113,5 @@ Endpoints clés (selon plateforme):
 - Crédits Modash: surveiller la consommation (le `report` a un coût par appel)
 - Variations entre plateformes: certains champs ne sont pas uniformes → fallback propre & `raw` accessible
 - Performance: activer caching côté serveur; éviter les appels redondants (résolution `userId`)
+
+

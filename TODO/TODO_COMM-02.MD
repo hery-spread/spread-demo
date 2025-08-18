@@ -92,3 +92,5 @@ Références d'inspiration (non contractuelles):
 
 - S’inspirer de Mailchimp pour la hiérarchie et la lisibilité, sans copier 1:1.
 - Prévoir l’extension future multi‑canal ( SMS, DM ) via `Channel`.
+
+

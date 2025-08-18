@@ -8,9 +8,9 @@ import {
   mockInfluencerDetails,
   unlockInfluencerReport,
 } from '@/lib/mockData';
+import { getEnhancedInfluencerReport } from '@/lib/modash';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
-import UnlockModal from '@/components/profile/UnlockModal';
 import LockedContent from '@/components/profile/LockedContent';
 // import ThreadViewer from '@/components/communication/ThreadViewer';
 // import { CommunicationProvider } from '@/contexts/CommunicationContext';
@@ -38,27 +38,48 @@ export default function ProfilePage() {
   );
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
   const [loading, setLoading] = useState(true);
-  const { credits, unlockReports } = useCredits();
-  const [showUnlockModal, setShowUnlockModal] = useState(false);
+  const { unlockReports } = useCredits();
+  // Suppression de la modale de confirmation pour la consommation de crédits
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
 
   useEffect(() => {
-    const id = params.id as string;
+    const loadInfluencerData = async () => {
+      const id = params.id as string;
+      setLoading(true);
 
-    // Trouver l'influenceur
-    const foundInfluencer = mockInfluencers.find((inf) => inf.id === id);
-    if (foundInfluencer) {
-      setInfluencer(foundInfluencer);
+      try {
+        // Trouver l'influenceur de base
+        const foundInfluencer = mockInfluencers.find((inf) => inf.id === id);
+        if (foundInfluencer) {
+          setInfluencer(foundInfluencer);
 
-      // Vérifier s'il y a des données détaillées
-      const details = mockInfluencerDetails[id];
-      if (details) {
-        setDetailedData(details);
+          // Essayer de charger les données enrichies via Modash
+          try {
+            const enhancedData = await getEnhancedInfluencerReport(
+              foundInfluencer.platform,
+              id,
+              'median'
+            );
+            setDetailedData(enhancedData);
+          } catch (error) {
+            console.error('Erreur lors du chargement des données Modash:', error);
+            
+            // Fallback sur les données mockées
+            const details = mockInfluencerDetails[id];
+            if (details) {
+              setDetailedData(details);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement du profil:', error);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
 
-    setLoading(false);
+    loadInfluencerData();
   }, [params.id]);
 
   // Fonction pour débloquer le rapport
@@ -190,9 +211,9 @@ export default function ProfilePage() {
         if (!detailedData) {
           return (
             <LockedContent
-              title="Données d'audience verrouillées"
-              description="Débloquez l'analyse détaillée de l'audience pour cet influenceur et accédez à des insights précieux sur ses followers."
-              onUnlock={() => setShowUnlockModal(true)}
+              title="Rapport d'audience verrouillé"
+              description="Accédez au rapport d'audience détaillé pour cet influenceur et découvrez des insights précieux sur ses followers."
+              onUnlock={handleUnlockReport}
               creditCost={1}
               features={[
                 'Répartition par âge et genre',
@@ -571,17 +592,16 @@ export default function ProfilePage() {
       //   );
 
       case 'performance':
-        // FORCER l'affichage de la modal pour le test (même si detailedData existe)
         return (
           <LockedContent
-            title="Données de performance verrouillées"
-            description="Accédez aux graphiques de performance et à l'analyse détaillée des publications."
-            onUnlock={() => setShowUnlockModal(true)}
+            title="Rapport d'audience verrouillé"
+            description="Accédez au rapport d'audience et à l'analyse détaillée des publications."
+            onUnlock={handleUnlockReport}
             creditCost={1}
             features={[
               'Évolution des followers et engagement',
               'Répartition des interactions',
-              'Performance des publications récentes',
+              'Analyse des publications récentes',
               'Métriques de portée et croissance',
             ]}
           />
@@ -654,16 +674,7 @@ export default function ProfilePage() {
         {renderTabContent()}
       </div>
 
-      {/* Modal de déverrouillage */}
-      {influencer && (
-        <UnlockModal
-          isOpen={showUnlockModal}
-          onClose={() => setShowUnlockModal(false)}
-          influencer={influencer}
-          onUnlock={handleUnlockReport}
-          currentCredits={credits.remainingCredits}
-        />
-      )}
+      {/* Modale de déverrouillage supprimée: déverrouillage direct sans confirmation */}
 
       {/* Modal de contact */}
       {showContactModal && influencer && (

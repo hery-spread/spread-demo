@@ -92,3 +92,5 @@ Refactoriser complètement le système de campagnes pour créer un système de t
 - Maintenir compatibilité avec données existantes
 - Éviter breaking changes sur les APIs
 - Prévoir migration douce des campagnes existantes
+
+

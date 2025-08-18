@@ -1,11 +1,13 @@
 # PLAN D'ACTION PRESCRIPTIF : SEARCH-08 — Intégration complète des champs Modash API dans l'interface de recherche
 
 ## User Story
+
 En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche disponibles dans l'API Modash (Instagram, YouTube, TikTok) organisés dans une interface intuitive par catégories, afin d'effectuer des recherches d'influenceurs ultra-précises et exploiter toute la puissance de l'API.
 
 ---
 
 ## Contexte & dépendances
+
 - Interface de recherche existante : `src/app/search/page.tsx`, `src/components/search/SearchSidebar.tsx` et filtres cards.
 - Types actuels : `src/types/index.ts` (AdvancedSearchFilters, SearchUIState).
 - Mock data : `src/lib/mockData.ts` (à terme remplacé par vrais appels Modash).
@@ -14,6 +16,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 ---
 
 ## Objectifs
+
 1. **Mapper tous les champs Modash** dans nos types TypeScript existants.
 2. **Enrichir les catégories de filtres** : Creator, Audience, Content + nouvelle catégorie Platform.
 3. **Intégrer les dictionnaires Modash** (languages, locations, topics, hashtags, interests, brands, users).
@@ -24,8 +27,10 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 
 ## Analyse des champs Modash par catégorie
 
-### 🎯 **Creator Filters (influencer.*)** 
+### 🎯 **Creator Filters (influencer.\*)**
+
 **Champs actuels à enrichir :**
+
 - ✅ `followers` (min/max) — déjà présent
 - ✅ `engagementRate` — déjà présent
 - ✅ `location` (array d'IDs) — déjà présent, à connecter aux dictionnaires Modash
@@ -34,6 +39,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 - ✅ `isVerified` — déjà présent
 
 **Nouveaux champs Creator à ajouter :**
+
 - 🆕 `lastposted` (jours depuis dernier post)
 - 🆕 `relevance` (array hashtags/mentions pour pertinence)
 - 🆕 `audienceRelevance` (mentions pour pertinence audience)
@@ -48,27 +54,35 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 - 🆕 **YouTube uniquement :** `viewsGrowthRate`, `isOfficialArtist`
 - 🆕 **TikTok uniquement :** `shares`, `saves`, `likesGrowthRate`
 
-### 👥 **Audience Filters (audience.*)** 
+### 👥 **Audience Filters (audience.\*)**
+
 **Champs actuels à enrichir :**
+
 - ✅ `location` — à enrichir avec système de weights
-- ✅ `language` — à enrichir avec système de weights  
+- ✅ `language` — à enrichir avec système de weights
 - ✅ `gender` — à enrichir avec système de weights
 - ✅ `age`/`ageRange` — à enrichir avec système de weights
 
 **Nouveaux champs Audience à ajouter :**
+
 - 🆕 **Instagram uniquement :** `interests` (avec weights), `credibility`
 
 ### 📱 **Platform Filters (nouvelle catégorie)**
+
 **Champs spécifiques par plateforme :**
+
 - 🆕 `calculationMethod` ("median" | "average")
 - 🆕 Gestion des champs différents par plateforme
 - 🆕 `filterOperations` (opérateurs logiques entre filtres)
 
-### 📄 **Content Filters (enrichissements)**  
+### 📄 **Content Filters (enrichissements)**
+
 **Champs actuels à enrichir :**
+
 - ✅ Types de contenu par plateforme (posts, reels, videos, shorts)
 
 **Nouveaux champs Content à ajouter :**
+
 - 🆕 Performance metrics par type de contenu
 - 🆕 Posting frequency patterns
 
@@ -77,6 +91,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 ## Plan d'Action Prescriptif
 
 ### Étape 1 — Extension des types TypeScript
+
 - [ ] **Enrichir `src/types/index.ts`** avec tous les nouveaux champs Modash :
   - [ ] `CreatorFilters` : ajouter tous les nouveaux champs influencer
   - [ ] `AudienceFilters` : ajouter système de weights + nouveaux champs
@@ -85,8 +100,9 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
   - [ ] Sous-types par plateforme : `InstagramFilters`, `YouTubeFilters`, `TikTokFilters`
 
 ### Étape 2 — Dictionnaires Modash (façade data)
+
 - [ ] **Créer `src/lib/modash/dictionaries.ts`** :
-  - [ ] `getLanguages(platform, query?, limit?)` 
+  - [ ] `getLanguages(platform, query?, limit?)`
   - [ ] `getLocations(platform, query?, limit?)`
   - [ ] `getTopics(platform, query?, limit?)`
   - [ ] `getHashtags(platform, query?, limit?)`
@@ -97,12 +113,14 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 - [ ] **Cache layer** pour éviter les appels répétés
 
 ### Étape 3 — Composant Platform Selection (refactor)
+
 - [ ] **Enrichir `src/components/search/PlatformSearchCard.tsx`** :
   - [ ] Choix platform influence les champs disponibles dynamiquement
   - [ ] `calculationMethod` selector (median/average)
   - [ ] Message informatif sur les champs spécifiques à chaque plateforme
 
 ### Étape 4 — Creator Filters Card (enrichissement majeur)
+
 - [ ] **Refactor `src/components/search/CreatorFiltersCard.tsx`** :
   - [ ] **Section Growth & Activity** : `followersGrowthRate`, `lastposted`, `viewsGrowthRate`
   - [ ] **Section Content Performance** : `views`, `engagements`, `reelsPlays`
@@ -112,6 +130,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
   - [ ] **Autocomplétion** : intégration dictionnaires pour locations, languages, etc.
 
 ### Étape 5 — Audience Filters Card (système weights)
+
 - [ ] **Refactor `src/components/search/AudienceFiltersCard.tsx`** :
   - [ ] **Weights sliders** pour chaque critère audience (location, language, gender, age)
   - [ ] **Multiple selection** avec weights : locations multiples avec % importance
@@ -119,12 +138,14 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
   - [ ] **Instagram : interests & credibility** : sélection multiple + credibility slider
 
 ### Étape 6 — Content Filters Card (par plateforme)
+
 - [ ] **Refactor `src/components/search/ContentFiltersCard.tsx`** :
   - [ ] **Filtres conditionnels** selon plateforme : reels (Instagram), shorts (YouTube), etc.
   - [ ] **Performance metrics** : vues, likes, comments par type de contenu
   - [ ] **Posting patterns** : fréquence, jours de la semaine préférés
 
 ### Étape 7 — Advanced Search Logic
+
 - [ ] **Créer `src/lib/modash/searchBuilder.ts`** :
   - [ ] `buildModashQuery(filters, platform)` : transformation de nos filtres UI vers format Modash API
   - [ ] **Validation** des filtres selon la plateforme sélectionnée
@@ -132,6 +153,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
   - [ ] **Pagination & sorting** : intégration complète
 
 ### Étape 8 — Components d'autocomplétion avancés
+
 - [ ] **Créer `src/components/search/AutocompleteInput.tsx`** :
   - [ ] **Location picker** avec recherche géographique
   - [ ] **Language selector** avec codes ISO
@@ -140,12 +162,14 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
   - [ ] **Debouncing** pour éviter trop d'appels API
 
 ### Étape 9 — Integration & Testing
+
 - [ ] **Mise à jour `src/app/search/page.tsx`** pour gérer les nouveaux filtres
 - [ ] **Tests unitaires** des fonctions de transformation de filtres
 - [ ] **Tests E2E** de l'interface complète avec tous les nouveaux champs
 - [ ] **Performance** : lazy loading des dictionnaires, virtualisation si nécessaire
 
 ### Étape 10 — Documentation & UX
+
 - [ ] **Tooltips explicatifs** sur chaque nouveau champ complexe
 - [ ] **Examples de recherche** contextuels selon la plateforme
 - [ ] **Save/Load search presets** : permettre de sauvegarder des recherches complexes
@@ -154,6 +178,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 ---
 
 ## Critères d'acceptation
+
 - [ ] **Tous les champs Modash** sont disponibles dans l'interface de recherche, organisés logiquement.
 - [ ] **Filtrage dynamique** : l'interface s'adapte à la plateforme sélectionnée.
 - [ ] **Autocomplétion** fonctionne sur tous les champs concernés (locations, languages, etc.).
@@ -166,6 +191,7 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 ---
 
 ## Risques & notes
+
 - **Complexité UI** : risque de surcharge cognitive avec trop de champs → implémentation progressive, collapsibles.
 - **Performance API** : dictionnaires peuvent être volumineux → cache intelligent et pagination.
 - **Maintenance** : nouveaux champs Modash dans le futur → architecture extensible.
@@ -176,11 +202,12 @@ En tant qu'utilisateur, je veux avoir accès à tous les champs de recherche dis
 ## 🎯 Champs Modash par plateforme (référence)
 
 ### 📱 **Instagram Search Fields**
+
 ```typescript
 influencer: {
-  followers, engagementRate, location[], language, lastposted, relevance[], 
+  followers, engagementRate, location[], language, lastposted, relevance[],
   audienceRelevance[], gender, age, followersGrowthRate, bio, hasYouTube,
-  hasContactDetails[], accountTypes[], brands[], interests[], keywords, 
+  hasContactDetails[], accountTypes[], brands[], interests[], keywords,
   textTags[], reelsPlays, isVerified, hasSponsoredPosts, engagements
 }
 audience: {
@@ -188,12 +215,13 @@ audience: {
 }
 ```
 
-### 🎬 **YouTube Search Fields**  
+### 🎬 **YouTube Search Fields**
+
 ```typescript
 influencer: {
   followers, engagementRate, location[], language, lastposted, relevance[],
   audienceRelevance[], gender, age, followersGrowthRate, bio, views,
-  hasContactDetails[], keywords, isVerified, isOfficialArtist, 
+  hasContactDetails[], keywords, isVerified, isOfficialArtist,
   viewsGrowthRate, engagements
 }
 audience: {
@@ -202,6 +230,7 @@ audience: {
 ```
 
 ### 🎵 **TikTok Search Fields**
+
 ```typescript
 influencer: {
   followers, engagementRate, location[], language, lastposted, relevance[],
@@ -217,7 +246,9 @@ audience: {
 ---
 
 ## 🚀 Stratégie de déploiement
+
 1. **Phase 1** : Types + dictionnaires mock + Creator filters enrichis
-2. **Phase 2** : Audience weights + Platform filters + autocomplétion de base  
+2. **Phase 2** : Audience weights + Platform filters + autocomplétion de base
 3. **Phase 3** : Content filters avancés + search builder + intégration API réelle
 4. **Phase 4** : UX avancée + presets + optimisations performance
+
