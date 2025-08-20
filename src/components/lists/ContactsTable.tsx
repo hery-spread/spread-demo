@@ -60,15 +60,22 @@ export default function ContactsTable({
     }
   };
 
+  // Filtrer uniquement les contacts avec email pour sélection
+  const contactsWithEmail = filteredContacts.filter((c) => c.contactEmail);
+
   const handleSelectAll = () => {
-    if (selectedContacts.length === filteredContacts.length) {
+    if (selectedContacts.length === contactsWithEmail.length) {
       setSelectedContacts([]);
     } else {
-      setSelectedContacts(filteredContacts.map((c) => c.id));
+      setSelectedContacts(contactsWithEmail.map((c) => c.id));
     }
   };
 
   const handleSelectContact = (contactId: string) => {
+    const contact = filteredContacts.find((c) => c.id === contactId);
+    // Empêcher la sélection des contacts sans email
+    if (!contact?.contactEmail) return;
+    
     if (selectedContacts.includes(contactId)) {
       setSelectedContacts((prev) => prev.filter((id) => id !== contactId));
     } else {
@@ -120,11 +127,19 @@ export default function ContactsTable({
           </div>
 
           {/* Actions de masse */}
-          {selectedContacts.length > 0 && (
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600">
-                {selectedContacts.length} sélectionné(s)
-              </span>
+          <div className="flex items-center space-x-4">
+            {/* Compteur de sélection */}
+            <div className="text-sm text-gray-600">
+              <span className="font-medium">{selectedContacts.length}</span> / <span className="font-medium">{contactsWithEmail.length}</span> contacts sélectionnés
+              {contactsWithEmail.length < filteredContacts.length && (
+                <span className="text-xs text-gray-500 ml-2">
+                  ({filteredContacts.length - contactsWithEmail.length} sans email)
+                </span>
+              )}
+            </div>
+
+            {/* Actions */}
+            {selectedContacts.length > 0 && (
               <Button
                 variant="outline"
                 size="sm"
@@ -132,10 +147,10 @@ export default function ContactsTable({
                 className="text-red-600 hover:text-red-700"
               >
                 <TrashIcon className="w-4 h-4 mr-1" />
-                Supprimer
+                Supprimer ({selectedContacts.length})
               </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
@@ -148,11 +163,13 @@ export default function ContactsTable({
                 <input
                   type="checkbox"
                   checked={
-                    selectedContacts.length === filteredContacts.length &&
-                    filteredContacts.length > 0
+                    selectedContacts.length === contactsWithEmail.length &&
+                    contactsWithEmail.length > 0
                   }
                   onChange={handleSelectAll}
-                  className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                  disabled={contactsWithEmail.length === 0}
+                  className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:bg-gray-100 disabled:border-gray-300"
+                  title={contactsWithEmail.length === 0 ? "Aucun contact avec email à sélectionner" : "Sélectionner tous les contacts avec email"}
                 />
               </th>
               <th
@@ -190,14 +207,21 @@ export default function ContactsTable({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {filteredContacts.map((contact) => (
-              <tr key={contact.id} className="hover:bg-gray-50">
+            {filteredContacts.map((contact) => {
+              const hasEmail = !!contact.contactEmail;
+              return (
+              <tr 
+                key={contact.id} 
+                className={`hover:bg-gray-50 ${!hasEmail ? 'opacity-60 bg-gray-50/50' : ''}`}
+              >
                 <td className="px-4 py-4">
                   <input
                     type="checkbox"
                     checked={selectedContacts.includes(contact.id)}
                     onChange={() => handleSelectContact(contact.id)}
-                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                    disabled={!hasEmail}
+                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:bg-gray-100 disabled:border-gray-300 disabled:opacity-50"
+                    title={!hasEmail ? "Contact sans email - non sélectionnable" : "Sélectionner ce contact"}
                   />
                 </td>
                 <td className="px-4 py-4">
@@ -273,12 +297,13 @@ export default function ContactsTable({
                   </div>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>
 
-      {/* Footer avec pagination si nécessaire */}
+      {/* Footer avec statistiques */}
       {filteredContacts.length > 0 && (
         <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between">
@@ -288,10 +313,20 @@ export default function ContactsTable({
               {searchQuery && ` (filtré sur "${searchQuery}")`}
             </div>
 
-            <div className="text-sm text-gray-500">
-              {filteredContacts.filter((c) => c.contactEmail).length} avec email
-              • {filteredContacts.filter((c) => !c.contactEmail).length} sans
-              email
+            <div className="text-sm text-gray-500 flex items-center space-x-4">
+              <span className="text-green-600 font-medium">
+                ✓ {contactsWithEmail.length} contactable{contactsWithEmail.length > 1 ? 's' : ''}
+              </span>
+              {filteredContacts.length > contactsWithEmail.length && (
+                <span className="text-gray-400">
+                  ✗ {filteredContacts.length - contactsWithEmail.length} sans email
+                </span>
+              )}
+              {selectedContacts.length > 0 && (
+                <span className="text-purple-600 font-medium">
+                  • {selectedContacts.length} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+                </span>
+              )}
             </div>
           </div>
         </div>

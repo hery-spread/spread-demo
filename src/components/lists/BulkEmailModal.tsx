@@ -4,12 +4,16 @@ import { useState } from 'react';
 import { Button } from '@/components/ui';
 import { InfluencerContact } from '@/types';
 import { mockEmailTemplates } from '@/lib/mockData/emailData';
+import ContactSelectionPanel from './ContactSelectionPanel';
+import SelectionPreview from './SelectionPreview';
 
 interface BulkEmailModalProps {
   isOpen: boolean;
   onClose: () => void;
   influencers: InfluencerContact[];
   listName: string;
+  selectedContacts?: string[]; // IDs des contacts pré-sélectionnés
+  onSelectionChange?: (selectedIds: string[]) => void;
 }
 
 export default function BulkEmailModal({
@@ -17,6 +21,8 @@ export default function BulkEmailModal({
   onClose,
   influencers,
   listName,
+  selectedContacts = [],
+  onSelectionChange,
 }: BulkEmailModalProps) {
   const [step, setStep] = useState<'compose' | 'preview' | 'sending' | 'sent'>(
     'compose'
@@ -32,10 +38,19 @@ export default function BulkEmailModal({
   const [scheduleEmail, setScheduleEmail] = useState(false);
   const [scheduledAt, setScheduledAt] = useState('');
   const [sendingProgress, setSendingProgress] = useState(0);
+  
+  // Nouveaux états pour la sélection
+  const [internalSelectedContacts, setInternalSelectedContacts] = useState<string[]>(selectedContacts);
+  const [showSelectionPanel, setShowSelectionPanel] = useState(false);
 
   const templates = mockEmailTemplates;
   const validInfluencers = influencers.filter((inf) => inf.contactEmail);
-  const recipientCount = validInfluencers.length;
+  
+  // Calculer les contacts effectivement sélectionnés (avec email uniquement)
+  const selectedValidContacts = validInfluencers.filter((inf) => 
+    internalSelectedContacts.includes(inf.id)
+  );
+  const recipientCount = selectedValidContacts.length > 0 ? selectedValidContacts.length : validInfluencers.length;
 
   const handleTemplateSelect = (templateId: string) => {
     const template = templates.find((t) => t.id === templateId);
@@ -44,6 +59,19 @@ export default function BulkEmailModal({
       setSubject(template.subject);
       setBody(template.bodyText);
     }
+  };
+
+  const handleSelectionChange = (newSelection: string[]) => {
+    setInternalSelectedContacts(newSelection);
+    onSelectionChange?.(newSelection);
+  };
+
+  const handleOpenSelectionPanel = () => {
+    setShowSelectionPanel(true);
+  };
+
+  const handleCloseSelectionPanel = () => {
+    setShowSelectionPanel(false);
   };
 
   const handleSend = async () => {
@@ -70,6 +98,8 @@ export default function BulkEmailModal({
       setSubject('');
       setBody('');
       setSendingProgress(0);
+      // Réinitialiser la sélection à la sélection par défaut
+      setInternalSelectedContacts(selectedContacts);
       onClose();
     }
   };
@@ -114,6 +144,16 @@ export default function BulkEmailModal({
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
           {step === 'compose' && (
             <div className="space-y-6">
+              {/* Sélection des contacts */}
+              <SelectionPreview
+                contacts={influencers}
+                selectedContacts={internalSelectedContacts}
+                validContacts={validInfluencers}
+                onOpenSelectionPanel={handleOpenSelectionPanel}
+                showAdvancedSelection={true}
+                title="Contacts sélectionnés"
+              />
+
               {/* Templates */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -326,10 +366,10 @@ export default function BulkEmailModal({
                 </Button>
                 <Button
                   onClick={handleSend}
-                  disabled={!subject.trim() || !body.trim()}
+                  disabled={!subject.trim() || !body.trim() || recipientCount === 0}
                   className="bg-emerald-600 hover:bg-emerald-700"
                 >
-                  {scheduleEmail ? 'Programmer' : 'Envoyer'}
+                  {scheduleEmail ? 'Programmer' : 'Envoyer'} ({recipientCount})
                 </Button>
               </div>
             </>
@@ -342,6 +382,15 @@ export default function BulkEmailModal({
           )}
         </div>
       </div>
+
+      {/* Panneau de sélection avancée */}
+      <ContactSelectionPanel
+        isOpen={showSelectionPanel}
+        onClose={handleCloseSelectionPanel}
+        contacts={influencers}
+        selectedContacts={internalSelectedContacts}
+        onSelectionChange={handleSelectionChange}
+      />
     </div>
   );
 }

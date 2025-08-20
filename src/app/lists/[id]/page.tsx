@@ -5,6 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import ListHeader from '@/components/lists/ListHeader';
 import ContactsTable from '@/components/lists/ContactsTable';
+import SelectionPreview from '@/components/lists/SelectionPreview';
+import BulkEmailModal from '@/components/lists/BulkEmailModal';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { InfluencerList, InfluencerContact } from '@/types';
 import {
@@ -19,6 +21,10 @@ export default function ListDetailPage() {
   const [list, setList] = useState<InfluencerList | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Nouveaux états pour la sélection
+  const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
+  const [showBulkEmailModal, setShowBulkEmailModal] = useState(false);
 
   const loadList = useCallback(async () => {
     try {
@@ -116,6 +122,19 @@ export default function ListDetailPage() {
     }
   };
 
+  // Nouveaux handlers pour la sélection
+  const handleSelectionChange = (newSelection: string[]) => {
+    setSelectedContacts(newSelection);
+  };
+
+  const handleOpenBulkEmailModal = () => {
+    setShowBulkEmailModal(true);
+  };
+
+  const handleCloseBulkEmailModal = () => {
+    setShowBulkEmailModal(false);
+  };
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -169,11 +188,34 @@ export default function ListDetailPage() {
         onAddInfluencer={handleAddInfluencer}
       />
 
+      {/* Aperçu de la sélection avec actions rapides */}
+      {list.influencers.length > 0 && (
+        <SelectionPreview
+          contacts={list.influencers}
+          selectedContacts={selectedContacts}
+          validContacts={list.influencers.filter(inf => inf.contactEmail)}
+          onOpenSelectionPanel={handleOpenBulkEmailModal}
+          showAdvancedSelection={true}
+          title="Sélection pour contact en masse"
+          className="mb-6"
+        />
+      )}
+
       {/* Table des contacts */}
       <ContactsTable
         contacts={list.influencers}
         onRemoveContact={handleRemoveContact}
         onContactInfluencer={handleContactInfluencer}
+      />
+
+      {/* Modal d'email en masse avec sélection avancée */}
+      <BulkEmailModal
+        isOpen={showBulkEmailModal}
+        onClose={handleCloseBulkEmailModal}
+        influencers={list.influencers}
+        listName={list.name}
+        selectedContacts={selectedContacts}
+        onSelectionChange={handleSelectionChange}
       />
     </div>
   );
