@@ -48,10 +48,14 @@ export default function ContactSelectionPanel({
     let result = contacts.filter((contact) => contact.contactEmail); // Toujours filtrer ceux avec email
 
     if (filters.minFollowers) {
-      result = result.filter((c) => (c.followers || 0) >= filters.minFollowers!);
+      result = result.filter(
+        (c) => (c.followers || 0) >= filters.minFollowers!
+      );
     }
     if (filters.maxFollowers) {
-      result = result.filter((c) => (c.followers || 0) <= filters.maxFollowers!);
+      result = result.filter(
+        (c) => (c.followers || 0) <= filters.maxFollowers!
+      );
     }
     if (filters.minEngagementRate) {
       result = result.filter(
@@ -65,7 +69,9 @@ export default function ContactSelectionPanel({
     }
     if (filters.platforms && filters.platforms.length > 0) {
       result = result.filter((c) =>
-        filters.platforms!.some((platform) => c.platform?.toLowerCase().includes(platform.toLowerCase()))
+        filters.platforms!.some((platform) =>
+          c.platform?.toLowerCase().includes(platform.toLowerCase())
+        )
       );
     }
 
@@ -95,7 +101,9 @@ export default function ContactSelectionPanel({
         break;
       case 'micro':
         newSelection = contactsWithEmail
-          .filter((c) => (c.followers || 0) >= 1000 && (c.followers || 0) <= 100000)
+          .filter(
+            (c) => (c.followers || 0) >= 1000 && (c.followers || 0) <= 100000
+          )
           .map((c) => c.id);
         break;
       case 'macro':
@@ -113,7 +121,10 @@ export default function ContactSelectionPanel({
   };
 
   // Mise à jour d'un filtre
-  const updateFilter = (key: keyof FilterCriteria, value: number | string[] | boolean | undefined) => {
+  const updateFilter = (
+    key: keyof FilterCriteria,
+    value: number | string[] | boolean | undefined
+  ) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -137,7 +148,7 @@ export default function ContactSelectionPanel({
     <div className="fixed inset-0 z-50 flex">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      
+
       {/* Panel */}
       <div className="relative ml-auto w-96 bg-white shadow-2xl h-full overflow-y-auto">
         {/* Header */}
@@ -156,7 +167,7 @@ export default function ContactSelectionPanel({
               <XMarkIcon className="w-5 h-5 text-gray-400" />
             </button>
           </div>
-          
+
           <div className="mt-2 text-sm text-gray-600">
             {filteredContacts.length} contacts correspondant aux critères
           </div>
@@ -175,7 +186,9 @@ export default function ContactSelectionPanel({
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('all')}
-                className={quickSelection === 'all' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'all' ? 'ring-2 ring-purple-500' : ''
+                }
               >
                 <CheckIcon className="w-4 h-4 mr-1" />
                 Tout
@@ -184,7 +197,9 @@ export default function ContactSelectionPanel({
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('none')}
-                className={quickSelection === 'none' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'none' ? 'ring-2 ring-purple-500' : ''
+                }
               >
                 <XMarkIcon className="w-4 h-4 mr-1" />
                 Aucun
@@ -193,7 +208,9 @@ export default function ContactSelectionPanel({
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('top10')}
-                className={quickSelection === 'top10' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'top10' ? 'ring-2 ring-purple-500' : ''
+                }
               >
                 <TrophyIcon className="w-4 h-4 mr-1" />
                 Top 10
@@ -202,16 +219,21 @@ export default function ContactSelectionPanel({
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('top-engagement')}
-                className={quickSelection === 'top-engagement' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'top-engagement'
+                    ? 'ring-2 ring-purple-500'
+                    : ''
+                }
               >
-                <FireIcon className="w-4 h-4 mr-1" />
-                + Engagé
+                <FireIcon className="w-4 h-4 mr-1" />+ Engagé
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('micro')}
-                className={quickSelection === 'micro' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'micro' ? 'ring-2 ring-purple-500' : ''
+                }
               >
                 <UsersIcon className="w-4 h-4 mr-1" />
                 Micro
@@ -220,7 +242,9 @@ export default function ContactSelectionPanel({
                 variant="outline"
                 size="sm"
                 onClick={() => handleQuickSelection('macro')}
-                className={quickSelection === 'macro' ? 'ring-2 ring-purple-500' : ''}
+                className={
+                  quickSelection === 'macro' ? 'ring-2 ring-purple-500' : ''
+                }
               >
                 <UsersIcon className="w-4 h-4 mr-1" />
                 Macro
@@ -240,7 +264,10 @@ export default function ContactSelectionPanel({
                 placeholder="Min."
                 value={filters.minFollowers || ''}
                 onChange={(e) =>
-                  updateFilter('minFollowers', e.target.value ? parseInt(e.target.value) : undefined)
+                  updateFilter(
+                    'minFollowers',
+                    e.target.value ? parseInt(e.target.value) : undefined
+                  )
                 }
               />
               <Input
@@ -248,7 +275,10 @@ export default function ContactSelectionPanel({
                 placeholder="Max."
                 value={filters.maxFollowers || ''}
                 onChange={(e) =>
-                  updateFilter('maxFollowers', e.target.value ? parseInt(e.target.value) : undefined)
+                  updateFilter(
+                    'maxFollowers',
+                    e.target.value ? parseInt(e.target.value) : undefined
+                  )
                 }
               />
             </div>
@@ -267,7 +297,10 @@ export default function ContactSelectionPanel({
                 step="0.1"
                 value={filters.minEngagementRate || ''}
                 onChange={(e) =>
-                  updateFilter('minEngagementRate', e.target.value ? parseFloat(e.target.value) : undefined)
+                  updateFilter(
+                    'minEngagementRate',
+                    e.target.value ? parseFloat(e.target.value) : undefined
+                  )
                 }
               />
               <Input
@@ -276,7 +309,10 @@ export default function ContactSelectionPanel({
                 step="0.1"
                 value={filters.maxEngagementRate || ''}
                 onChange={(e) =>
-                  updateFilter('maxEngagementRate', e.target.value ? parseFloat(e.target.value) : undefined)
+                  updateFilter(
+                    'maxEngagementRate',
+                    e.target.value ? parseFloat(e.target.value) : undefined
+                  )
                 }
               />
             </div>
@@ -296,9 +332,15 @@ export default function ContactSelectionPanel({
                     onChange={(e) => {
                       const currentPlatforms = filters.platforms || [];
                       if (e.target.checked) {
-                        updateFilter('platforms', [...currentPlatforms, platform]);
+                        updateFilter('platforms', [
+                          ...currentPlatforms,
+                          platform,
+                        ]);
                       } else {
-                        updateFilter('platforms', currentPlatforms.filter(p => p !== platform));
+                        updateFilter(
+                          'platforms',
+                          currentPlatforms.filter((p) => p !== platform)
+                        );
                       }
                     }}
                     className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
@@ -317,10 +359,14 @@ export default function ContactSelectionPanel({
             <div className="bg-purple-50 rounded-lg p-3">
               <div className="text-sm text-purple-800">
                 <div className="font-medium">
-                  {selectedContacts.length} contact{selectedContacts.length > 1 ? 's' : ''} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+                  {selectedContacts.length} contact
+                  {selectedContacts.length > 1 ? 's' : ''} sélectionné
+                  {selectedContacts.length > 1 ? 's' : ''}
                 </div>
                 <div className="text-purple-600 mt-1">
-                  sur {filteredContacts.length} contact{filteredContacts.length > 1 ? 's' : ''} disponible{filteredContacts.length > 1 ? 's' : ''}
+                  sur {filteredContacts.length} contact
+                  {filteredContacts.length > 1 ? 's' : ''} disponible
+                  {filteredContacts.length > 1 ? 's' : ''}
                 </div>
               </div>
             </div>
@@ -330,15 +376,10 @@ export default function ContactSelectionPanel({
         {/* Footer */}
         <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4">
           <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              onClick={resetFilters}
-              className="flex-1"
-            >
+            <Button variant="outline" onClick={resetFilters} className="flex-1">
               Reset
             </Button>
             <Button
-              variant="primary"
               onClick={handleApplySelection}
               className="flex-1"
             >

@@ -21,7 +21,7 @@ export default function ListDetailPage() {
   const [list, setList] = useState<InfluencerList | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Nouveaux états pour la sélection
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
   const [showBulkEmailModal, setShowBulkEmailModal] = useState(false);
@@ -193,7 +193,7 @@ export default function ListDetailPage() {
         <SelectionPreview
           contacts={list.influencers}
           selectedContacts={selectedContacts}
-          validContacts={list.influencers.filter(inf => inf.contactEmail)}
+          validContacts={list.influencers.filter((inf) => inf.contactEmail)}
           onOpenSelectionPanel={handleOpenBulkEmailModal}
           showAdvancedSelection={true}
           title="Sélection pour contact en masse"

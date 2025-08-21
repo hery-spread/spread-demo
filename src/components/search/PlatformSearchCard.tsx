@@ -21,6 +21,8 @@ interface PlatformSearchCardProps {
   onToggle: (id: string) => void;
   filters: AdvancedSearchFilters;
   onFiltersChange: (filters: AdvancedSearchFilters) => void;
+  calculationMethod?: 'median' | 'average';
+  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 // Icônes des plateformes
@@ -78,6 +80,8 @@ export default function PlatformSearchCard({
   onToggle,
   filters,
   onFiltersChange,
+  calculationMethod: _calculationMethod = 'median',
+  onCalculationMethodChange: _onCalculationMethodChange,
 }: PlatformSearchCardProps) {
   const [userSearchInput, setUserSearchInput] = useState(
     filters.userSearch || ''

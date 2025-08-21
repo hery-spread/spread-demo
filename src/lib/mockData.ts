@@ -1730,6 +1730,21 @@ const baseMockLists: InfluencerList[] = [
 
 // Données des listes étendues avec toutes les listes
 export const mockLists: InfluencerList[] = [
+  // Liste spéciale - Rapports d'audience débloqués
+  {
+    id: "unlocked-reports",
+    name: "Rapports d'audience débloqués",
+    description: "Tous les influenceurs dont vous avez débloqué les rapports d'audience",
+    category: "Système",
+    createdAt: "2024-01-01",
+    influencers: [
+      { id: "1", contactName: "Zidane", contactEmail: "contact@zidane.com" },
+      { id: "3", contactName: "Cyril Lignac", contactEmail: "chef@cyril-lignac.com" },
+      { id: "4", contactName: "Caroline Receveur", contactEmail: "contact@caroline-receveur.com" },
+      { id: "5", contactName: "Squeezie", contactEmail: "contact@squeezie.fr" },
+    ],
+  },
+
   // Listes existantes
   ...baseMockLists,
 

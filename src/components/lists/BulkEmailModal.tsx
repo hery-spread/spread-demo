@@ -38,19 +38,23 @@ export default function BulkEmailModal({
   const [scheduleEmail, setScheduleEmail] = useState(false);
   const [scheduledAt, setScheduledAt] = useState('');
   const [sendingProgress, setSendingProgress] = useState(0);
-  
+
   // Nouveaux états pour la sélection
-  const [internalSelectedContacts, setInternalSelectedContacts] = useState<string[]>(selectedContacts);
+  const [internalSelectedContacts, setInternalSelectedContacts] =
+    useState<string[]>(selectedContacts);
   const [showSelectionPanel, setShowSelectionPanel] = useState(false);
 
   const templates = mockEmailTemplates;
   const validInfluencers = influencers.filter((inf) => inf.contactEmail);
-  
+
   // Calculer les contacts effectivement sélectionnés (avec email uniquement)
-  const selectedValidContacts = validInfluencers.filter((inf) => 
+  const selectedValidContacts = validInfluencers.filter((inf) =>
     internalSelectedContacts.includes(inf.id)
   );
-  const recipientCount = selectedValidContacts.length > 0 ? selectedValidContacts.length : validInfluencers.length;
+  const recipientCount =
+    selectedValidContacts.length > 0
+      ? selectedValidContacts.length
+      : validInfluencers.length;
 
   const handleTemplateSelect = (templateId: string) => {
     const template = templates.find((t) => t.id === templateId);
@@ -366,7 +370,9 @@ export default function BulkEmailModal({
                 </Button>
                 <Button
                   onClick={handleSend}
-                  disabled={!subject.trim() || !body.trim() || recipientCount === 0}
+                  disabled={
+                    !subject.trim() || !body.trim() || recipientCount === 0
+                  }
                   className="bg-emerald-600 hover:bg-emerald-700"
                 >
                   {scheduleEmail ? 'Programmer' : 'Envoyer'} ({recipientCount})

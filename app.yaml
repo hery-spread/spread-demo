@@ -1,0 +1,17 @@
+name: spread-demo
+region: fra
+services:
+  - environment_slug: node-js
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: DHANIS/spread-demo
+    name: spread-demo
+    build_command: npm run build
+    run_command: npm start
+    source_dir: /
+    http_port: 3000
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    routes:
+      - path: /

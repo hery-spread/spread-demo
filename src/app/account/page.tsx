@@ -10,6 +10,7 @@ import {
   BellIcon,
   ShieldCheckIcon,
   EnvelopeIcon,
+  UsersIcon,
 } from '@heroicons/react/24/outline';
 import EmailIntegration from '@/components/account/EmailIntegration';
 
@@ -50,6 +51,12 @@ const tabs = [
     icon: EnvelopeIcon,
     description: 'Connecter vos comptes email',
   },
+  {
+    id: 'team',
+    name: 'Équipe',
+    icon: UsersIcon,
+    description: 'Gérer les membres de votre équipe',
+  },
 ];
 
 export default function AccountPage() {
@@ -69,6 +76,8 @@ export default function AccountPage() {
         return <PrivacyTab />;
       case 'integrations':
         return <EmailIntegration />;
+      case 'team':
+        return <TeamTab />;
       default:
         return <ProfileTab />;
     }
@@ -644,6 +653,91 @@ function PrivacyTab() {
         <Button onClick={handleSave} disabled={saving}>
           {saving ? 'Sauvegarde...' : 'Sauvegarder les préférences'}
         </Button>
+      </div>
+    </div>
+  );
+}
+
+// Composant Team Tab
+function TeamTab() {
+  const [_saving, _setSaving] = useState(false);
+  const [_showInviteModal, _setShowInviteModal] = useState(false);
+  const [teamMembers, _setTeamMembers] = useState([
+    {
+      id: 1,
+      name: 'Marie Dupont',
+      email: 'marie.dupont@example.com',
+      role: 'Administrateur',
+      status: 'Actif',
+      avatar:
+        'https://ui-avatars.com/api/?name=Marie+Dupont&background=8b5cf6&color=fff',
+      joinedAt: '2024-01-15',
+    },
+  ]);
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900">
+          Gestion de l'équipe
+        </h2>
+        <p className="text-sm text-gray-600">
+          Invitez et gérez les membres de votre équipe
+        </p>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="flex items-center">
+          <UsersIcon className="w-8 h-8 text-blue-600 mr-3" />
+          <div>
+            <div className="text-2xl font-bold text-blue-900">
+              {teamMembers.length}
+            </div>
+            <div className="text-sm text-blue-600">Membres dans l'équipe</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-4">
+          Membres de l'équipe
+        </h3>
+        <div className="space-y-4">
+          {teamMembers.map((member) => (
+            <div
+              key={member.id}
+              className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+            >
+              <div className="flex items-center space-x-4">
+                <img
+                  src={member.avatar}
+                  alt={member.name}
+                  className="w-10 h-10 rounded-full"
+                />
+                <div>
+                  <div className="font-medium text-gray-900">{member.name}</div>
+                  <div className="text-sm text-gray-500">{member.email}</div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                  {member.role}
+                </span>
+                <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                  {member.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <Button className="flex items-center space-x-2">
+            <UsersIcon className="w-4 h-4" />
+            <span>Inviter un membre</span>
+          </Button>
+        </div>
       </div>
     </div>
   );

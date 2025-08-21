@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { SparklesIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
@@ -50,13 +50,13 @@ const simulateAIParsing = async (query: string): Promise<AISearchInput> => {
     lowercaseQuery.includes('fille') ||
     lowercaseQuery.includes('female')
   ) {
-    parsedFilters.creator = { ...parsedFilters.creator, gender: 'female' };
+    parsedFilters.creator = { ...parsedFilters.creator, gender: 'FEMALE' };
   } else if (
     lowercaseQuery.includes('homme') ||
     lowercaseQuery.includes('garçon') ||
     lowercaseQuery.includes('male')
   ) {
-    parsedFilters.creator = { ...parsedFilters.creator, gender: 'male' };
+    parsedFilters.creator = { ...parsedFilters.creator, gender: 'MALE' };
   }
 
   // Détection des followers
@@ -152,11 +152,11 @@ export default function AISearchCard({
 }: AISearchCardProps) {
   const [aiResult, setAiResult] = useState<AISearchInput | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [animatingFilters, setAnimatingFilters] = useState<string[]>([]);
+  const [_animatingFilters, setAnimatingFilters] = useState<string[]>([]);
   const [pulseIndex, setPulseIndex] = useState(0);
 
   // Animation des points de chargement
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAnalyzing) {
       const pulseTimer = setInterval(() => {
         setPulseIndex((prev) => (prev + 1) % 3);
@@ -190,7 +190,7 @@ export default function AISearchCard({
         const filterKeys = Object.keys(result.parsedFilters);
         setTimeout(
           () => {
-            onFiltersChange(result.parsedFilters);
+            onFiltersChange(result.parsedFilters || {});
           },
           filterKeys.length * 300 + 500
         );

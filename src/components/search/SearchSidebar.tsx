@@ -19,6 +19,8 @@ interface SearchSidebarProps {
   onSearchStateChange: (state: Partial<SearchUIState>) => void;
   onSearch: () => void;
   isSearching?: boolean;
+  calculationMethod?: 'median' | 'average';
+  onCalculationMethodChange?: (method: 'median' | 'average') => void;
 }
 
 export default function SearchSidebar({
@@ -26,6 +28,8 @@ export default function SearchSidebar({
   onSearchStateChange,
   onSearch,
   isSearching = false,
+  calculationMethod = 'median',
+  onCalculationMethodChange,
 }: SearchSidebarProps) {
   const updateFilters = (newFilters: AdvancedSearchFilters) => {
     onSearchStateChange({
@@ -222,6 +226,8 @@ export default function SearchSidebar({
           onToggle={updateCardState}
           filters={searchState.activeFilters}
           onFiltersChange={updateFilters}
+          calculationMethod={calculationMethod}
+          onCalculationMethodChange={onCalculationMethodChange}
         />
 
         {/* 1. Créateur (identité & thématique) - PRIORITAIRE */}

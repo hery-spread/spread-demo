@@ -78,10 +78,32 @@ export const useCredits = () => {
     return costs[action as keyof typeof costs] || 0;
   };
 
+  const consumeCredits = async (amount: number): Promise<boolean> => {
+    if (credits.remainingCredits >= amount) {
+      setCredits((prev) => ({
+        ...prev,
+        usedCredits: prev.usedCredits + amount,
+        remainingCredits: prev.remainingCredits - amount,
+        history: [
+          {
+            date: new Date().toISOString().split("T")[0],
+            action: "unlock_report",
+            credits: amount,
+            description: `Consommation de ${amount} crédit(s)`,
+          },
+          ...prev.history,
+        ],
+      }));
+      return true;
+    }
+    return false;
+  };
+
   return {
     credits,
     unlockReports,
     purchaseCredits,
     getCreditsForAction,
+    consumeCredits,
   };
 }; 

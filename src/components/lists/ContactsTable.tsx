@@ -75,7 +75,7 @@ export default function ContactsTable({
     const contact = filteredContacts.find((c) => c.id === contactId);
     // Empêcher la sélection des contacts sans email
     if (!contact?.contactEmail) return;
-    
+
     if (selectedContacts.includes(contactId)) {
       setSelectedContacts((prev) => prev.filter((id) => id !== contactId));
     } else {
@@ -130,10 +130,13 @@ export default function ContactsTable({
           <div className="flex items-center space-x-4">
             {/* Compteur de sélection */}
             <div className="text-sm text-gray-600">
-              <span className="font-medium">{selectedContacts.length}</span> / <span className="font-medium">{contactsWithEmail.length}</span> contacts sélectionnés
+              <span className="font-medium">{selectedContacts.length}</span> /{' '}
+              <span className="font-medium">{contactsWithEmail.length}</span>{' '}
+              contacts sélectionnés
               {contactsWithEmail.length < filteredContacts.length && (
                 <span className="text-xs text-gray-500 ml-2">
-                  ({filteredContacts.length - contactsWithEmail.length} sans email)
+                  ({filteredContacts.length - contactsWithEmail.length} sans
+                  email)
                 </span>
               )}
             </div>
@@ -169,7 +172,11 @@ export default function ContactsTable({
                   onChange={handleSelectAll}
                   disabled={contactsWithEmail.length === 0}
                   className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:bg-gray-100 disabled:border-gray-300"
-                  title={contactsWithEmail.length === 0 ? "Aucun contact avec email à sélectionner" : "Sélectionner tous les contacts avec email"}
+                  title={
+                    contactsWithEmail.length === 0
+                      ? 'Aucun contact avec email à sélectionner'
+                      : 'Sélectionner tous les contacts avec email'
+                  }
                 />
               </th>
               <th
@@ -210,93 +217,97 @@ export default function ContactsTable({
             {filteredContacts.map((contact) => {
               const hasEmail = !!contact.contactEmail;
               return (
-              <tr 
-                key={contact.id} 
-                className={`hover:bg-gray-50 ${!hasEmail ? 'opacity-60 bg-gray-50/50' : ''}`}
-              >
-                <td className="px-4 py-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedContacts.includes(contact.id)}
-                    onChange={() => handleSelectContact(contact.id)}
-                    disabled={!hasEmail}
-                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:bg-gray-100 disabled:border-gray-300 disabled:opacity-50"
-                    title={!hasEmail ? "Contact sans email - non sélectionnable" : "Sélectionner ce contact"}
-                  />
-                </td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0">
-                      <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <span className="text-white font-semibold text-sm">
-                          {contact.contactName?.charAt(0) || '?'}
+                <tr
+                  key={contact.id}
+                  className={`hover:bg-gray-50 ${!hasEmail ? 'opacity-60 bg-gray-50/50' : ''}`}
+                >
+                  <td className="px-4 py-4">
+                    <input
+                      type="checkbox"
+                      checked={selectedContacts.includes(contact.id)}
+                      onChange={() => handleSelectContact(contact.id)}
+                      disabled={!hasEmail}
+                      className="rounded border-gray-300 text-purple-600 focus:ring-purple-500 disabled:bg-gray-100 disabled:border-gray-300 disabled:opacity-50"
+                      title={
+                        !hasEmail
+                          ? 'Contact sans email - non sélectionnable'
+                          : 'Sélectionner ce contact'
+                      }
+                    />
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                          <span className="text-white font-semibold text-sm">
+                            {contact.contactName?.charAt(0) || '?'}
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {contact.contactName || 'Nom non disponible'}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          ID: {contact.id}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-sm text-gray-900">
+                      {contact.contactEmail || (
+                        <span className="text-gray-400 italic">
+                          Email non disponible
                         </span>
-                      </div>
+                      )}
                     </div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">
-                        {contact.contactName || 'Nom non disponible'}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        ID: {contact.id}
-                      </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="flex items-center space-x-2">
+                      {contact.contactEmail ? (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          <CheckBadgeIcon className="w-3 h-3 mr-1" />
+                          Contactable
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                          Email manquant
+                        </span>
+                      )}
                     </div>
-                  </div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="text-sm text-gray-900">
-                    {contact.contactEmail || (
-                      <span className="text-gray-400 italic">
-                        Email non disponible
-                      </span>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center space-x-2">
-                    {contact.contactEmail ? (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        <CheckBadgeIcon className="w-3 h-3 mr-1" />
-                        Contactable
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                        Email manquant
-                      </span>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-4 text-right">
-                  <div className="flex items-center justify-end space-x-2">
-                    <Link href={`/profile/${contact.id}`}>
-                      <Button variant="outline" size="sm">
-                        <EyeIcon className="w-4 h-4 mr-1" />
-                        Voir
-                      </Button>
-                    </Link>
+                  </td>
+                  <td className="px-4 py-4 text-right">
+                    <div className="flex items-center justify-end space-x-2">
+                      <Link href={`/profile/${contact.id}`}>
+                        <Button variant="outline" size="sm">
+                          <EyeIcon className="w-4 h-4 mr-1" />
+                          Voir
+                        </Button>
+                      </Link>
 
-                    {contact.contactEmail && (
+                      {contact.contactEmail && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => onContactInfluencer(contact)}
+                        >
+                          <EnvelopeIcon className="w-4 h-4 mr-1" />
+                          Contact
+                        </Button>
+                      )}
+
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => onContactInfluencer(contact)}
+                        onClick={() => onRemoveContact(contact.id)}
+                        className="text-red-600 hover:text-red-700"
                       >
-                        <EnvelopeIcon className="w-4 h-4 mr-1" />
-                        Contact
+                        <TrashIcon className="w-4 h-4" />
                       </Button>
-                    )}
-
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onRemoveContact(contact.id)}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      <TrashIcon className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
+                    </div>
+                  </td>
+                </tr>
               );
             })}
           </tbody>
@@ -315,16 +326,19 @@ export default function ContactsTable({
 
             <div className="text-sm text-gray-500 flex items-center space-x-4">
               <span className="text-green-600 font-medium">
-                ✓ {contactsWithEmail.length} contactable{contactsWithEmail.length > 1 ? 's' : ''}
+                ✓ {contactsWithEmail.length} contactable
+                {contactsWithEmail.length > 1 ? 's' : ''}
               </span>
               {filteredContacts.length > contactsWithEmail.length && (
                 <span className="text-gray-400">
-                  ✗ {filteredContacts.length - contactsWithEmail.length} sans email
+                  ✗ {filteredContacts.length - contactsWithEmail.length} sans
+                  email
                 </span>
               )}
               {selectedContacts.length > 0 && (
                 <span className="text-purple-600 font-medium">
-                  • {selectedContacts.length} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+                  • {selectedContacts.length} sélectionné
+                  {selectedContacts.length > 1 ? 's' : ''}
                 </span>
               )}
             </div>

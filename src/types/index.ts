@@ -67,6 +67,9 @@ export interface InfluencerContact {
   id: string;
   contactName?: string;
   contactEmail?: string;
+  followers?: number;
+  engagementRate?: number;
+  platform?: string;
 }
 
 export interface InfluencerList {

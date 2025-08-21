@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import ListCard from '@/components/lists/ListCard';
+import UnlockedReportsListCard from '@/components/lists/UnlockedReportsListCard';
 import CreateListModal from '@/components/lists/CreateListModal';
 import {
   PlusIcon,
@@ -277,16 +278,33 @@ export default function ListsPage() {
               : 'space-y-4'
           }
         >
-          {filteredLists.map((list) => (
-            <ListCard
-              key={list.id}
-              list={list}
-              onEdit={handleEditList}
-              onDelete={handleDeleteList}
-              onExport={handleExportList}
-              onShare={handleShareList}
-            />
-          ))}
+          {filteredLists.map((list) => {
+            // Utiliser le composant spécialisé pour la liste des rapports débloqués
+            if (list.id === 'unlocked-reports') {
+              return (
+                <UnlockedReportsListCard
+                  key={list.id}
+                  list={list}
+                  onEdit={handleEditList}
+                  onDelete={handleDeleteList}
+                  onExport={handleExportList}
+                  onShare={handleShareList}
+                />
+              );
+            }
+
+            // Utiliser le composant standard pour les autres listes
+            return (
+              <ListCard
+                key={list.id}
+                list={list}
+                onEdit={handleEditList}
+                onDelete={handleDeleteList}
+                onExport={handleExportList}
+                onShare={handleShareList}
+              />
+            );
+          })}
         </div>
       )}
 

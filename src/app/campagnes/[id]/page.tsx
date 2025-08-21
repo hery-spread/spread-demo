@@ -23,6 +23,7 @@ import {
   CheckIcon,
   ChatBubbleLeftIcon,
   ShareIcon,
+  ArrowPathIcon,
 } from '@heroicons/react/24/outline';
 import {
   PlayCircleIcon as PlayCircleIconSolid,
@@ -205,6 +206,27 @@ export default function CampaignDetailPage() {
             >
               <ShareIcon className="w-4 h-4" />
               <span>Share campaign</span>
+            </Button>
+            <Button
+              variant="outline"
+              className="flex items-center space-x-2 text-blue-600 border-blue-200 hover:bg-blue-50"
+              onClick={async () => {
+                const updating = confirm(
+                  'Voulez-vous mettre à jour les informations de cette campagne ?'
+                );
+                if (updating) {
+                  // Simuler la mise à jour
+                  await new Promise((resolve) => setTimeout(resolve, 1000));
+                  alert(
+                    'Les informations de la campagne ont été mises à jour !'
+                  );
+                  // Dans un vrai système, on rechargerait les données
+                  window.location.reload();
+                }
+              }}
+            >
+              <ArrowPathIcon className="w-4 h-4" />
+              <span>Mettre à jour les informations</span>
             </Button>
             <Button variant="outline" className="flex items-center space-x-2">
               <PlusIcon className="w-4 h-4" />

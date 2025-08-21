@@ -16,9 +16,9 @@ export default function HeroSection() {
   // États pour les animations
   const [currentText, setCurrentText] = useState('');
   const [showAnalysis, setShowAnalysis] = useState(false);
-  const [showFilters, setShowFilters] = useState([]);
-  const [showResults, setShowResults] = useState(false);
-  const [profileCount, setProfileCount] = useState(0);
+  const [showFilters, setShowFilters] = useState<string[]>([]);
+  const [_showResults, setShowResults] = useState(false);
+  const [_profileCount, setProfileCount] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   // Texte cible pour l'animation de frappe
   const targetText =

@@ -43,64 +43,11 @@ export default function ListCard({
     });
   };
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'Mode & Beauté':
-        return 'bg-pink-100 text-pink-800';
-      case 'Gaming':
-        return 'bg-purple-100 text-purple-800';
-      case 'Cuisine':
-        return 'bg-orange-100 text-orange-800';
-      case 'Automobile':
-        return 'bg-blue-100 text-blue-800';
-      case 'Lifestyle':
-        return 'bg-green-100 text-green-800';
-      case 'Marketing':
-        return 'bg-indigo-100 text-indigo-800';
-      case 'Voyage':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'Mode & Beauté':
-        return '👗';
-      case 'Gaming':
-        return '🎮';
-      case 'Cuisine':
-        return '🍳';
-      case 'Automobile':
-        return '🚗';
-      case 'Lifestyle':
-        return '✨';
-      case 'Marketing':
-        return '📈';
-      case 'Voyage':
-        return '✈️';
-      default:
-        return '📋';
-    }
-  };
-
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <div className="flex items-center space-x-2 mb-2">
-            <span className="text-2xl">{getCategoryIcon(list.category)}</span>
-            <span
-              className={`px-2 py-1 text-xs font-medium rounded-full ${getCategoryColor(
-                list.category
-              )}`}
-            >
-              {list.category}
-            </span>
-          </div>
-
           <Link
             href={`/lists/${list.id}`}
             className="text-lg font-semibold text-gray-900 hover:text-purple-600 transition-colors"
@@ -109,7 +56,7 @@ export default function ListCard({
           </Link>
 
           {list.description && (
-            <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+            <p className="text-sm text-gray-600 mt-2 line-clamp-2">
               {list.description}
             </p>
           )}

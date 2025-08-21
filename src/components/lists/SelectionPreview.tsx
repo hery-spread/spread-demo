@@ -25,13 +25,14 @@ export default function SelectionPreview({
   validContacts,
   onOpenSelectionPanel,
   showAdvancedSelection = true,
-  title = "Contacts sélectionnés",
-  className = "",
+  title = 'Contacts sélectionnés',
+  className = '',
 }: SelectionPreviewProps) {
   const selectedValidContacts = validContacts.filter((inf) =>
     selectedContacts.includes(inf.id)
   );
-  const actualRecipients = selectedValidContacts.length > 0 ? selectedValidContacts : validContacts;
+  const actualRecipients =
+    selectedValidContacts.length > 0 ? selectedValidContacts : validContacts;
   const recipientCount = actualRecipients.length;
   const totalValidContacts = validContacts.length;
 
@@ -41,7 +42,10 @@ export default function SelectionPreview({
     withEmail: validContacts.length,
     withoutEmail: contacts.length - validContacts.length,
     selected: recipientCount,
-    selectionRate: totalValidContacts > 0 ? Math.round((recipientCount / totalValidContacts) * 100) : 0,
+    selectionRate:
+      totalValidContacts > 0
+        ? Math.round((recipientCount / totalValidContacts) * 100)
+        : 0,
   };
 
   const getStatusColor = () => {
@@ -95,15 +99,21 @@ export default function SelectionPreview({
           <div className="text-xs text-gray-600">Total</div>
         </div>
         <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
-          <div className="text-lg font-bold text-green-600">{stats.withEmail}</div>
+          <div className="text-lg font-bold text-green-600">
+            {stats.withEmail}
+          </div>
           <div className="text-xs text-gray-600">Avec email</div>
         </div>
         <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
-          <div className="text-lg font-bold text-gray-400">{stats.withoutEmail}</div>
+          <div className="text-lg font-bold text-gray-400">
+            {stats.withoutEmail}
+          </div>
           <div className="text-xs text-gray-600">Sans email</div>
         </div>
         <div className="bg-white/70 backdrop-blur-sm rounded-lg p-2 text-center">
-          <div className="text-lg font-bold text-purple-600">{recipientCount}</div>
+          <div className="text-lg font-bold text-purple-600">
+            {recipientCount}
+          </div>
           <div className="text-xs text-gray-600">Sélectionnés</div>
         </div>
       </div>
@@ -139,25 +149,29 @@ export default function SelectionPreview({
           <p className="text-sm text-red-700 flex items-center">
             <ExclamationTriangleIcon className="w-4 h-4 mr-2" />
             {totalValidContacts === 0
-              ? "Aucun contact avec email disponible dans cette liste."
-              : "Aucun contact sélectionné. Cliquez sur 'Sélection avancée' pour choisir vos destinataires."
-            }
+              ? 'Aucun contact avec email disponible dans cette liste.'
+              : "Aucun contact sélectionné. Cliquez sur 'Sélection avancée' pour choisir vos destinataires."}
           </p>
         </div>
       )}
 
       {/* Recommandations intelligentes */}
-      {recipientCount > 0 && stats.selectionRate < 50 && stats.withEmail > recipientCount && (
-        <div className="mt-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
-          <p className="text-sm text-blue-700 flex items-center">
-            <AdjustmentsHorizontalIcon className="w-4 h-4 mr-2 flex-shrink-0" />
-            <span>
-              Vous pourriez toucher {stats.withEmail - recipientCount} contact{stats.withEmail - recipientCount > 1 ? 's' : ''} supplémentaire{stats.withEmail - recipientCount > 1 ? 's' : ''}.
-              {showAdvancedSelection && " Utilisez les filtres pour affiner votre sélection."}
-            </span>
-          </p>
-        </div>
-      )}
+      {recipientCount > 0 &&
+        stats.selectionRate < 50 &&
+        stats.withEmail > recipientCount && (
+          <div className="mt-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
+            <p className="text-sm text-blue-700 flex items-center">
+              <AdjustmentsHorizontalIcon className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span>
+                Vous pourriez toucher {stats.withEmail - recipientCount} contact
+                {stats.withEmail - recipientCount > 1 ? 's' : ''} supplémentaire
+                {stats.withEmail - recipientCount > 1 ? 's' : ''}.
+                {showAdvancedSelection &&
+                  ' Utilisez les filtres pour affiner votre sélection.'}
+              </span>
+            </p>
+          </div>
+        )}
     </div>
   );
 }

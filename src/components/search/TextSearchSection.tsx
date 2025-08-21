@@ -44,13 +44,13 @@ const simulateAIParsing = async (query: string): Promise<AISearchInput> => {
     lowercaseQuery.includes('fille') ||
     lowercaseQuery.includes('female')
   ) {
-    parsedFilters.creator = { ...parsedFilters.creator, gender: 'female' };
+    parsedFilters.creator = { ...parsedFilters.creator, gender: 'FEMALE' };
   } else if (
     lowercaseQuery.includes('homme') ||
     lowercaseQuery.includes('garçon') ||
     lowercaseQuery.includes('male')
   ) {
-    parsedFilters.creator = { ...parsedFilters.creator, gender: 'male' };
+    parsedFilters.creator = { ...parsedFilters.creator, gender: 'MALE' };
   }
 
   // Détection des followers

@@ -60,21 +60,11 @@ export default function PerformanceFiltersCard({
 
   const hasActiveFilters = activeFilterCount > 0;
 
-  const formatNumber = (num: number): string => {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
-  };
-
   return (
     <CollapsibleFilterCard
       id="performance-filters"
       title="Taille & Performance"
-      description="Filtres sur la taille de l'audience et les performances"
+      description="Filtres sur la taille de l&apos;audience et les performances"
       icon={<ChartBarIcon className="w-5 h-5" />}
       isOpen={isOpen}
       onToggle={onToggle}

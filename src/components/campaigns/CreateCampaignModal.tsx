@@ -36,7 +36,7 @@ export default function CreateCampaignModal({
     name: '',
     description: '',
     links: [{ url: '', label: '', budget: undefined }] as CampaignLink[],
-    platforms: [] as string[],
+    platforms: ['instagram', 'youtube', 'tiktok'],
   });
 
   const [isCreating, setIsCreating] = useState(false);
@@ -69,18 +69,9 @@ export default function CreateCampaignModal({
       name: '',
       description: '',
       links: [{ url: '', label: '', budget: undefined }],
-      platforms: [],
+      platforms: ['instagram', 'youtube', 'tiktok'],
     });
     onClose();
-  };
-
-  const togglePlatform = (platform: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      platforms: prev.platforms.includes(platform)
-        ? prev.platforms.filter((p) => p !== platform)
-        : [...prev.platforms, platform],
-    }));
   };
 
   const addLink = () => {
@@ -255,34 +246,6 @@ export default function CreateCampaignModal({
               Ajoutez jusqu&apos;à 5 liens pour suivre les performances de votre
               campagne.
             </p>
-          </div>
-
-          {/* Plateformes */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Plateformes à surveiller
-            </label>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { id: 'instagram', label: 'Instagram', emoji: '📷' },
-                { id: 'youtube', label: 'YouTube', emoji: '🎥' },
-                { id: 'tiktok', label: 'TikTok', emoji: '🎵' },
-              ].map((platform) => (
-                <button
-                  key={platform.id}
-                  type="button"
-                  onClick={() => togglePlatform(platform.id)}
-                  className={`p-3 rounded-xl border-2 transition-all ${
-                    formData.platforms.includes(platform.id)
-                      ? 'border-purple-300 bg-purple-50 text-purple-800'
-                      : 'border-gray-200 hover:border-gray-300 text-gray-700'
-                  }`}
-                >
-                  <div className="text-2xl mb-1">{platform.emoji}</div>
-                  <div className="text-sm font-medium">{platform.label}</div>
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Actions */}
