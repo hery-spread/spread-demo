@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "install": "npm install --legacy-peer-deps"
+    "format:check": "prettier --check ."
   },
   "engines": {
     "node": "18.x"
