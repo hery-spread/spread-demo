@@ -235,7 +235,7 @@ export default function AISearchCard({
               }}
             />
           </div>
-          
+
           <Button
             onClick={handleAIAnalysis}
             disabled={!searchQuery.trim() || isAnalyzing}

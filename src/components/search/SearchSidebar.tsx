@@ -2,7 +2,10 @@
 
 import {
   XMarkIcon,
+  MagnifyingGlassIcon,
+  ArrowPathIcon,
 } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui';
 import { AdvancedSearchFilters, SearchUIState } from '@/types';
 import TextSearchSection from './TextSearchSection';
 import PlatformSearchCard from './PlatformSearchCard';
@@ -23,8 +26,8 @@ interface SearchSidebarProps {
 export default function SearchSidebar({
   searchState,
   onSearchStateChange,
-  onSearch: _onSearch,
-  isSearching: _isSearching = false,
+  onSearch,
+  isSearching = false,
   calculationMethod = 'median',
   onCalculationMethodChange,
 }: SearchSidebarProps) {
@@ -264,8 +267,31 @@ export default function SearchSidebar({
         />
       </div>
 
-      {/* Espace pour le bouton sticky global */}
-      <div className="flex-shrink-0 h-20"></div>
+      {/* Bouton de recherche sticky en bas de la sidebar */}
+      <div className="flex-shrink-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 p-4 shadow-lg">
+        <Button
+          onClick={onSearch}
+          disabled={isSearching}
+          className="w-full flex items-center justify-center space-x-2 py-3 text-sm font-semibold"
+          size="lg"
+        >
+          {isSearching ? (
+            <>
+              <ArrowPathIcon className="w-4 h-4 animate-spin" />
+              <span>Recherche en cours...</span>
+            </>
+          ) : (
+            <>
+              <MagnifyingGlassIcon className="w-4 h-4" />
+              <span>
+                {totalActiveFilters > 0
+                  ? `Rechercher (${totalActiveFilters} filtre${totalActiveFilters > 1 ? 's' : ''})`
+                  : 'Rechercher'}
+              </span>
+            </>
+          )}
+        </Button>
+      </div>
     </div>
   );
 }
