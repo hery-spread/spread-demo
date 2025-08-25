@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import {
   ArrowLeftIcon,
@@ -553,13 +554,14 @@ export default function CampaignDetailPage() {
                 className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
               >
                 <div className="flex items-center space-x-4">
-                  <img
-                    src={creator.influencerAvatar}
+                  <Image
+                    src={creator.influencerAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      creator.influencerName
+                    )}&background=8b5cf6&color=fff`}
                     alt={creator.influencerName}
-                    className="w-12 h-12 rounded-full bg-gray-200"
-                    onError={(e) => {
-                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(creator.influencerName)}&background=8b5cf6&color=fff`;
-                    }}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-full object-cover bg-gray-200"
                   />
                   <div>
                     <h3 className="font-medium text-gray-900">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { CRMContact, CRMStats } from '@/types';
 import { mockCRMContacts, mockCRMStats } from '@/lib/mockData';
 
@@ -60,7 +60,7 @@ export const useCRM = () => {
     updateStats();
   };
 
-  const updateStats = () => {
+  const updateStats = useCallback(() => {
     const totalContacts = contacts.length;
     const contacted = contacts.filter((c) => c.stage === 'contacted').length;
     const responded = contacts.filter((c) => c.stage === 'responded').length;
@@ -80,7 +80,7 @@ export const useCRM = () => {
       averageResponseTime: 24, // heures
       conversionRate,
     });
-  };
+  }, [contacts]);
 
   const getContactsByStage = (stage: CRMContact['stage']) => {
     return contacts.filter((contact) => contact.stage === stage);
@@ -97,7 +97,7 @@ export const useCRM = () => {
   // Mise à jour automatique des stats quand les contacts changent
   useEffect(() => {
     updateStats();
-  }, [contacts.length]);
+  }, [updateStats]);
 
   return {
     contacts,

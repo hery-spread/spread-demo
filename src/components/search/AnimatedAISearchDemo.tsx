@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SparklesIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 interface DetectedFilter {
@@ -33,7 +33,7 @@ export default function AnimatedAISearchDemo() {
   const targetText =
     'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
 
-  const filters: DetectedFilter[] = [
+  const filters: DetectedFilter[] = useMemo(() => [
     {
       id: 'location',
       label: '📍 France',
@@ -76,13 +76,13 @@ export default function AnimatedAISearchDemo() {
       icon: '🎯',
       delay: 1200,
     },
-  ];
+  ], []);
 
-  const finalResults: SearchResults = {
+  const finalResults: SearchResults = useMemo(() => ({
     profiles: 2847,
     avgFollowers: '~156K',
     avgEngagement: '5.2%',
-  };
+  }), []);
 
   // Effect de frappe pour le texte
   useEffect(() => {
@@ -119,7 +119,7 @@ export default function AnimatedAISearchDemo() {
         }, filter.delay);
       });
     }
-  }, [showAnalysis, isAnalyzing]);
+  }, [showAnalysis, isAnalyzing, filters]);
 
   // Animation du compteur de résultats
   useEffect(() => {

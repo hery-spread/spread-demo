@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {
@@ -709,10 +710,12 @@ function TeamTab() {
               className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
             >
               <div className="flex items-center space-x-4">
-                <img
+                <Image
                   src={member.avatar}
                   alt={member.name}
-                  className="w-10 h-10 rounded-full"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-full object-cover"
                 />
                 <div>
                   <div className="font-medium text-gray-900">{member.name}</div>

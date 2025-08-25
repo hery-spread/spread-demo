@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import {
   UserGroupIcon,
   HeartIcon,
@@ -150,16 +151,14 @@ export default function SharePage() {
         <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 mb-8">
             <div className="relative">
-              <img
-                src={report.avatar}
+              <Image
+                src={report.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                  report.name
+                )}&background=6366f1&color=fff`}
                 alt={report.name}
+                width={96}
+                height={96}
                 className="w-24 h-24 rounded-2xl object-cover shadow-lg"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      report.name
-                    )}&background=6366f1&color=fff`;
-                }}
               />
               {report.verified && (
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">

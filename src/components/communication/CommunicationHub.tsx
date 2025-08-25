@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
@@ -533,10 +534,12 @@ export default function CommunicationHub({
                         <div className="flex-shrink-0">
                           <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                             {thread.contact.avatar ? (
-                              <img
+                              <Image
                                 src={thread.contact.avatar}
                                 alt={thread.contact.name}
-                                className="w-10 h-10 rounded-full"
+                                width={40}
+                                height={40}
+                                className="w-10 h-10 rounded-full object-cover"
                               />
                             ) : (
                               <span className="text-sm font-medium text-gray-600">

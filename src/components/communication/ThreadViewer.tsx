@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import {
@@ -255,10 +256,12 @@ export default function ThreadViewer({
               <div className="flex-shrink-0">
                 <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
                   {currentThread.contact.avatar ? (
-                    <img
+                    <Image
                       src={currentThread.contact.avatar}
                       alt={currentThread.contact.name}
-                      className="w-10 h-10 rounded-full"
+                      width={40}
+                      height={40}
+                      className="w-10 h-10 rounded-full object-cover"
                     />
                   ) : (
                     <span className="text-sm font-medium text-gray-600">
