@@ -185,16 +185,8 @@ export default function AISearchCard({
 
       setAiResult(result);
 
-      // Appliquer automatiquement les filtres détectés avec un délai
-      if (result.parsedFilters) {
-        const filterKeys = Object.keys(result.parsedFilters);
-        setTimeout(
-          () => {
-            onFiltersChange(result.parsedFilters || {});
-          },
-          filterKeys.length * 300 + 500
-        );
-      }
+      // Les filtres sont maintenant configurés mais pas encore appliqués
+      // L'utilisateur devra cliquer sur "Appliquer les filtres" pour les activer
     } catch (error) {
       console.error("Erreur lors de l'analyse IA:", error);
     } finally {
@@ -323,12 +315,12 @@ export default function AISearchCard({
                     </div>
                   </div>
                   <p className="text-sm text-gray-700">
-                    ✅ J&apos;ai automatiquement configuré{' '}
+                    ✅ J&apos;ai configuré{' '}
                     {Object.keys(aiResult.parsedFilters || {}).length} section
                     {Object.keys(aiResult.parsedFilters || {}).length > 1
                       ? 's'
                       : ''}{' '}
-                    de filtres
+                    de filtres automatiquement
                   </p>
                 </div>
 
@@ -402,12 +394,25 @@ export default function AISearchCard({
                   </div>
                 )}
 
-                <button
-                  onClick={() => setAiResult(null)}
-                  className="text-xs text-purple-600 hover:text-purple-800 font-medium"
-                >
-                  Nouvelle analyse
-                </button>
+                <div className="flex items-center space-x-3">
+                  <Button
+                    onClick={() => {
+                      if (aiResult.parsedFilters) {
+                        onFiltersChange(aiResult.parsedFilters);
+                      }
+                    }}
+                    size="sm"
+                    className="flex-1"
+                  >
+                    Appliquer les filtres
+                  </Button>
+                  <button
+                    onClick={() => setAiResult(null)}
+                    className="text-xs text-purple-600 hover:text-purple-800 font-medium"
+                  >
+                    Nouvelle analyse
+                  </button>
+                </div>
               </div>
             </div>
           </div>
