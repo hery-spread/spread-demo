@@ -155,8 +155,6 @@ export default function SearchSidebar({
       count += growthKeys.length;
     }
 
-
-
     return count;
   };
 
