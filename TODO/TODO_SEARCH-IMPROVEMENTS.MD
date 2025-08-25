@@ -1,9 +1,11 @@
 # TODO - Améliorations Page de Recherche
 
 ## 📋 **User Story**
+
 Corriger les problèmes de layout, UX et filtres de la page de recherche selon le feedback utilisateur détaillé.
 
 ## 🎯 **Objectifs**
+
 - Corriger le layout vertical qui pousse le contenu hors de la viewport
 - Fixer le positionnement du bouton "Analyser" dans la recherche IA
 - Ouvrir toutes les cards de filtres par défaut
@@ -14,6 +16,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 ## 📝 **Plan d'Action Prescriptif**
 
 ### 🏗️ **1. Corrections Layout Principal**
+
 - [ ] **1.1** Corriger le problème de hauteur de la page de recherche
   - Modifier `src/app/search/page.tsx` : changer `h-screen` vers `min-h-screen`
   - Ajuster les conteneurs flex pour éviter le débordement vertical
@@ -25,12 +28,14 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
   - Tester sur différentes tailles d'écran
 
 ### 🔧 **2. État par Défaut des Cards**
+
 - [ ] **2.1** Modifier l'état initial des cards de filtres
   - Dans `SearchSidebar.tsx`, changer les `cardStates` par défaut de `false` à `true`
   - Modifier la logique d'initialisation dans `search/page.tsx`
   - S'assurer que toutes les cards s'ouvrent par défaut
 
 ### 🎯 **3. Plateforme Obligatoire et Prioritaire**
+
 - [ ] **3.1** Rendre la sélection de plateforme obligatoire
   - Modifier `PlatformSearchCard.tsx` pour afficher un message d'obligation
   - Ajouter une validation dans la logique de recherche
@@ -42,6 +47,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
   - Ajouter un message d'aide contextuel
 
 ### 🏷️ **4. Amélioration Filtres - Mots-clés Bio (Multi-sélection)**
+
 - [ ] **4.1** Créer un système de tags multiples pour les mots-clés bio
   - Modifier le composant de recherche bio pour accepter plusieurs mots-clés
   - Ajouter un système de tags avec suppression individuelle
@@ -54,6 +60,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
   - Validation et feedback visuel
 
 ### 🗺️ **5. Géographie Audience - Pourcentages**
+
 - [ ] **5.1** Ajouter les champs de pourcentage pour la géographie audience
   - Modifier `AudienceTargetingFiltersCard.tsx`
   - Ajouter un slider ou input numérique pour le pourcentage minimum
@@ -62,6 +69,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 ### 🧹 **6. Nettoyage des Filtres selon Spécifications**
 
 #### **6.1** Filtres à SUPPRIMER :
+
 - [ ] Similarité de contenu (pas utile)
 - [ ] Continent (garder seulement pays)
 - [ ] Numéro téléphone disponible (pas d'accès)
@@ -72,6 +80,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 - [ ] Gammes de prix estimés (à enlever)
 
 #### **6.2** Filtres à GARDER et AMÉLIORER :
+
 - [ ] Mots-clés dans la bio (multi-sélection) ✅
 - [ ] Mots-clés dans le contenu ✅
 - [ ] Catégorie de contenu ✅
@@ -91,6 +100,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 - [ ] Crédibilité audience ✅
 
 #### **6.3** Filtres à REMONTER (Plus Importants) :
+
 - [ ] **Taille de l'audience (nombre de followers)** → Section Performance (plus haut)
 - [ ] **Nombre de vues moyennes** → Section Performance (plus haut)
 - [ ] **Likes moyens par post** → Section Performance
@@ -99,6 +109,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 ### 🚀 **7. Réorganisation des Sections de Filtres**
 
 #### **7.1** Nouvelle hiérarchie proposée :
+
 1. **Plateforme & Recherche** (OBLIGATOIRE) ⭐
 2. **Performance & Taille** (métriques importantes)
 3. **Identité Créateur** (localisation, genre, vérification)
@@ -107,6 +118,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 6. **Croissance & Sponsoring** (filtres avancés)
 
 #### **7.2** Restructuration des composants :
+
 - [ ] Créer `PerformanceSizeFiltersCard.tsx` (nouveau)
 - [ ] Modifier `CreatorIdentityFiltersCard.tsx` (simplifié)
 - [ ] Créer `ContentThematicsFiltersCard.tsx` (nouveau)
@@ -114,6 +126,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
 - [ ] Garder `GrowthSponsoringFiltersCard.tsx` (nettoyé)
 
 ### 🧽 **8. Bouton "Supprimer Tous les Filtres"**
+
 - [ ] **8.1** Améliorer la fonction de nettoyage
   - Ajouter une confirmation avant suppression
   - Animation de feedback
@@ -125,6 +138,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
   - Feedback visuel lors du nettoyage
 
 ### 📱 **9. Tests et Validation**
+
 - [ ] **9.1** Tests de layout responsive
   - Tester sur mobile, tablette, desktop
   - Vérifier que le contenu ne déborde plus
@@ -141,6 +155,7 @@ Corriger les problèmes de layout, UX et filtres de la page de recherche selon l
   - Facilité d'utilisation des nouvelles fonctionnalités
 
 ## 🔧 **Commandes Essentielles**
+
 ```bash
 npm run build        # Vérification compilation
 npm run lint         # Vérification code
@@ -150,30 +165,36 @@ npm run dev          # Test en développement
 ## 📁 **Fichiers à Modifier**
 
 ### **Fichiers Principaux :**
+
 - `src/app/search/page.tsx` (layout principal)
 - `src/components/search/SearchSidebar.tsx` (état par défaut cards)
 - `src/components/search/AISearchCard.tsx` (positionnement bouton)
 - `src/components/search/PlatformSearchCard.tsx` (obligation plateforme)
 
 ### **Nouveaux Fichiers à Créer :**
+
 - `src/components/search/PerformanceSizeFiltersCard.tsx`
 - `src/components/search/ContentThematicsFiltersCard.tsx`
 
 ### **Fichiers à Restructurer :**
+
 - `src/components/search/CreatorIdentityFiltersCard.tsx`
 - `src/components/search/AudienceTargetingFiltersCard.tsx`
 - `src/components/search/GrowthSponsoringFiltersCard.tsx`
 
 ### **Types à Mettre à Jour :**
+
 - `src/types/index.ts` (nouvelles structures de filtres)
 
 ## 🎨 **Design System**
+
 - Respecter les couleurs définies dans `/DESIGN/colors.MD`
 - Utiliser la typographie de `/DESIGN/typography.MD`
 - Suivre les layouts de `/DESIGN/layouts.MD`
 - Maintenir la cohérence avec les autres pages
 
 ## ⚠️ **Points d'Attention**
+
 - **Layout** : S'assurer que la page ne déborde plus verticalement
 - **Performance** : Optimiser les re-renders lors des changements de filtres
 - **UX** : Rendre l'obligation de plateforme claire et intuitive
@@ -182,6 +203,7 @@ npm run dev          # Test en développement
 - **API** : Vérifier que les nouveaux filtres sont compatibles avec Modash
 
 ## 📊 **Critères de Succès**
+
 - [ ] Page de recherche ne déborde plus verticalement
 - [ ] Bouton "Analyser" correctement positionné
 - [ ] Toutes les cards ouvertes par défaut
@@ -196,6 +218,7 @@ npm run dev          # Test en développement
 - [ ] UX fluide et intuitive
 
 ## 🚀 **Impact Attendu**
+
 1. **UX améliorée** : Navigation plus fluide et intuitive
 2. **Efficacité** : Filtres mieux organisés et plus pertinents
 3. **Clarté** : Obligation plateforme évite la confusion

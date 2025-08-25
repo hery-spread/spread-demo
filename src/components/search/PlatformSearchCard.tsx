@@ -286,7 +286,8 @@ export default function PlatformSearchCard({
                 <div className="text-sm text-amber-800">
                   <p className="font-medium">Sélection requise</p>
                   <p className="text-xs mt-1">
-                    Vous devez sélectionner une plateforme avant de configurer les autres filtres pour obtenir des résultats pertinents.
+                    Vous devez sélectionner une plateforme avant de configurer
+                    les autres filtres pour obtenir des résultats pertinents.
                   </p>
                 </div>
               </div>
