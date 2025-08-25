@@ -96,7 +96,7 @@ export default function ProfilePage() {
       if (result) {
         // Simuler le déverrouillage des données
         const unlockedData = await unlockInfluencerReport(influencer!.id);
-        setDetailedData(unlockedData);
+          setDetailedData(unlockedData);
       }
     } catch (error) {
       console.error('Erreur lors du déverrouillage:', error);
@@ -123,9 +123,9 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Influenceur non trouvé
-          </h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          Influenceur non trouvé
+        </h1>
           <Button onClick={() => router.back()}>
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Retour
@@ -229,12 +229,12 @@ export default function ProfilePage() {
             <div className="p-6 bg-white">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Rapport d'audience complet
-              </h3>
+            </h3>
 
               {/* Statistiques publiques */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">
                     {formatNumber(influencer.followers)}
                   </div>
                   <div className="text-sm text-blue-800">Followers</div>
@@ -244,9 +244,9 @@ export default function ProfilePage() {
                     {influencer.engagementRate}%
                   </div>
                   <div className="text-sm text-green-800">Engagement</div>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-600">
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <div className="text-2xl font-bold text-purple-600">
                     {formatNumber(influencer.engagement)}
                   </div>
                   <div className="text-sm text-purple-800">Interactions</div>
@@ -254,7 +254,7 @@ export default function ProfilePage() {
                 <div className="bg-orange-50 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-orange-600">
                     {influencer.platform.toUpperCase()}
-                  </div>
+              </div>
                   <div className="text-sm text-orange-800">Plateforme</div>
                 </div>
               </div>
@@ -403,111 +403,226 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="p-6 bg-white border-t border-gray-200">
-                <h4 className="text-md font-semibold text-gray-900 mb-6">
-                  Analyse détaillée de l'audience - Déverrouillée
+                <h4 className="text-lg font-semibold text-gray-900 mb-8">
+                  📊 Rapport d'audience complet - Déverrouillé
                 </h4>
 
-                {/* Statistiques détaillées */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">
+                {/* Métriques clés */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+                    <div className="text-2xl font-bold text-blue-700">
                       {Math.round(detailedData!.audience!.gender.female)}%
                     </div>
-                    <div className="text-sm text-blue-800">Femmes</div>
+                    <div className="text-sm text-blue-600 font-medium">👩 Femmes</div>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+                    <div className="text-2xl font-bold text-purple-700">
                       {Math.round(detailedData!.audience!.gender.male)}%
                     </div>
-                    <div className="text-sm text-purple-800">Hommes</div>
+                    <div className="text-sm text-purple-600 font-medium">👨 Hommes</div>
                   </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+                    <div className="text-2xl font-bold text-green-700">
+                      {Math.round((detailedData!.audience!.credibility || 0.85) * 100)}%
+                    </div>
+                    <div className="text-sm text-green-600 font-medium">✅ Crédibilité</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
+                    <div className="text-2xl font-bold text-orange-700">
                       {Object.keys(detailedData!.audience!.countries).length}
                     </div>
-                    <div className="text-sm text-green-800">Pays</div>
-                  </div>
-                  <div className="bg-orange-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">
-                      {
-                        Object.keys(detailedData!.audience!.interests.topics)
-                          .length
-                      }
+                    <div className="text-sm text-orange-600 font-medium">🌍 Pays</div>
+              </div>
+            </div>
+
+                            {/* Analyse démographique détaillée */}
+                <div className="grid md:grid-cols-2 gap-6 mb-8">
+            {/* Répartition par âge */}
+                  <div className="bg-white border rounded-xl p-6 shadow-sm">
+                    <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                      🎂 Répartition par âge
+                    </h5>
+                    <div className="space-y-3">
+                {Object.entries(detailedData!.audience!.age).map(
+                  ([age, percentage]) => (
+                    <div key={age} className="flex items-center">
+                            <div className="w-20 text-sm text-gray-600 font-medium">
+                              {age} ans
+                            </div>
+                            <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
+                              <div
+                                className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
+                          style={{ width: `${percentage}%` }}
+                        ></div>
+                      </div>
+                            <div className="w-12 text-sm font-bold text-right text-blue-600">
+                        {percentage}%
+                      </div>
                     </div>
-                    <div className="text-sm text-orange-800">Intérêts</div>
-                  </div>
-                </div>
+                  )
+                )}
+              </div>
+            </div>
 
-                {/* Répartition par âge */}
-                <div className="bg-white border rounded-lg p-4 mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">
-                    Répartition par âge
-                  </h4>
-                  <div className="space-y-2">
-                    {Object.entries(detailedData!.audience!.age).map(
-                      ([age, percentage]) => (
-                        <div key={age} className="flex items-center">
-                          <div className="w-16 text-sm text-gray-600">
-                            {age}
-                          </div>
-                          <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
-                            <div
-                              className="bg-blue-500 h-2 rounded-full"
-                              style={{ width: `${percentage}%` }}
-                            ></div>
-                          </div>
-                          <div className="w-12 text-sm font-medium text-right">
-                            {percentage}%
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </div>
+            {/* Top pays */}
+                  <div className="bg-white border rounded-xl p-6 shadow-sm">
+                    <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                      🌍 Géolocalisation
+                    </h5>
+                    <div className="space-y-3">
+                {Object.entries(detailedData!.audience!.countries)
+                  .sort(([, a], [, b]) => (b as number) - (a as number))
+                        .slice(0, 6)
+                  .map(([country, percentage]) => (
+                    <div
+                      key={country}
+                            className="flex items-center justify-between py-1"
+                          >
+                            <span className="text-sm text-gray-700 font-medium">
+                              {country}
+                            </span>
+                            <div className="flex items-center">
+                              <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                <div
+                                  className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full"
+                                  style={{ width: `${Math.min(percentage as number, 100)}%` }}
+                                ></div>
+                              </div>
+                              <span className="text-sm font-bold text-green-600 w-10 text-right">
+                                {percentage}%
+                              </span>
+                            </div>
+                    </div>
+                  ))}
+                    </div>
+              </div>
+            </div>
 
-                {/* Top pays */}
-                <div className="bg-white border rounded-lg p-4 mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">Top pays</h4>
-                  <div className="space-y-2">
-                    {Object.entries(detailedData!.audience!.countries)
-                      .sort(([, a], [, b]) => (b as number) - (a as number))
-                      .slice(0, 5)
-                      .map(([country, percentage]) => (
+                            {/* Centres d'intérêt et affinités */}
+                <div className="bg-white border rounded-xl p-6 shadow-sm mb-8">
+                  <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                    💡 Centres d'intérêt principaux
+                  </h5>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {Object.entries(detailedData!.audience!.interests.topics)
+                  .sort(([, a], [, b]) => (b as number) - (a as number))
+                      .slice(0, 12)
+                  .map(([topic, percentage]) => (
                         <div
-                          key={country}
-                          className="flex items-center justify-between"
-                        >
-                          <span className="text-sm text-gray-700">
-                            {country}
-                          </span>
-                          <span className="text-sm font-medium">
+                      key={topic}
+                          className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 px-3 py-2 rounded-lg text-center"
+                    >
+                          <div className="text-sm font-semibold text-purple-700">
                             {percentage}%
-                          </span>
-                        </div>
+              </div>
+                          <div className="text-xs text-purple-600 mt-1">
+                            {topic}
+            </div>
+          </div>
                       ))}
-                  </div>
+              </div>
                 </div>
 
-                {/* Centres d'intérêt */}
-                <div className="bg-white border rounded-lg p-4">
-                  <h4 className="font-medium text-gray-900 mb-3">
-                    Centres d'intérêt
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {Object.entries(detailedData!.audience!.interests.topics)
+                {/* Métriques de performance */}
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                  <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200 rounded-xl p-6">
+                    <h6 className="font-semibold text-indigo-900 mb-3">📈 Engagement</h6>
+                    <div className="text-2xl font-bold text-indigo-700 mb-1">
+                      {(influencer!.engagementRate * 100).toFixed(2)}%
+              </div>
+                    <div className="text-sm text-indigo-600">
+                      Taux d'engagement moyen
+              </div>
+            </div>
+
+                  <div className="bg-gradient-to-br from-teal-50 to-teal-100 border border-teal-200 rounded-xl p-6">
+                    <h6 className="font-semibold text-teal-900 mb-3">👥 Portée</h6>
+                    <div className="text-2xl font-bold text-teal-700 mb-1">
+                      {formatNumber(influencer!.followers)}
+                    </div>
+                    <div className="text-sm text-teal-600">
+                      Abonnés actifs
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 rounded-xl p-6">
+                    <h6 className="font-semibold text-amber-900 mb-3">⭐ Qualité</h6>
+                    <div className="text-2xl font-bold text-amber-700 mb-1">
+                      {Math.round((detailedData!.audience!.credibility || 0.85) * 100)}%
+                    </div>
+                    <div className="text-sm text-amber-600">
+                      Audience authentique
+                    </div>
+              </div>
+            </div>
+
+                {/* Analyse des langues */}
+                <div className="bg-white border rounded-xl p-6 shadow-sm mb-8">
+                  <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                    🗣️ Langues de l'audience
+                  </h5>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {detailedData!.audience!.languages && Object.entries(detailedData!.audience!.languages)
                       .sort(([, a], [, b]) => (b as number) - (a as number))
                       .slice(0, 8)
-                      .map(([topic, percentage]) => (
-                        <span
-                          key={topic}
-                          className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
-                        >
-                          {topic} ({percentage}%)
-                        </span>
+                      .map(([language, percentage]) => (
+                        <div key={language} className="text-center">
+                          <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                            <span className="text-blue-600 font-bold text-sm">
+                              {(language as string).toUpperCase().slice(0, 2)}
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-600">{language}</div>
+                          <div className="text-sm font-semibold text-blue-600">{percentage}%</div>
+                        </div>
                       ))}
                   </div>
                 </div>
+
+                {/* Types d'audience */}
+                <div className="bg-white border rounded-xl p-6 shadow-sm">
+                  <h5 className="font-semibold text-gray-900 mb-4 flex items-center">
+                    🔍 Analyse de l'audience
+                  </h5>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h6 className="text-sm font-medium text-gray-700 mb-3">Répartition par type</h6>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">👤 Utilisateurs réels</span>
+                          <span className="text-sm font-semibold text-green-600">
+                            {Math.round((detailedData!.audience!.credibility || 0.85) * 100)}%
+                          </span>
+                          </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">🤖 Comptes suspects</span>
+                          <span className="text-sm font-semibold text-red-600">
+                            {Math.round((1 - (detailedData!.audience!.credibility || 0.85)) * 100)}%
+                          </span>
+                </div>
               </div>
+            </div>
+
+                    <div>
+                      <h6 className="text-sm font-medium text-gray-700 mb-3">Accessibilité</h6>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">📱 Très actifs (&lt;500 abonnements)</span>
+                          <span className="text-sm font-semibold text-blue-600">38%</span>
+                      </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">👥 Modérément actifs (500-1500)</span>
+                          <span className="text-sm font-semibold text-blue-600">26%</span>
+                      </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-gray-600">🌐 Très connectés (&gt;1500)</span>
+                          <span className="text-sm font-semibold text-blue-600">36%</span>
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
             )}
           </div>
         );
@@ -556,33 +671,33 @@ export default function ProfilePage() {
       <div className="max-w-6xl mx-auto py-8 px-4">
         {/* Header avec bouton retour */}
         <div className="mb-6">
-          <Button
+        <Button
             variant="outline"
-            onClick={() => router.back()}
+          onClick={() => router.back()}
             className="mb-4"
-          >
-            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+        >
+          <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Retour à la recherche
-          </Button>
-        </div>
+        </Button>
+      </div>
 
-        {/* Header du profil */}
-        <ProfileHeader
+      {/* Header du profil */}
+      <ProfileHeader
           influencer={influencer}
-          onAddToList={handleAddToList}
-          onContact={handleContact}
-        />
+        onAddToList={handleAddToList}
+        onContact={handleContact}
+      />
 
         {/* Onglets et contenu */}
         <div className="mt-8">
-          <ProfileTabs
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            hasDetailedData={!!detailedData}
-          />
+      <ProfileTabs
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        hasDetailedData={!!detailedData}
+      />
 
           <div className="mt-6 bg-white rounded-lg border border-gray-200 shadow-sm">
-            {renderTabContent()}
+        {renderTabContent()}
           </div>
         </div>
       </div>
@@ -604,10 +719,10 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-4">
-              <Input
+                <Input
                 label="Sujet"
                 placeholder="Collaboration, partenariat..."
-              />
+                />
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message

@@ -555,9 +555,12 @@ export default function CampaignDetailPage() {
               >
                 <div className="flex items-center space-x-4">
                   <Image
-                    src={creator.influencerAvatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                      creator.influencerName
-                    )}&background=8b5cf6&color=fff`}
+                    src={
+                      creator.influencerAvatar ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                        creator.influencerName
+                      )}&background=8b5cf6&color=fff`
+                    }
                     alt={creator.influencerName}
                     width={48}
                     height={48}

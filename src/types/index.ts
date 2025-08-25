@@ -37,6 +37,20 @@ export interface InfluencerDetails extends Influencer {
       topics: Record<string, number>;
       brands: Record<string, number>;
     };
+    credibility?: number; // Pourcentage d'audience authentique (0-1)
+    notable?: number; // Pourcentage d'utilisateurs notables
+    audienceTypes?: {
+      real: number;
+      suspicious: number;
+      mass_followers: number;
+      influencers: number;
+    };
+    audienceReachability?: {
+      '-500': number;
+      '500-1000': number;
+      '1000-1500': number;
+      '1500-': number;
+    };
   };
   performance?: {
     date: string;
