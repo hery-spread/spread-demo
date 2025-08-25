@@ -183,34 +183,34 @@ export default function SearchSidebar({
   return (
     <div className="h-full flex flex-col bg-gray-50/30 border-r border-gray-200 relative overflow-hidden">
       {/* Header avec compteur de filtres */}
-      <div className="flex-shrink-0 p-6 bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Recherche avancée</h2>
+      <div className="flex-shrink-0 p-4 bg-white/80 backdrop-blur-xl border-b border-gray-200/50">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-bold text-gray-900">Recherche avancée</h2>
           {hasAnyFilters && (
             <div className="flex items-center space-x-3">
-              <span className="inline-flex items-center px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full">
-                {totalActiveFilters} filtre{totalActiveFilters > 1 ? 's' : ''}
+              <span className="inline-flex items-center px-2 py-0.5 bg-purple-100 text-purple-800 text-xs font-medium rounded-full">
+                {totalActiveFilters}
               </span>
               <button
                 onClick={clearAllFilters}
-                className="flex items-center space-x-1 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                className="flex items-center space-x-1 text-xs text-gray-500 hover:text-gray-700 transition-colors"
               >
-                <XMarkIcon className="w-4 h-4" />
-                <span>Tout effacer</span>
+                <XMarkIcon className="w-3.5 h-3.5" />
+                <span>Effacer</span>
               </button>
             </div>
           )}
         </div>
 
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-600 text-xs">
           {hasAnyFilters
-            ? `${totalActiveFilters} filtre${totalActiveFilters > 1 ? 's' : ''} appliqué${totalActiveFilters > 1 ? 's' : ''}. Lancez la recherche pour voir les résultats.`
-            : 'Utilisez les filtres ci-dessous pour affiner votre recherche d&apos;influenceurs.'}
+            ? `${totalActiveFilters} filtre${totalActiveFilters > 1 ? 's' : ''} appliqué${totalActiveFilters > 1 ? 's' : ''}. Lancez la recherche.`
+            : 'Utilisez les filtres pour affiner votre recherche.'}
         </p>
       </div>
 
       {/* Zone de filtres scrollable */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 pr-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 pr-3">
         {/* Section Recherche Textuelle */}
         <TextSearchSection
           searchQuery={searchState.searchQuery}

@@ -156,13 +156,13 @@ export default function PlatformSearchCard({
       <div className="space-y-3">
         {/* Recherche directe d'utilisateur */}
         <div>
-          <h4 className="font-medium text-gray-900 mb-2 flex items-center space-x-1.5 text-sm">
-            <AtSymbolIcon className="w-3.5 h-3.5 text-gray-500" />
+          <h4 className="font-medium text-gray-900 mb-2 flex items-center space-x-1.5 text-xs">
+            <AtSymbolIcon className="w-3 h-3 text-gray-500" />
             <span>Recherche directe</span>
           </h4>
 
           <div className="relative">
-            <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+            <MagnifyingGlassIcon className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-gray-400" />
             <Input
               type="text"
               placeholder="@zidane, @cristiano..."
@@ -170,7 +170,7 @@ export default function PlatformSearchCard({
               onChange={(e) => {
                 handleUserSearchChange(e.target.value);
               }}
-              className="pl-8 text-sm h-9"
+              className="pl-7 text-xs h-8"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   applyUserSearch();
@@ -180,9 +180,9 @@ export default function PlatformSearchCard({
             {userSearchInput && (
               <button
                 onClick={clearUserSearch}
-                className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
-                <XMarkIcon className="w-3.5 h-3.5" />
+                <XMarkIcon className="w-3 h-3" />
               </button>
             )}
           </div>
@@ -219,7 +219,11 @@ export default function PlatformSearchCard({
           )}
 
           {userSearchInput && !filters.userSearch && (
-            <Button onClick={applyUserSearch} size="sm" className="mt-1.5 text-xs h-7">
+            <Button
+              onClick={applyUserSearch}
+              size="sm"
+              className="mt-1.5 text-xs h-6 px-2"
+            >
               Appliquer
             </Button>
           )}
@@ -243,10 +247,10 @@ export default function PlatformSearchCard({
         {/* Sélection des plateformes */}
         <div>
           <div className="mb-1.5">
-            <h4 className="font-medium text-gray-900 flex items-center space-x-1.5 text-sm">
-              <DevicePhoneMobileIconSolid className="w-3.5 h-3.5 text-gray-500" />
+            <h4 className="font-medium text-gray-900 flex items-center space-x-1.5 text-xs">
+              <DevicePhoneMobileIconSolid className="w-3 h-3 text-gray-500" />
               <span>Plateforme</span>
-              <span className="inline-flex items-center px-1.5 py-0.5 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+              <span className="inline-flex items-center px-1 py-0.5 bg-red-100 text-red-800 text-xs font-medium rounded-full">
                 REQUIS
               </span>
             </h4>
@@ -255,9 +259,9 @@ export default function PlatformSearchCard({
           {!currentPlatform && (
             <div className="mb-2 p-2 bg-amber-50 border border-amber-200 rounded-lg">
               <div className="flex items-start space-x-1.5">
-                <InformationCircleIcon className="w-3.5 h-3.5 text-amber-600 mt-0.5 flex-shrink-0" />
+                <InformationCircleIcon className="w-3 h-3 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div className="text-xs text-amber-800">
-                  <p className="font-medium">Sélection requise</p>
+                  <p className="font-medium text-xs">Sélection requise</p>
                   <p className="text-xs mt-0.5">
                     Choisissez une plateforme pour configurer les filtres.
                   </p>
@@ -273,13 +277,15 @@ export default function PlatformSearchCard({
                 <button
                   key={platform}
                   onClick={() => togglePlatform(platform)}
-                  className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border text-xs transition-all ${
+                  className={`flex items-center space-x-1 px-2 py-1 rounded-lg border text-xs transition-all ${
                     isSelected
                       ? 'border-purple-400 bg-purple-50 text-purple-800'
                       : 'border-gray-200 hover:border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
                 >
-                  <div className="flex-shrink-0 scale-75">{PlatformIcons[platform]}</div>
+                  <div className="flex-shrink-0 scale-[0.6]">
+                    {PlatformIcons[platform]}
+                  </div>
                   <span className="capitalize">{PlatformLabels[platform]}</span>
                 </button>
               );

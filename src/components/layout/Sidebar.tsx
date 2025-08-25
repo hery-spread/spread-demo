@@ -145,7 +145,7 @@ export default function Sidebar() {
 
                 {/* Hover arrow indicator */}
                 <div
-                                    className={`
+                  className={`
                   transition-all duration-300 transform
                   ${
                     isHovered && !isActive
@@ -153,7 +153,7 @@ export default function Sidebar() {
                       : 'opacity-0 -translate-x-2'
                   }
                 `}
-              >
+                >
                   <svg
                     className="w-3.5 h-3.5 text-purple-600"
                     fill="none"
