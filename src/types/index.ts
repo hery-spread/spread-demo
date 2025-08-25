@@ -686,23 +686,7 @@ export interface AdvancedSearchFilters {
     maxAccountAge?: number;
   };
 
-  // Sponsoring
-  sponsoring?: {
-    // Posts sponsorisés
-    hasSponsoredPosts?: boolean;
-    sponsoredPostFrequency?: string;
-    collaborationRate?: { min: number; max: number };
 
-    // Types de collaborations
-    collaborationTypes?: string[];
-    collaborationSectors?: string[];
-
-    // Tarification
-    priceRange?: { min: number; max: number };
-
-    // Disponibilité
-    availability?: string;
-  };
 
   // Contenu
   content?: {

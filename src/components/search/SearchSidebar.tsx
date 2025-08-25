@@ -155,24 +155,7 @@ export default function SearchSidebar({
       count += growthKeys.length;
     }
 
-    // Compter les filtres de sponsoring
-    if (filters.sponsoring) {
-      const sponsoringKeys = Object.keys(filters.sponsoring).filter((key) => {
-        const value =
-          filters.sponsoring![key as keyof typeof filters.sponsoring];
-        if (
-          typeof value === 'object' &&
-          value !== null &&
-          !Array.isArray(value)
-        ) {
-          return Object.keys(value).length > 0;
-        }
-        if (Array.isArray(value)) return value.length > 0;
-        if (typeof value === 'string') return value.trim().length > 0;
-        return value !== undefined && value !== null;
-      });
-      count += sponsoringKeys.length;
-    }
+
 
     return count;
   };

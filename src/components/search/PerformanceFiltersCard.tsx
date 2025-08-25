@@ -416,8 +416,6 @@ export default function PerformanceFiltersCard({
           </div>
         </div>
 
-
-
         {/* Métriques de performance par plateforme */}
         {selectedPlatform && (
           <div>
