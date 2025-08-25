@@ -188,117 +188,137 @@ export default function AudienceTargetingFiltersCard({
                   <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
                   <div className="text-xs text-blue-700">
                     <p className="font-medium mb-1">Exemple d'utilisation :</p>
-                    <p>"60% de l'audience se situe en France" - Sélectionnez France et indiquez 60%</p>
+                    <p>
+                      "60% de l'audience se situe en France" - Sélectionnez
+                      France et indiquez 60%
+                    </p>
                   </div>
                 </div>
               </div>
-              
-            <MultiSelect
+
+              <MultiSelect
                 label="Sélectionner des pays"
                 placeholder="Choisir les pays de l'audience..."
-              values={[
-                { value: 'FR', label: '🇫🇷 France' },
-                { value: 'US', label: '🇺🇸 États-Unis' },
-                { value: 'GB', label: '🇬🇧 Royaume-Uni' },
-                { value: 'DE', label: '🇩🇪 Allemagne' },
-                { value: 'ES', label: '🇪🇸 Espagne' },
-                { value: 'IT', label: '🇮🇹 Italie' },
-                { value: 'CA', label: '🇨🇦 Canada' },
-                { value: 'AU', label: '🇦🇺 Australie' },
-                { value: 'BR', label: '🇧🇷 Brésil' },
-                { value: 'MX', label: '🇲🇽 Mexique' },
-                { value: 'JP', label: '🇯🇵 Japon' },
-                { value: 'KR', label: '🇰🇷 Corée du Sud' },
-                { value: 'IN', label: '🇮🇳 Inde' },
-                { value: 'CN', label: '🇨🇳 Chine' },
-                { value: 'RU', label: '🇷🇺 Russie' },
-              ]}
-              selected={filters.audience?.locations?.countries || []}
-              onChange={(selected) =>
-                updateLocationsFilter('countries', selected)
-              }
-              searchable={true}
-            />
+                values={[
+                  { value: 'FR', label: '🇫🇷 France' },
+                  { value: 'US', label: '🇺🇸 États-Unis' },
+                  { value: 'GB', label: '🇬🇧 Royaume-Uni' },
+                  { value: 'DE', label: '🇩🇪 Allemagne' },
+                  { value: 'ES', label: '🇪🇸 Espagne' },
+                  { value: 'IT', label: '🇮🇹 Italie' },
+                  { value: 'CA', label: '🇨🇦 Canada' },
+                  { value: 'AU', label: '🇦🇺 Australie' },
+                  { value: 'BR', label: '🇧🇷 Brésil' },
+                  { value: 'MX', label: '🇲🇽 Mexique' },
+                  { value: 'JP', label: '🇯🇵 Japon' },
+                  { value: 'KR', label: '🇰🇷 Corée du Sud' },
+                  { value: 'IN', label: '🇮🇳 Inde' },
+                  { value: 'CN', label: '🇨🇳 Chine' },
+                  { value: 'RU', label: '🇷🇺 Russie' },
+                ]}
+                selected={filters.audience?.locations?.countries || []}
+                onChange={(selected) =>
+                  updateLocationsFilter('countries', selected)
+                }
+                searchable={true}
+              />
 
               {/* Pourcentages pour les pays sélectionnés */}
-              {filters.audience?.locations?.countries && filters.audience.locations.countries.length > 0 && (
-                <div className="mt-3 space-y-2">
-                  <p className="text-sm font-medium text-gray-700">
-                    Pourcentages d'audience par pays :
-                  </p>
-                  {filters.audience.locations.countries.map((countryCode) => {
-                    const countryLabel = [
-                      { value: 'FR', label: '🇫🇷 France' },
-                      { value: 'US', label: '🇺🇸 États-Unis' },
-                      { value: 'GB', label: '🇬🇧 Royaume-Uni' },
-                      { value: 'DE', label: '🇩🇪 Allemagne' },
-                      { value: 'ES', label: '🇪🇸 Espagne' },
-                      { value: 'IT', label: '🇮🇹 Italie' },
-                      { value: 'CA', label: '🇨🇦 Canada' },
-                      { value: 'AU', label: '🇦🇺 Australie' },
-                      { value: 'BR', label: '🇧🇷 Brésil' },
-                      { value: 'MX', label: '🇲🇽 Mexique' },
-                      { value: 'JP', label: '🇯🇵 Japon' },
-                      { value: 'KR', label: '🇰🇷 Corée du Sud' },
-                      { value: 'IN', label: '🇮🇳 Inde' },
-                      { value: 'CN', label: '🇨🇳 Chine' },
-                      { value: 'RU', label: '🇷🇺 Russie' },
-                    ].find(c => c.value === countryCode)?.label || countryCode;
-                    
-                    return (
-                      <div key={countryCode} className="flex items-center space-x-3 p-2 bg-white rounded border">
-                        <span className="text-sm flex-1">{countryLabel}</span>
-                        <div className="flex items-center space-x-2">
-                          <Input
-                            type="number"
-                            min="0"
-                            max="100"
-                            placeholder="% min"
-                            className="w-20 text-xs"
-                            value={
-                              filters.audience?.audienceLocationModash?.find(
-                                loc => loc.name === countryCode
-                              )?.weight ? 
-                              (filters.audience.audienceLocationModash.find(
-                                loc => loc.name === countryCode
-                              )!.weight * 100).toString() : ''
-                            }
-                            onChange={(e) => {
-                              const percentage = parseInt(e.target.value);
-                              if (percentage >= 0 && percentage <= 100) {
-                                const currentLocations = filters.audience?.audienceLocationModash || [];
-                                const existingIndex = currentLocations.findIndex(loc => loc.name === countryCode);
-                                let newLocations;
-                                
-                                if (existingIndex >= 0) {
-                                  newLocations = [...currentLocations];
-                                  newLocations[existingIndex] = {
-                                    id: existingIndex + 1,
-                                    name: countryCode,
-                                    weight: percentage / 100
-                                  };
-                                } else {
-                                  newLocations = [
-                                    ...currentLocations,
-                                    {
-                                      id: currentLocations.length + 1,
-                                      name: countryCode,
-                                      weight: percentage / 100
-                                    }
-                                  ];
-                                }
-                                
-                                updateAudienceFilter('audienceLocationModash', newLocations);
+              {filters.audience?.locations?.countries &&
+                filters.audience.locations.countries.length > 0 && (
+                  <div className="mt-3 space-y-2">
+                    <p className="text-sm font-medium text-gray-700">
+                      Pourcentages d'audience par pays :
+                    </p>
+                    {filters.audience.locations.countries.map((countryCode) => {
+                      const countryLabel =
+                        [
+                          { value: 'FR', label: '🇫🇷 France' },
+                          { value: 'US', label: '🇺🇸 États-Unis' },
+                          { value: 'GB', label: '🇬🇧 Royaume-Uni' },
+                          { value: 'DE', label: '🇩🇪 Allemagne' },
+                          { value: 'ES', label: '🇪🇸 Espagne' },
+                          { value: 'IT', label: '🇮🇹 Italie' },
+                          { value: 'CA', label: '🇨🇦 Canada' },
+                          { value: 'AU', label: '🇦🇺 Australie' },
+                          { value: 'BR', label: '🇧🇷 Brésil' },
+                          { value: 'MX', label: '🇲🇽 Mexique' },
+                          { value: 'JP', label: '🇯🇵 Japon' },
+                          { value: 'KR', label: '🇰🇷 Corée du Sud' },
+                          { value: 'IN', label: '🇮🇳 Inde' },
+                          { value: 'CN', label: '🇨🇳 Chine' },
+                          { value: 'RU', label: '🇷🇺 Russie' },
+                        ].find((c) => c.value === countryCode)?.label ||
+                        countryCode;
+
+                      return (
+                        <div
+                          key={countryCode}
+                          className="flex items-center space-x-3 p-2 bg-white rounded border"
+                        >
+                          <span className="text-sm flex-1">{countryLabel}</span>
+                          <div className="flex items-center space-x-2">
+                            <Input
+                              type="number"
+                              min="0"
+                              max="100"
+                              placeholder="% min"
+                              className="w-20 text-xs"
+                              value={
+                                filters.audience?.audienceLocationModash?.find(
+                                  (loc) => loc.name === countryCode
+                                )?.weight
+                                  ? (
+                                      filters.audience.audienceLocationModash.find(
+                                        (loc) => loc.name === countryCode
+                                      )!.weight * 100
+                                    ).toString()
+                                  : ''
                               }
-                            }}
-                          />
-                          <span className="text-xs text-gray-500">%</span>
+                              onChange={(e) => {
+                                const percentage = parseInt(e.target.value);
+                                if (percentage >= 0 && percentage <= 100) {
+                                  const currentLocations =
+                                    filters.audience?.audienceLocationModash ||
+                                    [];
+                                  const existingIndex =
+                                    currentLocations.findIndex(
+                                      (loc) => loc.name === countryCode
+                                    );
+                                  let newLocations;
+
+                                  if (existingIndex >= 0) {
+                                    newLocations = [...currentLocations];
+                                    newLocations[existingIndex] = {
+                                      id: existingIndex + 1,
+                                      name: countryCode,
+                                      weight: percentage / 100,
+                                    };
+                                  } else {
+                                    newLocations = [
+                                      ...currentLocations,
+                                      {
+                                        id: currentLocations.length + 1,
+                                        name: countryCode,
+                                        weight: percentage / 100,
+                                      },
+                                    ];
+                                  }
+
+                                  updateAudienceFilter(
+                                    'audienceLocationModash',
+                                    newLocations
+                                  );
+                                }
+                              }}
+                            />
+                            <span className="text-xs text-gray-500">%</span>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+                      );
+                    })}
+                  </div>
+                )}
             </div>
 
             <MultiSelect
@@ -673,10 +693,6 @@ export default function AudienceTargetingFiltersCard({
             </div>
           </div>
         )}
-
-
-
-
       </div>
     </CollapsibleFilterCard>
   );

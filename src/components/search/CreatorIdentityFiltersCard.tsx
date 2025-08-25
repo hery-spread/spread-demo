@@ -716,10 +716,7 @@ export default function CreatorIdentityFiltersCard({
                 type="checkbox"
                 checked={filters.creator?.hasEmail || false}
                 onChange={(e) =>
-                  updateCreatorFilter(
-                    'hasEmail',
-                    e.target.checked || undefined
-                  )
+                  updateCreatorFilter('hasEmail', e.target.checked || undefined)
                 }
                 className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
               />

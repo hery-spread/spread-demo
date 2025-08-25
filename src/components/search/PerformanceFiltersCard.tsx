@@ -9,8 +9,6 @@ import {
   ChatBubbleLeftIcon,
   ShareIcon,
   BookmarkIcon,
-  EnvelopeIcon,
-  PhoneIcon,
 } from '@heroicons/react/24/outline';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
@@ -418,101 +416,7 @@ export default function PerformanceFiltersCard({
           </div>
         </div>
 
-        {/* 4. CONTACTABILITÉ */}
-        <div>
-          <h4 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
-            <EnvelopeIcon className="w-4 h-4 text-purple-500" />
-            <span>Contactabilité</span>
-          </h4>
 
-          <div className="space-y-3">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={filters.performance?.hasEmail || false}
-                onChange={(e) =>
-                  updatePerformanceFilter(
-                    'hasEmail',
-                    e.target.checked || undefined
-                  )
-                }
-                className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-              />
-              <span className="ml-3 text-sm text-gray-700 flex items-center space-x-1">
-                <EnvelopeIcon className="w-4 h-4" />
-                <span>Email de contact disponible</span>
-              </span>
-            </label>
-
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                checked={filters.performance?.hasPhoneNumber || false}
-                onChange={(e) =>
-                  updatePerformanceFilter(
-                    'hasPhoneNumber',
-                    e.target.checked || undefined
-                  )
-                }
-                className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-              />
-              <span className="ml-3 text-sm text-gray-700 flex items-center space-x-1">
-                <PhoneIcon className="w-4 h-4" />
-                <span>Numéro de téléphone disponible</span>
-              </span>
-            </label>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Types de contact disponibles
-              </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {[
-                  { value: 'email', label: '📧 Email', icon: EnvelopeIcon },
-                  { value: 'phone', label: '📱 Téléphone', icon: PhoneIcon },
-                  { value: 'instagram', label: '📷 Instagram' },
-                  { value: 'youtube', label: '📺 YouTube' },
-                  { value: 'tiktok', label: '🎵 TikTok' },
-                  { value: 'twitter', label: '🐦 Twitter' },
-                  { value: 'facebook', label: '👥 Facebook' },
-                  { value: 'linkedin', label: '💼 LinkedIn' },
-                  { value: 'snapchat', label: '👻 Snapchat' },
-                  { value: 'linktree', label: '🌳 Linktree' },
-                ].map((contactType) => {
-                  const isSelected =
-                    filters.performance?.contactTypes?.includes(
-                      contactType.value
-                    ) || false;
-
-                  return (
-                    <button
-                      key={contactType.value}
-                      onClick={() => {
-                        const currentTypes =
-                          filters.performance?.contactTypes || [];
-                        const newTypes = isSelected
-                          ? currentTypes.filter((t) => t !== contactType.value)
-                          : [...currentTypes, contactType.value];
-
-                        updatePerformanceFilter(
-                          'contactTypes',
-                          newTypes.length > 0 ? newTypes : undefined
-                        );
-                      }}
-                      className={`text-xs p-2 rounded-lg border-2 transition-all ${
-                        isSelected
-                          ? 'border-purple-300 bg-purple-50 text-purple-800'
-                          : 'border-gray-200 hover:border-gray-300 text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {contactType.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Métriques de performance par plateforme */}
         {selectedPlatform && (
