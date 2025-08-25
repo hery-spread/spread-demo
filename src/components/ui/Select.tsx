@@ -29,7 +29,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     );
 
     return (
-      <div className="space-y-2 group">
+      <div className="flex flex-col gap-2 group">
         {label && (
           <label
             className={`text-sm font-medium transition-all duration-300 ${
@@ -175,47 +175,53 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </div>
 
         {/* Helper text, error, or success message */}
-        <div className="min-h-[1.25rem]">
-          {error && (
-            <p className="text-sm text-red-600 animate-in slide-in-from-left duration-300 flex items-center">
-              <svg
-                className="w-4 h-4 mr-1 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              {error}
-            </p>
-          )}
-          {success && !error && (
-            <p className="text-sm text-green-600 animate-in slide-in-from-left duration-300 flex items-center">
-              <svg
-                className="w-4 h-4 mr-1 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-              Parfait !
-            </p>
-          )}
-          {helperText && !error && !success && (
-            <p className="text-sm text-gray-500">{helperText}</p>
-          )}
-        </div>
+        {(error || success || helperText) && (
+          <div className="flex items-center gap-1">
+            {error && (
+              <>
+                <svg
+                  className="w-4 h-4 flex-shrink-0 text-red-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <p className="text-sm text-red-600 animate-in slide-in-from-left duration-300">
+                  {error}
+                </p>
+              </>
+            )}
+            {success && !error && (
+              <>
+                <svg
+                  className="w-4 h-4 flex-shrink-0 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <p className="text-sm text-green-600 animate-in slide-in-from-left duration-300">
+                  Parfait !
+                </p>
+              </>
+            )}
+            {helperText && !error && !success && (
+              <p className="text-sm text-gray-500">{helperText}</p>
+            )}
+          </div>
+        )}
       </div>
     );
   }
