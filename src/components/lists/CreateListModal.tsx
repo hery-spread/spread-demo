@@ -27,8 +27,6 @@ export default function CreateListModal({
   });
   const [loading, setLoading] = useState(false);
 
-
-
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,7 +38,7 @@ export default function CreateListModal({
 
     setLoading(true);
     try {
-      await onSubmit({...formData, category: 'Général'});
+      await onSubmit({ ...formData, category: 'Général' });
       setFormData({ name: '', description: '' });
       onClose();
     } catch (error) {
@@ -92,8 +90,6 @@ export default function CreateListModal({
               {formData.name.length}/50 caractères
             </div>
           </div>
-
-
 
           {/* Description */}
           <div>

@@ -155,7 +155,7 @@ export default function ContactsTable({
                   <EnvelopeIcon className="w-4 h-4 mr-1" />
                   Contacter ({selectedContacts.length})
                 </Button>
-                
+
                 <Button
                   variant="outline"
                   size="sm"
@@ -365,9 +365,11 @@ export default function ContactsTable({
         <div className="fixed bottom-6 right-6 z-50">
           <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-4 flex items-center space-x-3">
             <div className="text-sm font-medium text-gray-700">
-              {selectedContacts.length} contact{selectedContacts.length > 1 ? 's' : ''} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+              {selectedContacts.length} contact
+              {selectedContacts.length > 1 ? 's' : ''} sélectionné
+              {selectedContacts.length > 1 ? 's' : ''}
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <Button
                 size="sm"
@@ -380,7 +382,7 @@ export default function ContactsTable({
                 <EnvelopeIcon className="w-4 h-4 mr-1" />
                 Contacter
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -389,7 +391,7 @@ export default function ContactsTable({
               >
                 <TrashIcon className="w-4 h-4" />
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="sm"

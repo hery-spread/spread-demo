@@ -125,7 +125,7 @@ export default function ListHeader({
               </span>
               <span>influenceur{list.influencers.length > 1 ? 's' : ''}</span>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <span className="font-semibold text-sm text-green-600">
                 {list.influencers.filter((inf) => inf.contactEmail).length}
@@ -137,14 +137,22 @@ export default function ListHeader({
 
         {/* Actions */}
         <div className="flex flex-col space-y-2 md:ml-6">
-          {list.influencers.filter(inf => inf.contactEmail).length > 0 && (
-            <Button onClick={() => setShowEmailModal(true)} className="flex items-center">
+          {list.influencers.filter((inf) => inf.contactEmail).length > 0 && (
+            <Button
+              onClick={() => setShowEmailModal(true)}
+              className="flex items-center"
+            >
               <EnvelopeIcon className="w-4 h-4 mr-2" />
-              Contacter en masse ({list.influencers.filter(inf => inf.contactEmail).length})
+              Contacter en masse (
+              {list.influencers.filter((inf) => inf.contactEmail).length})
             </Button>
           )}
-          
-          <Button onClick={onAddInfluencer} variant="outline" className="flex items-center">
+
+          <Button
+            onClick={onAddInfluencer}
+            variant="outline"
+            className="flex items-center"
+          >
             <UserPlusIcon className="w-4 h-4 mr-2" />
             Ajouter un influenceur
           </Button>
@@ -163,8 +171,6 @@ export default function ListHeader({
               <DocumentArrowDownIcon className="w-4 h-4 mr-1" />
               Export
             </Button>
-
-
 
             <div className="relative">
               <Button

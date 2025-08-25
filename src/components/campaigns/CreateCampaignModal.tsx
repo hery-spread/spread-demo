@@ -75,12 +75,10 @@ export default function CreateCampaignModal({
   };
 
   const addLink = () => {
-    if (formData.links.length < 5) {
-      setFormData((prev) => ({
-        ...prev,
-        links: [...prev.links, { url: '', label: '', budget: undefined }],
-      }));
-    }
+    setFormData((prev) => ({
+      ...prev,
+      links: [...prev.links, { url: '', label: '', budget: undefined }],
+    }));
   };
 
   const removeLink = (index: number) => {
@@ -174,8 +172,7 @@ export default function CreateCampaignModal({
               <button
                 type="button"
                 onClick={addLink}
-                disabled={formData.links.length >= 5}
-                className="flex items-center space-x-1 text-sm text-purple-600 hover:text-purple-700 disabled:text-gray-400 disabled:cursor-not-allowed"
+                className="flex items-center space-x-1 text-sm text-purple-600 hover:text-purple-700 transition-colors"
               >
                 <PlusIcon className="w-4 h-4" />
                 <span>Ajouter un lien</span>
@@ -243,8 +240,8 @@ export default function CreateCampaignModal({
             </div>
 
             <p className="text-xs text-gray-500 mt-2">
-              Ajoutez jusqu&apos;à 5 liens pour suivre les performances de votre
-              campagne.
+              Ajoutez autant de liens que nécessaire pour suivre les performances de votre
+              campagne. Chaque lien peut avoir son propre budget et libellé.
             </p>
           </div>
 

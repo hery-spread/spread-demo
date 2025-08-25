@@ -177,17 +177,18 @@ export default function ListCard({
       {/* Actions */}
       <div className="space-y-2">
         {/* Action principale - Contacter en masse */}
-        {list.influencers.filter(inf => inf.contactEmail).length > 0 && (
+        {list.influencers.filter((inf) => inf.contactEmail).length > 0 && (
           <Button
             onClick={() => setShowBulkEmailModal(true)}
             className="w-full flex items-center justify-center"
             size="sm"
           >
             <EnvelopeIcon className="w-4 h-4 mr-2" />
-            Contacter en masse ({list.influencers.filter(inf => inf.contactEmail).length})
+            Contacter en masse (
+            {list.influencers.filter((inf) => inf.contactEmail).length})
           </Button>
         )}
-        
+
         {/* Actions secondaires */}
         <div className="flex items-center space-x-2">
           <Link href={`/lists/${list.id}`} className="flex-1">

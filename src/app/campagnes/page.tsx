@@ -312,7 +312,7 @@ export default function SimpleCampaignsPage() {
                   {/* Liens de tracking */}
                   <div className="flex flex-wrap items-center gap-2">
                     {campaign.trackingConfig.links
-                      .slice(0, 4)
+                      .slice(0, 3)
                       .map((link, index) => (
                         <span
                           key={index}
@@ -325,9 +325,14 @@ export default function SimpleCampaignsPage() {
                           </span>
                         </span>
                       ))}
-                    {campaign.trackingConfig.links.length > 4 && (
+                    {campaign.trackingConfig.links.length > 3 && (
                       <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                        +{campaign.trackingConfig.links.length - 4}
+                        +{campaign.trackingConfig.links.length - 3} autres
+                      </span>
+                    )}
+                    {campaign.trackingConfig.links.length === 0 && (
+                      <span className="text-xs text-gray-500 italic">
+                        Aucun lien configuré
                       </span>
                     )}
                   </div>

@@ -10,6 +10,7 @@ import {
   ClipboardIcon,
   EyeIcon,
   LockClosedIcon,
+  LanguageIcon,
 } from '@heroicons/react/24/outline';
 import { CampaignTracker } from '@/types';
 
@@ -29,7 +30,14 @@ export default function ShareCampaignModal({
     includeBudgets: false,
     shareType: 'public' as 'public' | 'private',
     password: '',
+    language: 'fr' as 'fr' | 'en' | 'nl',
   });
+
+  const languages = [
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'nl', name: 'Nederlands', flag: '🇳🇱' },
+  ];
   const [shareLink, setShareLink] = useState('');
   const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -72,6 +80,7 @@ export default function ShareCampaignModal({
       includeBudgets: false,
       shareType: 'public',
       password: '',
+      language: 'fr',
     });
   };
 
@@ -255,6 +264,54 @@ export default function ShareCampaignModal({
               )}
             </div>
 
+            {/* Sélection de langue */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+                <LanguageIcon className="w-5 h-5" />
+                <span>Langue du rapport</span>
+              </h3>
+              
+              <div className="grid grid-cols-3 gap-3">
+                {languages.map((lang) => (
+                  <label
+                    key={lang.code}
+                    className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition-colors ${
+                      shareSettings.language === lang.code
+                        ? 'border-purple-500 bg-purple-50'
+                        : 'border-gray-200 hover:bg-gray-50'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="language"
+                      value={lang.code}
+                      checked={shareSettings.language === lang.code}
+                      onChange={(e) =>
+                        setShareSettings((prev) => ({
+                          ...prev,
+                          language: e.target.value as 'fr' | 'en' | 'nl',
+                        }))
+                      }
+                      className="w-4 h-4 text-purple-600"
+                    />
+                    <div className="flex items-center space-x-2">
+                      <span className="text-lg">{lang.flag}</span>
+                      <span className="text-sm font-medium text-gray-900">
+                        {lang.name}
+                      </span>
+                    </div>
+                  </label>
+                ))}
+              </div>
+              
+              <div className="bg-blue-50 rounded-lg p-3">
+                <p className="text-sm text-blue-800">
+                  <strong>Conseil :</strong> Le rapport sera généré dans la langue sélectionnée. 
+                  Toutes les métriques, libellés et descriptions seront traduits automatiquement.
+                </p>
+              </div>
+            </div>
+
             {/* Actions */}
             <div className="flex items-center space-x-3 pt-4">
               <Button
@@ -354,6 +411,7 @@ export default function ShareCampaignModal({
                     {shareSettings.includeBudgets && (
                       <li>• Budget and cost information</li>
                     )}
+                    <li>• Rapport en {languages.find(l => l.code === shareSettings.language)?.name}</li>
                     <li>• Branded Spread call-to-action</li>
                   </ul>
                 </div>
