@@ -7,9 +7,6 @@ import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import {
   InboxIcon,
-  ChatBubbleLeftRightIcon,
-  RocketLaunchIcon,
-  ChartBarIcon,
   PlusIcon,
   MagnifyingGlassIcon,
   FunnelIcon,
@@ -27,7 +24,7 @@ import { useEmailIntegration } from '@/hooks/useEmailIntegration';
 import EmailIntegrationWidget from './EmailIntegrationWidget';
 
 export default function CommunicationHub({
-  defaultView = 'inbox' as 'inbox' | 'campaigns' | 'templates' | 'analytics',
+  defaultView = 'inbox',
   embedded = false,
   showSidebar = true,
 }: CommunicationHubProps) {
@@ -40,8 +37,6 @@ export default function CommunicationHub({
 
   const {
     threads,
-    campaigns,
-    templates,
     stats,
     loading,
     error,
@@ -66,27 +61,6 @@ export default function CommunicationHub({
       icon: InboxIcon,
       iconSolid: InboxIconSolid,
       count: stats.newThreads + stats.respondedThreads,
-    },
-    {
-      id: 'campaigns',
-      name: 'Campagnes',
-      icon: RocketLaunchIcon,
-      iconSolid: RocketLaunchIcon,
-      count: campaigns.filter((c) => c.status === 'active').length,
-    },
-    {
-      id: 'templates',
-      name: 'Modèles',
-      icon: ChatBubbleLeftRightIcon,
-      iconSolid: ChatBubbleLeftRightIcon,
-      count: templates.length,
-    },
-    {
-      id: 'analytics' as const,
-      name: 'Analytics',
-      icon: ChartBarIcon,
-      iconSolid: ChartBarIcon,
-      count: 0,
     },
   ];
 
@@ -321,15 +295,7 @@ export default function CommunicationHub({
               return (
                 <button
                   key={view.id}
-                  onClick={() =>
-                    !isDisabled && setActiveView(
-                      view.id as
-                        | 'inbox'
-                        | 'campaigns'
-                        | 'templates'
-                        | 'analytics'
-                    )
-                  }
+                  onClick={() => !isDisabled && setActiveView('inbox')}
                   disabled={isDisabled}
                   className={`w-full flex items-center justify-between p-3 mb-1 rounded-lg text-left transition-colors ${
                     isDisabled
@@ -642,45 +608,7 @@ export default function CommunicationHub({
             </div>
           )}
 
-          {activeView === 'campaigns' && (
-            <div className="p-4">
-              <div className="text-center py-12">
-                <RocketLaunchIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Campagnes
-                </h3>
-                <p className="text-gray-600">Gérez vos campagnes email ici.</p>
-              </div>
-            </div>
-          )}
 
-          {activeView === 'templates' && (
-            <div className="p-4">
-              <div className="text-center py-12">
-                <ChatBubbleLeftRightIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Modèles
-                </h3>
-                <p className="text-gray-600">
-                  Créez et gérez vos modèles d&apos;emails.
-                </p>
-              </div>
-            </div>
-          )}
-
-          {activeView === 'analytics' && (
-            <div className="p-4">
-              <div className="text-center py-12">
-                <ChartBarIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Analytics
-                </h3>
-                <p className="text-gray-600">
-                  Analysez les performances de vos communications.
-                </p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
