@@ -3,7 +3,6 @@
 import PlanComparison from '@/components/pricing/PlanComparison';
 
 export default function PricingPage() {
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -13,8 +12,9 @@ export default function PricingPage() {
             Plans d'abonnement
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choisissez le plan qui correspond le mieux à vos besoins. 
-            Des tarifs simples et transparents pour vos campagnes d&apos;influence marketing.
+            Choisissez le plan qui correspond le mieux à vos besoins. Des tarifs
+            simples et transparents pour vos campagnes d&apos;influence
+            marketing.
           </p>
         </div>
       </div>
@@ -36,8 +36,9 @@ export default function PricingPage() {
                 Comment fonctionnent les plans fixes ?
               </h3>
               <p className="text-gray-600">
-                Nos plans fixes incluent un nombre défini de recherches et de rapports d'audience
-                par mois. Pas de surprise, pas de calculs complexes - vous savez exactement ce que vous payez.
+                Nos plans fixes incluent un nombre défini de recherches et de
+                rapports d'audience par mois. Pas de surprise, pas de calculs
+                complexes - vous savez exactement ce que vous payez.
               </p>
             </div>
             <div>
@@ -55,9 +56,9 @@ export default function PricingPage() {
                 Que se passe-t-il si j'atteins mes limites ?
               </h3>
               <p className="text-gray-600">
-                Vous pouvez upgrader vers un plan supérieur à tout moment.
-                Nous vous préviendrons avant d&apos;atteindre vos limites pour que vous puissiez
-                ajuster votre plan si nécessaire.
+                Vous pouvez upgrader vers un plan supérieur à tout moment. Nous
+                vous préviendrons avant d&apos;atteindre vos limites pour que
+                vous puissiez ajuster votre plan si nécessaire.
               </p>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { CommunicationProvider } from '@/contexts/CommunicationContext';
 export default function CommunicationsPage() {
   return (
     <CommunicationProvider>
-      <div className="h-screen">
+      <div className="h-full">
         <CommunicationHub
           defaultView="inbox"
           embedded={false}
