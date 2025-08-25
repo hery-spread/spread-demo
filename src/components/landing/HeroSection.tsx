@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -22,32 +22,112 @@ export default function HeroSection() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [animationCycle, setAnimationCycle] = useState(0);
   const [isLooping, setIsLooping] = useState(true);
-  // Texte cible pour l'animation de frappe
-  const targetText =
-    'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
+  const [currentSearchIndex, setCurrentSearchIndex] = useState(0);
 
-  // Filtres à révéler progressivement
-  const filters = useMemo(
+  // Différentes recherches de démonstration
+  const demoSearches = useMemo(
     () => [
-      { id: 'location', label: '📍 France', delay: 500 },
-      { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
-      { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
-      { id: 'category', label: '💄 Beauté', delay: 1100 },
-      { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
-      { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
+      {
+        text: 'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans',
+        filters: [
+          { id: 'location', label: '📍 France', delay: 500 },
+          { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
+          { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
+          { id: 'category', label: '💄 Beauté', delay: 1100 },
+          { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
+          { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
+        ],
+        results: {
+          count: 2847,
+          avgFollowers: '~156K',
+          avgEngagement: '5.2%',
+        },
+      },
+      {
+        text: 'Créateurs gaming masculins européens avec plus de 100k abonnés YouTube, spécialisés esport, audience 16-25 ans',
+        filters: [
+          { id: 'platform', label: '🎮 YouTube', delay: 500 },
+          { id: 'location', label: '🇪🇺 Europe', delay: 700 },
+          { id: 'followers', label: '👥 +100K abonnés', delay: 900 },
+          { id: 'category', label: '🕹️ Gaming/Esport', delay: 1100 },
+          { id: 'gender', label: '👨 Masculin', delay: 1300 },
+          { id: 'age', label: '🔢 16-25 ans', delay: 1500 },
+        ],
+        results: {
+          count: 1432,
+          avgFollowers: '~284K',
+          avgEngagement: '7.8%',
+        },
+      },
+      {
+        text: 'Influenceurs lifestyle italiens TikTok entre 25k et 200k followers, contenu voyage et food, engagement >6%',
+        filters: [
+          { id: 'platform', label: '📱 TikTok', delay: 500 },
+          { id: 'location', label: '🇮🇹 Italie', delay: 700 },
+          { id: 'followers', label: '👥 25K-200K followers', delay: 900 },
+          { id: 'category', label: '✈️ Voyage & Food', delay: 1100 },
+          { id: 'engagement', label: '📈 +6% engagement', delay: 1300 },
+          { id: 'type', label: '🌟 Lifestyle', delay: 1500 },
+        ],
+        results: {
+          count: 892,
+          avgFollowers: '~89K',
+          avgEngagement: '8.4%',
+        },
+      },
+      {
+        text: 'Micro-influenceuses mode allemandes Instagram 10k-50k followers, audience premium, posts sponsorisés réguliers',
+        filters: [
+          { id: 'platform', label: '📸 Instagram', delay: 500 },
+          { id: 'location', label: '🇩🇪 Allemagne', delay: 700 },
+          { id: 'followers', label: '👥 10K-50K followers', delay: 900 },
+          { id: 'category', label: '👗 Mode', delay: 1100 },
+          { id: 'audience', label: '💎 Premium', delay: 1300 },
+          { id: 'activity', label: '💰 Posts sponsorisés', delay: 1500 },
+        ],
+        results: {
+          count: 3241,
+          avgFollowers: '~28K',
+          avgEngagement: '6.1%',
+        },
+      },
+      {
+        text: 'Influenceurs fitness francophones multi-plateformes 75k+ followers, contenu musculation et nutrition, audience masculine',
+        filters: [
+          { id: 'language', label: '🇫🇷 Francophone', delay: 500 },
+          { id: 'platform', label: '🔄 Multi-plateformes', delay: 700 },
+          { id: 'followers', label: '👥 +75K followers', delay: 900 },
+          { id: 'category', label: '💪 Fitness', delay: 1100 },
+          { id: 'content', label: '🥗 Musculation & Nutrition', delay: 1300 },
+          { id: 'audience', label: '👨 Audience masculine', delay: 1500 },
+        ],
+        results: {
+          count: 567,
+          avgFollowers: '~142K',
+          avgEngagement: '4.9%',
+        },
+      },
     ],
     []
   );
 
+  // Recherche et filtres actuels
+  const currentSearch = demoSearches[currentSearchIndex];
+  const targetText = currentSearch.text;
+  const filters = currentSearch.filters;
+
   // Fonction de réinitialisation de l'animation
-  const resetAnimation = () => {
+  const resetAnimation = useCallback(() => {
     setCurrentText('');
     setShowAnalysis(false);
     setShowFilters([]);
     setShowResults(false);
     setProfileCount(0);
     setIsAnalyzing(false);
-  };
+    // Sélectionner aléatoirement la prochaine recherche
+    const nextIndex = Math.floor(Math.random() * demoSearches.length);
+    setCurrentSearchIndex(nextIndex);
+  }, [demoSearches]);
 
   // Animation de frappe avec boucle
   useEffect(() => {
@@ -77,13 +157,14 @@ export default function HeroSection() {
                 setIsAnalyzing(false);
                 setShowResults(true);
 
-                // Animer le compteur
+                // Animer le compteur avec les données de la recherche actuelle
                 let count = 0;
-                const increment = 2847 / 50;
+                const targetCount = currentSearch.results.count;
+                const increment = targetCount / 50;
                 const counterTimer = setInterval(() => {
                   count += increment;
-                  if (count >= 2847) {
-                    setProfileCount(2847);
+                  if (count >= targetCount) {
+                    setProfileCount(targetCount);
                     clearInterval(counterTimer);
 
                     // Programmer le redémarrage de l'animation après 4 secondes
@@ -110,6 +191,8 @@ export default function HeroSection() {
     isLooping,
     animationCycle,
     filters,
+    currentSearch,
+    resetAnimation,
   ]);
 
   const handleStartTrial = () => {
@@ -294,7 +377,7 @@ export default function HeroSection() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-lg font-bold text-green-700">
-                        2,847
+                        {currentSearch.results.count.toLocaleString()}
                       </div>
                       <div className="text-xs text-green-600">
                         {t('hero.aiSearch.stats.profiles')}
@@ -302,7 +385,7 @@ export default function HeroSection() {
                     </div>
                     <div>
                       <div className="text-lg font-bold text-blue-700">
-                        ~156K
+                        {currentSearch.results.avgFollowers}
                       </div>
                       <div className="text-xs text-blue-600">
                         {t('hero.aiSearch.stats.avgFollowers')}
@@ -310,7 +393,7 @@ export default function HeroSection() {
                     </div>
                     <div>
                       <div className="text-lg font-bold text-purple-700">
-                        5.2%
+                        {currentSearch.results.avgEngagement}
                       </div>
                       <div className="text-xs text-purple-600">
                         {t('hero.aiSearch.stats.avgEngagement')}

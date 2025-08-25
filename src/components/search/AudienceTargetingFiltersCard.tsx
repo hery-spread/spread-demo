@@ -10,11 +10,10 @@ import {
   HeartIcon,
   InformationCircleIcon,
   MagnifyingGlassIcon,
-  ChevronDownIcon,
 } from '@heroicons/react/24/outline';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
-import { getLocations, getInterests, getLanguages } from '@/lib/modash';
+import { getInterests } from '@/lib/modash';
 
 interface AudienceTargetingFiltersCardProps {
   isOpen: boolean;
@@ -31,19 +30,10 @@ export default function AudienceTargetingFiltersCard({
   onFiltersChange,
   selectedPlatform,
 }: AudienceTargetingFiltersCardProps) {
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [locationSuggestions, setLocationSuggestions] = useState<
-    Array<{ id: number; name: string; title: string }>
-  >([]);
   const [interestSuggestions, setInterestSuggestions] = useState<
     Array<{ id: number; name: string }>
   >([]);
-  const [languageSuggestions, setLanguageSuggestions] = useState<
-    Array<{ code: string; name: string }>
-  >([]);
-  const [isLoadingLocations, setIsLoadingLocations] = useState(false);
   const [isLoadingInterests, setIsLoadingInterests] = useState(false);
-  const [isLoadingLanguages, setIsLoadingLanguages] = useState(false);
 
   type AgeKey =
     | 'age13_17'
@@ -188,10 +178,24 @@ export default function AudienceTargetingFiltersCard({
           </h4>
 
           <div className="space-y-4">
-            {/* Sélection simple de pays */}
+            {/* Sélection de pays avec pourcentages */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Pays de l'audience avec pourcentages
+              </label>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-3">
+                <div className="flex items-start space-x-2">
+                  <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <div className="text-xs text-blue-700">
+                    <p className="font-medium mb-1">Exemple d'utilisation :</p>
+                    <p>"60% de l'audience se situe en France" - Sélectionnez France et indiquez 60%</p>
+                  </div>
+                </div>
+              </div>
+              
             <MultiSelect
-              label="Pays de l'audience"
-              placeholder="Sélectionner des pays..."
+                label="Sélectionner des pays"
+                placeholder="Choisir les pays de l'audience..."
               values={[
                 { value: 'FR', label: '🇫🇷 France' },
                 { value: 'US', label: '🇺🇸 États-Unis' },
@@ -215,6 +219,87 @@ export default function AudienceTargetingFiltersCard({
               }
               searchable={true}
             />
+
+              {/* Pourcentages pour les pays sélectionnés */}
+              {filters.audience?.locations?.countries && filters.audience.locations.countries.length > 0 && (
+                <div className="mt-3 space-y-2">
+                  <p className="text-sm font-medium text-gray-700">
+                    Pourcentages d'audience par pays :
+                  </p>
+                  {filters.audience.locations.countries.map((countryCode) => {
+                    const countryLabel = [
+                      { value: 'FR', label: '🇫🇷 France' },
+                      { value: 'US', label: '🇺🇸 États-Unis' },
+                      { value: 'GB', label: '🇬🇧 Royaume-Uni' },
+                      { value: 'DE', label: '🇩🇪 Allemagne' },
+                      { value: 'ES', label: '🇪🇸 Espagne' },
+                      { value: 'IT', label: '🇮🇹 Italie' },
+                      { value: 'CA', label: '🇨🇦 Canada' },
+                      { value: 'AU', label: '🇦🇺 Australie' },
+                      { value: 'BR', label: '🇧🇷 Brésil' },
+                      { value: 'MX', label: '🇲🇽 Mexique' },
+                      { value: 'JP', label: '🇯🇵 Japon' },
+                      { value: 'KR', label: '🇰🇷 Corée du Sud' },
+                      { value: 'IN', label: '🇮🇳 Inde' },
+                      { value: 'CN', label: '🇨🇳 Chine' },
+                      { value: 'RU', label: '🇷🇺 Russie' },
+                    ].find(c => c.value === countryCode)?.label || countryCode;
+                    
+                    return (
+                      <div key={countryCode} className="flex items-center space-x-3 p-2 bg-white rounded border">
+                        <span className="text-sm flex-1">{countryLabel}</span>
+                        <div className="flex items-center space-x-2">
+                          <Input
+                            type="number"
+                            min="0"
+                            max="100"
+                            placeholder="% min"
+                            className="w-20 text-xs"
+                            value={
+                              filters.audience?.audienceLocationModash?.find(
+                                loc => loc.name === countryCode
+                              )?.weight ? 
+                              (filters.audience.audienceLocationModash.find(
+                                loc => loc.name === countryCode
+                              )!.weight * 100).toString() : ''
+                            }
+                            onChange={(e) => {
+                              const percentage = parseInt(e.target.value);
+                              if (percentage >= 0 && percentage <= 100) {
+                                const currentLocations = filters.audience?.audienceLocationModash || [];
+                                const existingIndex = currentLocations.findIndex(loc => loc.name === countryCode);
+                                let newLocations;
+                                
+                                if (existingIndex >= 0) {
+                                  newLocations = [...currentLocations];
+                                  newLocations[existingIndex] = {
+                                    id: existingIndex + 1,
+                                    name: countryCode,
+                                    weight: percentage / 100
+                                  };
+                                } else {
+                                  newLocations = [
+                                    ...currentLocations,
+                                    {
+                                      id: currentLocations.length + 1,
+                                      name: countryCode,
+                                      weight: percentage / 100
+                                    }
+                                  ];
+                                }
+                                
+                                updateAudienceFilter('audienceLocationModash', newLocations);
+                              }
+                            }}
+                          />
+                          <span className="text-xs text-gray-500">%</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             <MultiSelect
               label="Villes de l'audience"
@@ -589,380 +674,9 @@ export default function AudienceTargetingFiltersCard({
           </div>
         )}
 
-        {/* 6. QUALITÉ DE L'AUDIENCE */}
-        <div>
-          <h4 className="font-medium text-gray-900 mb-3">
-            🛡️ Qualité de l'audience
-          </h4>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Crédibilité de l'audience (min %)
-            </label>
-            <Input
-              type="number"
-              min="0"
-              max="100"
-              placeholder="Ex: 75 (75% d'audience authentique)"
-              value={
-                filters.audience?.audienceCredibility
-                  ? (filters.audience.audienceCredibility * 100).toString()
-                  : ''
-              }
-              onChange={(e) => {
-                const value = parseInt(e.target.value);
-                updateAudienceFilter(
-                  'audienceCredibility',
-                  value ? value / 100 : undefined
-                );
-              }}
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Plus le score est élevé, plus l'audience est authentique (moins de
-              faux followers)
-            </p>
-          </div>
-        </div>
 
-        {/* Filtres avancés avec système de poids Modash */}
-        <div>
-          <button
-            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <GlobeAltIcon className="w-4 h-4" />
-            <span>Filtres avancés Modash (avec poids)</span>
-            <ChevronDownIcon
-              className={`w-4 h-4 transition-transform ${
-                showAdvancedFilters ? 'rotate-180' : 'rotate-0'
-              }`}
-            />
-          </button>
 
-          {showAdvancedFilters && (
-            <div className="mt-4 space-y-6 p-4 bg-gray-50 rounded-lg">
-              {/* Localisation avec poids */}
-              <div>
-                <h5 className="font-medium text-gray-800 mb-3 flex items-center space-x-2">
-                  <GlobeAltIcon className="w-4 h-4 text-blue-500" />
-                  <span>Localisation avec poids Modash</span>
-                </h5>
 
-                <div className="space-y-4">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                    <div className="flex items-start space-x-2">
-                      <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                      <div className="text-xs text-blue-700">
-                        <p className="font-medium mb-1">
-                          Système de poids Modash :
-                        </p>
-                        <p>
-                          Définissez l'importance de chaque critère (0.1 = 10%,
-                          0.5 = 50%, etc.)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Rechercher des pays
-                    </label>
-                    <div className="relative">
-                      <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <Input
-                        placeholder="Tapez pour rechercher des pays..."
-                        className="pl-9"
-                        onChange={async (e) => {
-                          const query = e.target.value;
-                          if (query.length > 1 && selectedPlatform) {
-                            setIsLoadingLocations(true);
-                            try {
-                              const result = await getLocations(
-                                selectedPlatform,
-                                query,
-                                10
-                              );
-                              setLocationSuggestions(result.locations);
-                            } catch (error) {
-                              console.error('Error fetching locations:', error);
-                            } finally {
-                              setIsLoadingLocations(false);
-                            }
-                          } else {
-                            setLocationSuggestions([]);
-                          }
-                        }}
-                      />
-                    </div>
-
-                    {isLoadingLocations && (
-                      <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
-                        <span>Recherche en cours...</span>
-                      </div>
-                    )}
-
-                    {locationSuggestions.length > 0 && (
-                      <div className="mt-2 space-y-2">
-                        <p className="text-xs text-gray-600">
-                          Cliquez pour ajouter avec un poids :
-                        </p>
-                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
-                          {locationSuggestions.map((location) => (
-                            <div
-                              key={location.id}
-                              className="flex items-center space-x-2 p-2 bg-white rounded border"
-                            >
-                              <span className="text-sm flex-1">
-                                {location.title}
-                              </span>
-                              <Select
-                                options={[
-                                  { value: '0.1', label: '10%' },
-                                  { value: '0.2', label: '20%' },
-                                  { value: '0.3', label: '30%' },
-                                  { value: '0.5', label: '50%' },
-                                  { value: '0.7', label: '70%' },
-                                  { value: '1.0', label: '100%' },
-                                ]}
-                                onChange={(e) => {
-                                  const weight = parseFloat(e.target.value);
-                                  const currentLocations =
-                                    filters.audience?.audienceLocationModash ||
-                                    [];
-                                  const newLocation = {
-                                    id: location.id,
-                                    name: location.title,
-                                    weight,
-                                  };
-                                  updateAudienceFilter(
-                                    'audienceLocationModash',
-                                    [...currentLocations, newLocation]
-                                  );
-                                }}
-                                className="w-20"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Affichage des pays sélectionnés avec poids */}
-                  {filters.audience?.audienceLocationModash &&
-                    filters.audience.audienceLocationModash.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium text-gray-700 mb-2">
-                          Pays sélectionnés :
-                        </p>
-                        <div className="space-y-2">
-                          {filters.audience.audienceLocationModash.map(
-                            (location, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center justify-between p-2 bg-white rounded border"
-                              >
-                                <span className="text-sm">{location.name}</span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-xs text-gray-500">
-                                    Poids: {(location.weight * 100).toFixed(0)}%
-                                  </span>
-                                  <button
-                                    onClick={() => {
-                                      const newLocations =
-                                        filters.audience?.audienceLocationModash?.filter(
-                                          (_, i) => i !== index
-                                        );
-                                      updateAudienceFilter(
-                                        'audienceLocationModash',
-                                        newLocations?.length
-                                          ? newLocations
-                                          : undefined
-                                      );
-                                    }}
-                                    className="text-red-500 hover:text-red-700"
-                                  >
-                                    ×
-                                  </button>
-                                </div>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    )}
-                </div>
-              </div>
-
-              {/* Langues avec poids */}
-              <div>
-                <h5 className="font-medium text-gray-800 mb-3">
-                  Langues de l&apos;audience avec poids
-                </h5>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Rechercher des langues
-                    </label>
-                    <div className="relative">
-                      <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <Input
-                        placeholder="Tapez pour rechercher des langues..."
-                        className="pl-9"
-                        onChange={async (e) => {
-                          const query = e.target.value;
-                          if (query.length > 1 && selectedPlatform) {
-                            setIsLoadingLanguages(true);
-                            try {
-                              const result = await getLanguages(
-                                selectedPlatform,
-                                query,
-                                10
-                              );
-                              setLanguageSuggestions(result.languages);
-                            } catch (error) {
-                              console.error('Error fetching languages:', error);
-                            } finally {
-                              setIsLoadingLanguages(false);
-                            }
-                          } else {
-                            setLanguageSuggestions([]);
-                          }
-                        }}
-                      />
-                    </div>
-
-                    {isLoadingLanguages && (
-                      <div className="mt-2 text-sm text-gray-500 flex items-center space-x-2">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>
-                        <span>Recherche en cours...</span>
-                      </div>
-                    )}
-
-                    {languageSuggestions.length > 0 && (
-                      <div className="mt-2 space-y-2">
-                        <p className="text-xs text-gray-600">
-                          Cliquez pour ajouter avec un poids :
-                        </p>
-                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
-                          {languageSuggestions.map((language) => (
-                            <div
-                              key={language.code}
-                              className="flex items-center space-x-2 p-2 bg-white rounded border"
-                            >
-                              <span className="text-sm flex-1">
-                                {language.name} ({language.code})
-                              </span>
-                              <Select
-                                options={[
-                                  { value: '0.1', label: '10%' },
-                                  { value: '0.2', label: '20%' },
-                                  { value: '0.3', label: '30%' },
-                                  { value: '0.5', label: '50%' },
-                                  { value: '0.7', label: '70%' },
-                                  { value: '1.0', label: '100%' },
-                                ]}
-                                onChange={(e) => {
-                                  const weight = parseFloat(e.target.value);
-                                  const currentLanguages =
-                                    filters.audience?.audienceLanguageModash ||
-                                    [];
-                                  const newLanguage = {
-                                    code: language.code,
-                                    name: language.name,
-                                    weight,
-                                  };
-                                  updateAudienceFilter(
-                                    'audienceLanguageModash',
-                                    [...currentLanguages, newLanguage]
-                                  );
-                                }}
-                                className="w-20"
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Affichage des langues sélectionnées */}
-                  {filters.audience?.audienceLanguageModash &&
-                    filters.audience.audienceLanguageModash.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium text-gray-700 mb-2">
-                          Langues sélectionnées :
-                        </p>
-                        <div className="space-y-2">
-                          {filters.audience.audienceLanguageModash.map(
-                            (language, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center justify-between p-2 bg-white rounded border"
-                              >
-                                <span className="text-sm">
-                                  {language.name} ({language.code})
-                                </span>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-xs text-gray-500">
-                                    Poids: {(language.weight * 100).toFixed(0)}%
-                                  </span>
-                                  <button
-                                    onClick={() => {
-                                      const newLanguages =
-                                        filters.audience?.audienceLanguageModash?.filter(
-                                          (_, i) => i !== index
-                                        );
-                                      updateAudienceFilter(
-                                        'audienceLanguageModash',
-                                        newLanguages?.length
-                                          ? newLanguages
-                                          : undefined
-                                      );
-                                    }}
-                                    className="text-red-500 hover:text-red-700"
-                                  >
-                                    ×
-                                  </button>
-                                </div>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    )}
-                </div>
-              </div>
-
-              {/* Aide contextuelle */}
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
-                <div className="flex items-start space-x-2">
-                  <InformationCircleIcon className="w-4 h-4 text-purple-500 mt-0.5 flex-shrink-0" />
-                  <div className="text-xs text-purple-700">
-                    <p className="font-medium mb-1">
-                      Système de poids Modash :
-                    </p>
-                    <ul className="space-y-1">
-                      <li>
-                        • Les poids déterminent l'importance de chaque critère
-                      </li>
-                      <li>• 0.1 = 10% d'importance, 1.0 = 100% d'importance</li>
-                      <li>
-                        • Combinez plusieurs critères pour des recherches
-                        précises
-                      </li>
-                      <li>
-                        • Les intérêts ne sont disponibles que sur Instagram
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </CollapsibleFilterCard>
   );

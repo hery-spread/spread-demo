@@ -637,18 +637,18 @@ export interface AdvancedSearchFilters {
   // Performance (taille & performance)
   performance?: {
     // Taille de l'audience
-    followersRange?: { min: number; max: number };
+    followersRange?: { min?: number; max?: number };
 
     // Portée/Vues
-    avgViewsRange?: { min: number; max: number };
-    avgReelsViewsRange?: { min: number; max: number }; // Instagram
+    avgViewsRange?: { min?: number; max?: number };
+    avgReelsViewsRange?: { min?: number; max?: number }; // Instagram
 
     // Engagement
-    engagementRateRange?: { min: number; max: number };
-    avgLikesRange?: { min: number; max: number };
-    avgCommentsRange?: { min: number; max: number };
-    avgSharesRange?: { min: number; max: number }; // TikTok
-    avgSavesRange?: { min: number; max: number }; // TikTok
+    engagementRateRange?: { min?: number; max?: number };
+    avgLikesRange?: { min?: number; max?: number };
+    avgCommentsRange?: { min?: number; max?: number };
+    avgSharesRange?: { min?: number; max?: number }; // TikTok
+    avgSavesRange?: { min?: number; max?: number }; // TikTok
 
     // Contactabilité
     hasEmail?: boolean;
@@ -656,11 +656,11 @@ export interface AdvancedSearchFilters {
     contactTypes?: string[]; // Types de contact disponibles
 
     // Métriques spécifiques par plateforme
-    avgVideoDuration?: { min: number; max: number }; // YouTube (minutes)
+    avgVideoDuration?: { min?: number; max?: number }; // YouTube (minutes)
     uploadFrequency?: string; // YouTube
     storiesPostRatio?: string; // Instagram
     hasReels?: boolean; // Instagram
-    avgTikTokDuration?: { min: number; max: number }; // TikTok (secondes)
+    avgTikTokDuration?: { min?: number; max?: number }; // TikTok (secondes)
     usesTrends?: boolean; // TikTok
   };
 

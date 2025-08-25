@@ -8,7 +8,6 @@ import {
   UserIcon,
   MagnifyingGlassIcon,
   InformationCircleIcon,
-  ChevronDownIcon,
 } from '@heroicons/react/24/outline';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
 import { AdvancedSearchFilters } from '@/types';
@@ -28,7 +27,7 @@ export default function CreatorIdentityFiltersCard({
   onFiltersChange,
   selectedPlatform,
 }: CreatorIdentityFiltersCardProps) {
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  // Removed advanced filters toggle - all filters are now visible by default
   const [keywordInput, setKeywordInput] = useState('');
   const [bioSearchInput, setBioSearchInput] = useState('');
 
@@ -532,77 +531,222 @@ export default function CreatorIdentityFiltersCard({
           </div>
         </div>
 
-        {/* Filtres avancés */}
+        {/* 10. TAILLE & PERFORMANCE */}
         <div>
-          <button
-            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <span>Filtres avancés</span>
-            <ChevronDownIcon
-              className={`w-4 h-4 transition-transform ${
-                showAdvancedFilters ? 'rotate-180' : 'rotate-0'
-              }`}
-            />
-          </button>
+          <h4 className="font-medium text-gray-900 mb-3 flex items-center space-x-2">
+            <span>📊 Taille & Performance</span>
+          </h4>
 
-          {showAdvancedFilters && (
-            <div className="mt-4 space-y-4 p-4 bg-gray-50 rounded-lg">
-              <div className="space-y-3">
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={filters.creator?.hasEmail || false}
-                    onChange={(e) =>
-                      updateCreatorFilter(
-                        'hasEmail',
-                        e.target.checked || undefined
-                      )
-                    }
-                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                  />
-                  <span className="ml-3 text-sm text-gray-700">
-                    📧 Email de contact disponible
-                  </span>
-                </label>
-
-                <label className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={filters.creator?.hasPhoneNumber || false}
-                    onChange={(e) =>
-                      updateCreatorFilter(
-                        'hasPhoneNumber',
-                        e.target.checked || undefined
-                      )
-                    }
-                    className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
-                  />
-                  <span className="ml-3 text-sm text-gray-700">
-                    📱 Numéro de téléphone disponible
-                  </span>
-                </label>
+          <div className="space-y-4">
+            {/* Taille de l'audience */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nombre de followers
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  type="number"
+                  placeholder="Min (ex: 10000)"
+                  value={filters.performance?.followersRange?.min || ''}
+                  onChange={(e) => {
+                    const newFilters = {
+                      ...filters,
+                      performance: {
+                        ...filters.performance,
+                        followersRange: {
+                          ...filters.performance?.followersRange,
+                          min: parseInt(e.target.value) || undefined,
+                        },
+                      },
+                    };
+                    onFiltersChange(newFilters);
+                  }}
+                />
+                <Input
+                  type="number"
+                  placeholder="Max (ex: 1000000)"
+                  value={filters.performance?.followersRange?.max || ''}
+                  onChange={(e) => {
+                    const newFilters = {
+                      ...filters,
+                      performance: {
+                        ...filters.performance,
+                        followersRange: {
+                          ...filters.performance?.followersRange,
+                          max: parseInt(e.target.value) || undefined,
+                        },
+                      },
+                    };
+                    onFiltersChange(newFilters);
+                  }}
+                />
               </div>
-
-              {/* Aide contextuelle */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <div className="flex items-start space-x-2">
-                  <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                  <div className="text-xs text-blue-700">
-                    <p className="font-medium mb-1">
-                      Ordre de filtrage recommandé :
-                    </p>
-                    <ul className="space-y-1">
-                      <li>1. Thématique (bio, mots-clés) - BASE du filtrage</li>
-                      <li>2. Similarité et hashtags - AFFINEMENT</li>
-                      <li>3. Caractéristiques démographiques - PRÉCISION</li>
-                      <li>4. Géographie - LOCALISATION finale</li>
-                    </ul>
-                  </div>
-                </div>
+              <div className="text-xs text-gray-500 mt-1">
+                💡 Raccourcis: 10K = 10,000 | 1M = 1,000,000
               </div>
             </div>
-          )}
+
+            {/* Suggestions de tailles */}
+            <div>
+              <p className="text-xs text-gray-600 mb-2">Tailles suggérées :</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: 'Nano (1K-10K)', min: 1000, max: 10000 },
+                  { label: 'Micro (10K-100K)', min: 10000, max: 100000 },
+                  { label: 'Mid-tier (100K-500K)', min: 100000, max: 500000 },
+                  { label: 'Macro (500K-1M)', min: 500000, max: 1000000 },
+                  { label: 'Mega (1M+)', min: 1000000, max: undefined },
+                ].map((range) => (
+                  <button
+                    key={range.label}
+                    onClick={() => {
+                      const newFilters = {
+                        ...filters,
+                        performance: {
+                          ...filters.performance,
+                          followersRange: {
+                            min: range.min,
+                            max: range.max,
+                          },
+                        },
+                      };
+                      onFiltersChange(newFilters);
+                    }}
+                    className="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition-colors"
+                  >
+                    {range.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Taux d'engagement */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Taux d'engagement (%)
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Min (ex: 1.5)"
+                  value={filters.performance?.engagementRateRange?.min || ''}
+                  onChange={(e) => {
+                    const newFilters = {
+                      ...filters,
+                      performance: {
+                        ...filters.performance,
+                        engagementRateRange: {
+                          ...filters.performance?.engagementRateRange,
+                          min: parseFloat(e.target.value) || undefined,
+                        },
+                      },
+                    };
+                    onFiltersChange(newFilters);
+                  }}
+                />
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Max (ex: 10.0)"
+                  value={filters.performance?.engagementRateRange?.max || ''}
+                  onChange={(e) => {
+                    const newFilters = {
+                      ...filters,
+                      performance: {
+                        ...filters.performance,
+                        engagementRateRange: {
+                          ...filters.performance?.engagementRateRange,
+                          max: parseFloat(e.target.value) || undefined,
+                        },
+                      },
+                    };
+                    onFiltersChange(newFilters);
+                  }}
+                />
+              </div>
+              <div className="text-xs text-gray-500 mt-1">
+                💡 Taux typiques: Nano (3-8%), Micro (1-5%), Macro (1-3%)
+              </div>
+            </div>
+
+            {/* Suggestions de taux d'engagement */}
+            <div>
+              <p className="text-xs text-gray-600 mb-2">
+                Taux d'engagement suggérés :
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: 'Faible (0.5-1%)', min: 0.5, max: 1.0 },
+                  { label: 'Moyen (1-3%)', min: 1.0, max: 3.0 },
+                  { label: 'Bon (3-6%)', min: 3.0, max: 6.0 },
+                  { label: 'Excellent (6%+)', min: 6.0, max: undefined },
+                ].map((range) => (
+                  <button
+                    key={range.label}
+                    onClick={() => {
+                      const newFilters = {
+                        ...filters,
+                        performance: {
+                          ...filters.performance,
+                          engagementRateRange: {
+                            min: range.min,
+                            max: range.max,
+                          },
+                        },
+                      };
+                      onFiltersChange(newFilters);
+                    }}
+                    className="text-xs px-3 py-1 bg-red-100 text-red-700 rounded-full hover:bg-red-200 transition-colors"
+                  >
+                    {range.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 11. CONTACT & INFORMATIONS SUPPLÉMENTAIRES */}
+        <div>
+          <h4 className="font-medium text-gray-900 mb-3">📞 Contact</h4>
+          <div className="space-y-3">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={filters.creator?.hasEmail || false}
+                onChange={(e) =>
+                  updateCreatorFilter(
+                    'hasEmail',
+                    e.target.checked || undefined
+                  )
+                }
+                className="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+              />
+              <span className="ml-3 text-sm text-gray-700">
+                📧 Email de contact disponible
+              </span>
+            </label>
+          </div>
+
+          {/* Aide contextuelle */}
+          <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <div className="flex items-start space-x-2">
+              <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+              <div className="text-xs text-blue-700">
+                <p className="font-medium mb-1">
+                  Ordre de filtrage recommandé :
+                </p>
+                <ul className="space-y-1">
+                  <li>1. Thématique (bio, mots-clés) - BASE du filtrage</li>
+                  <li>2. Similarité et hashtags - AFFINEMENT</li>
+                  <li>3. Taille & Performance - MÉTRIQUES</li>
+                  <li>4. Caractéristiques démographiques - PRÉCISION</li>
+                  <li>5. Géographie - LOCALISATION finale</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </CollapsibleFilterCard>
