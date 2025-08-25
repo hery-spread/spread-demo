@@ -11,6 +11,22 @@ import {
 } from '@heroicons/react/24/outline';
 import { InfluencerDetails } from '@/types';
 
+const formatPercentage = (value: number): string => {
+  // Si c'est déjà un pourcentage (> 1), on l'affiche tel quel
+  if (value >= 1) {
+    return Math.round(value) + '%';
+  }
+  // Si c'est une décimale (< 1), on la convertit en pourcentage
+  const percentage = value * 100;
+  if (percentage < 0.1) {
+    return '<0.1%';
+  } else if (percentage < 1) {
+    return percentage.toFixed(1) + '%';
+  } else {
+    return Math.round(percentage) + '%';
+  }
+};
+
 // Simuler la récupération des données de partage
 function getSharedReport(shareId: string): InfluencerDetails | null {
   // Dans un vrai projet, ça ferait un appel API avec le shareId
@@ -152,9 +168,12 @@ export default function SharePage() {
           <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 mb-8">
             <div className="relative">
               <Image
-                src={report.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                  report.name
-                )}&background=6366f1&color=fff`}
+                src={
+                  report.avatar ||
+                  `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    report.name
+                  )}&background=6366f1&color=fff`
+                }
                 alt={report.name}
                 width={96}
                 height={96}
@@ -174,7 +193,8 @@ export default function SharePage() {
               <p className="text-gray-700 mb-4 max-w-2xl">{report.bio}</p>
               <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
-                  {report.platform.charAt(0).toUpperCase() + report.platform.slice(1)}
+                  {report.platform.charAt(0).toUpperCase() +
+                    report.platform.slice(1)}
                 </span>
                 <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
                   {report.country}
@@ -199,7 +219,9 @@ export default function SharePage() {
               <div className="text-3xl font-bold text-purple-700 mb-1">
                 {report.followers.toLocaleString()}
               </div>
-              <div className="text-sm font-medium text-purple-600">Followers</div>
+              <div className="text-sm font-medium text-purple-600">
+                Followers
+              </div>
             </div>
 
             <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl border border-red-200">
@@ -223,7 +245,9 @@ export default function SharePage() {
               <div className="text-3xl font-bold text-blue-700 mb-1">
                 {report.stats.avgLikes.toLocaleString()}
               </div>
-              <div className="text-sm font-medium text-blue-600">Likes moyens</div>
+              <div className="text-sm font-medium text-blue-600">
+                Likes moyens
+              </div>
             </div>
 
             <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border border-green-200">
@@ -250,21 +274,25 @@ export default function SharePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200 text-center">
               <div className="text-2xl font-bold text-blue-700">
-                {Math.round(report.audience.gender.female)}%
+                {formatPercentage(report.audience.gender.female)}
               </div>
               <div className="text-sm text-blue-600 font-medium">👩 Femmes</div>
             </div>
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200 text-center">
               <div className="text-2xl font-bold text-purple-700">
-                {Math.round(report.audience.gender.male)}%
+                {formatPercentage(report.audience.gender.male)}
               </div>
-              <div className="text-sm text-purple-600 font-medium">👨 Hommes</div>
+              <div className="text-sm text-purple-600 font-medium">
+                👨 Hommes
+              </div>
             </div>
             <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200 text-center">
               <div className="text-2xl font-bold text-green-700">
-                {Math.round((report.audience.credibility || 0.87) * 100)}%
+                {formatPercentage(report.audience.credibility || 0.87)}
               </div>
-              <div className="text-sm text-green-600 font-medium">✅ Authenticité</div>
+              <div className="text-sm text-green-600 font-medium">
+                ✅ Authenticité
+              </div>
             </div>
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200 text-center">
               <div className="text-2xl font-bold text-orange-700">
@@ -282,22 +310,28 @@ export default function SharePage() {
                 🎂 Répartition par âge
               </h3>
               <div className="space-y-3">
-                {Object.entries(report.audience.age).map(([age, percentage]) => (
-                  <div key={age} className="flex items-center">
-                    <div className="w-20 text-sm text-gray-600 font-medium">
-                      {age} ans
-                    </div>
-                    <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
-                      <div
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
-                        style={{ width: `${percentage}%` }}
-                      ></div>
-                    </div>
-                    <div className="w-12 text-sm font-bold text-right text-blue-600">
-                      {percentage}%
-                    </div>
-                  </div>
-                ))}
+                                 {Object.entries(report.audience.age).map(
+                   ([age, percentage]) => {
+                     const formattedPercentage = formatPercentage(percentage as number);
+                     const barWidth = Math.max((percentage as number) >= 1 ? percentage as number : (percentage as number) * 100, 0.5);
+                     return (
+                       <div key={age} className="flex items-center">
+                         <div className="w-20 text-sm text-gray-600 font-medium">
+                           {age} ans
+                         </div>
+                         <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
+                           <div
+                             className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
+                             style={{ width: `${Math.min(barWidth, 100)}%` }}
+                           ></div>
+                         </div>
+                         <div className="w-16 text-sm font-bold text-right text-blue-600">
+                           {formattedPercentage}
+                         </div>
+                       </div>
+                     );
+                   }
+                 )}
               </div>
             </div>
 
@@ -311,7 +345,10 @@ export default function SharePage() {
                   .sort(([, a], [, b]) => (b as number) - (a as number))
                   .slice(0, 6)
                   .map(([country, percentage]) => (
-                    <div key={country} className="flex items-center justify-between py-1">
+                    <div
+                      key={country}
+                      className="flex items-center justify-between py-1"
+                    >
                       <span className="text-sm text-gray-700 font-medium">
                         {country}
                       </span>
@@ -319,7 +356,9 @@ export default function SharePage() {
                         <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
                           <div
                             className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full"
-                            style={{ width: `${Math.min(percentage as number, 100)}%` }}
+                            style={{
+                              width: `${Math.min(percentage as number, 100)}%`,
+                            }}
                           ></div>
                         </div>
                         <span className="text-sm font-bold text-green-600 w-10 text-right">
@@ -374,20 +413,23 @@ export default function SharePage() {
         </div>
       </div>
 
-        {/* Branding discret */}
-        <div className="mt-12 pt-8 border-t border-gray-100">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xs">S</span>
-              </div>
-              <span className="text-sm font-medium text-gray-600">Powered by Spread</span>
+      {/* Branding discret */}
+      <div className="mt-12 pt-8 border-t border-gray-100">
+        <div className="text-center">
+          <div className="flex items-center justify-center space-x-2 mb-2">
+            <div className="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs">S</span>
             </div>
-            <p className="text-xs text-gray-400">
-              Rapport d'audience généré le {new Date().toLocaleDateString('fr-FR')}
-            </p>
+            <span className="text-sm font-medium text-gray-600">
+              Powered by Spread
+            </span>
           </div>
+          <p className="text-xs text-gray-400">
+            Rapport d'audience généré le{' '}
+            {new Date().toLocaleDateString('fr-FR')}
+          </p>
         </div>
+      </div>
     </div>
   );
 }
