@@ -64,7 +64,7 @@ export default function PerformanceFiltersCard({
     <CollapsibleFilterCard
       id="performance-filters"
       title="Taille & Performance"
-      description="Filtres sur la taille de l&apos;audience et les performances"
+      description="Filtres sur la taille de l'audience et les performances"
       icon={<ChartBarIcon className="w-5 h-5" />}
       isOpen={isOpen}
       onToggle={onToggle}

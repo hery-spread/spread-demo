@@ -2,7 +2,7 @@ export interface Influencer {
   id: string;
   name: string;
   username: string;
-  platform: "instagram" | "youtube" | "tiktok";
+  platform: 'instagram' | 'youtube' | 'tiktok';
   avatar: string;
   followers: number;
   engagement: number;
@@ -23,11 +23,11 @@ export interface InfluencerDetails extends Influencer {
   audience: {
     gender: { male: number; female: number };
     age: {
-      "13-17": number;
-      "18-24": number;
-      "25-34": number;
-      "35-44": number;
-      "45-64": number;
+      '13-17': number;
+      '18-24': number;
+      '25-34': number;
+      '35-44': number;
+      '45-64': number;
     };
     countries: Record<string, number>;
     cities: Record<string, number>;
@@ -52,7 +52,7 @@ export interface InfluencerDetails extends Influencer {
   };
   recentPosts?: {
     id: string;
-    type: "image" | "video" | "carousel";
+    type: 'image' | 'video' | 'carousel';
     thumbnail: string;
     likes: number;
     comments: number;
@@ -82,7 +82,7 @@ export interface InfluencerList {
 }
 
 export interface PlanLimits {
-  searches: number | "unlimited";
+  searches: number | 'unlimited';
   profiles: { used: number; total: number };
   users: { used: number; total: number };
 }
@@ -128,7 +128,7 @@ export interface CreditsUsage {
   remainingCredits: number;
   history: {
     date: string;
-    action: "unlock_report" | "search" | "purchase";
+    action: 'unlock_report' | 'search' | 'purchase';
     credits: number;
     description: string;
   }[];
@@ -311,12 +311,12 @@ export interface CampaignContent {
   contentDescription?: string;
   publishedAt: string;
   detectedAt: string; // Quand le contenu a été détecté/importé
-  
+
   // Tracking et mentions
   trackedLinks: string[]; // Liens trouvés dans le contenu
   trackedMentions: string[]; // Mentions trouvées
   trackedKeywords: string[]; // Keywords trouvés
-  
+
   // Métriques d'engagement
   metrics: {
     likes: number;
@@ -330,7 +330,7 @@ export interface CampaignContent {
     engagementRate: number;
     videoCompletionRate?: number; // Pour vidéos
   };
-  
+
   // Métriques financières
   financials: {
     costPerContent: number; // Coût payé pour ce contenu
@@ -339,7 +339,7 @@ export interface CampaignContent {
     emv: number; // Earned Media Value
     roas?: number; // Return on Ad Spend
   };
-  
+
   // Status et validation
   status: 'detected' | 'validated' | 'rejected' | 'paid';
   validatedBy?: string;
@@ -351,7 +351,7 @@ export interface CampaignTracker {
   id: string;
   name: string;
   description?: string;
-  
+
   // Configuration de tracking
   trackingConfig: {
     links: {
@@ -366,11 +366,11 @@ export interface CampaignTracker {
     flagMissingDisclosure: boolean;
     eventMode: boolean; // Mode événement pour tracking limité
   };
-  
+
   // Période de tracking
   startDate: string;
   endDate?: string;
-  
+
   // Influenceurs participants
   creators: {
     influencerId: string;
@@ -384,10 +384,10 @@ export interface CampaignTracker {
     status: 'pending' | 'active' | 'completed' | 'cancelled';
     contractedAt: string;
   }[];
-  
+
   // Métriques globales de la campagne
   analytics: CampaignAnalytics;
-  
+
   // Status et metadata
   status: 'draft' | 'active' | 'paused' | 'completed' | 'cancelled';
   createdBy: string;
@@ -407,7 +407,7 @@ export interface CampaignAnalytics {
     creatorsPosted: number;
     totalCreators: number;
   };
-  
+
   // Métriques d'engagement
   engagement: {
     totalEngagements: number;
@@ -417,7 +417,7 @@ export interface CampaignAnalytics {
     totalShares: number;
     totalSaves: number;
   };
-  
+
   // Métriques de portée
   reach: {
     totalImpressions: number;
@@ -425,7 +425,7 @@ export interface CampaignAnalytics {
     averageVideoER?: number; // Video Engagement Rate
     totalViews: number;
   };
-  
+
   // Métriques de performance
   performance: {
     totalLinks: number;
@@ -434,7 +434,7 @@ export interface CampaignAnalytics {
     totalConversions?: number;
     conversionRate?: number;
   };
-  
+
   // Métriques financières
   financials: {
     totalCreatorCost: number;
@@ -444,7 +444,7 @@ export interface CampaignAnalytics {
     roas?: number; // Return on Ad Spend
     costPerEngagement: number;
   };
-  
+
   // Répartition par plateforme
   byPlatform: {
     [key in 'instagram' | 'youtube' | 'tiktok']?: {
@@ -455,7 +455,7 @@ export interface CampaignAnalytics {
       emv: number;
     };
   };
-  
+
   // Répartition par créateur (top performers)
   topCreators: {
     influencerId: string;
@@ -466,7 +466,7 @@ export interface CampaignAnalytics {
     totalCost: number;
     emv: number;
   }[];
-  
+
   // Timeline performance
   timeline: {
     date: string;
@@ -512,12 +512,12 @@ export interface AISearchInput {
 export interface AdvancedSearchFilters {
   // Recherche générale
   textQuery?: string;
-  
+
   // Plateforme et identification
   platforms?: ('instagram' | 'youtube' | 'tiktok')[];
   userSearch?: string; // Recherche par nom ou @username
   directUsers?: string[]; // Recherche directe multi-@ (handles exacts)
-  
+
   // Créateur de contenu (réorganisé selon les 4 catégories)
   creator?: {
     // Thématique & identité (prioritaire)
@@ -534,18 +534,18 @@ export interface AdvancedSearchFilters {
     interests?: string[]; // Intérêts du créateur
     language?: string; // Langue principale du créateur
     lastPosted?: number; // Dernière activité (jours)
-    
+
     // Caractéristiques démographiques
     gender?: 'MALE' | 'FEMALE' | 'KNOWN' | 'UNKNOWN';
     ageRange?: { min: number; max: number };
-    
+
     // Géographie du créateur (après les mots-clés)
     location?: {
       country?: string;
       city?: string;
       continent?: 'europe' | 'america' | 'asia' | 'africa' | 'oceania';
     };
-    
+
     // Types/flags
     verified?: boolean;
     hasEmail?: boolean;
@@ -555,7 +555,7 @@ export interface AdvancedSearchFilters {
     isOfficialArtist?: boolean; // Artiste officiel (YouTube)
     languages?: string[]; // Langues parlées (legacy)
   };
-  
+
   // Audience (qui ils touchent)
   audience?: {
     // Géographie de l'audience
@@ -564,13 +564,13 @@ export interface AdvancedSearchFilters {
       cities?: string[]; // Villes multi-select (simple)
     };
     audienceLanguage?: string; // Langue principale de l'audience
-    
+
     // Genre de l'audience
     audienceGender?: {
       malePercentage?: { min: number; max: number };
       femalePercentage?: { min: number; max: number };
     };
-    
+
     // Âge de l'audience (avec système de poids Modash)
     audienceAgeRange?: {
       age13_17?: { min: number; max: number };
@@ -584,17 +584,17 @@ export interface AdvancedSearchFilters {
       id: string; // '13-17', '18-24', etc.
       weight: number; // 0.1 à 1.0
     }>;
-    
+
     // Intérêts de l'audience (Instagram uniquement)
     audienceInterests?: Array<{
       id: number;
       name: string;
       weight: number;
     }>;
-    
+
     // Qualité de l'audience
     audienceCredibility?: number; // 0 à 1 (crédibilité)
-    
+
     // Filtres avancés avec poids Modash
     audienceLocationModash?: Array<{
       id: number;
@@ -606,7 +606,7 @@ export interface AdvancedSearchFilters {
       name: string;
       weight: number;
     }>;
-    
+
     // Legacy fields
     followersRange?: { min: number; max: number };
     engagementRange?: { min: number; max: number }; // En pourcentage
@@ -619,28 +619,28 @@ export interface AdvancedSearchFilters {
       excludeCountries?: string[];
     };
   };
-  
+
   // Performance (taille & performance)
   performance?: {
     // Taille de l'audience
     followersRange?: { min: number; max: number };
-    
+
     // Portée/Vues
     avgViewsRange?: { min: number; max: number };
     avgReelsViewsRange?: { min: number; max: number }; // Instagram
-    
+
     // Engagement
     engagementRateRange?: { min: number; max: number };
     avgLikesRange?: { min: number; max: number };
     avgCommentsRange?: { min: number; max: number };
     avgSharesRange?: { min: number; max: number }; // TikTok
     avgSavesRange?: { min: number; max: number }; // TikTok
-    
+
     // Contactabilité
     hasEmail?: boolean;
     hasPhoneNumber?: boolean;
     contactTypes?: string[]; // Types de contact disponibles
-    
+
     // Métriques spécifiques par plateforme
     avgVideoDuration?: { min: number; max: number }; // YouTube (minutes)
     uploadFrequency?: string; // YouTube
@@ -649,47 +649,47 @@ export interface AdvancedSearchFilters {
     avgTikTokDuration?: { min: number; max: number }; // TikTok (secondes)
     usesTrends?: boolean; // TikTok
   };
-  
+
   // Croissance
   growth?: {
     // Croissance des followers
     followersGrowthPeriod?: string;
     followersGrowthRate?: { min: number; max: number };
-    
+
     // Tendance générale
     growthTrend?: 'declining' | 'stable' | 'growing' | 'fast-growing' | 'viral';
-    
+
     // Croissance des vues (YouTube/TikTok)
     viewsGrowthPeriod?: string;
     viewsGrowthRate?: { min: number; max: number };
-    
+
     // Croissance des likes (TikTok)
     likesGrowthPeriod?: string;
     likesGrowthRate?: { min: number; max: number };
-    
+
     // Âge du compte
     minAccountAge?: number;
     maxAccountAge?: number;
   };
-  
+
   // Sponsoring
   sponsoring?: {
     // Posts sponsorisés
     hasSponsoredPosts?: boolean;
     sponsoredPostFrequency?: string;
     collaborationRate?: { min: number; max: number };
-    
+
     // Types de collaborations
     collaborationTypes?: string[];
     collaborationSectors?: string[];
-    
+
     // Tarification
     priceRange?: { min: number; max: number };
-    
+
     // Disponibilité
     availability?: string;
   };
-  
+
   // Contenu
   content?: {
     categories?: string[]; // Catégories de contenu (lifestyle, beauté, mode, etc.)
@@ -698,12 +698,20 @@ export interface AdvancedSearchFilters {
     recentActivityDays?: number; // Dernière activité (en jours)
     contentTypes?: ('photo' | 'video' | 'story' | 'reel' | 'live' | 'short')[];
     avgVideoLength?: { min: number; max: number }; // En secondes
-    postingDays?: ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday')[];
+    postingDays?: (
+      | 'monday'
+      | 'tuesday'
+      | 'wednesday'
+      | 'thursday'
+      | 'friday'
+      | 'saturday'
+      | 'sunday'
+    )[];
     postingTimes?: { from: string; to: string }; // Format HH:mm
     hashtagUsage?: 'low' | 'medium' | 'high'; // Utilisation des hashtags
     collaborationRate?: { min: number; max: number }; // Pourcentage de posts sponsorisés
   };
-  
+
   // Filtres avancés
   advanced?: {
     excludeKeywords?: string[]; // Mots-clés à exclure
@@ -962,7 +970,7 @@ export interface ModashInfluencerFilters {
   location?: number[]; // IDs des locations
   language?: string; // Code langue
   lastposted?: number; // Jours depuis dernier post
-  
+
   // Pertinence et contenu
   relevance?: string[]; // Hashtags/mentions pour pertinence
   audienceRelevance?: string[]; // Mentions pour pertinence audience
@@ -972,19 +980,19 @@ export interface ModashInfluencerFilters {
     type: 'hashtag' | 'mention';
     value: string;
   }>;
-  
+
   // Démographie créateur
   gender?: 'MALE' | 'FEMALE';
   age?: { min?: number; max?: number };
   isVerified?: boolean;
-  
+
   // Croissance et activité
   followersGrowthRate?: {
     interval: 'i1month' | 'i3months' | 'i6months' | 'i1year';
     value: number;
     operator: 'gt' | 'lt' | 'eq';
   };
-  
+
   // Performance et engagement
   views?: { min?: number; max?: number };
   engagements?: { min?: number; max?: number };
@@ -992,7 +1000,7 @@ export interface ModashInfluencerFilters {
     contactType: 'email' | 'phone' | 'website';
     filterAction: 'must' | 'should' | 'must_not';
   }>;
-  
+
   // Champs spécifiques Instagram
   hasYouTube?: boolean;
   accountTypes?: number[]; // 1=Regular, 2=Business, 3=Creator
@@ -1000,7 +1008,7 @@ export interface ModashInfluencerFilters {
   interests?: number[]; // IDs des intérêts
   reelsPlays?: { min?: number; max?: number };
   hasSponsoredPosts?: boolean;
-  
+
   // Champs spécifiques YouTube
   isOfficialArtist?: boolean;
   viewsGrowthRate?: {
@@ -1008,7 +1016,7 @@ export interface ModashInfluencerFilters {
     value: number;
     operator: 'gt' | 'lt' | 'eq';
   };
-  
+
   // Champs spécifiques TikTok
   shares?: { min?: number; max?: number };
   saves?: { min?: number; max?: number };
@@ -1017,7 +1025,7 @@ export interface ModashInfluencerFilters {
     value: number;
     operator: 'gt' | 'lt' | 'eq';
   };
-  
+
   // Opérations logiques
   filterOperations?: Array<{
     operator: 'and' | 'or';
@@ -1198,11 +1206,11 @@ export interface ModashInstagramReportProfile {
     isVerified: boolean;
     accountType: 'Regular' | 'Business' | 'Creator';
   };
-  
+
   // Contenu et hashtags
   hashtags: ModashTag[];
   mentions: ModashTag[];
-  
+
   // Statistiques par type de contenu
   statsByContentType: {
     posts?: {
@@ -1218,7 +1226,7 @@ export interface ModashInstagramReportProfile {
       avgViews: number;
     };
   };
-  
+
   // Audience détaillée (16 propriétés)
   audience: {
     genders: ModashWeightWithCode[];
@@ -1234,11 +1242,11 @@ export interface ModashInstagramReportProfile {
     gendersPerAge: ModashGenderPerAge[];
     // ... autres propriétés audience
   };
-  
+
   // Posts et contenu
   recentPosts: ModashRecentPost[];
   popularPosts: ModashRecentPost[];
-  
+
   // Informations personnelles
   city?: string;
   state?: string;
@@ -1247,7 +1255,7 @@ export interface ModashInstagramReportProfile {
   ageGroup?: '13-17' | '18-24' | '25-34' | '35-44' | '45-64' | '65-';
   language?: ModashLanguage;
   contacts?: ModashContact[];
-  
+
   // Métriques
   postsCounts: number;
   postsCount: number;
@@ -1256,11 +1264,11 @@ export interface ModashInstagramReportProfile {
   avgViews: number;
   avgReelsPlays: number;
   bio: string;
-  
+
   // Intérêts et marques
   interests: ModashInterest[];
   brandAffinity: ModashBrand[];
-  
+
   // Posts sponsorisés et performance
   sponsoredPosts: ModashSponsoredPost[];
   paidPostPerformance?: number;
@@ -1269,11 +1277,11 @@ export interface ModashInstagramReportProfile {
   sponsoredPostsMedianLikes: number;
   nonSponsoredPostsMedianViews: number;
   nonSponsoredPostsMedianLikes: number;
-  
+
   // Historique et évolution
   statHistory: ModashMonthlyStat[];
   lookalikes: ModashUser[];
-  
+
   // Données supplémentaires
   audienceExtra?: {
     brandAffinity?: ModashBrand[];
@@ -1296,7 +1304,7 @@ export interface ModashYouTubeReportProfile {
     description: string;
     totalViews: number;
   };
-  
+
   // Audience spécialisée YouTube
   audience: {
     genders: ModashWeightWithCode[];
@@ -1308,7 +1316,7 @@ export interface ModashYouTubeReportProfile {
     audienceLookalikes: ModashUser[];
     gendersPerAge: ModashGenderPerAge[];
   };
-  
+
   // Audience des commentateurs (spécifique YouTube)
   audienceCommenters: {
     notable: number;
@@ -1320,7 +1328,7 @@ export interface ModashYouTubeReportProfile {
     notableUsers: ModashUser[];
     audienceLookalikes: ModashUser[];
   };
-  
+
   // Statistiques par type de contenu
   statsByContentType: {
     videos?: {
@@ -1336,11 +1344,11 @@ export interface ModashYouTubeReportProfile {
       avgViews: number;
     };
   };
-  
+
   // Posts et contenu
   recentPosts: ModashRecentPost[];
   popularPosts: ModashRecentPost[];
-  
+
   // Informations personnelles
   city?: string;
   state?: string;
@@ -1348,17 +1356,17 @@ export interface ModashYouTubeReportProfile {
   gender?: 'MALE' | 'FEMALE';
   ageGroup?: '18-24' | '25-34' | '35-44' | '45-64' | '65-';
   contacts?: ModashContact[];
-  
+
   // Métriques
   postsCount: number;
   avgLikes: number;
   avgComments: number;
   description: string;
-  
+
   // Intérêts et recommandations
   interests: ModashInterest[];
   lookalikesByTopics: ModashUser[];
-  
+
   // Posts sponsorisés et performance
   sponsoredPosts: ModashSponsoredPost[];
   paidPostPerformance?: number;
@@ -1367,10 +1375,10 @@ export interface ModashYouTubeReportProfile {
   sponsoredPostsMedianLikes: number;
   nonSponsoredPostsMedianViews: number;
   nonSponsoredPostsMedianLikes: number;
-  
+
   // Historique
   statHistory: ModashMonthlyStat[];
-  
+
   // Données supplémentaires
   audienceExtra?: {
     brandAffinity?: ModashBrand[];
@@ -1392,7 +1400,7 @@ export interface ModashTikTokReportProfile {
     isVerified: boolean;
     bio: string;
   };
-  
+
   // Audience
   audience: {
     genders: ModashWeightWithCode[];
@@ -1405,10 +1413,10 @@ export interface ModashTikTokReportProfile {
     notableUsers: ModashUser[];
     gendersPerAge: ModashGenderPerAge[];
   };
-  
+
   // Identifiant spécifique TikTok
   secUid: string;
-  
+
   // Statistiques par type de contenu
   statsByContentType: {
     posts?: {
@@ -1419,11 +1427,11 @@ export interface ModashTikTokReportProfile {
       avgShares: number;
     };
   };
-  
+
   // Posts et contenu
   recentPosts: ModashRecentPost[];
   popularPosts: ModashRecentPost[];
-  
+
   // Informations personnelles
   city?: string;
   state?: string;
@@ -1431,18 +1439,18 @@ export interface ModashTikTokReportProfile {
   gender?: 'MALE' | 'FEMALE';
   ageGroup?: '18-24' | '25-34' | '35-44' | '45-64' | '65-';
   contacts?: ModashContact[];
-  
+
   // Métriques
   postsCount: number;
   avgLikes: number;
   totalLikes: number;
   avgComments: number;
   bio: string;
-  
+
   // Intérêts et recommandations
   interests: ModashInterest[];
   lookalikes: ModashUser[];
-  
+
   // Posts sponsorisés et performance
   sponsoredPosts: ModashSponsoredPost[];
   paidPostPerformance?: number;
@@ -1451,10 +1459,10 @@ export interface ModashTikTokReportProfile {
   sponsoredPostsMedianLikes: number;
   nonSponsoredPostsMedianViews: number;
   nonSponsoredPostsMedianLikes: number;
-  
+
   // Historique
   statHistory: ModashMonthlyStat[];
-  
+
   // Données supplémentaires
   audienceExtra?: {
     brandAffinity?: ModashBrand[];
@@ -1463,7 +1471,10 @@ export interface ModashTikTokReportProfile {
 }
 
 // Type unifié pour les rapports Modash
-export type ModashReportProfile = ModashInstagramReportProfile | ModashYouTubeReportProfile | ModashTikTokReportProfile;
+export type ModashReportProfile =
+  | ModashInstagramReportProfile
+  | ModashYouTubeReportProfile
+  | ModashTikTokReportProfile;
 
 export interface ModashReportResponse {
   error: boolean;
@@ -1659,4 +1670,4 @@ export interface ModashEmailSearchResponse {
   matchedEmails: ModashMatchedEmail[];
   notMatchedEmails: string[];
   totalMatches: number;
-} 
+}

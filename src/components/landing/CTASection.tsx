@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n/context';
 import {
   RocketLaunchIcon,
-  CalendarDaysIcon,
   SparklesIcon,
   ChartBarIcon,
   UserGroupIcon,
@@ -14,10 +13,6 @@ export default function CTASection() {
   const { t } = useI18n();
   const handleStartTrial = () => {
     window.location.href = '/onboarding';
-  };
-
-  const handleBookDemo = () => {
-    window.location.href = '/onboarding?demo=true';
   };
 
   const urgencyStats = [
@@ -75,44 +70,28 @@ export default function CTASection() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+          <div className="flex justify-center mb-16">
             <Button
               onClick={handleStartTrial}
               size="lg"
               className="bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white px-12 py-6 text-xl font-bold shadow-2xl shadow-green-500/25 transform transition-all duration-300 hover:scale-110 border-2 border-green-400"
             >
               <RocketLaunchIcon className="w-6 h-6 mr-3" />
-              🚀 Commencer l'Essai Gratuit
-            </Button>
-            <Button
-              onClick={handleBookDemo}
-              variant="outline"
-              size="lg"
-              className="border-2 border-white text-white hover:bg-white hover:text-purple-900 px-12 py-6 text-xl font-bold bg-white/10 backdrop-blur-sm"
-            >
-              <CalendarDaysIcon className="w-6 h-6 mr-3" />
-              📞 Réserver une Démo
+              🚀 Commencer l'Essai Gratuit 14 Jours
             </Button>
           </div>
 
           {/* Guarantee */}
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-16 border border-white/20">
-            <div className="grid md:grid-cols-3 gap-6 text-center">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-3">
-                  <span className="text-white font-bold">✓</span>
-                </div>
-                <div className="text-white font-semibold">Sans Engagement</div>
-                <div className="text-purple-200 text-sm">
-                  Annulez à tout moment
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 gap-8 text-center max-w-2xl mx-auto">
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-3">
                   <span className="text-white font-bold">🔐</span>
                 </div>
-                <div className="text-white font-semibold">Sécurisé</div>
-                <div className="text-purple-200 text-sm">Aucune CB requise</div>
+                <div className="text-white font-semibold">Aucune CB Requise</div>
+                <div className="text-purple-200 text-sm">
+                  Commencez immédiatement
+                </div>
               </div>
               <div className="flex flex-col items-center">
                 <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-3">

@@ -5,6 +5,7 @@ import HeroSection from '@/components/landing/HeroSection';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import SocialProofSection from '@/components/landing/SocialProofSection';
 import PricingPreview from '@/components/landing/PricingPreview';
+import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
 import TrustIndicators from '@/components/landing/TrustIndicators';
 import Footer from '@/components/landing/Footer';
@@ -37,6 +38,11 @@ export default function HomePage() {
       {/* Pricing Preview Section (BOFU) */}
       <div id="pricing">
         <PricingPreview />
+      </div>
+
+      {/* FAQ Section */}
+      <div id="faq">
+        <FAQSection />
       </div>
 
       {/* Call to Action Section (BOFU) */}

@@ -662,7 +662,7 @@ function PrivacyTab() {
 function TeamTab() {
   const [_saving, _setSaving] = useState(false);
   const [_showInviteModal, _setShowInviteModal] = useState(false);
-  const [teamMembers, _setTeamMembers] = useState([
+  const [_teamMembers, _setTeamMembers] = useState([
     {
       id: 1,
       name: 'Marie Dupont',
@@ -691,7 +691,7 @@ function TeamTab() {
           <UsersIcon className="w-8 h-8 text-blue-600 mr-3" />
           <div>
             <div className="text-2xl font-bold text-blue-900">
-              {teamMembers.length}
+              {_teamMembers.length}
             </div>
             <div className="text-sm text-blue-600">Membres dans l'équipe</div>
           </div>
@@ -703,7 +703,7 @@ function TeamTab() {
           Membres de l'équipe
         </h3>
         <div className="space-y-4">
-          {teamMembers.map((member) => (
+          {_teamMembers.map((member) => (
             <div
               key={member.id}
               className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"

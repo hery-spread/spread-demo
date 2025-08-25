@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/Button';
 import { useI18n } from '@/lib/i18n/context';
 import {
@@ -20,22 +20,36 @@ export default function HeroSection() {
   const [_showResults, setShowResults] = useState(false);
   const [_profileCount, setProfileCount] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [animationCycle, setAnimationCycle] = useState(0);
+  const [isLooping, setIsLooping] = useState(true);
   // Texte cible pour l'animation de frappe
   const targetText =
     'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
 
   // Filtres à révéler progressivement
-  const filters = [
+  const filters = useMemo(() => [
     { id: 'location', label: '📍 France', delay: 500 },
     { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
     { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
     { id: 'category', label: '💄 Beauté', delay: 1100 },
     { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
     { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
-  ];
+  ], []);
 
-  // Animation de frappe
+  // Fonction de réinitialisation de l'animation
+  const resetAnimation = () => {
+    setCurrentText('');
+    setShowAnalysis(false);
+    setShowFilters([]);
+    setShowResults(false);
+    setProfileCount(0);
+    setIsAnalyzing(false);
+  };
+
+  // Animation de frappe avec boucle
   useEffect(() => {
+    if (!isLooping) return;
+
     if (currentText.length < targetText.length) {
       const timer = setTimeout(
         () => {
@@ -46,7 +60,7 @@ export default function HeroSection() {
       return () => clearTimeout(timer);
     } else if (currentText.length === targetText.length && !showAnalysis) {
       // Démarrer l'analyse après la frappe
-      setTimeout(() => {
+      const analysisTimer = setTimeout(() => {
         setIsAnalyzing(true);
         setShowAnalysis(true);
 
@@ -68,6 +82,12 @@ export default function HeroSection() {
                   if (count >= 2847) {
                     setProfileCount(2847);
                     clearInterval(counterTimer);
+                    
+                    // Programmer le redémarrage de l'animation après 4 secondes
+                    setTimeout(() => {
+                      resetAnimation();
+                      setAnimationCycle(prev => prev + 1);
+                    }, 4000);
                   } else {
                     setProfileCount(Math.floor(count));
                   }
@@ -77,17 +97,14 @@ export default function HeroSection() {
           }, filter.delay);
         });
       }, 1000);
+      
+      return () => clearTimeout(analysisTimer);
     }
-  }, [currentText, targetText, showAnalysis]);
+  }, [currentText, targetText, showAnalysis, isLooping, animationCycle, filters]);
 
   const handleStartTrial = () => {
     // Redirection vers l'inscription/onboarding
     window.location.href = '/onboarding';
-  };
-
-  const handleBookDemo = () => {
-    // Redirection vers réservation démo
-    window.location.href = '/onboarding?demo=true';
   };
 
   return (
@@ -149,21 +166,13 @@ export default function HeroSection() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="flex justify-center lg:justify-start">
               <Button
                 onClick={handleStartTrial}
                 size="lg"
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 text-lg font-semibold shadow-xl shadow-purple-500/25 transform transition-all duration-300 hover:scale-105"
               >
-                {t('hero.cta.trial')}
-              </Button>
-              <Button
-                onClick={handleBookDemo}
-                variant="outline"
-                size="lg"
-                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-4 text-lg font-semibold"
-              >
-                {t('hero.cta.demo')}
+                🚀 Commencer l'Essai Gratuit 14 Jours
               </Button>
             </div>
 
@@ -174,7 +183,11 @@ export default function HeroSection() {
           </div>
 
           {/* Visual Right - Real AI Search Interface */}
-          <div className="relative">
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsLooping(false)}
+            onMouseLeave={() => setIsLooping(true)}
+          >
             {/* AI Search Interface Mockup */}
             <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
               {/* Header */}
@@ -304,9 +317,6 @@ export default function HeroSection() {
             </div>
 
             {/* Floating AI Elements */}
-            <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <SparklesIcon className="w-6 h-6 text-white" />
-            </div>
             <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
               <MagnifyingGlassIcon className="w-6 h-6 text-white" />
             </div>
@@ -332,15 +342,15 @@ export default function HeroSection() {
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">98%</div>
+              <div className="text-3xl font-bold text-purple-600">10h</div>
               <div className="text-gray-600">
-                {t('hero.statsBar.satisfaction')}
+                économisées par semaine en moyenne
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">10h</div>
+              <div className="text-3xl font-bold text-purple-600">98%</div>
               <div className="text-gray-600">
-                {t('hero.statsBar.timeSaved')}
+                de précision des données
               </div>
             </div>
           </div>

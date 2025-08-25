@@ -379,10 +379,7 @@ export default function ContactSelectionPanel({
             <Button variant="outline" onClick={resetFilters} className="flex-1">
               Reset
             </Button>
-            <Button
-              onClick={handleApplySelection}
-              className="flex-1"
-            >
+            <Button onClick={handleApplySelection} className="flex-1">
               Appliquer
             </Button>
           </div>

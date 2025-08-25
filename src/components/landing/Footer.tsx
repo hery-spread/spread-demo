@@ -44,8 +44,8 @@ export default function Footer() {
     <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
@@ -140,7 +140,7 @@ export default function Footer() {
         </div>
 
         {/* Social Media & Stats */}
-        <div className="py-8 border-t border-purple-800/50">
+        <div className="py-6 border-t border-purple-800/50">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Social Links */}
             <div>
@@ -190,7 +190,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-purple-800/50">
+        <div className="py-4 border-t border-purple-800/50">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Copyright */}
             <div className="text-gray-400 text-sm">

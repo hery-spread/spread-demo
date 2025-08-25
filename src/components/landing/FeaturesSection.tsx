@@ -37,13 +37,13 @@ export default function FeaturesSection() {
     },
     {
       icon: ChatBubbleLeftRightIcon,
-      title: t('features.crm.title'),
-      description: t('features.crm.description'),
+      title: 'Séquences Mailing Automatisées',
+      description: 'Automatisez vos campagnes d\'emailing et suivez vos conversations avec les influenceurs en temps réel.',
       benefits: [
-        t('features.crm.benefits.0'),
-        t('features.crm.benefits.1'),
-        t('features.crm.benefits.2'),
-        t('features.crm.benefits.3'),
+        'Séquences d\'emails personnalisées',
+        'Suivi automatique des réponses',
+        'Templates d\'emails optimisés',
+        'Gestion des listes de contacts',
       ],
       color: 'green',
     },
@@ -217,10 +217,10 @@ export default function FeaturesSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">
-                      CRM & Communication Intégrée
+                      Séquences Mailing Automatisées
                     </h4>
                     <p className="text-gray-600 text-sm mb-2">
-                      Pipeline • Emails • Suivi automatisé
+                      Templates • Séquences • Suivi automatisé
                     </p>
                     <div className="flex items-center text-green-600 text-sm font-medium">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>

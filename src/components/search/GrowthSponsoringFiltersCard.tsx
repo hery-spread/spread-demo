@@ -59,7 +59,8 @@ export default function GrowthSponsoringFiltersCard({
     const value = growthFilters[key as keyof typeof growthFilters];
     if (typeof value === 'object' && value !== null) {
       return Object.values(value).some(
-        (v) => v !== undefined && v !== null && (typeof v !== 'string' || v !== '')
+        (v) =>
+          v !== undefined && v !== null && (typeof v !== 'string' || v !== '')
       );
     }
     if (typeof value === 'string') {
@@ -72,7 +73,8 @@ export default function GrowthSponsoringFiltersCard({
     const value = sponsoringFilters[key as keyof typeof sponsoringFilters];
     if (typeof value === 'object' && value !== null) {
       return Object.values(value).some(
-        (v) => v !== undefined && v !== null && (typeof v !== 'string' || v !== '')
+        (v) =>
+          v !== undefined && v !== null && (typeof v !== 'string' || v !== '')
       );
     }
     if (typeof value === 'string') {
