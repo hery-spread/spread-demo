@@ -241,10 +241,11 @@ export default function AdvancedSearchPage() {
     searchQuery: '',
     activeFilters: {},
     cardStates: {
-      'platform-search': false,
-      'creator-filters': false,
-      'audience-filters': false,
-      'content-filters': false,
+      'platform-search': true,
+      'creator-identity-filters': true,
+      'audience-targeting-filters': true,
+      'performance-filters': true,
+      'growth-sponsoring-filters': true,
     },
     results: null,
     selectedInfluencers: [],
@@ -327,7 +328,7 @@ export default function AdvancedSearchPage() {
   };
 
   return (
-    <div className="h-screen flex bg-gray-50 overflow-x-hidden">
+    <div className="min-h-screen flex bg-gray-50 overflow-x-hidden">
       {/* Sidebar de recherche - Colonne gauche */}
       <div className="w-[28rem] min-w-[22rem] max-w-[32rem] flex-shrink-0 overflow-hidden">
         <SearchSidebar

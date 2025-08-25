@@ -38,11 +38,12 @@ export default function FeaturesSection() {
     {
       icon: ChatBubbleLeftRightIcon,
       title: 'Séquences Mailing Automatisées',
-      description: 'Automatisez vos campagnes d\'emailing et suivez vos conversations avec les influenceurs en temps réel.',
+      description:
+        "Automatisez vos campagnes d'emailing et suivez vos conversations avec les influenceurs en temps réel.",
       benefits: [
-        'Séquences d\'emails personnalisées',
+        "Séquences d'emails personnalisées",
         'Suivi automatique des réponses',
-        'Templates d\'emails optimisés',
+        "Templates d'emails optimisés",
         'Gestion des listes de contacts',
       ],
       color: 'green',

@@ -226,13 +226,13 @@ export default function AISearchCard({
             placeholder="Ex: influenceuses beauté françaises avec +100k followers sur Instagram"
             value={searchQuery}
             onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="pl-10 pr-24 py-3 text-sm"
+            className="pl-10 pr-28 py-3 text-sm"
           />
           <Button
             onClick={handleAIAnalysis}
             disabled={!searchQuery.trim() || isAnalyzing}
             size="sm"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1"
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 z-10"
           >
             {isAnalyzing ? (
               <>

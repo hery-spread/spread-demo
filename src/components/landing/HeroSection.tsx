@@ -27,14 +27,17 @@ export default function HeroSection() {
     'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
 
   // Filtres à révéler progressivement
-  const filters = useMemo(() => [
-    { id: 'location', label: '📍 France', delay: 500 },
-    { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
-    { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
-    { id: 'category', label: '💄 Beauté', delay: 1100 },
-    { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
-    { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
-  ], []);
+  const filters = useMemo(
+    () => [
+      { id: 'location', label: '📍 France', delay: 500 },
+      { id: 'followers', label: '👥 50K-500K followers', delay: 700 },
+      { id: 'engagement', label: '📈 +4% engagement', delay: 900 },
+      { id: 'category', label: '💄 Beauté', delay: 1100 },
+      { id: 'audience', label: '👩 Audience féminine', delay: 1300 },
+      { id: 'age', label: '🔢 18-35 ans', delay: 1500 },
+    ],
+    []
+  );
 
   // Fonction de réinitialisation de l'animation
   const resetAnimation = () => {
@@ -82,11 +85,11 @@ export default function HeroSection() {
                   if (count >= 2847) {
                     setProfileCount(2847);
                     clearInterval(counterTimer);
-                    
+
                     // Programmer le redémarrage de l'animation après 4 secondes
                     setTimeout(() => {
                       resetAnimation();
-                      setAnimationCycle(prev => prev + 1);
+                      setAnimationCycle((prev) => prev + 1);
                     }, 4000);
                   } else {
                     setProfileCount(Math.floor(count));
@@ -97,10 +100,17 @@ export default function HeroSection() {
           }, filter.delay);
         });
       }, 1000);
-      
+
       return () => clearTimeout(analysisTimer);
     }
-  }, [currentText, targetText, showAnalysis, isLooping, animationCycle, filters]);
+  }, [
+    currentText,
+    targetText,
+    showAnalysis,
+    isLooping,
+    animationCycle,
+    filters,
+  ]);
 
   const handleStartTrial = () => {
     // Redirection vers l'inscription/onboarding
@@ -183,7 +193,7 @@ export default function HeroSection() {
           </div>
 
           {/* Visual Right - Real AI Search Interface */}
-          <div 
+          <div
             className="relative"
             onMouseEnter={() => setIsLooping(false)}
             onMouseLeave={() => setIsLooping(true)}
@@ -349,9 +359,7 @@ export default function HeroSection() {
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600">98%</div>
-              <div className="text-gray-600">
-                de précision des données
-              </div>
+              <div className="text-gray-600">de précision des données</div>
             </div>
           </div>
         </div>

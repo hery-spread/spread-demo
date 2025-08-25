@@ -88,7 +88,9 @@ export default function CTASection() {
                 <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-3">
                   <span className="text-white font-bold">🔐</span>
                 </div>
-                <div className="text-white font-semibold">Aucune CB Requise</div>
+                <div className="text-white font-semibold">
+                  Aucune CB Requise
+                </div>
                 <div className="text-purple-200 text-sm">
                   Commencez immédiatement
                 </div>

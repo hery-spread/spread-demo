@@ -173,7 +173,7 @@ export default function PlatformSearchCard({
     <CollapsibleFilterCard
       id="platform-search"
       title="Plateforme & Recherche"
-      description="Sélectionnez les plateformes ou recherchez directement un utilisateur"
+      description="⭐ OBLIGATOIRE : Sélectionnez d'abord une plateforme pour des résultats précis"
       icon={<DevicePhoneMobileIcon className="w-5 h-5" />}
       isOpen={isOpen}
       onToggle={onToggle}
@@ -273,8 +273,25 @@ export default function PlatformSearchCard({
             <h4 className="font-medium text-gray-900 flex items-center space-x-2">
               <DevicePhoneMobileIconSolid className="w-4 h-4 text-gray-500" />
               <span>Plateforme</span>
+              <span className="inline-flex items-center px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+                OBLIGATOIRE
+              </span>
             </h4>
           </div>
+
+          {!currentPlatform && (
+            <div className="mb-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+              <div className="flex items-start space-x-2">
+                <InformationCircleIcon className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-amber-800">
+                  <p className="font-medium">Sélection requise</p>
+                  <p className="text-xs mt-1">
+                    Vous devez sélectionner une plateforme avant de configurer les autres filtres pour obtenir des résultats pertinents.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           <div className="flex items-center gap-2">
             {(['instagram', 'youtube', 'tiktok'] as const).map((platform) => {

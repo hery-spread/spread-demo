@@ -256,8 +256,6 @@ export default function PricingPreview() {
             );
           })}
         </div>
-
-
       </div>
     </section>
   );
