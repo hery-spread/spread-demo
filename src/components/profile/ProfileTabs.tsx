@@ -1,9 +1,6 @@
 'use client';
 
-type ProfileTab =
-  | 'overview'
-  | 'audience'
-  | 'contact';
+type ProfileTab = 'overview' | 'audience' | 'contact';
 
 interface ProfileTabsProps {
   activeTab: ProfileTab;

@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import {
-  ShareIcon,
   UserGroupIcon,
   HeartIcon,
   ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/Button';
 import { InfluencerDetails } from '@/types';
 
 // Simuler la récupération des données de partage
@@ -99,7 +97,8 @@ export default function SharePage() {
   const [loading, setLoading] = useState(true);
 
   const shareId = params.shareId as string;
-  const utmParams = {
+  // UTM tracking pour analytics
+  const _utmParams = {
     utm_source: searchParams.get('utm_source'),
     utm_medium: searchParams.get('utm_medium'),
     utm_campaign: searchParams.get('utm_campaign'),
@@ -134,104 +133,110 @@ export default function SharePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header avec branding Spread */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
-                <ShareIcon className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-semibold text-gray-900">
-                  Rapport partagé via Spread
-                </h1>
-                <p className="text-sm text-gray-600">
-                  Analyse d&apos;audience détaillée
-                </p>
-              </div>
-            </div>
-            <Button
-              className="bg-purple-600 hover:bg-purple-700 text-white"
-              onClick={() => {
-                // Tracker le clic CTA header
-                console.log('Header CTA clicked', utmParams);
-                window.open(
-                  '/search?utm_source=shared_report_header',
-                  '_blank'
-                );
-              }}
-            >
-              Essayer Spread
-            </Button>
-          </div>
+    <div className="min-h-screen bg-white">
+      {/* Contenu principal - Layout épuré */}
+      <div className="max-w-5xl mx-auto px-6 py-8">
+        {/* En-tête du rapport */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Rapport d'audience détaillé
+          </h1>
+          <p className="text-gray-600">
+            Analyse complète des données d'audience et de performance
+          </p>
         </div>
-      </div>
 
-      {/* Contenu principal */}
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Profil de l'influenceur */}
-        <div className="bg-white rounded-lg p-6 mb-6">
-          <div className="flex items-center space-x-4 mb-6">
-            <img
-              src={report.avatar}
-              alt={report.name}
-              className="w-20 h-20 rounded-full"
-            />
-            <div className="flex-1">
-              <div className="flex items-center space-x-2 mb-1">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  {report.name}
-                </h2>
+        {/* Profil de l'influenceur - Version enrichie */}
+        <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-200 p-8 mb-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 mb-8">
+            <div className="relative">
+              <img
+                src={report.avatar}
+                alt={report.name}
+                className="w-24 h-24 rounded-2xl object-cover shadow-lg"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      report.name
+                    )}&background=6366f1&color=fff`;
+                }}
+              />
+              {report.verified && (
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">✓</span>
+                </div>
+              )}
+            </div>
+            <div className="text-center md:text-left flex-1">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                {report.name}
+              </h2>
+              <p className="text-xl text-gray-600 mb-3">@{report.username}</p>
+              <p className="text-gray-700 mb-4 max-w-2xl">{report.bio}</p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">
+                  {report.platform.charAt(0).toUpperCase() + report.platform.slice(1)}
+                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                  {report.country}
+                </span>
                 {report.verified && (
-                  <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                    Vérifié
+                  </span>
                 )}
               </div>
-              <p className="text-lg text-gray-600 mb-2">@{report.username}</p>
-              <p className="text-gray-700">{report.bio}</p>
             </div>
           </div>
 
-          {/* Statistiques principales */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center justify-center mb-2">
-                <UserGroupIcon className="w-5 h-5 text-gray-600" />
+          {/* Statistiques principales - Design moderne */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl border border-purple-200">
+              <div className="flex items-center justify-center mb-3">
+                <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center">
+                  <UserGroupIcon className="w-6 h-6 text-white" />
+                </div>
               </div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-3xl font-bold text-purple-700 mb-1">
                 {report.followers.toLocaleString()}
               </div>
-              <div className="text-sm text-gray-600">Followers</div>
+              <div className="text-sm font-medium text-purple-600">Followers</div>
             </div>
 
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center justify-center mb-2">
-                <HeartIcon className="w-5 h-5 text-red-500" />
+            <div className="text-center p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl border border-red-200">
+              <div className="flex items-center justify-center mb-3">
+                <div className="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center">
+                  <HeartIcon className="w-6 h-6 text-white" />
+                </div>
               </div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-3xl font-bold text-red-700 mb-1">
                 {report.engagementRate}%
               </div>
-              <div className="text-sm text-gray-600">Engagement</div>
+              <div className="text-sm font-medium text-red-600">Engagement</div>
             </div>
 
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="flex items-center justify-center mb-2">
-                <ChatBubbleLeftIcon className="w-5 h-5 text-blue-500" />
+            <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border border-blue-200">
+              <div className="flex items-center justify-center mb-3">
+                <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center">
+                  <ChatBubbleLeftIcon className="w-6 h-6 text-white" />
+                </div>
               </div>
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-3xl font-bold text-blue-700 mb-1">
                 {report.stats.avgLikes.toLocaleString()}
               </div>
-              <div className="text-sm text-gray-600">Likes moyens</div>
+              <div className="text-sm font-medium text-blue-600">Likes moyens</div>
             </div>
 
-            <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <div className="text-2xl font-bold text-gray-900">
+            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl border border-green-200">
+              <div className="flex items-center justify-center mb-3">
+                <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">#</span>
+                </div>
+              </div>
+              <div className="text-3xl font-bold text-green-700 mb-1">
                 {report.stats.totalPosts}
               </div>
-              <div className="text-sm text-gray-600">Posts</div>
+              <div className="text-sm font-medium text-green-600">Posts</div>
             </div>
           </div>
         </div>
@@ -339,31 +344,20 @@ export default function SharePage() {
         </div>
       </div>
 
-      {/* CTA Footer */}
-      <div className="bg-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-          <h3 className="text-2xl font-bold mb-2">
-            Trouvez des influenceurs comme {report.name}
-          </h3>
-          <p className="text-purple-100 mb-6">
-            Accédez à plus de 250 000 000 de profils d&apos;influenceurs avec
-            des analyses détaillées
-          </p>
-          <Button
-            className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3"
-            onClick={() => {
-              // Tracker le clic CTA
-              console.log('CTA clicked', utmParams);
-              window.open('/search?utm_source=shared_report', '_blank');
-            }}
-          >
-            Essayer Spread gratuitement
-          </Button>
-          <p className="text-xs text-purple-200 mt-4">
-            Rapport généré par Spread • La plateforme des influenceurs
-          </p>
+        {/* Branding discret */}
+        <div className="mt-12 pt-8 border-t border-gray-100">
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-2 mb-2">
+              <div className="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xs">S</span>
+              </div>
+              <span className="text-sm font-medium text-gray-600">Powered by Spread</span>
+            </div>
+            <p className="text-xs text-gray-400">
+              Rapport d'audience généré le {new Date().toLocaleDateString('fr-FR')}
+            </p>
+          </div>
         </div>
-      </div>
     </div>
   );
 }

@@ -14,13 +14,15 @@ import ProfileTabs from '@/components/profile/ProfileTabs';
 // import LockedContent from '@/components/profile/LockedContent'; // Unused for now
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { ArrowLeftIcon, XMarkIcon, LockClosedIcon, CreditCardIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowLeftIcon,
+  XMarkIcon,
+  LockClosedIcon,
+  CreditCardIcon,
+} from '@heroicons/react/24/outline';
 import { useCredits } from '@/hooks/useCredits';
 
-type ProfileTab =
-  | 'overview'
-  | 'audience'
-  | 'contact';
+type ProfileTab = 'overview' | 'audience' | 'contact';
 
 // Helper function pour formater les nombres
 const formatNumber = (num: number) => {
@@ -94,7 +96,7 @@ export default function ProfilePage() {
       if (result) {
         // Simuler le déverrouillage des données
         const unlockedData = await unlockInfluencerReport(influencer!.id);
-          setDetailedData(unlockedData);
+        setDetailedData(unlockedData);
       }
     } catch (error) {
       console.error('Erreur lors du déverrouillage:', error);
@@ -121,9 +123,9 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
-          Influenceur non trouvé
-        </h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Influenceur non trouvé
+          </h1>
           <Button onClick={() => router.back()}>
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Retour
@@ -169,7 +171,9 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-900 mb-2">Informations publiques</h4>
+                <h4 className="font-medium text-gray-900 mb-2">
+                  Informations publiques
+                </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Plateforme:</span>
@@ -190,10 +194,12 @@ export default function ProfilePage() {
                     </span>
                   </div>
                 </div>
-                
+
                 {/* Informations nécessitant un déblocage */}
                 <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                  <h5 className="font-medium text-gray-700 mb-2 text-xs">Informations détaillées</h5>
+                  <h5 className="font-medium text-gray-700 mb-2 text-xs">
+                    Informations détaillées
+                  </h5>
                   <div className="space-y-1 text-xs text-gray-500">
                     <div className="flex justify-between items-center">
                       <span>Pays de résidence:</span>
@@ -223,7 +229,7 @@ export default function ProfilePage() {
             <div className="p-6 bg-white">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Rapport d'audience complet
-            </h3>
+              </h3>
 
               {/* Statistiques publiques */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -260,15 +266,21 @@ export default function ProfilePage() {
                 {/* Aperçu flouté */}
                 <div className="p-6 bg-white border-t border-gray-200">
                   <div className="filter blur-sm pointer-events-none select-none">
-                    <h4 className="text-md font-semibold text-gray-900 mb-4">Analyse détaillée de l'audience</h4>
-                    
+                    <h4 className="text-md font-semibold text-gray-900 mb-4">
+                      Analyse détaillée de l'audience
+                    </h4>
+
                     {/* Fausses données pour l'aperçu */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <h5 className="font-medium text-gray-700 mb-3">Répartition par genre</h5>
+                        <h5 className="font-medium text-gray-700 mb-3">
+                          Répartition par genre
+                        </h5>
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">Femmes</span>
+                            <span className="text-sm text-gray-600">
+                              Femmes
+                            </span>
                             <div className="flex items-center space-x-2">
                               <div className="w-20 h-2 bg-pink-200 rounded-full">
                                 <div className="w-3/5 h-full bg-pink-500 rounded-full"></div>
@@ -277,7 +289,9 @@ export default function ProfilePage() {
                             </div>
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">Hommes</span>
+                            <span className="text-sm text-gray-600">
+                              Hommes
+                            </span>
                             <div className="flex items-center space-x-2">
                               <div className="w-20 h-2 bg-blue-200 rounded-full">
                                 <div className="w-2/5 h-full bg-blue-500 rounded-full"></div>
@@ -287,29 +301,39 @@ export default function ProfilePage() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div>
-                        <h5 className="font-medium text-gray-700 mb-3">Top pays</h5>
+                        <h5 className="font-medium text-gray-700 mb-3">
+                          Top pays
+                        </h5>
                         <div className="space-y-2">
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">France</span>
+                            <span className="text-sm text-gray-600">
+                              France
+                            </span>
                             <span className="text-sm font-medium">45%</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Belgique</span>
+                            <span className="text-sm text-gray-600">
+                              Belgique
+                            </span>
                             <span className="text-sm font-medium">15%</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Suisse</span>
+                            <span className="text-sm text-gray-600">
+                              Suisse
+                            </span>
                             <span className="text-sm font-medium">12%</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h5 className="font-medium text-gray-700 mb-3">Tranches d'âge</h5>
+                        <h5 className="font-medium text-gray-700 mb-3">
+                          Tranches d'âge
+                        </h5>
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span className="text-sm text-gray-600">18-24</span>
@@ -325,9 +349,11 @@ export default function ProfilePage() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div>
-                        <h5 className="font-medium text-gray-700 mb-3">Centres d'intérêt</h5>
+                        <h5 className="font-medium text-gray-700 mb-3">
+                          Centres d'intérêt
+                        </h5>
                         <div className="space-y-2">
                           <div className="flex justify-between">
                             <span className="text-sm text-gray-600">Sport</span>
@@ -338,14 +364,16 @@ export default function ProfilePage() {
                             <span className="text-sm font-medium">22%</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-sm text-gray-600">Voyage</span>
+                            <span className="text-sm text-gray-600">
+                              Voyage
+                            </span>
                             <span className="text-sm font-medium">18%</span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Overlay de déblocage */}
                   <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
                     <div className="text-center p-6">
@@ -356,11 +384,14 @@ export default function ProfilePage() {
                         Rapport d'audience complet
                       </h4>
                       <p className="text-gray-600 mb-4 max-w-sm">
-                        Débloquez l'analyse complète avec toutes les données d'audience, contenus et performances.
+                        Débloquez l'analyse complète avec toutes les données
+                        d'audience, contenus et performances.
                       </p>
                       <div className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-lg mb-4">
                         <CreditCardIcon className="w-4 h-4 text-purple-600" />
-                        <span className="text-sm font-medium text-purple-900">1 crédit</span>
+                        <span className="text-sm font-medium text-purple-900">
+                          1 crédit
+                        </span>
                       </div>
                       <Button onClick={handleUnlockReport} size="lg">
                         <LockClosedIcon className="w-4 h-4 mr-2" />
@@ -378,96 +409,105 @@ export default function ProfilePage() {
 
                 {/* Statistiques détaillées */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">
-                  {Math.round(detailedData!.audience!.gender.female)}%
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {Math.round(detailedData!.audience!.gender.female)}%
+                    </div>
+                    <div className="text-sm text-blue-800">Femmes</div>
+                  </div>
+                  <div className="bg-purple-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-600">
+                      {Math.round(detailedData!.audience!.gender.male)}%
+                    </div>
+                    <div className="text-sm text-purple-800">Hommes</div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">
+                      {Object.keys(detailedData!.audience!.countries).length}
+                    </div>
+                    <div className="text-sm text-green-800">Pays</div>
+                  </div>
+                  <div className="bg-orange-50 p-4 rounded-lg">
+                    <div className="text-2xl font-bold text-orange-600">
+                      {
+                        Object.keys(detailedData!.audience!.interests.topics)
+                          .length
+                      }
+                    </div>
+                    <div className="text-sm text-orange-800">Intérêts</div>
+                  </div>
                 </div>
-                <div className="text-sm text-blue-800">Femmes</div>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-purple-600">
-                  {Math.round(detailedData!.audience!.gender.male)}%
-                </div>
-                <div className="text-sm text-purple-800">Hommes</div>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
-                  {Object.keys(detailedData!.audience!.countries).length}
-                </div>
-                <div className="text-sm text-green-800">Pays</div>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">
-                  {Object.keys(detailedData!.audience!.interests.topics).length}
-                </div>
-                <div className="text-sm text-orange-800">Intérêts</div>
-              </div>
-            </div>
 
-            {/* Répartition par âge */}
+                {/* Répartition par âge */}
                 <div className="bg-white border rounded-lg p-4 mb-6">
-              <h4 className="font-medium text-gray-900 mb-3">
-                Répartition par âge
-              </h4>
-              <div className="space-y-2">
-                {Object.entries(detailedData!.audience!.age).map(
-                  ([age, percentage]) => (
-                    <div key={age} className="flex items-center">
-                      <div className="w-16 text-sm text-gray-600">{age}</div>
-                      <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
+                  <h4 className="font-medium text-gray-900 mb-3">
+                    Répartition par âge
+                  </h4>
+                  <div className="space-y-2">
+                    {Object.entries(detailedData!.audience!.age).map(
+                      ([age, percentage]) => (
+                        <div key={age} className="flex items-center">
+                          <div className="w-16 text-sm text-gray-600">
+                            {age}
+                          </div>
+                          <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
+                            <div
+                              className="bg-blue-500 h-2 rounded-full"
+                              style={{ width: `${percentage}%` }}
+                            ></div>
+                          </div>
+                          <div className="w-12 text-sm font-medium text-right">
+                            {percentage}%
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                {/* Top pays */}
+                <div className="bg-white border rounded-lg p-4 mb-6">
+                  <h4 className="font-medium text-gray-900 mb-3">Top pays</h4>
+                  <div className="space-y-2">
+                    {Object.entries(detailedData!.audience!.countries)
+                      .sort(([, a], [, b]) => (b as number) - (a as number))
+                      .slice(0, 5)
+                      .map(([country, percentage]) => (
                         <div
-                          className="bg-blue-500 h-2 rounded-full"
-                          style={{ width: `${percentage}%` }}
-                        ></div>
-                      </div>
-                      <div className="w-12 text-sm font-medium text-right">
-                        {percentage}%
-                      </div>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
+                          key={country}
+                          className="flex items-center justify-between"
+                        >
+                          <span className="text-sm text-gray-700">
+                            {country}
+                          </span>
+                          <span className="text-sm font-medium">
+                            {percentage}%
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
 
-            {/* Top pays */}
-                <div className="bg-white border rounded-lg p-4 mb-6">
-              <h4 className="font-medium text-gray-900 mb-3">Top pays</h4>
-              <div className="space-y-2">
-                {Object.entries(detailedData!.audience!.countries)
-                  .sort(([, a], [, b]) => (b as number) - (a as number))
-                  .slice(0, 5)
-                  .map(([country, percentage]) => (
-                    <div
-                      key={country}
-                      className="flex items-center justify-between"
-                    >
-                      <span className="text-sm text-gray-700">{country}</span>
-                      <span className="text-sm font-medium">{percentage}%</span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-            {/* Centres d'intérêt */}
-            <div className="bg-white border rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-3">
+                {/* Centres d'intérêt */}
+                <div className="bg-white border rounded-lg p-4">
+                  <h4 className="font-medium text-gray-900 mb-3">
                     Centres d'intérêt
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {Object.entries(detailedData!.audience!.interests.topics)
-                  .sort(([, a], [, b]) => (b as number) - (a as number))
-                  .slice(0, 8)
-                  .map(([topic, percentage]) => (
-                    <span
-                      key={topic}
-                      className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
-                    >
-                      {topic} ({percentage}%)
-                    </span>
-                  ))}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.entries(detailedData!.audience!.interests.topics)
+                      .sort(([, a], [, b]) => (b as number) - (a as number))
+                      .slice(0, 8)
+                      .map(([topic, percentage]) => (
+                        <span
+                          key={topic}
+                          className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm"
+                        >
+                          {topic} ({percentage}%)
+                        </span>
+                      ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
             )}
           </div>
         );
@@ -516,33 +556,33 @@ export default function ProfilePage() {
       <div className="max-w-6xl mx-auto py-8 px-4">
         {/* Header avec bouton retour */}
         <div className="mb-6">
-        <Button
+          <Button
             variant="outline"
-          onClick={() => router.back()}
+            onClick={() => router.back()}
             className="mb-4"
-        >
-          <ArrowLeftIcon className="w-4 h-4 mr-2" />
+          >
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Retour à la recherche
-        </Button>
-      </div>
+          </Button>
+        </div>
 
-      {/* Header du profil */}
-      <ProfileHeader
+        {/* Header du profil */}
+        <ProfileHeader
           influencer={influencer}
-        onAddToList={handleAddToList}
-        onContact={handleContact}
-      />
+          onAddToList={handleAddToList}
+          onContact={handleContact}
+        />
 
         {/* Onglets et contenu */}
         <div className="mt-8">
-      <ProfileTabs
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        hasDetailedData={!!detailedData}
-      />
+          <ProfileTabs
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            hasDetailedData={!!detailedData}
+          />
 
           <div className="mt-6 bg-white rounded-lg border border-gray-200 shadow-sm">
-        {renderTabContent()}
+            {renderTabContent()}
           </div>
         </div>
       </div>
@@ -564,10 +604,10 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-4">
-                <Input
+              <Input
                 label="Sujet"
                 placeholder="Collaboration, partenariat..."
-                />
+              />
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message
