@@ -11,6 +11,7 @@ import {
 import { getEnhancedInfluencerReport } from '@/lib/modash';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
+import ShareReportModal from '@/components/profile/ShareReportModal';
 // import LockedContent from '@/components/profile/LockedContent'; // Unused for now
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -19,6 +20,7 @@ import {
   XMarkIcon,
   LockClosedIcon,
   CreditCardIcon,
+  ShareIcon,
 } from '@heroicons/react/24/outline';
 import { useCredits } from '@/hooks/useCredits';
 
@@ -62,6 +64,7 @@ export default function ProfilePage() {
   const { unlockReports } = useCredits();
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     const loadInfluencerData = async () => {
@@ -125,6 +128,21 @@ export default function ProfilePage() {
 
   const handleAddToList = () => {
     setShowAddToListModal(true);
+  };
+
+  const handleShare = () => {
+    setShowShareModal(true);
+  };
+
+  const handleShareComplete = (shareData: {
+    influencerId: string;
+    shareType: 'public' | 'private';
+    expiresAt?: string;
+    includeFullAudience: boolean;
+    trackingEnabled: boolean;
+  }) => {
+    console.log('Rapport partagé:', shareData);
+    // Ici on pourrait ajouter des analytics ou notifications
   };
 
   if (loading) {
@@ -419,36 +437,50 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="p-6 bg-white border-t border-gray-200">
-                <h4 className="text-lg font-semibold text-gray-900 mb-8">
-                  📊 Rapport d'audience complet - Déverrouillé
-                </h4>
+                <div className="flex items-center justify-between mb-8">
+                  <h4 className="text-lg font-semibold text-gray-900">
+                    📊 Rapport d'audience complet - Déverrouillé
+                  </h4>
+                  {detailedData && (
+                    <Button
+                      onClick={handleShare}
+                      variant="outline"
+                      className="flex items-center space-x-2 text-purple-600 border-purple-200 hover:bg-purple-50"
+                    >
+                      <ShareIcon className="w-4 h-4" />
+                      <span>Partager</span>
+                    </Button>
+                  )}
+                </div>
 
                 {/* Métriques clés */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
-                      <div className="text-2xl font-bold text-blue-700">
-                        {formatPercentage(detailedData!.audience!.gender.female)}
-                      </div>
-                      <div className="text-sm text-blue-600 font-medium">
-                        👩 Femmes
-                      </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+                    <div className="text-2xl font-bold text-blue-700">
+                      {formatPercentage(detailedData!.audience!.gender.female)}
                     </div>
-                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
-                      <div className="text-2xl font-bold text-purple-700">
-                        {formatPercentage(detailedData!.audience!.gender.male)}
-                      </div>
-                      <div className="text-sm text-purple-600 font-medium">
-                        👨 Hommes
-                      </div>
+                    <div className="text-sm text-blue-600 font-medium">
+                      👩 Femmes
                     </div>
-                                      <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
-                      <div className="text-2xl font-bold text-green-700">
-                        {formatPercentage(detailedData!.audience!.credibility || 0.85)}
-                      </div>
-                      <div className="text-sm text-green-600 font-medium">
-                        ✅ Crédibilité
-                      </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+                    <div className="text-2xl font-bold text-purple-700">
+                      {formatPercentage(detailedData!.audience!.gender.male)}
                     </div>
+                    <div className="text-sm text-purple-600 font-medium">
+                      👨 Hommes
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+                    <div className="text-2xl font-bold text-green-700">
+                      {formatPercentage(
+                        detailedData!.audience!.credibility || 0.85
+                      )}
+                    </div>
+                    <div className="text-sm text-green-600 font-medium">
+                      ✅ Crédibilité
+                    </div>
+                  </div>
                   <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200">
                     <div className="text-2xl font-bold text-orange-700">
                       {Object.keys(detailedData!.audience!.countries).length}
@@ -467,28 +499,37 @@ export default function ProfilePage() {
                       🎂 Répartition par âge
                     </h5>
                     <div className="space-y-3">
-                                             {Object.entries(detailedData!.audience!.age).map(
-                         ([age, percentage]) => {
-                           const formattedPercentage = formatPercentage(percentage as number);
-                           const barWidth = Math.max((percentage as number) >= 1 ? percentage as number : (percentage as number) * 100, 0.5);
-                           return (
-                             <div key={age} className="flex items-center">
-                               <div className="w-20 text-sm text-gray-600 font-medium">
-                                 {age} ans
-                               </div>
-                               <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
-                                 <div
-                                   className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
-                                   style={{ width: `${Math.min(barWidth, 100)}%` }}
-                                 ></div>
-                               </div>
-                               <div className="w-16 text-sm font-bold text-right text-blue-600">
-                                 {formattedPercentage}
-                               </div>
-                             </div>
-                           );
-                         }
-                       )}
+                      {Object.entries(detailedData!.audience!.age).map(
+                        ([age, percentage]) => {
+                          const formattedPercentage = formatPercentage(
+                            percentage as number
+                          );
+                          const barWidth = Math.max(
+                            (percentage as number) >= 1
+                              ? (percentage as number)
+                              : (percentage as number) * 100,
+                            0.5
+                          );
+                          return (
+                            <div key={age} className="flex items-center">
+                              <div className="w-20 text-sm text-gray-600 font-medium">
+                                {age} ans
+                              </div>
+                              <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
+                                <div
+                                  className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
+                                  style={{
+                                    width: `${Math.min(barWidth, 100)}%`,
+                                  }}
+                                ></div>
+                              </div>
+                              <div className="w-16 text-sm font-bold text-right text-blue-600">
+                                {formattedPercentage}
+                              </div>
+                            </div>
+                          );
+                        }
+                      )}
                     </div>
                   </div>
 
@@ -498,36 +539,43 @@ export default function ProfilePage() {
                       🌍 Géolocalisation
                     </h5>
                     <div className="space-y-3">
-                                             {Object.entries(detailedData!.audience!.countries)
-                         .sort(([, a], [, b]) => (b as number) - (a as number))
-                         .slice(0, 6)
-                         .map(([country, percentage]) => {
-                           const formattedPercentage = formatPercentage(percentage as number);
-                           const barWidth = Math.max((percentage as number) >= 1 ? percentage as number : (percentage as number) * 100, 0.5);
-                           return (
-                             <div
-                               key={country}
-                               className="flex items-center justify-between py-1"
-                             >
-                               <span className="text-sm text-gray-700 font-medium">
-                                 {country}
-                               </span>
-                               <div className="flex items-center">
-                                 <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
-                                   <div
-                                     className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full"
-                                     style={{
-                                       width: `${Math.min(barWidth, 100)}%`,
-                                     }}
-                                   ></div>
-                                 </div>
-                                 <span className="text-sm font-bold text-green-600 w-12 text-right">
-                                   {formattedPercentage}
-                                 </span>
-                               </div>
-                             </div>
-                           );
-                         })}
+                      {Object.entries(detailedData!.audience!.countries)
+                        .sort(([, a], [, b]) => (b as number) - (a as number))
+                        .slice(0, 6)
+                        .map(([country, percentage]) => {
+                          const formattedPercentage = formatPercentage(
+                            percentage as number
+                          );
+                          const barWidth = Math.max(
+                            (percentage as number) >= 1
+                              ? (percentage as number)
+                              : (percentage as number) * 100,
+                            0.5
+                          );
+                          return (
+                            <div
+                              key={country}
+                              className="flex items-center justify-between py-1"
+                            >
+                              <span className="text-sm text-gray-700 font-medium">
+                                {country}
+                              </span>
+                              <div className="flex items-center">
+                                <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                                  <div
+                                    className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full"
+                                    style={{
+                                      width: `${Math.min(barWidth, 100)}%`,
+                                    }}
+                                  ></div>
+                                </div>
+                                <span className="text-sm font-bold text-green-600 w-12 text-right">
+                                  {formattedPercentage}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
@@ -538,22 +586,22 @@ export default function ProfilePage() {
                     💡 Centres d'intérêt principaux
                   </h5>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                         {Object.entries(detailedData!.audience!.interests.topics)
-                       .sort(([, a], [, b]) => (b as number) - (a as number))
-                       .slice(0, 12)
-                       .map(([topic, percentage]) => (
-                         <div
-                           key={topic}
-                           className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 px-3 py-2 rounded-lg text-center"
-                         >
-                           <div className="text-sm font-semibold text-purple-700">
-                             {formatPercentage(percentage as number)}
-                           </div>
-                           <div className="text-xs text-purple-600 mt-1">
-                             {topic}
-                           </div>
-                         </div>
-                       ))}
+                    {Object.entries(detailedData!.audience!.interests.topics)
+                      .sort(([, a], [, b]) => (b as number) - (a as number))
+                      .slice(0, 12)
+                      .map(([topic, percentage]) => (
+                        <div
+                          key={topic}
+                          className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 px-3 py-2 rounded-lg text-center"
+                        >
+                          <div className="text-sm font-semibold text-purple-700">
+                            {formatPercentage(percentage as number)}
+                          </div>
+                          <div className="text-xs text-purple-600 mt-1">
+                            {topic}
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
 
@@ -563,9 +611,9 @@ export default function ProfilePage() {
                     <h6 className="font-semibold text-indigo-900 mb-3">
                       📈 Engagement
                     </h6>
-                                         <div className="text-2xl font-bold text-indigo-700 mb-1">
-                       {formatPercentage(influencer!.engagementRate)}
-                     </div>
+                    <div className="text-2xl font-bold text-indigo-700 mb-1">
+                      {formatPercentage(influencer!.engagementRate)}
+                    </div>
                     <div className="text-sm text-indigo-600">
                       Taux d'engagement moyen
                     </div>
@@ -585,9 +633,11 @@ export default function ProfilePage() {
                     <h6 className="font-semibold text-amber-900 mb-3">
                       ⭐ Qualité
                     </h6>
-                                         <div className="text-2xl font-bold text-amber-700 mb-1">
-                       {formatPercentage(detailedData!.audience!.credibility || 0.85)}
-                     </div>
+                    <div className="text-2xl font-bold text-amber-700 mb-1">
+                      {formatPercentage(
+                        detailedData!.audience!.credibility || 0.85
+                      )}
+                    </div>
                     <div className="text-sm text-amber-600">
                       Audience authentique
                     </div>
@@ -614,9 +664,9 @@ export default function ProfilePage() {
                             <div className="text-xs text-gray-600">
                               {language}
                             </div>
-                                                         <div className="text-sm font-semibold text-blue-600">
-                               {formatPercentage(percentage as number)}
-                             </div>
+                            <div className="text-sm font-semibold text-blue-600">
+                              {formatPercentage(percentage as number)}
+                            </div>
                           </div>
                         ))}
                   </div>
@@ -637,17 +687,21 @@ export default function ProfilePage() {
                           <span className="text-sm text-gray-600">
                             👤 Utilisateurs réels
                           </span>
-                                                     <span className="text-sm font-semibold text-green-600">
-                             {formatPercentage(detailedData!.audience!.credibility || 0.85)}
-                           </span>
+                          <span className="text-sm font-semibold text-green-600">
+                            {formatPercentage(
+                              detailedData!.audience!.credibility || 0.85
+                            )}
+                          </span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">
                             🤖 Comptes suspects
                           </span>
-                                                     <span className="text-sm font-semibold text-red-600">
-                             {formatPercentage(1 - (detailedData!.audience!.credibility || 0.85))}
-                           </span>
+                          <span className="text-sm font-semibold text-red-600">
+                            {formatPercentage(
+                              1 - (detailedData!.audience!.credibility || 0.85)
+                            )}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -871,6 +925,16 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal de partage */}
+      {detailedData && (
+        <ShareReportModal
+          isOpen={showShareModal}
+          onClose={() => setShowShareModal(false)}
+          influencer={detailedData}
+          onShare={handleShareComplete}
+        />
       )}
     </div>
   );

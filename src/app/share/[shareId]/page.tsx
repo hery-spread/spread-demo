@@ -57,20 +57,19 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
       totalPosts: 1250,
     },
     audience: {
-      gender: { male: 25, female: 75 },
+      gender: { male: 0.15, female: 0.85 },
       age: {
-        '13-17': 8,
-        '18-24': 35,
-        '25-34': 28,
-        '35-44': 20,
-        '45-64': 9,
+        '13-17': 0.0012,
+        '18-24': 0.3814,
+        '25-34': 0.4048,
+        '35-44': 0.1075,
+        '45-64': 0.1051,
       },
       countries: {
-        France: 65,
-        Belgique: 12,
-        Suisse: 8,
-        Canada: 10,
-        Autres: 5,
+        'FR': 0.4559,
+        'BE': 0.2376,
+        'CH': 0.2306,
+        'CA': 0.0759,
       },
       cities: {
         Paris: 35,
@@ -80,8 +79,11 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
         Autres: 30,
       },
       languages: {
-        Français: 85,
-        Anglais: 15,
+        'fr': 0.6247,
+        'en': 0.2156,
+        'es': 0.0892,
+        'de': 0.0456,
+        'it': 0.0249,
       },
       ethnicities: {
         Européen: 75,
@@ -89,11 +91,18 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
       },
       interests: {
         topics: {
-          Mode: 85,
-          Beauté: 78,
-          Lifestyle: 82,
-          Voyage: 45,
-          Food: 38,
+          'Fashion': 0.0085,
+          'Beauty & Cosmetics': 0.0078,
+          'Lifestyle': 0.0082,
+          'Travel': 0.0045,
+          'Food & Cooking': 0.0038,
+          'Fitness & Health': 0.0032,
+          'Photography': 0.0028,
+          'Art & Design': 0.0025,
+          'Music': 0.0022,
+          'Technology': 0.0018,
+          'Business': 0.0015,
+          'Sports': 0.0012,
         },
         brands: {
           Zara: 65,
@@ -103,6 +112,7 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
           Nike: 28,
         },
       },
+      credibility: 0.87,
     },
   };
 }
@@ -310,28 +320,35 @@ export default function SharePage() {
                 🎂 Répartition par âge
               </h3>
               <div className="space-y-3">
-                                 {Object.entries(report.audience.age).map(
-                   ([age, percentage]) => {
-                     const formattedPercentage = formatPercentage(percentage as number);
-                     const barWidth = Math.max((percentage as number) >= 1 ? percentage as number : (percentage as number) * 100, 0.5);
-                     return (
-                       <div key={age} className="flex items-center">
-                         <div className="w-20 text-sm text-gray-600 font-medium">
-                           {age} ans
-                         </div>
-                         <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
-                           <div
-                             className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
-                             style={{ width: `${Math.min(barWidth, 100)}%` }}
-                           ></div>
-                         </div>
-                         <div className="w-16 text-sm font-bold text-right text-blue-600">
-                           {formattedPercentage}
-                         </div>
-                       </div>
-                     );
-                   }
-                 )}
+                {Object.entries(report.audience.age).map(
+                  ([age, percentage]) => {
+                    const formattedPercentage = formatPercentage(
+                      percentage as number
+                    );
+                    const barWidth = Math.max(
+                      (percentage as number) >= 1
+                        ? (percentage as number)
+                        : (percentage as number) * 100,
+                      0.5
+                    );
+                    return (
+                      <div key={age} className="flex items-center">
+                        <div className="w-20 text-sm text-gray-600 font-medium">
+                          {age} ans
+                        </div>
+                        <div className="flex-1 bg-gray-200 rounded-full h-3 mx-3">
+                          <div
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500"
+                            style={{ width: `${Math.min(barWidth, 100)}%` }}
+                          ></div>
+                        </div>
+                        <div className="w-16 text-sm font-bold text-right text-blue-600">
+                          {formattedPercentage}
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
               </div>
             </div>
 
@@ -371,43 +388,132 @@ export default function SharePage() {
             </div>
           </div>
 
-          {/* Géolocalisation */}
-          <div className="bg-white rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Top pays
+          {/* Centres d'intérêt principaux */}
+          <div className="bg-gray-50 rounded-xl p-6 mb-8">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+              💡 Centres d'intérêt principaux
             </h3>
-            <div className="space-y-2">
-              {Object.entries(report.audience.countries).map(
-                ([country, percentage]) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {Object.entries(report.audience.interests.topics)
+                .sort(([, a], [, b]) => (b as number) - (a as number))
+                .slice(0, 12)
+                .map(([topic, percentage]) => (
                   <div
-                    key={country}
-                    className="flex items-center justify-between"
+                    key={topic}
+                    className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 px-3 py-2 rounded-lg text-center"
                   >
-                    <span className="text-sm text-gray-600">{country}</span>
-                    <span className="text-sm font-medium">{percentage}%</span>
+                    <div className="text-sm font-semibold text-purple-700">
+                      {formatPercentage(percentage as number)}
+                    </div>
+                    <div className="text-xs text-purple-600 mt-1">
+                      {topic}
+                    </div>
                   </div>
-                )
-              )}
+                ))}
             </div>
           </div>
 
-          {/* Centres d'intérêt */}
-          <div className="bg-white rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Centres d&apos;intérêt
-            </h3>
-            <div className="space-y-2">
-              {Object.entries(report.audience.interests.topics).map(
-                ([topic, percentage]) => (
-                  <div
-                    key={topic}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-sm text-gray-600">{topic}</span>
-                    <span className="text-sm font-medium">{percentage}%</span>
+          {/* Métriques de performance */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border border-indigo-200">
+              <h6 className="text-sm font-semibold text-indigo-800 mb-2 flex items-center">
+                📈 Engagement
+              </h6>
+              <div className="text-2xl font-bold text-indigo-700 mb-1">
+                {formatPercentage(report.engagementRate)}
+              </div>
+              <div className="text-sm text-indigo-600">
+                Taux d'engagement moyen
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl border border-teal-200">
+              <h6 className="text-sm font-semibold text-teal-800 mb-2 flex items-center">
+                👥 Portée
+              </h6>
+              <div className="text-2xl font-bold text-teal-700 mb-1">
+                {(report.followers / 1000000).toFixed(1)}M
+              </div>
+              <div className="text-sm text-teal-600">
+                Abonnés actifs
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-xl border border-amber-200">
+              <h6 className="text-sm font-semibold text-amber-800 mb-2 flex items-center">
+                ⭐ Qualité
+              </h6>
+              <div className="text-2xl font-bold text-amber-700 mb-1">
+                {formatPercentage(report.audience.credibility || 0.87)}
+              </div>
+              <div className="text-sm text-amber-600">
+                Audience authentique
+              </div>
+            </div>
+          </div>
+
+          {/* Langues et qualité d'audience */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Langues */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                🗣️ Langues de l'audience
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                {Object.entries(report.audience.languages)
+                  .sort(([, a], [, b]) => (b as number) - (a as number))
+                  .slice(0, 6)
+                  .map(([language, percentage]) => (
+                    <div key={language} className="text-center">
+                      <div className="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center mx-auto mb-2">
+                        <span className="text-blue-600 font-bold text-xs">
+                          {(language as string).slice(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-600">{language}</div>
+                      <div className="text-sm font-semibold text-blue-600">
+                        {formatPercentage(percentage as number)}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            {/* Analyse de qualité */}
+            <div className="bg-gray-50 rounded-xl p-6">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                🔍 Analyse de l'audience
+              </h3>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <h6 className="text-sm font-medium text-gray-700">Répartition par type</h6>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">
+                      👤 Utilisateurs réels
+                    </span>
+                    <span className="text-sm font-semibold text-green-600">
+                      {formatPercentage(report.audience.credibility || 0.87)}
+                    </span>
                   </div>
-                )
-              )}
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">
+                      🤖 Comptes suspects
+                    </span>
+                    <span className="text-sm font-semibold text-red-600">
+                      {formatPercentage(1 - (report.audience.credibility || 0.87))}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <h6 className="text-sm font-medium text-gray-700">Accessibilité</h6>
+                  <div className="text-sm text-gray-600">
+                    📱 <strong>38%</strong> Très actifs (&lt;500 abonnements)<br/>
+                    👥 <strong>26%</strong> Modérément actifs (500-1500)<br/>
+                    🌐 <strong>36%</strong> Très connectés (&gt;1500)
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
