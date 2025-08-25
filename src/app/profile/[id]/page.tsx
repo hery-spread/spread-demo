@@ -63,8 +63,11 @@ export default function ProfilePage() {
             );
             setDetailedData(enhancedData);
           } catch (error) {
-            console.error('Erreur lors du chargement des données Modash:', error);
-            
+            console.error(
+              'Erreur lors du chargement des données Modash:',
+              error
+            );
+
             // Fallback sur les données mockées
             const details = mockInfluencerDetails[id];
             if (details) {

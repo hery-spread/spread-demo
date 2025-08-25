@@ -178,3 +178,4 @@ npm run dev          # Test en développement
 - [ ] Footer optimisé sans espaces excessifs
 - [ ] Build et lint passent sans erreur
 - [ ] Tests responsive validés
+
