@@ -3,9 +3,7 @@
 type ProfileTab =
   | 'overview'
   | 'audience'
-  | 'content'
-  | 'contact'
-  | 'performance';
+  | 'contact';
 
 interface ProfileTabsProps {
   activeTab: ProfileTab;
@@ -16,7 +14,7 @@ interface ProfileTabsProps {
 export default function ProfileTabs({
   activeTab,
   onTabChange,
-  hasDetailedData,
+  hasDetailedData: _hasDetailedData,
 }: ProfileTabsProps) {
   const tabs = [
     {
@@ -27,21 +25,9 @@ export default function ProfileTabs({
     },
     {
       id: 'audience' as ProfileTab,
-      name: 'Audience',
-      icon: '👥',
-      available: hasDetailedData,
-    },
-    {
-      id: 'content' as ProfileTab,
-      name: 'Contenu',
-      icon: '📱',
-      available: hasDetailedData,
-    },
-    {
-      id: 'performance' as ProfileTab,
       name: "Rapport d'audience",
       icon: '📈',
-      available: hasDetailedData,
+      available: true, // Toujours disponible, mais avec contenu verrouillé
     },
     {
       id: 'contact' as ProfileTab,

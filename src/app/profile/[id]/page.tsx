@@ -11,23 +11,26 @@ import {
 import { getEnhancedInfluencerReport } from '@/lib/modash';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileTabs from '@/components/profile/ProfileTabs';
-import LockedContent from '@/components/profile/LockedContent';
-// import ThreadViewer from '@/components/communication/ThreadViewer';
-// import { CommunicationProvider } from '@/contexts/CommunicationContext';
-// import PerformanceChart from '@/components/profile/charts/PerformanceChart';
-// import EngagementBreakdown from '@/components/profile/charts/EngagementBreakdown';
-// import PostPerformance from '@/components/profile/charts/PostPerformance';
+// import LockedContent from '@/components/profile/LockedContent'; // Unused for now
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, XMarkIcon, LockClosedIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 import { useCredits } from '@/hooks/useCredits';
 
 type ProfileTab =
   | 'overview'
   | 'audience'
-  | 'content'
-  | 'contact'
-  | 'performance';
+  | 'contact';
+
+// Helper function pour formater les nombres
+const formatNumber = (num: number) => {
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}M`;
+  } else if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}K`;
+  }
+  return num.toString();
+};
 
 export default function ProfilePage() {
   const params = useParams();
@@ -39,7 +42,6 @@ export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
   const [loading, setLoading] = useState(true);
   const { unlockReports } = useCredits();
-  // Suppression de la modale de confirmation pour la consommation de crédits
   const [showContactModal, setShowContactModal] = useState(false);
   const [showAddToListModal, setShowAddToListModal] = useState(false);
 
@@ -87,59 +89,46 @@ export default function ProfilePage() {
 
   // Fonction pour débloquer le rapport
   const handleUnlockReport = async () => {
-    if (!influencer) return;
-
     try {
-      // Débloquer le rapport avec le nouveau hook
-      const success = unlockReports([influencer.id]);
-
-      if (success) {
-        // Simuler le déverrouillage du rapport
-        const unlockedData = await unlockInfluencerReport(influencer.id);
-        if (unlockedData) {
+      const result = unlockReports([influencer!.id]);
+      if (result) {
+        // Simuler le déverrouillage des données
+        const unlockedData = await unlockInfluencerReport(influencer!.id);
           setDetailedData(unlockedData);
-        }
-      } else {
-        console.error('Crédits insuffisants pour débloquer le rapport');
       }
     } catch (error) {
       console.error('Erreur lors du déverrouillage:', error);
     }
   };
 
-  const handleAddToList = () => {
-    setShowAddToListModal(true);
-  };
-
   const handleContact = () => {
     setShowContactModal(true);
   };
 
+  const handleAddToList = () => {
+    setShowAddToListModal(true);
+  };
+
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="animate-pulse">
-          <div className="bg-gray-200 h-64 rounded-lg"></div>
-          <div className="mt-6 space-y-4">
-            <div className="h-8 bg-gray-200 rounded w-1/3"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-          </div>
-        </div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600"></div>
       </div>
     );
   }
 
   if (!influencer) {
     return (
-      <div className="text-center py-12">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">
           Influenceur non trouvé
         </h1>
-        <p className="text-gray-600 mb-6">
-          L&apos;influenceur que vous recherchez n&apos;existe pas ou a été
-          supprimé.
-        </p>
-        <Button onClick={() => router.back()}>Retour</Button>
+          <Button onClick={() => router.back()}>
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+            Retour
+          </Button>
+        </div>
       </div>
     );
   }
@@ -180,17 +169,13 @@ export default function ProfilePage() {
               </div>
 
               <div>
-                <h4 className="font-medium text-gray-900 mb-2">Informations</h4>
+                <h4 className="font-medium text-gray-900 mb-2">Informations publiques</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Plateforme:</span>
                     <span className="font-medium capitalize">
                       {influencer.platform}
                     </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Pays:</span>
-                    <span className="font-medium">{influencer.country}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Vérifié:</span>
@@ -205,37 +190,194 @@ export default function ProfilePage() {
                     </span>
                   </div>
                 </div>
+                
+                {/* Informations nécessitant un déblocage */}
+                <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <h5 className="font-medium text-gray-700 mb-2 text-xs">Informations détaillées</h5>
+                  <div className="space-y-1 text-xs text-gray-500">
+                    <div className="flex justify-between items-center">
+                      <span>Pays de résidence:</span>
+                      <span className="flex items-center gap-1">
+                        <LockClosedIcon className="w-3 h-3" />
+                        Verrouillé
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Données d'audience:</span>
+                      <span className="flex items-center gap-1">
+                        <LockClosedIcon className="w-3 h-3" />
+                        Verrouillé
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         );
 
       case 'audience':
-        if (!detailedData) {
-          return (
-            <LockedContent
-              title="Rapport d'audience verrouillé"
-              description="Accédez au rapport d'audience détaillé pour cet influenceur et découvrez des insights précieux sur ses followers."
-              onUnlock={handleUnlockReport}
-              creditCost={1}
-              features={[
-                'Répartition par âge et genre',
-                'Géolocalisation (pays et villes)',
-                "Centres d'intérêt détaillés",
-                "Marques favorites de l'audience",
-                'Langues et ethnicités',
-              ]}
-            />
-          );
-        }
         return (
-          <div className="p-6 space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Analyse d&apos;audience détaillée
+          <div className="space-y-0">
+            {/* Informations de base toujours visibles */}
+            <div className="p-6 bg-white">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Rapport d'audience complet
             </h3>
 
-            {/* Statistiques principales */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Statistiques publiques */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-blue-600">
+                    {formatNumber(influencer.followers)}
+                  </div>
+                  <div className="text-sm text-blue-800">Followers</div>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600">
+                    {influencer.engagementRate}%
+                  </div>
+                  <div className="text-sm text-green-800">Engagement</div>
+                </div>
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-600">
+                    {formatNumber(influencer.engagement)}
+                  </div>
+                  <div className="text-sm text-purple-800">Interactions</div>
+                </div>
+                <div className="bg-orange-50 p-4 rounded-lg">
+                  <div className="text-2xl font-bold text-orange-600">
+                    {influencer.platform.toUpperCase()}
+                  </div>
+                  <div className="text-sm text-orange-800">Plateforme</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contenu détaillé - verrouillé ou déverrouillé */}
+            {!detailedData ? (
+              <div className="relative">
+                {/* Aperçu flouté */}
+                <div className="p-6 bg-white border-t border-gray-200">
+                  <div className="filter blur-sm pointer-events-none select-none">
+                    <h4 className="text-md font-semibold text-gray-900 mb-4">Analyse détaillée de l'audience</h4>
+                    
+                    {/* Fausses données pour l'aperçu */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                        <h5 className="font-medium text-gray-700 mb-3">Répartition par genre</h5>
+                        <div className="space-y-2">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-gray-600">Femmes</span>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-20 h-2 bg-pink-200 rounded-full">
+                                <div className="w-3/5 h-full bg-pink-500 rounded-full"></div>
+                              </div>
+                              <span className="text-sm font-medium">60%</span>
+                            </div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-gray-600">Hommes</span>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-20 h-2 bg-blue-200 rounded-full">
+                                <div className="w-2/5 h-full bg-blue-500 rounded-full"></div>
+                              </div>
+                              <span className="text-sm font-medium">40%</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h5 className="font-medium text-gray-700 mb-3">Top pays</h5>
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">France</span>
+                            <span className="text-sm font-medium">45%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">Belgique</span>
+                            <span className="text-sm font-medium">15%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">Suisse</span>
+                            <span className="text-sm font-medium">12%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h5 className="font-medium text-gray-700 mb-3">Tranches d'âge</h5>
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">18-24</span>
+                            <span className="text-sm font-medium">25%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">25-34</span>
+                            <span className="text-sm font-medium">35%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">35-44</span>
+                            <span className="text-sm font-medium">20%</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h5 className="font-medium text-gray-700 mb-3">Centres d'intérêt</h5>
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">Sport</span>
+                            <span className="text-sm font-medium">28%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">Mode</span>
+                            <span className="text-sm font-medium">22%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-gray-600">Voyage</span>
+                            <span className="text-sm font-medium">18%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Overlay de déblocage */}
+                  <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                        <LockClosedIcon className="w-8 h-8 text-purple-600" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                        Rapport d'audience complet
+                      </h4>
+                      <p className="text-gray-600 mb-4 max-w-sm">
+                        Débloquez l'analyse complète avec toutes les données d'audience, contenus et performances.
+                      </p>
+                      <div className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-lg mb-4">
+                        <CreditCardIcon className="w-4 h-4 text-purple-600" />
+                        <span className="text-sm font-medium text-purple-900">1 crédit</span>
+                      </div>
+                      <Button onClick={handleUnlockReport} size="lg">
+                        <LockClosedIcon className="w-4 h-4 mr-2" />
+                        Débloquer maintenant
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 bg-white border-t border-gray-200">
+                <h4 className="text-md font-semibold text-gray-900 mb-6">
+                  Analyse détaillée de l'audience - Déverrouillée
+                </h4>
+
+                {/* Statistiques détaillées */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="bg-blue-50 p-4 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">
                   {Math.round(detailedData!.audience!.gender.female)}%
@@ -263,7 +405,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Répartition par âge */}
-            <div className="bg-white border rounded-lg p-4">
+                <div className="bg-white border rounded-lg p-4 mb-6">
               <h4 className="font-medium text-gray-900 mb-3">
                 Répartition par âge
               </h4>
@@ -288,7 +430,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Top pays */}
-            <div className="bg-white border rounded-lg p-4">
+                <div className="bg-white border rounded-lg p-4 mb-6">
               <h4 className="font-medium text-gray-900 mb-3">Top pays</h4>
               <div className="space-y-2">
                 {Object.entries(detailedData!.audience!.countries)
@@ -309,7 +451,7 @@ export default function ProfilePage() {
             {/* Centres d'intérêt */}
             <div className="bg-white border rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-3">
-                Centres d&apos;intérêt
+                    Centres d'intérêt
               </h4>
               <div className="flex flex-wrap gap-2">
                 {Object.entries(detailedData!.audience!.interests.topics)
@@ -326,224 +468,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-        );
-
-      case 'content':
-        return (
-          <div className="p-6 space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Analyse de contenu
-            </h3>
-
-            {/* Métriques de contenu */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">
-                  {influencer.followers > 1000000
-                    ? Math.floor(Math.random() * 50) + 20
-                    : Math.floor(Math.random() * 20) + 5}
-                </div>
-                <div className="text-sm text-blue-800">Posts/mois</div>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">
-                  {Math.floor(Math.random() * 30) + 15}k
-                </div>
-                <div className="text-sm text-green-800">Vues moy.</div>
-              </div>
-              <div className="bg-purple-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-purple-600">
-                  {(Math.random() * 8 + 2).toFixed(1)}%
-                </div>
-                <div className="text-sm text-purple-800">Taux eng.</div>
-              </div>
-              <div className="bg-orange-50 p-4 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">
-                  {Math.floor(Math.random() * 500) + 200}
-                </div>
-                <div className="text-sm text-orange-800">Comm. moy.</div>
-              </div>
-            </div>
-
-            {/* Types de contenu */}
-            <div className="bg-white border rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-3">
-                Types de contenu populaires
-              </h4>
-              <div className="space-y-3">
-                {[
-                  { type: 'Photos lifestyle', percentage: 45 },
-                  { type: 'Stories quotidiennes', percentage: 30 },
-                  { type: 'Collaborations marques', percentage: 15 },
-                  { type: 'Vidéos/Reels', percentage: 10 },
-                ].map((item) => (
-                  <div key={item.type} className="flex items-center">
-                    <div className="w-32 text-sm text-gray-600">
-                      {item.type}
-                    </div>
-                    <div className="flex-1 bg-gray-200 rounded-full h-2 mx-3">
-                      <div
-                        className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full"
-                        style={{ width: `${item.percentage}%` }}
-                      ></div>
-                    </div>
-                    <div className="w-12 text-sm font-medium text-right">
-                      {item.percentage}%
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Hashtags populaires */}
-            <div className="bg-white border rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-3">
-                Hashtags les plus utilisés
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  '#lifestyle',
-                  '#fashion',
-                  '#beauty',
-                  '#travel',
-                  '#food',
-                  '#fitness',
-                  '#inspiration',
-                  '#love',
-                  '#instagood',
-                  '#photooftheday',
-                ].map((hashtag) => (
-                  <span
-                    key={hashtag}
-                    className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
-                  >
-                    {hashtag}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Meilleurs moments de publication */}
-            <div className="bg-white border rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-3">
-                Meilleurs moments de publication
-              </h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h5 className="text-sm font-medium text-gray-700 mb-2">
-                    Jours de la semaine
-                  </h5>
-                  <div className="space-y-1">
-                    {[
-                      { day: 'Dimanche', score: 95 },
-                      { day: 'Samedi', score: 88 },
-                      { day: 'Mercredi', score: 75 },
-                      { day: 'Vendredi', score: 70 },
-                      { day: 'Jeudi', score: 60 },
-                    ]
-                      .slice(0, 3)
-                      .map((item) => (
-                        <div
-                          key={item.day}
-                          className="flex items-center justify-between text-sm"
-                        >
-                          <span className="text-gray-600">{item.day}</span>
-                          <div className="flex items-center space-x-2">
-                            <div className="w-16 bg-gray-200 rounded-full h-1">
-                              <div
-                                className="bg-green-500 h-1 rounded-full"
-                                style={{ width: `${item.score}%` }}
-                              ></div>
-                            </div>
-                            <span className="text-green-600 font-medium">
-                              {item.score}%
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-                <div>
-                  <h5 className="text-sm font-medium text-gray-700 mb-2">
-                    Heures optimales
-                  </h5>
-                  <div className="space-y-1">
-                    {[
-                      { time: '18h-20h', score: 92 },
-                      { time: '12h-14h', score: 85 },
-                      { time: '20h-22h', score: 78 },
-                    ].map((item) => (
-                      <div
-                        key={item.time}
-                        className="flex items-center justify-between text-sm"
-                      >
-                        <span className="text-gray-600">{item.time}</span>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-16 bg-gray-200 rounded-full h-1">
-                            <div
-                              className="bg-orange-500 h-1 rounded-full"
-                              style={{ width: `${item.score}%` }}
-                            ></div>
-                          </div>
-                          <span className="text-orange-600 font-medium">
-                            {item.score}%
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Collaborations récentes */}
-            <div className="bg-white border rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-3">
-                Collaborations récentes
-              </h4>
-              <div className="space-y-3">
-                {[
-                  {
-                    brand: 'Nike',
-                    type: 'Post sponsorisé',
-                    engagement: '12.5k',
-                    date: '15 Nov',
-                  },
-                  {
-                    brand: 'Sephora',
-                    type: 'Story',
-                    engagement: '8.2k',
-                    date: '12 Nov',
-                  },
-                  {
-                    brand: 'Zara',
-                    type: 'Reel',
-                    engagement: '15.8k',
-                    date: '8 Nov',
-                  },
-                ].map((collab, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                  >
-                    <div>
-                      <div className="font-medium text-gray-900">
-                        {collab.brand}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {collab.type} • {collab.date}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-medium text-gray-900">
-                        {collab.engagement}
-                      </div>
-                      <div className="text-sm text-gray-500">interactions</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         );
 
@@ -581,106 +506,49 @@ export default function ProfilePage() {
           </div>
         );
 
-      // case 'communications':
-      //   return (
-      //     <div className="p-6">
-      //       <CommunicationProvider>
-      //         <ThreadViewer
-      //           contactId={influencer.id}
-      //           showHeader={false}
-      //           compact={true}
-      //         />
-      //       </CommunicationProvider>
-      //     </div>
-      //   );
-
-      case 'performance':
-        return (
-          <LockedContent
-            title="Rapport d'audience verrouillé"
-            description="Accédez au rapport d'audience et à l'analyse détaillée des publications."
-            onUnlock={handleUnlockReport}
-            creditCost={1}
-            features={[
-              'Évolution des followers et engagement',
-              'Répartition des interactions',
-              'Analyse des publications récentes',
-              'Métriques de portée et croissance',
-            ]}
-          />
-        );
-
-      // Code original commenté pour les tests
-      /*
-        return (
-          <div className="p-6 space-y-6">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Analyse de performance
-            </h3>
-
-            <PerformanceChart
-              data={detailedData.performance!}
-              title="Évolution des métriques"
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <EngagementBreakdown
-                data={detailedData.engagementBreakdown!}
-                totalEngagement={
-                  detailedData.engagementBreakdown!.likes +
-                  detailedData.engagementBreakdown!.comments +
-                  detailedData.engagementBreakdown!.shares +
-                  detailedData.engagementBreakdown!.saves
-                }
-              />
-              <PostPerformance posts={detailedData.recentPosts!} />
-            </div>
-          </div>
-        );
-        */
-
       default:
         return null;
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Bouton retour */}
-      <div>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-6xl mx-auto py-8 px-4">
+        {/* Header avec bouton retour */}
+        <div className="mb-6">
         <Button
-          variant="ghost"
+            variant="outline"
           onClick={() => router.back()}
-          className="flex items-center"
+            className="mb-4"
         >
           <ArrowLeftIcon className="w-4 h-4 mr-2" />
-          Retour
+            Retour à la recherche
         </Button>
       </div>
 
       {/* Header du profil */}
       <ProfileHeader
-        influencer={detailedData || influencer}
+          influencer={influencer}
         onAddToList={handleAddToList}
         onContact={handleContact}
       />
 
-      {/* Onglets */}
+        {/* Onglets et contenu */}
+        <div className="mt-8">
       <ProfileTabs
         activeTab={activeTab}
         onTabChange={setActiveTab}
         hasDetailedData={!!detailedData}
       />
 
-      {/* Contenu de l'onglet */}
-      <div className="bg-white rounded-lg border border-gray-200">
+          <div className="mt-6 bg-white rounded-lg border border-gray-200 shadow-sm">
         {renderTabContent()}
+          </div>
+        </div>
       </div>
 
-      {/* Modale de déverrouillage supprimée: déverrouillage direct sans confirmation */}
-
-      {/* Modal de contact */}
-      {showContactModal && influencer && (
+      {/* Modales */}
+      {showContactModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-4">
@@ -696,40 +564,23 @@ export default function ProfilePage() {
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Sujet
-                </label>
                 <Input
-                  type="text"
-                  placeholder="Collaboration marketing d'influence"
+                label="Sujet"
+                placeholder="Collaboration, partenariat..."
                 />
-              </div>
-
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message
                 </label>
                 <textarea
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500"
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                  placeholder={`Bonjour ${influencer.name},
-
-Nous souhaiterions vous proposer une collaboration...`}
-                />
-              </div>
-
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <p className="text-sm text-blue-800">
-                  📧 Email: {influencer.email}
-                </p>
-                <p className="text-xs text-blue-600 mt-1">
-                  Ce message sera envoyé directement à l&apos;influenceur
-                </p>
+                  placeholder="Votre message..."
+                ></textarea>
               </div>
             </div>
 
-            <div className="flex items-center space-x-3 mt-6">
+            <div className="flex space-x-3 mt-6">
               <Button
                 variant="outline"
                 onClick={() => setShowContactModal(false)}
@@ -739,8 +590,8 @@ Nous souhaiterions vous proposer une collaboration...`}
               </Button>
               <Button
                 onClick={() => {
-                  alert(`Message envoyé à ${influencer.name} !`);
                   setShowContactModal(false);
+                  // Ici on enverrait le message
                 }}
                 className="flex-1"
               >
@@ -751,13 +602,12 @@ Nous souhaiterions vous proposer une collaboration...`}
         </div>
       )}
 
-      {/* Modal Ajouter à liste */}
-      {showAddToListModal && influencer && (
+      {showAddToListModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-gray-900">
-                Ajouter {influencer.name} à une liste
+                Ajouter à une liste
               </h3>
               <button
                 onClick={() => setShowAddToListModal(false)}
@@ -767,22 +617,23 @@ Nous souhaiterions vous proposer une collaboration...`}
               </button>
             </div>
 
-            <div className="space-y-3 mb-6">
+            <p className="text-gray-600 mb-4">
+              Sélectionnez une liste existante ou créez-en une nouvelle.
+            </p>
+
+            <div className="space-y-2 mb-4">
               <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-                📋 Liste Beauté & Mode
+                📋 Ma liste principale
               </button>
               <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-                🎮 Liste Gaming
+                ⭐ Favoris
               </button>
               <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
-                ✨ Liste VIP
-              </button>
-              <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-purple-50 border-purple-200">
-                ➕ Créer une nouvelle liste
+                🎯 Prospects
               </button>
             </div>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex space-x-3">
               <Button
                 variant="outline"
                 onClick={() => setShowAddToListModal(false)}
@@ -792,8 +643,8 @@ Nous souhaiterions vous proposer une collaboration...`}
               </Button>
               <Button
                 onClick={() => {
-                  alert(`${influencer.name} ajouté à la liste !`);
                   setShowAddToListModal(false);
+                  // Ici on ajouterait à la liste
                 }}
                 className="flex-1"
               >
