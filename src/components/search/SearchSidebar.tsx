@@ -1,9 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
 import {
-  MagnifyingGlassIcon,
-  ArrowPathIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { AdvancedSearchFilters, SearchUIState } from '@/types';
@@ -26,8 +23,8 @@ interface SearchSidebarProps {
 export default function SearchSidebar({
   searchState,
   onSearchStateChange,
-  onSearch,
-  isSearching = false,
+  onSearch: _onSearch,
+  isSearching: _isSearching = false,
   calculationMethod = 'median',
   onCalculationMethodChange,
 }: SearchSidebarProps) {
@@ -210,7 +207,7 @@ export default function SearchSidebar({
       </div>
 
       {/* Zone de filtres scrollable */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 pb-48 pr-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 pr-4">
         {/* Section Recherche Textuelle */}
         <TextSearchSection
           searchQuery={searchState.searchQuery}
@@ -267,91 +264,8 @@ export default function SearchSidebar({
         />
       </div>
 
-      {/* Bouton de recherche sticky - DANS LA COLONNE DE GAUCHE */}
-      <div className="flex-shrink-0 sticky bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white/95 to-transparent border-t border-gray-200/50 backdrop-blur-xl">
-        <div className="space-y-3">
-          {/* Résumé rapide des filtres actifs */}
-          {hasAnyFilters && (
-            <div className="text-xs text-gray-600 bg-gray-50/80 rounded-lg p-3">
-              <div className="flex items-start space-x-2">
-                <span className="font-medium">Filtres actifs :</span>
-                <div className="flex-1">
-                  {searchState.searchQuery && (
-                    <span className="inline-block mr-2 mb-1 px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">
-                      🔍 &quot;{searchState.searchQuery.substring(0, 30)}
-                      {searchState.searchQuery.length > 30 ? '...' : ''}&quot;
-                    </span>
-                  )}
-                  {searchState.activeFilters.platforms?.map((platform) => (
-                    <span
-                      key={platform}
-                      className="inline-block mr-2 mb-1 px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs"
-                    >
-                      📱 {platform}
-                    </span>
-                  ))}
-                  {searchState.activeFilters.userSearch && (
-                    <span className="inline-block mr-2 mb-1 px-2 py-1 bg-green-100 text-green-700 rounded text-xs">
-                      @ {searchState.activeFilters.userSearch}
-                    </span>
-                  )}
-                  {searchState.activeFilters.creator?.categories
-                    ?.map((category) => (
-                      <span
-                        key={category}
-                        className="inline-block mr-2 mb-1 px-2 py-1 bg-orange-100 text-orange-700 rounded text-xs"
-                      >
-                        🏷️ {category}
-                      </span>
-                    ))
-                    .slice(0, 3)}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Bouton principal de recherche */}
-          <Button
-            onClick={onSearch}
-            disabled={isSearching}
-            className="w-full flex items-center justify-center space-x-3 py-4 text-base font-semibold"
-            size="lg"
-          >
-            {isSearching ? (
-              <>
-                <ArrowPathIcon className="w-5 h-5 animate-spin" />
-                <span>Recherche en cours...</span>
-              </>
-            ) : (
-              <>
-                <MagnifyingGlassIcon className="w-5 h-5" />
-                <span>
-                  {hasAnyFilters
-                    ? `Rechercher avec ${totalActiveFilters} filtre${totalActiveFilters > 1 ? 's' : ''}`
-                    : 'Rechercher tous les influenceurs'}
-                </span>
-              </>
-            )}
-          </Button>
-
-          {/* Indication du nombre de résultats attendus */}
-          {!isSearching && searchState.results && (
-            <div className="text-center">
-              <span className="text-sm text-gray-500">
-                Dernière recherche :{' '}
-                {searchState.results.totalCount.toLocaleString()} résultat
-                {searchState.results.totalCount > 1 ? 's' : ''} trouvé
-                {searchState.results.totalCount > 1 ? 's' : ''}
-                {searchState.results.searchTime && (
-                  <span className="ml-2">
-                    ({searchState.results.searchTime}ms)
-                  </span>
-                )}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* Espace pour le bouton sticky global */}
+      <div className="flex-shrink-0 h-20"></div>
     </div>
   );
 }

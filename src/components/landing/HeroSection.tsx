@@ -217,7 +217,9 @@ export default function HeroSection() {
 
               {/* AI Search Input Animé */}
               <div className="relative mb-6">
-                <div className={`w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium min-h-[60px] flex items-center ${(showAnalysis || isAnalyzing) ? 'pb-8' : ''}`}>
+                <div
+                  className={`w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium min-h-[60px] flex items-center ${showAnalysis || isAnalyzing ? 'pb-8' : ''}`}
+                >
                   {currentText}
                   {currentText.length < targetText.length && (
                     <span className="animate-pulse bg-purple-500 w-0.5 h-4 inline-block ml-1"></span>

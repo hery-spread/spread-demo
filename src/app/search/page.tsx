@@ -16,6 +16,10 @@ import SearchSidebar from '@/components/search/SearchSidebar';
 import SearchResultsTable from '@/components/search/SearchResultsTable';
 import { Button } from '@/components/ui/Button';
 import {
+  MagnifyingGlassIcon,
+  ArrowPathIcon,
+} from '@heroicons/react/24/outline';
+import {
   searchInfluencers as modashSearchInfluencers,
   transformAdvancedFiltersToModash,
 } from '@/lib/modash';
@@ -264,6 +268,49 @@ export default function AdvancedSearchPage() {
     setSearchState((prev) => ({ ...prev, ...updates }));
   }, []);
 
+  // Calculer le nombre total de filtres actifs
+  const getTotalActiveFilters = useCallback(() => {
+    let count = 0;
+
+    // Compter la recherche textuelle
+    if (searchState.searchQuery.trim()) count++;
+
+    // Compter les filtres des différentes sections
+    const filters = searchState.activeFilters;
+
+    if (filters.platforms?.length) count++;
+    if (filters.userSearch?.trim()) count++;
+
+    if (filters.creator) {
+      const creatorKeys = Object.keys(filters.creator).filter((key) => {
+        const value = filters.creator![key as keyof typeof filters.creator];
+        if (key === 'location') return Object.keys(value || {}).length > 0;
+        if (Array.isArray(value)) return value.length > 0;
+        if (typeof value === 'string') return value.trim().length > 0;
+        return value !== undefined && value !== null;
+      });
+      count += creatorKeys.length;
+    }
+
+    if (filters.audience) {
+      const audienceKeys = Object.keys(filters.audience).filter((key) => {
+        const value = filters.audience![key as keyof typeof filters.audience];
+        if (
+          typeof value === 'object' &&
+          value !== null &&
+          !Array.isArray(value)
+        ) {
+          return Object.keys(value).length > 0;
+        }
+        if (Array.isArray(value)) return value.length > 0;
+        return value !== undefined && value !== null && value !== '';
+      });
+      count += audienceKeys.length;
+    }
+
+    return count;
+  }, [searchState.searchQuery, searchState.activeFilters]);
+
   // Fonction de recherche principale
   const performSearch = useCallback(async () => {
     updateSearchState({ isSearching: true });
@@ -328,9 +375,9 @@ export default function AdvancedSearchPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50 overflow-x-hidden">
-      {/* Sidebar de recherche - Colonne gauche */}
-      <div className="w-[28rem] min-w-[22rem] max-w-[32rem] flex-shrink-0 overflow-hidden">
+    <div className="h-full flex bg-gray-50 overflow-hidden relative">
+      {/* Sidebar de recherche - Colonne gauche avec scroll indépendant */}
+      <div className="w-[28rem] min-w-[22rem] max-w-[32rem] flex-shrink-0 flex flex-col h-full">
         <SearchSidebar
           searchState={searchState}
           onSearchStateChange={updateSearchState}
@@ -341,8 +388,8 @@ export default function AdvancedSearchPage() {
         />
       </div>
 
-      {/* Zone de résultats - Colonne droite */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Zone de résultats - Colonne droite avec scroll indépendant */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* Header des résultats */}
         <div className="flex-shrink-0 bg-white border-b border-gray-200 p-6">
           <div className="flex items-center justify-between">
@@ -449,7 +496,7 @@ export default function AdvancedSearchPage() {
         </div>
 
         {/* Table des résultats */}
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 overflow-hidden pb-24">
           <SearchResultsTable
             results={searchState.results?.influencers || []}
             loading={searchState.isSearching}
@@ -539,6 +586,34 @@ export default function AdvancedSearchPage() {
           </div>
         </div>
       )}
+
+      {/* Bouton de recherche sticky en bas du conteneur */}
+      <div className="absolute bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-t border-gray-200 p-4 shadow-lg">
+        <div className="flex items-center justify-center">
+          <Button
+            onClick={performSearch}
+            disabled={searchState.isSearching}
+            className="flex items-center justify-center space-x-3 px-8 py-4 text-base font-semibold min-w-[300px]"
+            size="lg"
+          >
+            {searchState.isSearching ? (
+              <>
+                <ArrowPathIcon className="w-5 h-5 animate-spin" />
+                <span>Recherche en cours...</span>
+              </>
+            ) : (
+              <>
+                <MagnifyingGlassIcon className="w-5 h-5" />
+                <span>
+                  {getTotalActiveFilters() > 0
+                    ? `Rechercher avec ${getTotalActiveFilters()} filtre${getTotalActiveFilters() > 1 ? 's' : ''}`
+                    : 'Rechercher tous les influenceurs'}
+                </span>
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
