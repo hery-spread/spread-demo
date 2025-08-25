@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
+
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface CreateListModalProps {
@@ -24,37 +24,24 @@ export default function CreateListModal({
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    category: '',
   });
   const [loading, setLoading] = useState(false);
 
-  const categories = [
-    'Mode & Beauté',
-    'Gaming',
-    'Cuisine',
-    'Automobile',
-    'Lifestyle',
-    'Marketing',
-    'Voyage',
-    'Technologie',
-    'Sport',
-    'Musique',
-    'Autre',
-  ];
+
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.category) {
+    if (!formData.name.trim()) {
       return;
     }
 
     setLoading(true);
     try {
-      await onSubmit(formData);
-      setFormData({ name: '', description: '', category: '' });
+      await onSubmit({...formData, category: 'Général'});
+      setFormData({ name: '', description: '' });
       onClose();
     } catch (error) {
       console.error('Erreur lors de la création:', error);
@@ -64,7 +51,7 @@ export default function CreateListModal({
   };
 
   const handleClose = () => {
-    setFormData({ name: '', description: '', category: '' });
+    setFormData({ name: '', description: '' });
     onClose();
   };
 
@@ -106,26 +93,7 @@ export default function CreateListModal({
             </div>
           </div>
 
-          {/* Catégorie */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Catégorie *
-            </label>
-            <Select
-              value={formData.category}
-              onChange={(e) =>
-                setFormData({ ...formData, category: e.target.value })
-              }
-              required
-              options={[
-                { value: '', label: 'Sélectionner une catégorie' },
-                ...categories.map((category) => ({
-                  value: category,
-                  label: category,
-                })),
-              ]}
-            />
-          </div>
+
 
           {/* Description */}
           <div>
@@ -161,7 +129,7 @@ export default function CreateListModal({
             <Button
               type="submit"
               className="flex-1"
-              disabled={loading || !formData.name.trim() || !formData.category}
+              disabled={loading || !formData.name.trim()}
             >
               {loading ? 'Création...' : 'Créer la liste'}
             </Button>

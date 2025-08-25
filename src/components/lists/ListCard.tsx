@@ -175,22 +175,37 @@ export default function ListCard({
       )}
 
       {/* Actions */}
-      <div className="flex items-center space-x-2">
-        <Link href={`/lists/${list.id}`}>
-          <Button size="sm" className="flex-1">
-            Voir la liste
+      <div className="space-y-2">
+        {/* Action principale - Contacter en masse */}
+        {list.influencers.filter(inf => inf.contactEmail).length > 0 && (
+          <Button
+            onClick={() => setShowBulkEmailModal(true)}
+            className="w-full flex items-center justify-center"
+            size="sm"
+          >
+            <EnvelopeIcon className="w-4 h-4 mr-2" />
+            Contacter en masse ({list.influencers.filter(inf => inf.contactEmail).length})
           </Button>
-        </Link>
+        )}
+        
+        {/* Actions secondaires */}
+        <div className="flex items-center space-x-2">
+          <Link href={`/lists/${list.id}`} className="flex-1">
+            <Button variant="outline" size="sm" className="w-full">
+              Voir la liste
+            </Button>
+          </Link>
 
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onExport(list.id)}
-          className="flex items-center"
-        >
-          <DocumentArrowDownIcon className="w-4 h-4 mr-1" />
-          Export
-        </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onExport(list.id)}
+            className="flex items-center"
+          >
+            <DocumentArrowDownIcon className="w-4 h-4 mr-1" />
+            Export
+          </Button>
+        </div>
       </div>
 
       {/* Fermer le menu au clic extérieur */}

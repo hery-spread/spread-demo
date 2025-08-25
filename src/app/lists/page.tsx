@@ -3,14 +3,13 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Select } from '@/components/ui/Select';
+
 import ListCard from '@/components/lists/ListCard';
 import UnlockedReportsListCard from '@/components/lists/UnlockedReportsListCard';
 import CreateListModal from '@/components/lists/CreateListModal';
 import {
   PlusIcon,
   MagnifyingGlassIcon,
-  FunnelIcon,
   Squares2X2Icon,
   ListBulletIcon,
 } from '@heroicons/react/24/outline';
@@ -28,7 +27,7 @@ export default function ListsPage() {
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   // Charger les listes
@@ -48,12 +47,8 @@ export default function ListsPage() {
       );
     }
 
-    if (categoryFilter) {
-      filtered = filtered.filter((list) => list.category === categoryFilter);
-    }
-
     setFilteredLists(filtered);
-  }, [lists, searchQuery, categoryFilter]);
+  }, [lists, searchQuery]);
 
   const loadLists = async () => {
     try {
@@ -123,9 +118,7 @@ export default function ListsPage() {
     console.log('Partager la liste:', listId);
   };
 
-  const categories = Array.from(
-    new Set(lists.map((list) => list.category))
-  ).sort();
+
 
   if (loading) {
     return (
@@ -177,9 +170,9 @@ export default function ListsPage() {
 
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           <div className="text-2xl font-bold text-green-600">
-            {categories.length}
+            {lists.filter(list => list.influencers.some(inf => inf.contactEmail)).length}
           </div>
-          <div className="text-sm text-gray-600">Catégories</div>
+          <div className="text-sm text-gray-600">Listes contactables</div>
         </div>
 
         <div className="bg-white rounded-lg border border-gray-200 p-4">
@@ -208,22 +201,7 @@ export default function ListsPage() {
             />
           </div>
 
-          {/* Filtre par catégorie */}
-          <div className="flex items-center space-x-2">
-            <FunnelIcon className="w-5 h-5 text-gray-400" />
-            <Select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              options={[
-                { value: '', label: 'Toutes les catégories' },
-                ...categories.map((category) => ({
-                  value: category,
-                  label: category,
-                })),
-              ]}
-              className="w-48"
-            />
-          </div>
+
 
           {/* Mode d'affichage */}
           <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">

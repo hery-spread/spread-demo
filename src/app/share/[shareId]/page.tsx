@@ -66,10 +66,10 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
         '45-64': 0.1051,
       },
       countries: {
-        'FR': 0.4559,
-        'BE': 0.2376,
-        'CH': 0.2306,
-        'CA': 0.0759,
+        FR: 0.4559,
+        BE: 0.2376,
+        CH: 0.2306,
+        CA: 0.0759,
       },
       cities: {
         Paris: 35,
@@ -79,11 +79,11 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
         Autres: 30,
       },
       languages: {
-        'fr': 0.6247,
-        'en': 0.2156,
-        'es': 0.0892,
-        'de': 0.0456,
-        'it': 0.0249,
+        fr: 0.6247,
+        en: 0.2156,
+        es: 0.0892,
+        de: 0.0456,
+        it: 0.0249,
       },
       ethnicities: {
         Européen: 75,
@@ -91,18 +91,18 @@ function getSharedReport(shareId: string): InfluencerDetails | null {
       },
       interests: {
         topics: {
-          'Fashion': 0.0085,
+          Fashion: 0.0085,
           'Beauty & Cosmetics': 0.0078,
-          'Lifestyle': 0.0082,
-          'Travel': 0.0045,
+          Lifestyle: 0.0082,
+          Travel: 0.0045,
           'Food & Cooking': 0.0038,
           'Fitness & Health': 0.0032,
-          'Photography': 0.0028,
+          Photography: 0.0028,
           'Art & Design': 0.0025,
-          'Music': 0.0022,
-          'Technology': 0.0018,
-          'Business': 0.0015,
-          'Sports': 0.0012,
+          Music: 0.0022,
+          Technology: 0.0018,
+          Business: 0.0015,
+          Sports: 0.0012,
         },
         brands: {
           Zara: 65,
@@ -405,9 +405,7 @@ export default function SharePage() {
                     <div className="text-sm font-semibold text-purple-700">
                       {formatPercentage(percentage as number)}
                     </div>
-                    <div className="text-xs text-purple-600 mt-1">
-                      {topic}
-                    </div>
+                    <div className="text-xs text-purple-600 mt-1">{topic}</div>
                   </div>
                 ))}
             </div>
@@ -426,7 +424,7 @@ export default function SharePage() {
                 Taux d'engagement moyen
               </div>
             </div>
-            
+
             <div className="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl border border-teal-200">
               <h6 className="text-sm font-semibold text-teal-800 mb-2 flex items-center">
                 👥 Portée
@@ -434,11 +432,9 @@ export default function SharePage() {
               <div className="text-2xl font-bold text-teal-700 mb-1">
                 {(report.followers / 1000000).toFixed(1)}M
               </div>
-              <div className="text-sm text-teal-600">
-                Abonnés actifs
-              </div>
+              <div className="text-sm text-teal-600">Abonnés actifs</div>
             </div>
-            
+
             <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-xl border border-amber-200">
               <h6 className="text-sm font-semibold text-amber-800 mb-2 flex items-center">
                 ⭐ Qualité
@@ -446,9 +442,7 @@ export default function SharePage() {
               <div className="text-2xl font-bold text-amber-700 mb-1">
                 {formatPercentage(report.audience.credibility || 0.87)}
               </div>
-              <div className="text-sm text-amber-600">
-                Audience authentique
-              </div>
+              <div className="text-sm text-amber-600">Audience authentique</div>
             </div>
           </div>
 
@@ -486,7 +480,9 @@ export default function SharePage() {
               </h3>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <h6 className="text-sm font-medium text-gray-700">Répartition par type</h6>
+                  <h6 className="text-sm font-medium text-gray-700">
+                    Répartition par type
+                  </h6>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-600">
                       👤 Utilisateurs réels
@@ -500,16 +496,22 @@ export default function SharePage() {
                       🤖 Comptes suspects
                     </span>
                     <span className="text-sm font-semibold text-red-600">
-                      {formatPercentage(1 - (report.audience.credibility || 0.87))}
+                      {formatPercentage(
+                        1 - (report.audience.credibility || 0.87)
+                      )}
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
-                  <h6 className="text-sm font-medium text-gray-700">Accessibilité</h6>
+                  <h6 className="text-sm font-medium text-gray-700">
+                    Accessibilité
+                  </h6>
                   <div className="text-sm text-gray-600">
-                    📱 <strong>38%</strong> Très actifs (&lt;500 abonnements)<br/>
-                    👥 <strong>26%</strong> Modérément actifs (500-1500)<br/>
+                    📱 <strong>38%</strong> Très actifs (&lt;500 abonnements)
+                    <br />
+                    👥 <strong>26%</strong> Modérément actifs (500-1500)
+                    <br />
                     🌐 <strong>36%</strong> Très connectés (&gt;1500)
                   </div>
                 </div>

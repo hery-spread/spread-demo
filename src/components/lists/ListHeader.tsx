@@ -117,50 +117,34 @@ export default function ListHeader({
             <p className="text-gray-600 mb-4 max-w-2xl">{list.description}</p>
           )}
 
-          {/* Statistiques */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="text-center p-3 bg-purple-50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">
+          {/* Statistiques simplifiées */}
+          <div className="flex items-center space-x-6 text-sm text-gray-600">
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold text-lg text-gray-900">
                 {list.influencers.length}
-              </div>
-              <div className="text-sm text-purple-600 font-medium">
-                Influenceur{list.influencers.length > 1 ? 's' : ''}
-              </div>
+              </span>
+              <span>influenceur{list.influencers.length > 1 ? 's' : ''}</span>
             </div>
-
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">
+            
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold text-sm text-green-600">
                 {list.influencers.filter((inf) => inf.contactEmail).length}
-              </div>
-              <div className="text-sm text-blue-600 font-medium">
-                Contacts email
-              </div>
-            </div>
-
-            <div className="text-center p-3 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">
-                {list.influencers.length > 0 ? '100' : '0'}%
-              </div>
-              <div className="text-sm text-green-600 font-medium">
-                Complétude
-              </div>
-            </div>
-
-            <div className="text-center p-3 bg-orange-50 rounded-lg">
-              <div className="text-2xl font-bold text-orange-600">
-                {new Date().toLocaleDateString('fr-FR') ===
-                new Date(list.createdAt).toLocaleDateString('fr-FR')
-                  ? "Aujourd'hui"
-                  : 'Active'}
-              </div>
-              <div className="text-sm text-orange-600 font-medium">Statut</div>
+              </span>
+              <span className="text-xs">contacts email</span>
             </div>
           </div>
         </div>
 
         {/* Actions */}
         <div className="flex flex-col space-y-2 md:ml-6">
-          <Button onClick={onAddInfluencer} className="flex items-center">
+          {list.influencers.filter(inf => inf.contactEmail).length > 0 && (
+            <Button onClick={() => setShowEmailModal(true)} className="flex items-center">
+              <EnvelopeIcon className="w-4 h-4 mr-2" />
+              Contacter en masse ({list.influencers.filter(inf => inf.contactEmail).length})
+            </Button>
+          )}
+          
+          <Button onClick={onAddInfluencer} variant="outline" className="flex items-center">
             <UserPlusIcon className="w-4 h-4 mr-2" />
             Ajouter un influenceur
           </Button>
@@ -180,14 +164,7 @@ export default function ListHeader({
               Export
             </Button>
 
-            <Button
-              variant="outline"
-              onClick={() => setShowEmailModal(true)}
-              size="sm"
-            >
-              <EnvelopeIcon className="w-4 h-4 mr-1" />
-              Email
-            </Button>
+
 
             <div className="relative">
               <Button

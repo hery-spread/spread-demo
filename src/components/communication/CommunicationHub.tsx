@@ -23,6 +23,8 @@ import {
 } from '@heroicons/react/24/solid';
 import { CommunicationHubProps } from '@/types/communication';
 import { useCommunication } from '@/contexts/CommunicationContext';
+import { useEmailIntegration } from '@/hooks/useEmailIntegration';
+import EmailIntegrationWidget from './EmailIntegrationWidget';
 
 export default function CommunicationHub({
   defaultView = 'inbox' as 'inbox' | 'campaigns' | 'templates' | 'analytics',
@@ -33,6 +35,8 @@ export default function CommunicationHub({
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+  const { hasConnectedEmail } = useEmailIntegration();
 
   const {
     threads,
@@ -312,12 +316,13 @@ export default function CommunicationHub({
             {views.map((view) => {
               const isActive = activeView === view.id;
               const Icon = isActive ? view.iconSolid : view.icon;
+              const isDisabled = !hasConnectedEmail && view.id === 'inbox';
 
               return (
                 <button
                   key={view.id}
                   onClick={() =>
-                    setActiveView(
+                    !isDisabled && setActiveView(
                       view.id as
                         | 'inbox'
                         | 'campaigns'
@@ -325,19 +330,28 @@ export default function CommunicationHub({
                         | 'analytics'
                     )
                   }
+                  disabled={isDisabled}
                   className={`w-full flex items-center justify-between p-3 mb-1 rounded-lg text-left transition-colors ${
-                    isActive
-                      ? 'bg-purple-50 text-purple-700 border-l-4 border-purple-700'
-                      : 'text-gray-600 hover:bg-gray-50'
+                    isDisabled
+                      ? 'text-gray-400 cursor-not-allowed opacity-50'
+                      : isActive
+                        ? 'bg-purple-50 text-purple-700 border-l-4 border-purple-700'
+                        : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
                   <div className="flex items-center">
                     <Icon
-                      className={`w-5 h-5 mr-3 ${isActive ? 'text-purple-700' : 'text-gray-400'}`}
+                      className={`w-5 h-5 mr-3 ${
+                        isDisabled 
+                          ? 'text-gray-300'
+                          : isActive 
+                            ? 'text-purple-700' 
+                            : 'text-gray-400'
+                      }`}
                     />
                     <span className="font-medium">{view.name}</span>
                   </div>
-                  {view.count > 0 && (
+                  {view.count > 0 && !isDisabled && (
                     <span
                       className={`px-2 py-1 text-xs rounded-full ${
                         isActive
@@ -352,6 +366,9 @@ export default function CommunicationHub({
               );
             })}
           </nav>
+
+          {/* Email Integration Widget */}
+          <EmailIntegrationWidget compact={true} />
         </div>
       )}
 
@@ -482,36 +499,55 @@ export default function CommunicationHub({
         <div className="flex-1 overflow-hidden">
           {activeView === 'inbox' && (
             <div className="h-full">
-              {/* Toolbar */}
-              <div className="bg-white border-b border-gray-200 px-4 py-2">
-                <div className="flex items-center space-x-4">
-                  <input
-                    type="checkbox"
-                    checked={
-                      selectedItems.length === threads.length &&
-                      threads.length > 0
-                    }
-                    onChange={selectAll}
-                    className="rounded border-gray-300"
-                  />
-                  <span className="text-sm text-gray-600">
-                    {threads.length} conversation
-                    {threads.length !== 1 ? 's' : ''}
-                  </span>
-                </div>
-              </div>
-
-              {/* Thread list */}
-              <div className="overflow-y-auto h-full">
-                {threads.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-                    <InboxIcon className="w-12 h-12 mb-4" />
-                    <h3 className="text-lg font-medium mb-2">
-                      Aucune conversation
-                    </h3>
-                    <p>Vos nouvelles conversations apparaîtront ici.</p>
+              {!hasConnectedEmail ? (
+                <div className="flex flex-col items-center justify-center h-full text-gray-500 p-8">
+                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                    <InboxIcon className="w-10 h-10 text-gray-400" />
                   </div>
-                ) : (
+                  <h3 className="text-xl font-medium mb-3 text-gray-900">
+                    Connectez votre email
+                  </h3>
+                  <p className="text-center text-gray-600 mb-6 max-w-md">
+                    Pour accéder à vos conversations, vous devez d'abord connecter votre compte email. 
+                    Utilisez le widget dans la barre latérale pour commencer.
+                  </p>
+                  <div className="flex items-center space-x-2 text-sm text-gray-500">
+                    <span>👈</span>
+                    <span>Cliquez sur "Connecter un email" dans la sidebar</span>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {/* Toolbar */}
+                  <div className="bg-white border-b border-gray-200 px-4 py-2">
+                    <div className="flex items-center space-x-4">
+                      <input
+                        type="checkbox"
+                        checked={
+                          selectedItems.length === threads.length &&
+                          threads.length > 0
+                        }
+                        onChange={selectAll}
+                        className="rounded border-gray-300"
+                      />
+                      <span className="text-sm text-gray-600">
+                        {threads.length} conversation
+                        {threads.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Thread list */}
+                  <div className="overflow-y-auto h-full">
+                    {threads.length === 0 ? (
+                      <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                        <InboxIcon className="w-12 h-12 mb-4" />
+                        <h3 className="text-lg font-medium mb-2">
+                          Aucune conversation
+                        </h3>
+                        <p>Vos nouvelles conversations apparaîtront ici.</p>
+                      </div>
+                    ) : (
                   threads.map((thread) => (
                     <div
                       key={thread.id}
@@ -599,8 +635,10 @@ export default function CommunicationHub({
                       </div>
                     </div>
                   ))
-                )}
-              </div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           )}
 
