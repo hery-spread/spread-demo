@@ -9,7 +9,6 @@ import {
   AtSymbolIcon,
   XMarkIcon,
   InformationCircleIcon,
-  CogIcon,
 } from '@heroicons/react/24/outline';
 import { DevicePhoneMobileIcon as DevicePhoneMobileIconSolid } from '@heroicons/react/24/solid';
 import CollapsibleFilterCard from './CollapsibleFilterCard';
@@ -50,30 +49,7 @@ const PlatformLabels = {
   tiktok: 'TikTok',
 };
 
-// Champs spécifiques par plateforme
-const PlatformSpecificFields = {
-  instagram: [
-    'Reels performance',
-    'Account type (Regular/Business/Creator)',
-    'Brand partnerships',
-    'Interests & topics',
-    'Audience credibility score',
-  ],
-  youtube: [
-    'Videos vs Shorts analytics',
-    'Channel handle',
-    'Official artist status',
-    'Subscriber growth rate',
-    'Average view duration',
-  ],
-  tiktok: [
-    'Shares & saves metrics',
-    'Viral content detection',
-    'Sound usage analytics',
-    'Duets & collaborations',
-    'Trend participation',
-  ],
-};
+
 
 export default function PlatformSearchCard({
   isOpen,
@@ -89,7 +65,7 @@ export default function PlatformSearchCard({
   const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
-  const [showAdvancedSettings, setShowAdvancedSettings] = useState(true);
+
 
   // Gestion plateforme (sélection exclusive)
   const currentPlatform =
@@ -173,7 +149,7 @@ export default function PlatformSearchCard({
     <CollapsibleFilterCard
       id="platform-search"
       title="Plateforme & Recherche"
-      description="⭐ OBLIGATOIRE : Sélectionnez d'abord une plateforme pour des résultats précis"
+      description=""
       icon={<DevicePhoneMobileIcon className="w-5 h-5" />}
       isOpen={isOpen}
       onToggle={onToggle}
@@ -330,72 +306,7 @@ export default function PlatformSearchCard({
           )}
         </div>
 
-        {/* Paramètres avancés */}
-        <div>
-          <button
-            onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <CogIcon className="w-4 h-4" />
-            <span>Paramètres avancés</span>
-            <XMarkIcon
-              className={`w-3 h-3 transition-transform ${
-                showAdvancedSettings ? 'rotate-45' : 'rotate-0'
-              }`}
-            />
-          </button>
 
-          {showAdvancedSettings && (
-            <div className="mt-3 space-y-4 p-3 bg-gray-50 rounded-lg">
-              {/* Champs spécifiques à la plateforme */}
-              {currentPlatform && (
-                <div>
-                  <h5 className="text-sm font-medium text-gray-700 mb-2">
-                    Données spécifiques à {PlatformLabels[currentPlatform]}
-                  </h5>
-                  <div className="space-y-1">
-                    {PlatformSpecificFields[currentPlatform].map(
-                      (field, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2 text-xs text-gray-600"
-                        >
-                          <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                          <span>{field}</span>
-                        </div>
-                      )
-                    )}
-                  </div>
-                  <div className="mt-2 text-xs text-gray-500">
-                    Ces métriques seront automatiquement incluses dans vos
-                    résultats de recherche.
-                  </div>
-                </div>
-              )}
-
-              {/* Aide contextuelle */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <div className="flex items-start space-x-2">
-                  <InformationCircleIcon className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                  <div className="text-xs text-blue-700">
-                    <p className="font-medium mb-1">Conseils de recherche :</p>
-                    <ul className="space-y-1">
-                      <li>
-                        • Sélectionnez une plateforme pour des résultats plus
-                        précis
-                      </li>
-                      <li>
-                        • Utilisez @ pour rechercher des utilisateurs
-                        spécifiques
-                      </li>
-                      <li>• La recherche directe ignore les autres filtres</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </CollapsibleFilterCard>
   );

@@ -264,7 +264,6 @@ export default function AdvancedSearchPage() {
     setSearchState((prev) => ({ ...prev, ...updates }));
   }, []);
 
-
   // Fonction de recherche principale
   const performSearch = useCallback(async () => {
     updateSearchState({ isSearching: true });
@@ -328,7 +327,7 @@ export default function AdvancedSearchPage() {
     updateSearchState({ selectedInfluencers: newSelected });
   };
 
-    return (
+  return (
     <div className="h-full flex bg-gray-50 overflow-hidden">
       {/* Sidebar de recherche - Colonne gauche avec scroll indépendant */}
       <div className="w-[28rem] min-w-[22rem] max-w-[32rem] flex-shrink-0 flex flex-col h-full">

@@ -175,7 +175,7 @@ export default function TextSearchSection({
 
       {/* Textarea de recherche */}
       <div className="space-y-4">
-        <div className="relative">
+        <div className="flex flex-col gap-2">
           <textarea
             placeholder='Exemple : "Influenceuses beauté françaises avec plus de 100k followers sur Instagram qui font de la mode et du lifestyle"'
             value={searchQuery}
@@ -187,7 +187,7 @@ export default function TextSearchSection({
             onClick={handleAIAnalysis}
             disabled={!searchQuery.trim() || isAnalyzing}
             size="sm"
-            className="absolute bottom-3 right-3 flex items-center space-x-1"
+            className="mr-0 flex items-center space-x-1"
           >
             {isAnalyzing ? (
               <>
