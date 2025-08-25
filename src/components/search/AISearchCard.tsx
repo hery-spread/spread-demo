@@ -219,26 +219,34 @@ export default function AISearchCard({
     >
       <div className="space-y-4">
         {/* Champ de recherche principal */}
-        <div className="relative">
-          <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Ex: influenceuses beauté françaises avec +100k followers sur Instagram"
-            value={searchQuery}
-            onChange={(e) => onSearchQueryChange(e.target.value)}
-            className="pl-10 pr-28 py-3 text-sm"
-          />
+        <div className="space-y-3">
+          <div className="relative">
+            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Ex: influenceuses beauté françaises avec +100k followers sur Instagram"
+              value={searchQuery}
+              onChange={(e) => onSearchQueryChange(e.target.value)}
+              className="pl-10 py-3 text-sm"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && searchQuery.trim() && !isAnalyzing) {
+                  handleAIAnalysis();
+                }
+              }}
+            />
+          </div>
+          
           <Button
             onClick={handleAIAnalysis}
             disabled={!searchQuery.trim() || isAnalyzing}
             size="sm"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1 z-10"
+            className="w-full flex items-center justify-center space-x-2 py-2"
           >
             {isAnalyzing ? (
               <>
                 <SparklesIconSolid className="w-4 h-4 animate-spin" />
-                <span className="text-xs">Analyse</span>
-                <div className="flex space-x-1 ml-1">
+                <span className="text-sm">Analyse en cours</span>
+                <div className="flex space-x-1 ml-2">
                   {[0, 1, 2].map((i) => (
                     <div
                       key={i}
@@ -254,7 +262,7 @@ export default function AISearchCard({
             ) : (
               <>
                 <SparklesIcon className="w-4 h-4" />
-                <span className="text-xs">Analyser</span>
+                <span className="text-sm">Analyser avec l'IA</span>
               </>
             )}
           </Button>
