@@ -5,67 +5,21 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
-
-// Custom animations CSS
-const customAnimations = `
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  .animate-shimmer {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slideInRight 0.4s ease-out;
-  }
-`;
 import {
   InboxIcon,
   PlusIcon,
   MagnifyingGlassIcon,
   FunnelIcon,
-  StarIcon,
-  ArchiveBoxIcon,
-  EllipsisVerticalIcon,
+  StarIcon as StarIconSolid,
 } from '@heroicons/react/24/outline';
 import {
-  StarIcon as StarIconSolid,
   InboxIcon as InboxIconSolid,
 } from '@heroicons/react/24/solid';
 import { CommunicationHubProps } from '@/types/communication';
 import { useCommunication } from '@/contexts/CommunicationContext';
 import { useEmailIntegration } from '@/hooks/useEmailIntegration';
-import EmailIntegrationWidget from './EmailIntegrationWidget';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { ArchiveBoxIcon } from '@heroicons/react/24/outline';
 
 export default function CommunicationHub({
   defaultView = 'inbox',
@@ -76,8 +30,9 @@ export default function CommunicationHub({
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [isGmailConnected, setIsGmailConnected] = useState(false);
 
-  const { hasConnectedEmail } = useEmailIntegration();
+  const { } = useEmailIntegration();
 
   const {
     threads,
@@ -218,7 +173,7 @@ export default function CommunicationHub({
     const hours = diff / (1000 * 60 * 60);
 
     if (hours < 1) {
-      return 'À l&apos;instant';
+      return "À l'instant";
     } else if (hours < 24) {
       return `Il y a ${Math.floor(hours)}h`;
     } else {
@@ -283,11 +238,19 @@ export default function CommunicationHub({
       <div className="flex items-center justify-center h-64">
         <div className="relative">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600"></div>
-          <div className="absolute inset-0 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
-          <div className="absolute inset-2 rounded-full border-2 border-pink-200 border-t-pink-400 animate-spin" style={{animationDuration: '2s'}}></div>
+          <div
+            className="absolute inset-0 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin"
+            style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}
+          ></div>
+          <div
+            className="absolute inset-2 rounded-full border-2 border-pink-200 border-t-pink-400 animate-spin"
+            style={{ animationDuration: '2s' }}
+          ></div>
         </div>
         <div className="mt-4 text-center">
-          <p className="text-purple-600 font-semibold">Chargement des conversations...</p>
+          <p className="text-purple-600 font-semibold">
+            Chargement des conversations...
+          </p>
           <p className="text-purple-400 text-sm mt-1">Veuillez patienter</p>
         </div>
       </div>
@@ -308,9 +271,7 @@ export default function CommunicationHub({
         <h3 className="text-xl font-bold text-gray-900 mb-3">
           Une erreur est survenue
         </h3>
-        <p className="text-gray-600 mb-6 max-w-md text-center">
-          {error}
-        </p>
+        <p className="text-gray-600 mb-6 max-w-md text-center">{error}</p>
         <Button
           onClick={() => loadThreads()}
           className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3"
@@ -323,9 +284,9 @@ export default function CommunicationHub({
   }
 
   return (
-    <>
-      <style jsx>{customAnimations}</style>
-      <div className={`flex h-full ${embedded ? '' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-indigo-50/30'}`}>
+    <div
+      className={`flex h-full ${embedded ? '' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-indigo-50/30'}`}
+    >
       {/* Sidebar */}
       {showSidebar && (
         <div className="w-64 bg-gradient-to-br from-white via-purple-50/30 to-indigo-50/20 border-r border-purple-100/50 flex flex-col backdrop-blur-sm">
@@ -333,11 +294,19 @@ export default function CommunicationHub({
           <div className="p-6 border-b border-purple-100/30 bg-gradient-to-r from-purple-500/5 to-indigo-500/5">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl font-bold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
-                  Communications
-                </h2>
+                <div className="flex items-center space-x-3">
+                  <h2 className="text-xl font-bold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
+                    Communications
+                  </h2>
+                  {isGmailConnected && (
+                    <div className="flex items-center space-x-1 bg-green-100 px-2 py-1 rounded-full">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-semibold text-green-700">Gmail</span>
+                    </div>
+                  )}
+                </div>
                 <p className="text-xs text-purple-600/70 font-medium mt-1">
-                  Gérez vos conversations
+                  {isGmailConnected ? 'Conversations Gmail connectées' : 'Connectez votre email pour commencer'}
                 </p>
               </div>
               <Button
@@ -357,7 +326,10 @@ export default function CommunicationHub({
                 </div>
                 <div className="text-blue-700 font-medium">Nouveaux</div>
                 <div className="w-full bg-blue-200 rounded-full h-1 mt-2">
-                  <div className="bg-blue-500 h-1 rounded-full" style={{width: '60%'}}></div>
+                  <div
+                    className="bg-blue-500 h-1 rounded-full"
+                    style={{ width: '60%' }}
+                  ></div>
                 </div>
               </div>
               <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-3 rounded-xl border border-emerald-200/50 hover:shadow-md transition-all duration-200">
@@ -366,7 +338,10 @@ export default function CommunicationHub({
                 </div>
                 <div className="text-emerald-700 font-medium">Répondus</div>
                 <div className="w-full bg-emerald-200 rounded-full h-1 mt-2">
-                  <div className="bg-emerald-500 h-1 rounded-full" style={{width: '85%'}}></div>
+                  <div
+                    className="bg-emerald-500 h-1 rounded-full"
+                    style={{ width: '85%' }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -374,11 +349,19 @@ export default function CommunicationHub({
             {/* Activity indicator */}
             <div className="mt-4 p-3 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-xl border border-purple-200/30">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-purple-700">Activité</span>
+                <span className="text-xs font-semibold text-purple-700">
+                  Activité
+                </span>
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                  <div
+                    className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"
+                    style={{ animationDelay: '0.5s' }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-red-400 rounded-full animate-pulse"
+                    style={{ animationDelay: '1s' }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -389,7 +372,7 @@ export default function CommunicationHub({
             {views.map((view) => {
               const isActive = activeView === view.id;
               const Icon = isActive ? view.iconSolid : view.icon;
-              const isDisabled = !hasConnectedEmail && view.id === 'inbox';
+              const isDisabled = !isGmailConnected && view.id === 'inbox';
 
               return (
                 <button
@@ -405,13 +388,15 @@ export default function CommunicationHub({
                   }`}
                 >
                   <div className="flex items-center">
-                    <div className={`p-2 rounded-xl mr-4 transition-all duration-300 ${
-                      isDisabled
-                        ? 'bg-gray-200'
-                        : isActive
-                          ? 'bg-white/20'
-                          : 'bg-purple-50 group-hover:bg-purple-100'
-                    }`}>
+                    <div
+                      className={`p-2 rounded-xl mr-4 transition-all duration-300 ${
+                        isDisabled
+                          ? 'bg-gray-200'
+                          : isActive
+                            ? 'bg-white/20'
+                            : 'bg-purple-50 group-hover:bg-purple-100'
+                      }`}
+                    >
                       <Icon
                         className={`w-5 h-5 transition-all duration-300 ${
                           isDisabled
@@ -423,13 +408,15 @@ export default function CommunicationHub({
                       />
                     </div>
                     <div>
-                      <span className={`font-semibold text-sm transition-all duration-300 ${
-                        isDisabled
-                          ? 'text-gray-400'
-                          : isActive
-                            ? 'text-white'
-                            : 'text-gray-700 group-hover:text-purple-700'
-                      }`}>
+                      <span
+                        className={`font-semibold text-sm transition-all duration-300 ${
+                          isDisabled
+                            ? 'text-gray-400'
+                            : isActive
+                              ? 'text-white'
+                              : 'text-gray-700 group-hover:text-purple-700'
+                        }`}
+                      >
                         {view.name}
                       </span>
                       {view.count > 0 && !isDisabled && (
@@ -440,11 +427,13 @@ export default function CommunicationHub({
                     </div>
                   </div>
                   {view.count > 0 && !isDisabled && (
-                    <div className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
-                      isActive
-                        ? 'bg-white/20 text-white'
-                        : 'bg-purple-100 text-purple-700 group-hover:bg-purple-200'
-                    }`}>
+                    <div
+                      className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
+                        isActive
+                          ? 'bg-white/20 text-white'
+                          : 'bg-purple-100 text-purple-700 group-hover:bg-purple-200'
+                      }`}
+                    >
                       {view.count}
                     </div>
                   )}
@@ -452,9 +441,6 @@ export default function CommunicationHub({
               );
             })}
           </nav>
-
-          {/* Email Integration Widget */}
-          <EmailIntegrationWidget compact={true} />
         </div>
       )}
 
@@ -468,7 +454,8 @@ export default function CommunicationHub({
                 {views.find((v) => v.id === activeView)?.name}
               </h1>
               <p className="text-sm text-purple-600/70 font-medium mt-1">
-                {threads.length} conversation{threads.length > 1 ? 's' : ''} au total
+                {threads.length} conversation{threads.length > 1 ? 's' : ''}{' '}
+                au total
               </p>
             </div>
 
@@ -486,7 +473,8 @@ export default function CommunicationHub({
               {selectedItems.length > 0 && (
                 <div className="flex items-center space-x-2 bg-purple-50/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-purple-200/30">
                   <span className="text-sm font-semibold text-purple-700">
-                    {selectedItems.length} sélectionné{selectedItems.length > 1 ? 's' : ''}
+                    {selectedItems.length} sélectionné
+                    {selectedItems.length > 1 ? 's' : ''}
                   </span>
                   <Button
                     variant="outline"
@@ -502,7 +490,7 @@ export default function CommunicationHub({
                     onClick={() => handleBulkAction('star')}
                     className="bg-yellow-50 border-yellow-200 hover:bg-yellow-100 transition-all duration-200"
                   >
-                    <StarIcon className="w-4 h-4" />
+                    <StarIconSolid className="w-4 h-4" />
                   </Button>
                   <Button
                     variant="outline"
@@ -562,7 +550,7 @@ export default function CommunicationHub({
                       { value: 'all', label: 'Tous les canaux' },
                       { value: 'email', label: '📧 Email' },
                       { value: 'linkedin', label: '💼 LinkedIn' },
-                      { value: 'instagram', label: '📸 Instagram' },
+                      { value: 'instagram', label: '📸 Instagram' }
                     ]}
                     onChange={(e) =>
                       handleFilterChange('channel', e.target.value)
@@ -581,7 +569,7 @@ export default function CommunicationHub({
                       { value: 'urgent', label: '🔴 Urgent' },
                       { value: 'high', label: '🟠 Élevée' },
                       { value: 'medium', label: '🟡 Moyenne' },
-                      { value: 'low', label: '🟢 Faible' },
+                      { value: 'low', label: '🟢 Faible' }
                     ]}
                     onChange={(e) =>
                       handleFilterChange('priority', e.target.value)
@@ -598,7 +586,7 @@ export default function CommunicationHub({
         <div className="flex-1 overflow-hidden">
           {activeView === 'inbox' && (
             <div className="h-full">
-              {!hasConnectedEmail ? (
+              {!isGmailConnected ? (
                 <div className="flex flex-col items-center justify-center h-full p-12">
                   <div className="relative mb-8">
                     <div className="w-24 h-24 bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100 rounded-3xl flex items-center justify-center shadow-xl">
@@ -610,46 +598,41 @@ export default function CommunicationHub({
                   </div>
 
                   <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
-                    Connectez vos communications
+                    Connectez votre email Gmail
                   </h3>
 
                   <p className="text-center text-purple-600/70 mb-8 max-w-lg text-lg leading-relaxed">
-                    Pour accéder à vos conversations, vous devez d'abord connecter vos canaux de communication.
-                    Commencez par intégrer votre email professionnel.
+                    Pour accéder à vos conversations avec les influenceurs,
+                    vous devez d'abord connecter votre compte Gmail professionnel.
                   </p>
 
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="flex items-center space-x-3 text-purple-600 bg-purple-50 px-6 py-3 rounded-2xl border border-purple-200/50">
-                      <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm">👈</span>
+                  <div className="flex flex-col items-center space-y-6">
+                    <div className="bg-white/80 backdrop-blur-sm border border-purple-200/50 rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 hover:scale-105 max-w-md">
+                      <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <span className="text-white text-2xl font-bold">📧</span>
                       </div>
-                      <span className="font-semibold">Cliquez sur "Connecter un email" dans la sidebar</span>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">
+                        Gmail
+                      </h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Connectez votre boîte mail pour voir vos conversations avec les influenceurs
+                      </p>
+                      <Button
+                        className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3"
+                        onClick={() => {
+                          // Simuler la connexion Gmail
+                          setIsGmailConnected(true);
+                        }}
+                      >
+                        <span className="mr-2">🔗</span>
+                        Connecter Gmail
+                      </Button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-2xl">
-                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                          <span className="text-white font-bold">📧</span>
-                        </div>
-                        <h4 className="font-semibold text-purple-700 mb-1">Email</h4>
-                        <p className="text-xs text-purple-600/70">Gmail, Outlook</p>
-                      </div>
-
-                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3">
-                          <span className="text-white font-bold">💼</span>
-                        </div>
-                        <h4 className="font-semibold text-purple-700 mb-1">LinkedIn</h4>
-                        <p className="text-xs text-purple-600/70">Messages pro</p>
-                      </div>
-
-                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
-                        <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                          <span className="text-white font-bold">📸</span>
-                        </div>
-                        <h4 className="font-semibold text-purple-700 mb-1">Instagram</h4>
-                        <p className="text-xs text-purple-600/70">DM & Stories</p>
-                      </div>
+                    <div className="text-center">
+                      <p className="text-xs text-purple-600/70">
+                        Simulation : Cliquez sur "Connecter Gmail" pour voir les fausses conversations
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -668,11 +651,13 @@ export default function CommunicationHub({
                         className="rounded border-purple-300 text-purple-600 focus:ring-purple-500"
                       />
                       <span className="text-sm font-semibold text-purple-700">
-                        {threads.length} conversation{threads.length !== 1 ? 's' : ''}
+                        {threads.length} conversation
+                        {threads.length !== 1 ? 's' : ''}
                       </span>
                       {selectedItems.length > 0 && (
                         <span className="text-xs text-purple-600 bg-purple-100 px-2 py-1 rounded-full">
-                          {selectedItems.length} sélectionnée{selectedItems.length > 1 ? 's' : ''}
+                          {selectedItems.length} sélectionnée
+                          {selectedItems.length > 1 ? 's' : ''}
                         </span>
                       )}
                     </div>
@@ -689,7 +674,9 @@ export default function CommunicationHub({
                           Aucune conversation
                         </h3>
                         <p className="text-purple-600/70 max-w-md">
-                          Vos nouvelles conversations apparaîtront ici. Connectez vos canaux de communication pour commencer !
+                          Vos nouvelles conversations apparaîtront ici.
+                          Connectez vos canaux de communication pour commencer
+                          !
                         </p>
                       </div>
                     ) : (
@@ -701,7 +688,7 @@ export default function CommunicationHub({
                               ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-300 shadow-lg shadow-purple-500/20'
                               : ''
                           } ${!thread.isRead ? 'bg-blue-50/50 border-blue-200' : ''}`}
-                          style={{animationDelay: `${index * 0.1}s`}}
+                          style={{ animationDelay: `${index * 0.1}s` }}
                           onClick={() => selectThread(thread)}
                         >
                           {/* Priority indicator */}
@@ -733,7 +720,9 @@ export default function CommunicationHub({
                                     />
                                   ) : (
                                     <span className="text-sm font-bold text-purple-700">
-                                      {thread.contact.name.charAt(0).toUpperCase()}
+                                      {thread.contact.name
+                                        .charAt(0)
+                                        .toUpperCase()}
                                     </span>
                                   )}
                                 </div>
@@ -791,18 +780,21 @@ export default function CommunicationHub({
                               <div className="flex items-center justify-between mt-3">
                                 <div className="flex items-center space-x-2">
                                   <span className="text-xs font-medium text-purple-600">
-                                    {thread.messageCount} message{thread.messageCount > 1 ? 's' : ''}
+                                    {thread.messageCount} message
+                                    {thread.messageCount > 1 ? 's' : ''}
                                   </span>
                                   {thread.tags && thread.tags.length > 0 && (
                                     <div className="flex space-x-1">
-                                      {thread.tags.slice(0, 2).map((tag, index) => (
-                                        <span
-                                          key={index}
-                                          className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium"
-                                        >
-                                          {tag}
-                                        </span>
-                                      ))}
+                                      {thread.tags
+                                        .slice(0, 2)
+                                        .map((tag, index) => (
+                                          <span
+                                            key={index}
+                                            className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium"
+                                          >
+                                            {tag}
+                                          </span>
+                                        ))}
                                     </div>
                                   )}
                                 </div>
@@ -827,11 +819,8 @@ export default function CommunicationHub({
               )}
             </div>
           )}
-
-
         </div>
       </div>
     </div>
-    </>
   );
 }

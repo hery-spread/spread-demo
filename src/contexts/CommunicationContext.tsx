@@ -257,7 +257,8 @@ export function CommunicationProvider({
             id: 'contact_1',
             name: 'Emma Lifestyle',
             email: 'emma@lifestyle-blog.com',
-            avatar: 'https://ui-avatars.com/api/?name=Emma+Lifestyle&background=8b5cf6&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Emma+Lifestyle&background=8b5cf6&color=fff',
             socialHandles: {
               instagram: '@emma_lifestyle',
             },
@@ -280,7 +281,8 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'received',
             subject: 'Re: Collaboration Samsung Galaxy S24',
-            content: 'Bonjour ! Je suis très intéressée par cette collaboration. Mes tarifs pour un post + story sont de 800€. Pouvons-nous programmer un appel cette semaine ? Je suis super motivée ! 💫',
+            content:
+              'Bonjour ! Je suis très intéressée par cette collaboration. Mes tarifs pour un post + story sont de 800€. Pouvons-nous programmer un appel cette semaine ? Je suis super motivée ! 💫',
             timestamp: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -292,7 +294,8 @@ export function CommunicationProvider({
             id: 'contact_2',
             name: 'Lucas Gaming',
             email: 'lucas@gaming-world.fr',
-            avatar: 'https://ui-avatars.com/api/?name=Lucas+Gaming&background=3b82f6&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Lucas+Gaming&background=3b82f6&color=fff',
             socialHandles: {
               youtube: '@lucas_gaming',
               instagram: '@gaming_lucas',
@@ -316,7 +319,8 @@ export function CommunicationProvider({
             channel: 'linkedin',
             type: 'received',
             subject: 'Proposition gaming intéressante',
-            content: 'Salut ! J\'ai vu votre message sur LinkedIn concernant le nouveau casque gaming. Je suis intéressé mais j\'ai quelques questions sur les specs techniques. Quand seriez-vous disponible pour en discuter ? 🎮',
+            content:
+              "Salut ! J'ai vu votre message sur LinkedIn concernant le nouveau casque gaming. Je suis intéressé mais j'ai quelques questions sur les specs techniques. Quand seriez-vous disponible pour en discuter ? 🎮",
             timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -328,7 +332,8 @@ export function CommunicationProvider({
             id: 'contact_3',
             name: 'Sophie Fitness',
             email: 'sophie@fitlife.com',
-            avatar: 'https://ui-avatars.com/api/?name=Sophie+Fitness&background=10b981&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Sophie+Fitness&background=10b981&color=fff',
             socialHandles: {
               instagram: '@sophie_fitlife',
               tiktok: '@fit_sophie',
@@ -342,7 +347,9 @@ export function CommunicationProvider({
           isRead: false,
           isStarred: true,
           messageCount: 5,
-          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+          createdAt: new Date(
+            Date.now() - 3 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 3 days ago
           updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2h ago
           lastMessage: {
             id: 'msg_3_5',
@@ -352,7 +359,8 @@ export function CommunicationProvider({
             channel: 'instagram',
             type: 'received',
             subject: 'DM Instagram - Suite collaboration',
-            content: 'Coucou ! J\'ai bien réfléchi à votre proposition de collaboration pour les compléments alimentaires. Je suis partante mais je préférerais travailler avec vos produits naturels. Pouvez-vous m\'envoyer plus d\'infos sur cette gamme ? 💪✨',
+            content:
+              "Coucou ! J'ai bien réfléchi à votre proposition de collaboration pour les compléments alimentaires. Je suis partante mais je préférerais travailler avec vos produits naturels. Pouvez-vous m'envoyer plus d'infos sur cette gamme ? 💪✨",
             timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -364,7 +372,8 @@ export function CommunicationProvider({
             id: 'contact_4',
             name: 'Marie Cuisine',
             email: 'marie@cuisine-passion.fr',
-            avatar: 'https://ui-avatars.com/api/?name=Marie+Cuisine&background=f59e0b&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Marie+Cuisine&background=f59e0b&color=fff',
             socialHandles: {
               instagram: '@marie_cuisine',
               youtube: '@CuisineMarie',
@@ -388,7 +397,8 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'sent',
             subject: 'Collaboration Ustensiles de Cuisine Premium',
-            content: 'Bonjour Marie, nous avons découvert votre contenu culinaire et aimerions vous proposer une collaboration avec notre marque d\'ustensiles premium. Êtes-vous disponible pour en discuter ?',
+            content:
+              "Bonjour Marie, nous avons découvert votre contenu culinaire et aimerions vous proposer une collaboration avec notre marque d'ustensiles premium. Êtes-vous disponible pour en discuter ?",
             timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
             status: 'sent',
           },
@@ -400,7 +410,8 @@ export function CommunicationProvider({
             id: 'contact_5',
             name: 'Alex Travel',
             email: 'alex@wanderlust-adventures.com',
-            avatar: 'https://ui-avatars.com/api/?name=Alex+Travel&background=ef4444&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Alex+Travel&background=ef4444&color=fff',
             socialHandles: {
               instagram: '@alex_wanderlust',
               tiktok: '@travel_alex',
@@ -414,8 +425,12 @@ export function CommunicationProvider({
           isRead: true,
           isStarred: false,
           messageCount: 6,
-          createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
-          updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+          createdAt: new Date(
+            Date.now() - 7 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 1 week ago
+          updatedAt: new Date(
+            Date.now() - 5 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 5 days ago
           lastMessage: {
             id: 'msg_5_6',
             threadId: 'thread_5',
@@ -424,8 +439,11 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'received',
             subject: 'Re: Collaboration terminée - Merci !',
-            content: 'Merci beaucoup pour cette superbe collaboration ! Les posts ont très bien fonctionné. J\'espère que nous pourrons retravailler ensemble bientôt.',
-            timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+            content:
+              "Merci beaucoup pour cette superbe collaboration ! Les posts ont très bien fonctionné. J'espère que nous pourrons retravailler ensemble bientôt.",
+            timestamp: new Date(
+              Date.now() - 5 * 24 * 60 * 60 * 1000
+            ).toISOString(),
             status: 'delivered',
           },
         },
@@ -436,7 +454,8 @@ export function CommunicationProvider({
             id: 'contact_6',
             name: 'Julien Tech',
             email: 'julien@tech-reviews.fr',
-            avatar: 'https://ui-avatars.com/api/?name=Julien+Tech&background=6366f1&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Julien+Tech&background=6366f1&color=fff',
             socialHandles: {
               youtube: '@julien_tech',
               linkedin: 'julien-tech-reviews',
@@ -460,7 +479,8 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'sent',
             subject: 'Proposition Review Smartphone Flagship',
-            content: 'Bonjour Julien, nous aimerions vous envoyer notre nouveau smartphone flagship pour une review complète. Quels sont vos tarifs pour une vidéo dédiée ?',
+            content:
+              'Bonjour Julien, nous aimerions vous envoyer notre nouveau smartphone flagship pour une review complète. Quels sont vos tarifs pour une vidéo dédiée ?',
             timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -472,7 +492,8 @@ export function CommunicationProvider({
             id: 'contact_7',
             name: 'Camille Beauty',
             email: 'camille@beauty-secrets.com',
-            avatar: 'https://ui-avatars.com/api/?name=Camille+Beauty&background=e11d48&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Camille+Beauty&background=e11d48&color=fff',
             socialHandles: {
               instagram: '@beauty_camille',
               tiktok: '@camille_beauty',
@@ -496,7 +517,8 @@ export function CommunicationProvider({
             channel: 'instagram',
             type: 'received',
             subject: 'DM Instagram - Super intéressée !',
-            content: 'OMG votre campagne de soins de peau a l\'air incroyable ! Je suis définitivement intéressée. Mes followers adorent les produits naturels. On se call cette semaine ? 💄✨',
+            content:
+              "OMG votre campagne de soins de peau a l'air incroyable ! Je suis définitivement intéressée. Mes followers adorent les produits naturels. On se call cette semaine ? 💄✨",
             timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -508,7 +530,8 @@ export function CommunicationProvider({
             id: 'contact_8',
             name: 'Thomas Fashion',
             email: 'thomas@style-street.com',
-            avatar: 'https://ui-avatars.com/api/?name=Thomas+Fashion&background=7c3aed&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Thomas+Fashion&background=7c3aed&color=fff',
             socialHandles: {
               instagram: '@thomas_style',
               linkedin: 'thomas-fashion-designer',
@@ -532,7 +555,8 @@ export function CommunicationProvider({
             channel: 'linkedin',
             type: 'sent',
             subject: 'Proposition collaboration mode durable',
-            content: 'Bonjour Thomas, nous admirons votre travail en matière de mode éco-responsable. Nous aimerions vous proposer une collaboration avec notre nouvelle collection durable. Seriez-vous intéressé ?',
+            content:
+              'Bonjour Thomas, nous admirons votre travail en matière de mode éco-responsable. Nous aimerions vous proposer une collaboration avec notre nouvelle collection durable. Seriez-vous intéressé ?',
             timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
             status: 'sent',
           },
@@ -544,7 +568,8 @@ export function CommunicationProvider({
             id: 'contact_9',
             name: 'Lisa Wellness',
             email: 'lisa@mindful-living.com',
-            avatar: 'https://ui-avatars.com/api/?name=Lisa+Wellness&background=059669&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Lisa+Wellness&background=059669&color=fff',
             socialHandles: {
               instagram: '@lisa_wellness',
               youtube: '@MindfulLisa',
@@ -558,7 +583,9 @@ export function CommunicationProvider({
           isRead: true,
           isStarred: true,
           messageCount: 4,
-          createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+          createdAt: new Date(
+            Date.now() - 5 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 5 days ago
           updatedAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(), // 8h ago
           lastMessage: {
             id: 'msg_9_4',
@@ -568,7 +595,8 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'received',
             subject: 'Re: Conditions de partenariat',
-            content: 'Bonjour ! J\'ai bien reçu vos propositions. Les conditions me semblent intéressantes, mais j\'aimerais discuter des droits d\'utilisation de mes contenus. Seriez-vous disponible pour un appel demain ? 🧘‍♀️',
+            content:
+              "Bonjour ! J'ai bien reçu vos propositions. Les conditions me semblent intéressantes, mais j'aimerais discuter des droits d'utilisation de mes contenus. Seriez-vous disponible pour un appel demain ? 🧘‍♀️",
             timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
             status: 'delivered',
           },
@@ -580,7 +608,8 @@ export function CommunicationProvider({
             id: 'contact_10',
             name: 'Antoine Photography',
             email: 'antoine@artistic-shots.com',
-            avatar: 'https://ui-avatars.com/api/?name=Antoine+Photography&background=d97706&color=fff',
+            avatar:
+              'https://ui-avatars.com/api/?name=Antoine+Photography&background=d97706&color=fff',
             socialHandles: {
               instagram: '@antoine_artistic',
               linkedin: 'antoine-photographer',
@@ -594,8 +623,12 @@ export function CommunicationProvider({
           isRead: true,
           isStarred: false,
           messageCount: 3,
-          createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
-          updatedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), // 8 days ago
+          createdAt: new Date(
+            Date.now() - 10 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 10 days ago
+          updatedAt: new Date(
+            Date.now() - 8 * 24 * 60 * 60 * 1000
+          ).toISOString(), // 8 days ago
           lastMessage: {
             id: 'msg_10_3',
             threadId: 'thread_10',
@@ -604,8 +637,11 @@ export function CommunicationProvider({
             channel: 'email',
             type: 'sent',
             subject: 'Collaboration terminée - Merci beaucoup',
-            content: 'Bonjour Antoine, merci beaucoup pour cette belle collaboration ! Vos photos ont sublimé notre campagne. Nous espérons pouvoir retravailler ensemble prochainement.',
-            timestamp: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+            content:
+              'Bonjour Antoine, merci beaucoup pour cette belle collaboration ! Vos photos ont sublimé notre campagne. Nous espérons pouvoir retravailler ensemble prochainement.',
+            timestamp: new Date(
+              Date.now() - 8 * 24 * 60 * 60 * 1000
+            ).toISOString(),
             status: 'sent',
           },
         },
