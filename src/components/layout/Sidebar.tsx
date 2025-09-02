@@ -129,7 +129,7 @@ export default function Sidebar() {
                   </div>
                   <div
                     className={`
-                    text-xs transition-all duration-300 mt-0.5 hidden
+                    text-xs transition-all duration-300 mt-0.5
                     ${
                       isActive
                         ? 'text-purple-100'

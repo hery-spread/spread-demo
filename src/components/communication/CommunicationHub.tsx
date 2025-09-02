@@ -5,6 +5,50 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
+
+// Custom animations CSS
+const customAnimations = `
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+  }
+`;
 import {
   InboxIcon,
   PlusIcon,
@@ -237,56 +281,111 @@ export default function CommunicationHub({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        <div className="relative">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
+          <div className="absolute inset-2 rounded-full border-2 border-pink-200 border-t-pink-400 animate-spin" style={{animationDuration: '2s'}}></div>
+        </div>
+        <div className="mt-4 text-center">
+          <p className="text-purple-600 font-semibold">Chargement des conversations...</p>
+          <p className="text-purple-400 text-sm mt-1">Veuillez patienter</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center p-8">
-        <div className="text-red-600 mb-4">{error}</div>
-        <Button onClick={() => loadThreads()}>Réessayer</Button>
+      <div className="flex flex-col items-center justify-center h-64 p-8">
+        <div className="relative mb-6">
+          <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-pink-100 rounded-3xl flex items-center justify-center shadow-lg">
+            <span className="text-2xl">⚠️</span>
+          </div>
+          <div className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
+            <span className="text-white text-xs font-bold">!</span>
+          </div>
+        </div>
+        <h3 className="text-xl font-bold text-gray-900 mb-3">
+          Une erreur est survenue
+        </h3>
+        <p className="text-gray-600 mb-6 max-w-md text-center">
+          {error}
+        </p>
+        <Button
+          onClick={() => loadThreads()}
+          className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl px-6 py-3"
+        >
+          <span className="mr-2">🔄</span>
+          Réessayer
+        </Button>
       </div>
     );
   }
 
   return (
-    <div className={`flex h-full ${embedded ? '' : 'bg-gray-50'}`}>
+    <>
+      <style jsx>{customAnimations}</style>
+      <div className={`flex h-full ${embedded ? '' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-indigo-50/30'}`}>
       {/* Sidebar */}
       {showSidebar && (
-        <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <div className="w-64 bg-gradient-to-br from-white via-purple-50/30 to-indigo-50/20 border-r border-purple-100/50 flex flex-col backdrop-blur-sm">
           {/* Header */}
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">
-                Communications
-              </h2>
-              <Button size="sm">
-                <PlusIcon className="w-4 h-4 mr-1" />
+          <div className="p-6 border-b border-purple-100/30 bg-gradient-to-r from-purple-500/5 to-indigo-500/5">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-bold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
+                  Communications
+                </h2>
+                <p className="text-xs text-purple-600/70 font-medium mt-1">
+                  Gérez vos conversations
+                </p>
+              </div>
+              <Button
+                size="sm"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 border-0 rounded-xl"
+              >
+                <PlusIcon className="w-4 h-4 mr-2" />
                 Nouveau
               </Button>
             </div>
 
             {/* Quick stats */}
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="bg-blue-50 p-2 rounded">
-                <div className="font-medium text-blue-900">
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-3 rounded-xl border border-blue-200/50 hover:shadow-md transition-all duration-200">
+                <div className="font-bold text-blue-900 text-lg">
                   {stats.newThreads}
                 </div>
-                <div className="text-blue-600">Nouveaux</div>
+                <div className="text-blue-700 font-medium">Nouveaux</div>
+                <div className="w-full bg-blue-200 rounded-full h-1 mt-2">
+                  <div className="bg-blue-500 h-1 rounded-full" style={{width: '60%'}}></div>
+                </div>
               </div>
-              <div className="bg-green-50 p-2 rounded">
-                <div className="font-medium text-green-900">
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-3 rounded-xl border border-emerald-200/50 hover:shadow-md transition-all duration-200">
+                <div className="font-bold text-emerald-900 text-lg">
                   {stats.respondedThreads}
                 </div>
-                <div className="text-green-600">Répondus</div>
+                <div className="text-emerald-700 font-medium">Répondus</div>
+                <div className="w-full bg-emerald-200 rounded-full h-1 mt-2">
+                  <div className="bg-emerald-500 h-1 rounded-full" style={{width: '85%'}}></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Activity indicator */}
+            <div className="mt-4 p-3 bg-gradient-to-r from-purple-500/10 to-indigo-500/10 rounded-xl border border-purple-200/30">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-purple-700">Activité</span>
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4">
+          <nav className="flex-1 p-4 space-y-2">
             {views.map((view) => {
               const isActive = activeView === view.id;
               const Icon = isActive ? view.iconSolid : view.icon;
@@ -297,36 +396,57 @@ export default function CommunicationHub({
                   key={view.id}
                   onClick={() => !isDisabled && setActiveView('inbox')}
                   disabled={isDisabled}
-                  className={`w-full flex items-center justify-between p-3 mb-1 rounded-lg text-left transition-colors ${
+                  className={`group w-full flex items-center justify-between p-4 rounded-2xl text-left transition-all duration-300 transform hover:scale-[1.02] ${
                     isDisabled
-                      ? 'text-gray-400 cursor-not-allowed opacity-50'
+                      ? 'text-gray-400 cursor-not-allowed opacity-50 bg-gray-50/50'
                       : isActive
-                        ? 'bg-purple-50 text-purple-700 border-l-4 border-purple-700'
-                        : 'text-gray-600 hover:bg-gray-50'
+                        ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/25 border border-purple-500/30'
+                        : 'text-gray-700 hover:bg-white hover:shadow-md hover:border-purple-100 border border-transparent'
                   }`}
                 >
                   <div className="flex items-center">
-                    <Icon
-                      className={`w-5 h-5 mr-3 ${
-                        isDisabled 
-                          ? 'text-gray-300'
-                          : isActive 
-                            ? 'text-purple-700' 
-                            : 'text-gray-400'
-                      }`}
-                    />
-                    <span className="font-medium">{view.name}</span>
+                    <div className={`p-2 rounded-xl mr-4 transition-all duration-300 ${
+                      isDisabled
+                        ? 'bg-gray-200'
+                        : isActive
+                          ? 'bg-white/20'
+                          : 'bg-purple-50 group-hover:bg-purple-100'
+                    }`}>
+                      <Icon
+                        className={`w-5 h-5 transition-all duration-300 ${
+                          isDisabled
+                            ? 'text-gray-400'
+                            : isActive
+                              ? 'text-white'
+                              : 'text-purple-600 group-hover:text-purple-700'
+                        }`}
+                      />
+                    </div>
+                    <div>
+                      <span className={`font-semibold text-sm transition-all duration-300 ${
+                        isDisabled
+                          ? 'text-gray-400'
+                          : isActive
+                            ? 'text-white'
+                            : 'text-gray-700 group-hover:text-purple-700'
+                      }`}>
+                        {view.name}
+                      </span>
+                      {view.count > 0 && !isDisabled && (
+                        <div className="text-xs opacity-75 mt-0.5">
+                          {view.count} conversation{view.count > 1 ? 's' : ''}
+                        </div>
+                      )}
+                    </div>
                   </div>
                   {view.count > 0 && !isDisabled && (
-                    <span
-                      className={`px-2 py-1 text-xs rounded-full ${
-                        isActive
-                          ? 'bg-purple-100 text-purple-700'
-                          : 'bg-gray-100 text-gray-600'
-                      }`}
-                    >
+                    <div className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-300 ${
+                      isActive
+                        ? 'bg-white/20 text-white'
+                        : 'bg-purple-100 text-purple-700 group-hover:bg-purple-200'
+                    }`}>
                       {view.count}
-                    </span>
+                    </div>
                   )}
                 </button>
               );
@@ -341,32 +461,38 @@ export default function CommunicationHub({
       {/* Main content */}
       <div className="flex-1 flex flex-col">
         {/* Top bar */}
-        <div className="bg-white border-b border-gray-200 p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold text-gray-900">
-              {views.find((v) => v.id === activeView)?.name}
-            </h1>
+        <div className="bg-white/80 backdrop-blur-xl border-b border-purple-100/50 p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
+                {views.find((v) => v.id === activeView)?.name}
+              </h1>
+              <p className="text-sm text-purple-600/70 font-medium mt-1">
+                {threads.length} conversation{threads.length > 1 ? 's' : ''} au total
+              </p>
+            </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setShowFilters(!showFilters)}
+                className="bg-white/50 border-purple-200/50 hover:bg-purple-50 hover:border-purple-300 transition-all duration-300 rounded-xl"
               >
-                <FunnelIcon className="w-4 h-4 mr-1" />
+                <FunnelIcon className="w-4 h-4 mr-2" />
                 Filtres
               </Button>
 
               {selectedItems.length > 0 && (
-                <div className="flex items-center space-x-1">
-                  <span className="text-sm text-gray-600">
-                    {selectedItems.length} sélectionné
-                    {selectedItems.length > 1 ? 's' : ''}
+                <div className="flex items-center space-x-2 bg-purple-50/80 backdrop-blur-sm px-4 py-2 rounded-xl border border-purple-200/30">
+                  <span className="text-sm font-semibold text-purple-700">
+                    {selectedItems.length} sélectionné{selectedItems.length > 1 ? 's' : ''}
                   </span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => handleBulkAction('markRead')}
+                    className="bg-blue-50 border-blue-200 hover:bg-blue-100 transition-all duration-200"
                   >
                     Marquer lu
                   </Button>
@@ -374,6 +500,7 @@ export default function CommunicationHub({
                     variant="outline"
                     size="sm"
                     onClick={() => handleBulkAction('star')}
+                    className="bg-yellow-50 border-yellow-200 hover:bg-yellow-100 transition-all duration-200"
                   >
                     <StarIcon className="w-4 h-4" />
                   </Button>
@@ -381,6 +508,7 @@ export default function CommunicationHub({
                     variant="outline"
                     size="sm"
                     onClick={() => handleBulkAction('archive')}
+                    className="bg-gray-50 border-gray-200 hover:bg-gray-100 transition-all duration-200"
                   >
                     <ArchiveBoxIcon className="w-4 h-4" />
                   </Button>
@@ -390,25 +518,27 @@ export default function CommunicationHub({
           </div>
 
           {/* Search */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 mb-4">
             <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <MagnifyingGlassIcon className="w-5 h-5 text-purple-400" />
+              </div>
               <Input
                 type="text"
                 placeholder="Rechercher dans les conversations..."
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
-                className="pl-10"
+                className="pl-12 pr-4 py-3 bg-white/60 backdrop-blur-sm border-purple-200/50 rounded-xl focus:border-purple-400 focus:ring-purple-400/20 transition-all duration-300 text-gray-700 placeholder:text-purple-400/70"
               />
             </div>
           </div>
 
           {/* Filters */}
           {showFilters && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="mb-6 p-6 bg-gradient-to-r from-white/60 to-purple-50/40 backdrop-blur-sm rounded-2xl border border-purple-100/50 shadow-lg">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-purple-700">
                     Statut
                   </label>
                   <Select
@@ -419,41 +549,44 @@ export default function CommunicationHub({
                     onChange={(e) =>
                       handleFilterChange('status', e.target.value)
                     }
+                    className="bg-white/80 border-purple-200/50 rounded-xl focus:border-purple-400 transition-all duration-300"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-purple-700">
                     Canal
                   </label>
                   <Select
                     options={[
                       { value: 'all', label: 'Tous les canaux' },
-                      { value: 'email', label: 'Email' },
-                      { value: 'linkedin', label: 'LinkedIn' },
-                      { value: 'instagram', label: 'Instagram' },
+                      { value: 'email', label: '📧 Email' },
+                      { value: 'linkedin', label: '💼 LinkedIn' },
+                      { value: 'instagram', label: '📸 Instagram' },
                     ]}
                     onChange={(e) =>
                       handleFilterChange('channel', e.target.value)
                     }
+                    className="bg-white/80 border-purple-200/50 rounded-xl focus:border-purple-400 transition-all duration-300"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                <div className="space-y-2">
+                  <label className="block text-sm font-bold text-purple-700">
                     Priorité
                   </label>
                   <Select
                     options={[
                       { value: 'all', label: 'Toutes les priorités' },
-                      { value: 'urgent', label: 'Urgent' },
-                      { value: 'high', label: 'Élevée' },
-                      { value: 'medium', label: 'Moyenne' },
-                      { value: 'low', label: 'Faible' },
+                      { value: 'urgent', label: '🔴 Urgent' },
+                      { value: 'high', label: '🟠 Élevée' },
+                      { value: 'medium', label: '🟡 Moyenne' },
+                      { value: 'low', label: '🟢 Faible' },
                     ]}
                     onChange={(e) =>
                       handleFilterChange('priority', e.target.value)
                     }
+                    className="bg-white/80 border-purple-200/50 rounded-xl focus:border-purple-400 transition-all duration-300"
                   />
                 </div>
               </div>
@@ -466,26 +599,64 @@ export default function CommunicationHub({
           {activeView === 'inbox' && (
             <div className="h-full">
               {!hasConnectedEmail ? (
-                <div className="flex flex-col items-center justify-center h-full text-gray-500 p-8">
-                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                    <InboxIcon className="w-10 h-10 text-gray-400" />
+                <div className="flex flex-col items-center justify-center h-full p-12">
+                  <div className="relative mb-8">
+                    <div className="w-24 h-24 bg-gradient-to-br from-purple-100 via-indigo-100 to-blue-100 rounded-3xl flex items-center justify-center shadow-xl">
+                      <InboxIcon className="w-12 h-12 text-purple-600" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">?</span>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-medium mb-3 text-gray-900">
-                    Connectez votre email
+
+                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-indigo-700 bg-clip-text text-transparent">
+                    Connectez vos communications
                   </h3>
-                  <p className="text-center text-gray-600 mb-6 max-w-md">
-                    Pour accéder à vos conversations, vous devez d'abord connecter votre compte email. 
-                    Utilisez le widget dans la barre latérale pour commencer.
+
+                  <p className="text-center text-purple-600/70 mb-8 max-w-lg text-lg leading-relaxed">
+                    Pour accéder à vos conversations, vous devez d'abord connecter vos canaux de communication.
+                    Commencez par intégrer votre email professionnel.
                   </p>
-                  <div className="flex items-center space-x-2 text-sm text-gray-500">
-                    <span>👈</span>
-                    <span>Cliquez sur "Connecter un email" dans la sidebar</span>
+
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="flex items-center space-x-3 text-purple-600 bg-purple-50 px-6 py-3 rounded-2xl border border-purple-200/50">
+                      <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-sm">👈</span>
+                      </div>
+                      <span className="font-semibold">Cliquez sur "Connecter un email" dans la sidebar</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-2xl">
+                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <span className="text-white font-bold">📧</span>
+                        </div>
+                        <h4 className="font-semibold text-purple-700 mb-1">Email</h4>
+                        <p className="text-xs text-purple-600/70">Gmail, Outlook</p>
+                      </div>
+
+                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <span className="text-white font-bold">💼</span>
+                        </div>
+                        <h4 className="font-semibold text-purple-700 mb-1">LinkedIn</h4>
+                        <p className="text-xs text-purple-600/70">Messages pro</p>
+                      </div>
+
+                      <div className="bg-white/60 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 hover:scale-105">
+                        <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <span className="text-white font-bold">📸</span>
+                        </div>
+                        <h4 className="font-semibold text-purple-700 mb-1">Instagram</h4>
+                        <p className="text-xs text-purple-600/70">DM & Stories</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : (
                 <>
                   {/* Toolbar */}
-                  <div className="bg-white border-b border-gray-200 px-4 py-2">
+                  <div className="bg-white/60 backdrop-blur-sm border-b border-purple-100/30 px-6 py-4">
                     <div className="flex items-center space-x-4">
                       <input
                         type="checkbox"
@@ -494,113 +665,162 @@ export default function CommunicationHub({
                           threads.length > 0
                         }
                         onChange={selectAll}
-                        className="rounded border-gray-300"
+                        className="rounded border-purple-300 text-purple-600 focus:ring-purple-500"
                       />
-                      <span className="text-sm text-gray-600">
-                        {threads.length} conversation
-                        {threads.length !== 1 ? 's' : ''}
+                      <span className="text-sm font-semibold text-purple-700">
+                        {threads.length} conversation{threads.length !== 1 ? 's' : ''}
                       </span>
+                      {selectedItems.length > 0 && (
+                        <span className="text-xs text-purple-600 bg-purple-100 px-2 py-1 rounded-full">
+                          {selectedItems.length} sélectionnée{selectedItems.length > 1 ? 's' : ''}
+                        </span>
+                      )}
                     </div>
                   </div>
 
                   {/* Thread list */}
-                  <div className="overflow-y-auto h-full">
+                  <div className="overflow-y-auto h-full p-6 space-y-4">
                     {threads.length === 0 ? (
-                      <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-                        <InboxIcon className="w-12 h-12 mb-4" />
-                        <h3 className="text-lg font-medium mb-2">
+                      <div className="flex flex-col items-center justify-center h-64 text-center">
+                        <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6 shadow-lg">
+                          <InboxIcon className="w-10 h-10 text-purple-600" />
+                        </div>
+                        <h3 className="text-xl font-bold text-purple-700 mb-3">
                           Aucune conversation
                         </h3>
-                        <p>Vos nouvelles conversations apparaîtront ici.</p>
+                        <p className="text-purple-600/70 max-w-md">
+                          Vos nouvelles conversations apparaîtront ici. Connectez vos canaux de communication pour commencer !
+                        </p>
                       </div>
                     ) : (
-                  threads.map((thread) => (
-                    <div
-                      key={thread.id}
-                      className={`border-b border-gray-200 p-4 cursor-pointer hover:bg-gray-50 ${
-                        selectedThread?.id === thread.id ? 'bg-blue-50' : ''
-                      } ${!thread.isRead ? 'bg-blue-25' : ''}`}
-                      onClick={() => selectThread(thread)}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <input
-                          type="checkbox"
-                          checked={selectedItems.includes(thread.id)}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                            toggleSelection(thread.id);
-                          }}
-                          className="mt-1 rounded border-gray-300"
-                        />
+                      threads.map((thread, index) => (
+                        <div
+                          key={thread.id}
+                          className={`group relative bg-white/70 backdrop-blur-sm border border-purple-100/50 rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 hover:scale-[1.02] hover:bg-white/90 animate-fade-in-up ${
+                            selectedThread?.id === thread.id
+                              ? 'bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-300 shadow-lg shadow-purple-500/20'
+                              : ''
+                          } ${!thread.isRead ? 'bg-blue-50/50 border-blue-200' : ''}`}
+                          style={{animationDelay: `${index * 0.1}s`}}
+                          onClick={() => selectThread(thread)}
+                        >
+                          {/* Priority indicator */}
+                          {thread.priority === 'urgent' && (
+                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                          )}
 
-                        <div className="flex-shrink-0">
-                          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                            {thread.contact.avatar ? (
-                              <Image
-                                src={thread.contact.avatar}
-                                alt={thread.contact.name}
-                                width={40}
-                                height={40}
-                                className="w-10 h-10 rounded-full object-cover"
-                              />
-                            ) : (
-                              <span className="text-sm font-medium text-gray-600">
-                                {thread.contact.name.charAt(0).toUpperCase()}
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                          <div className="flex items-start space-x-4">
+                            <input
+                              type="checkbox"
+                              checked={selectedItems.includes(thread.id)}
+                              onChange={(e) => {
+                                e.stopPropagation();
+                                toggleSelection(thread.id);
+                              }}
+                              className="mt-2 rounded border-purple-300 text-purple-600 focus:ring-purple-500"
+                            />
 
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-1">
-                            <h4
-                              className={`text-sm ${!thread.isRead ? 'font-semibold' : 'font-medium'} text-gray-900 truncate`}
-                            >
-                              {thread.contact.name}
-                            </h4>
-                            <div className="flex items-center space-x-2">
-                              {thread.isStarred && (
-                                <StarIconSolid className="w-4 h-4 text-yellow-400" />
-                              )}
-                              <span className="text-xs text-gray-500">
-                                {formatDate(thread.updatedAt)}
-                              </span>
+                            <div className="flex-shrink-0">
+                              <div className="relative">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl flex items-center justify-center shadow-sm">
+                                  {thread.contact.avatar ? (
+                                    <Image
+                                      src={thread.contact.avatar}
+                                      alt={thread.contact.name}
+                                      width={48}
+                                      height={48}
+                                      className="w-12 h-12 rounded-2xl object-cover"
+                                    />
+                                  ) : (
+                                    <span className="text-sm font-bold text-purple-700">
+                                      {thread.contact.name.charAt(0).toUpperCase()}
+                                    </span>
+                                  )}
+                                </div>
+                                {/* Online status indicator */}
+                                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 border-2 border-white rounded-full"></div>
+                              </div>
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4
+                                  className={`text-base font-bold text-gray-900 truncate transition-all duration-300 group-hover:text-purple-700 ${
+                                    !thread.isRead ? 'font-extrabold' : ''
+                                  }`}
+                                >
+                                  {thread.contact.name}
+                                </h4>
+                                <div className="flex items-center space-x-3">
+                                  {thread.isStarred && (
+                                    <StarIconSolid className="w-5 h-5 text-yellow-500 animate-pulse" />
+                                  )}
+                                  <span className="text-xs font-medium text-purple-600/70">
+                                    {formatDate(thread.updatedAt)}
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center space-x-3 mb-3">
+                                <span
+                                  className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all duration-200 ${getStatusColor(thread.status)}`}
+                                >
+                                  {getStatusLabel(thread.status)}
+                                </span>
+                                <span className="text-sm font-semibold">
+                                  {getPriorityIcon(thread.priority)}
+                                </span>
+                                <span className="text-xs font-medium text-purple-600/70 bg-purple-50 px-2 py-1 rounded-full capitalize">
+                                  {thread.channel}
+                                </span>
+                              </div>
+
+                              <h5
+                                className={`text-sm font-semibold text-gray-800 truncate mb-2 transition-all duration-300 group-hover:text-purple-700 ${
+                                  !thread.isRead ? 'font-bold' : ''
+                                }`}
+                              >
+                                {thread.subject}
+                              </h5>
+
+                              <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                                {thread.lastMessage.content}
+                              </p>
+
+                              {/* Message count indicator */}
+                              <div className="flex items-center justify-between mt-3">
+                                <div className="flex items-center space-x-2">
+                                  <span className="text-xs font-medium text-purple-600">
+                                    {thread.messageCount} message{thread.messageCount > 1 ? 's' : ''}
+                                  </span>
+                                  {thread.tags && thread.tags.length > 0 && (
+                                    <div className="flex space-x-1">
+                                      {thread.tags.slice(0, 2).map((tag, index) => (
+                                        <span
+                                          key={index}
+                                          className="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium"
+                                        >
+                                          {tag}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+
+                                <button
+                                  className="p-2 text-purple-400 hover:text-purple-600 rounded-xl hover:bg-purple-50 transition-all duration-200"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    // Handle menu action
+                                  }}
+                                >
+                                  <EllipsisVerticalIcon className="w-4 h-4" />
+                                </button>
+                              </div>
                             </div>
                           </div>
-
-                          <div className="flex items-center space-x-2 mb-1">
-                            <span
-                              className={`px-2 py-1 text-xs rounded-full ${getStatusColor(thread.status)}`}
-                            >
-                              {getStatusLabel(thread.status)}
-                            </span>
-                            <span className="text-xs">
-                              {getPriorityIcon(thread.priority)}
-                            </span>
-                            <span className="text-xs text-gray-500 capitalize">
-                              {thread.channel}
-                            </span>
-                          </div>
-
-                          <p
-                            className={`text-sm ${!thread.isRead ? 'font-medium' : ''} text-gray-600 truncate`}
-                          >
-                            {thread.subject}
-                          </p>
-
-                          <p className="text-xs text-gray-500 mt-1 truncate">
-                            {thread.lastMessage.content}
-                          </p>
                         </div>
-
-                        <div className="flex-shrink-0">
-                          <button className="p-1 text-gray-400 hover:text-gray-600">
-                            <EllipsisVerticalIcon className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
+                      ))
                     )}
                   </div>
                 </>
@@ -612,5 +832,6 @@ export default function CommunicationHub({
         </div>
       </div>
     </div>
+    </>
   );
 }
