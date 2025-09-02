@@ -14,6 +14,8 @@ import {
   ArrowLeftIcon,
   PaperAirplaneIcon,
   ArrowUturnLeftIcon,
+  ClockIcon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { InboxIcon as InboxIconSolid } from '@heroicons/react/24/solid';
 import {
@@ -38,6 +40,9 @@ export default function CommunicationHub({
   const [selectedThread, setSelectedThread] =
     useState<CommunicationThread | null>(null);
   const [showThreadView, setShowThreadView] = useState(false);
+  const [showComposeModal, setShowComposeModal] = useState(false);
+  const [contactSearchQuery, setContactSearchQuery] = useState('');
+  const [selectedContacts, setSelectedContacts] = useState<CommunicationThread[]>([]);
 
   const {} = useEmailIntegration();
 
@@ -330,9 +335,10 @@ export default function CommunicationHub({
               <Button
                 size="sm"
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 border-0 rounded-xl"
+                onClick={() => setShowComposeModal(true)}
               >
                 <PlusIcon className="w-4 h-4 mr-2" />
-                Nouveau
+                Nouveau message
               </Button>
             </div>
 
@@ -1033,6 +1039,280 @@ export default function CommunicationHub({
                   <PaperAirplaneIcon className="w-4 h-4 mr-2" />
                   Envoyer
                 </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Compose Email Modal */}
+      {showComposeModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <PaperAirplaneIcon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold">Nouveau message</h1>
+                    <p className="text-white/80">Envoyez un email personnalisé</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowComposeModal(false)}
+                  className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-xl flex items-center justify-center transition-all duration-200"
+                >
+                  <XMarkIcon className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="flex flex-1 overflow-hidden">
+              {/* Main Content */}
+              <div className="flex-1 flex flex-col">
+                {/* Recipients Section */}
+                <div className="p-6 border-b border-gray-100">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-sm font-semibold text-gray-700 w-16">À :</span>
+                      <div className="flex-1">
+                        <div className="relative">
+                          <input
+                            type="text"
+                            placeholder="Rechercher des contacts..."
+                            value={contactSearchQuery}
+                            onChange={(e) => setContactSearchQuery(e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:border-purple-400 focus:ring-purple-400/20 transition-all duration-300"
+                          />
+                          <MagnifyingGlassIcon className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Selected Recipients */}
+                    {selectedContacts.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {selectedContacts.map((contact) => (
+                          <div
+                            key={contact.id}
+                            className="flex items-center space-x-2 bg-purple-50 text-purple-700 px-3 py-2 rounded-xl text-sm"
+                          >
+                            <div className="w-6 h-6 bg-purple-200 rounded-full flex items-center justify-center">
+                              <span className="text-xs font-semibold">
+                                {contact.contact.name.charAt(0).toUpperCase()}
+                              </span>
+                            </div>
+                            <span className="font-medium">{contact.contact.name}</span>
+                            <button
+                              onClick={() => setSelectedContacts(prev => prev.filter(c => c.id !== contact.id))}
+                              className="text-purple-500 hover:text-purple-700"
+                            >
+                              <XMarkIcon className="w-4 h-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Contact Search Results */}
+                {contactSearchQuery && (
+                  <div className="max-h-64 overflow-y-auto border-b border-gray-100">
+                    {threads
+                      .filter(thread =>
+                        thread.contact.name.toLowerCase().includes(contactSearchQuery.toLowerCase()) ||
+                        thread.contact.email?.toLowerCase().includes(contactSearchQuery.toLowerCase())
+                      )
+                      .slice(0, 8)
+                      .map((thread) => (
+                        <button
+                          key={thread.id}
+                          onClick={() => {
+                            if (!selectedContacts.find(c => c.id === thread.id)) {
+                              setSelectedContacts(prev => [...prev, thread]);
+                            }
+                            setContactSearchQuery('');
+                          }}
+                          className="w-full flex items-center space-x-4 p-4 hover:bg-gray-50 transition-all duration-200 border-b border-gray-50 last:border-b-0"
+                        >
+                          <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-xl flex items-center justify-center">
+                            {thread.contact.avatar ? (
+                              <Image
+                                src={thread.contact.avatar}
+                                alt={thread.contact.name}
+                                width={40}
+                                height={40}
+                                className="w-10 h-10 rounded-xl object-cover"
+                              />
+                            ) : (
+                              <span className="text-sm font-semibold text-purple-700">
+                                {thread.contact.name.charAt(0).toUpperCase()}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex-1 text-left">
+                            <div className="font-semibold text-gray-900">{thread.contact.name}</div>
+                            <div className="text-sm text-gray-600">{thread.contact.email}</div>
+                          </div>
+                          {selectedContacts.find(c => c.id === thread.id) && (
+                            <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs">✓</span>
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                  </div>
+                )}
+
+                {/* Email Content */}
+                <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+                  {/* Subject */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-3">
+                      Objet du message
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Entrez l'objet de votre email..."
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:border-purple-400 focus:ring-purple-400/20 transition-all duration-300 text-gray-900 placeholder:text-gray-400"
+                    />
+                  </div>
+
+                  {/* Message Templates */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-3">
+                      Modèle de message
+                    </label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <button className="p-4 bg-gradient-to-r from-blue-50 to-blue-100/50 border-2 border-blue-200 rounded-xl hover:border-blue-400 transition-all duration-300 text-left group">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <span className="text-white text-sm">🤝</span>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-blue-900">Collaboration</div>
+                            <div className="text-xs text-blue-700">Proposition de partenariat</div>
+                          </div>
+                        </div>
+                        <p className="text-sm text-blue-800 leading-relaxed">
+                          Parfait pour proposer une collaboration avec un influenceur...
+                        </p>
+                      </button>
+
+                      <button className="p-4 bg-gradient-to-r from-green-50 to-green-100/50 border-2 border-green-200 rounded-xl hover:border-green-400 transition-all duration-300 text-left group">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                            <span className="text-white text-sm">📅</span>
+                          </div>
+                          <div>
+                            <div className="font-semibold text-green-900">Événement</div>
+                            <div className="text-xs text-green-700">Invitation exclusive</div>
+                          </div>
+                        </div>
+                        <p className="text-sm text-green-800 leading-relaxed">
+                          Pour inviter à un événement ou lancement produit...
+                        </p>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Message Content */}
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-3">
+                      Message
+                    </label>
+                    <textarea
+                      rows={12}
+                      placeholder="Rédigez votre message personnalisé..."
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:border-purple-400 focus:ring-purple-400/20 transition-all duration-300 resize-none text-gray-900 placeholder:text-gray-400"
+                    />
+                  </div>
+
+                  {/* Variables de personnalisation */}
+                  <div className="bg-gradient-to-r from-purple-50 to-indigo-50/50 p-4 rounded-xl border border-purple-200/50">
+                    <h4 className="text-sm font-bold text-purple-900 mb-3">
+                      Variables de personnalisation
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {['{{prénom}}', '{{nom}}', '{{entreprise}}', '{{ville}}'].map((variable) => (
+                        <button
+                          key={variable}
+                          className="px-3 py-2 bg-white border border-purple-200 rounded-lg text-sm font-medium text-purple-700 hover:bg-purple-100 transition-all duration-200"
+                        >
+                          {variable}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-purple-600/70 mt-3">
+                      Ces variables seront automatiquement remplacées par les informations du destinataire.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Preview Sidebar */}
+              <div className="w-96 bg-gray-50 border-l border-gray-200 flex flex-col">
+                {/* Preview Header */}
+                <div className="p-6 border-b border-gray-200">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Aperçu</h3>
+                  <p className="text-sm text-gray-600">Visualisez votre email avant envoi</p>
+                </div>
+
+                {/* Email Preview */}
+                <div className="flex-1 p-6">
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+                    <div className="text-xs text-gray-500 mb-4 space-y-1">
+                      <div><strong>De:</strong> Votre nom &lt;votre@email.com&gt;</div>
+                      <div><strong>À:</strong> {selectedContacts.length > 0 ? selectedContacts[0].contact.name : 'Sélectionnez un destinataire'}</div>
+                      <div><strong>Objet:</strong> [Votre objet ici]</div>
+                    </div>
+                    <div className="border-t border-gray-200 pt-4">
+                      <p className="text-sm text-gray-600 leading-relaxed">
+                        Bonjour [Prénom],<br/><br/>
+                        Votre message apparaîtra ici...<br/><br/>
+                        Cordialement,<br/>
+                        Votre nom
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Send Actions */}
+                <div className="p-6 border-t border-gray-200 bg-white">
+                  <div className="space-y-3">
+                    <Button
+                      disabled={selectedContacts.length === 0}
+                      className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-xl py-3"
+                    >
+                      <PaperAirplaneIcon className="w-4 h-4 mr-2" />
+                      Envoyer maintenant
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      disabled={selectedContacts.length === 0}
+                      className="w-full border-purple-200 text-purple-700 hover:bg-purple-50 rounded-xl py-3"
+                    >
+                      <ClockIcon className="w-4 h-4 mr-2" />
+                      Programmer l&apos;envoi
+                    </Button>
+                  </div>
+
+                  {selectedContacts.length > 0 && (
+                    <div className="mt-4 p-3 bg-blue-50 rounded-xl border border-blue-200">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                        <span className="text-sm font-medium text-blue-900">
+                          {selectedContacts.length} destinataire{selectedContacts.length > 1 ? 's' : ''} sélectionné{selectedContacts.length > 1 ? 's' : ''}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
