@@ -12,7 +12,10 @@ import {
   FunnelIcon,
   StarIcon as StarIconSolid,
 } from '@heroicons/react/24/outline';
-import { InboxIcon as InboxIconSolid } from '@heroicons/react/24/solid';
+import {
+  StarIcon as StarIconSolidFilled,
+  InboxIcon as InboxIconSolid,
+} from '@heroicons/react/24/solid';
 import { CommunicationHubProps } from '@/types/communication';
 import { useCommunication } from '@/contexts/CommunicationContext';
 import { useEmailIntegration } from '@/hooks/useEmailIntegration';
@@ -30,7 +33,7 @@ export default function CommunicationHub({
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isGmailConnected, setIsGmailConnected] = useState(false);
 
-  const {} = useEmailIntegration();
+  const { hasConnectedEmail } = useEmailIntegration();
 
   const {
     threads,
