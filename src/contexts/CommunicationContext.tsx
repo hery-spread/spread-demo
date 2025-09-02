@@ -260,7 +260,7 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Emma+Lifestyle&background=8b5cf6&color=fff',
             socialHandles: {
-              instagram: '@emma_lifestyle',
+              youtube: '@emma_lifestyle',
             },
             tags: ['lifestyle', 'mode', 'beauté'],
           },
@@ -298,12 +298,11 @@ export function CommunicationProvider({
               'https://ui-avatars.com/api/?name=Lucas+Gaming&background=3b82f6&color=fff',
             socialHandles: {
               youtube: '@lucas_gaming',
-              instagram: '@gaming_lucas',
             },
             tags: ['gaming', 'tech', 'reviews', 'esports'],
           },
           subject: 'Campagne Gaming Headset - En attente de réponse',
-          channel: 'linkedin',
+          channel: 'email',
           status: 'waiting',
           priority: 'medium',
           isRead: false,
@@ -316,7 +315,7 @@ export function CommunicationProvider({
             threadId: 'thread_2',
             senderId: 'contact_2',
             recipientId: 'current_user',
-            channel: 'linkedin',
+            channel: 'email',
             type: 'received',
             subject: 'Proposition gaming intéressante',
             content:
@@ -335,13 +334,13 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Sophie+Fitness&background=10b981&color=fff',
             socialHandles: {
-              instagram: '@sophie_fitlife',
+              youtube: '@sophie_fitlife',
               tiktok: '@fit_sophie',
             },
             tags: ['fitness', 'nutrition', 'wellness', 'healthy'],
           },
           subject: 'Collaboration Compléments Alimentaires - Négociation',
-          channel: 'instagram',
+          channel: 'email',
           status: 'negotiating',
           priority: 'high',
           isRead: false,
@@ -356,7 +355,7 @@ export function CommunicationProvider({
             threadId: 'thread_3',
             senderId: 'contact_3',
             recipientId: 'current_user',
-            channel: 'instagram',
+            channel: 'email',
             type: 'received',
             subject: 'DM Instagram - Suite collaboration',
             content:
@@ -375,7 +374,6 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Marie+Cuisine&background=f59e0b&color=fff',
             socialHandles: {
-              instagram: '@marie_cuisine',
               youtube: '@CuisineMarie',
             },
             tags: ['cuisine', 'recettes', 'food', 'healthy-food'],
@@ -413,7 +411,7 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Alex+Travel&background=ef4444&color=fff',
             socialHandles: {
-              instagram: '@alex_wanderlust',
+              youtube: '@alex_wanderlust',
               tiktok: '@travel_alex',
             },
             tags: ['travel', 'adventure', 'photography', 'nature'],
@@ -458,7 +456,6 @@ export function CommunicationProvider({
               'https://ui-avatars.com/api/?name=Julien+Tech&background=6366f1&color=fff',
             socialHandles: {
               youtube: '@julien_tech',
-              linkedin: 'julien-tech-reviews',
             },
             tags: ['tech', 'reviews', 'gadgets', 'innovation'],
           },
@@ -495,13 +492,13 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Camille+Beauty&background=e11d48&color=fff',
             socialHandles: {
-              instagram: '@beauty_camille',
+              youtube: '@beauty_camille',
               tiktok: '@camille_beauty',
             },
             tags: ['beauté', 'cosmétiques', 'skincare', 'makeup'],
           },
           subject: 'Campagne Soins de Peau - Réponse urgente !',
-          channel: 'instagram',
+          channel: 'email',
           status: 'responded',
           priority: 'urgent',
           isRead: false,
@@ -514,7 +511,7 @@ export function CommunicationProvider({
             threadId: 'thread_7',
             senderId: 'contact_7',
             recipientId: 'current_user',
-            channel: 'instagram',
+            channel: 'email',
             type: 'received',
             subject: 'DM Instagram - Super intéressée !',
             content:
@@ -533,13 +530,12 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Thomas+Fashion&background=7c3aed&color=fff',
             socialHandles: {
-              instagram: '@thomas_style',
-              linkedin: 'thomas-fashion-designer',
+              youtube: '@thomas_style',
             },
             tags: ['fashion', 'style', 'design', 'lifestyle'],
           },
           subject: 'Collaboration Mode Éco-responsable',
-          channel: 'linkedin',
+          channel: 'email',
           status: 'new',
           priority: 'high',
           isRead: false,
@@ -552,7 +548,7 @@ export function CommunicationProvider({
             threadId: 'thread_8',
             senderId: 'current_user',
             recipientId: 'contact_8',
-            channel: 'linkedin',
+            channel: 'email',
             type: 'sent',
             subject: 'Proposition collaboration mode durable',
             content:
@@ -571,7 +567,6 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Lisa+Wellness&background=059669&color=fff',
             socialHandles: {
-              instagram: '@lisa_wellness',
               youtube: '@MindfulLisa',
             },
             tags: ['wellness', 'mindfulness', 'meditation', 'health'],
@@ -611,8 +606,7 @@ export function CommunicationProvider({
             avatar:
               'https://ui-avatars.com/api/?name=Antoine+Photography&background=d97706&color=fff',
             socialHandles: {
-              instagram: '@antoine_artistic',
-              linkedin: 'antoine-photographer',
+              youtube: '@antoine_artistic',
             },
             tags: ['photography', 'art', 'creative', 'visual'],
           },

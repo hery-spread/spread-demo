@@ -13,10 +13,13 @@ import {
   StarIcon as StarIconSolid,
   ArrowLeftIcon,
   PaperAirplaneIcon,
-  ReplyIcon,
+  ArrowUturnLeftIcon,
 } from '@heroicons/react/24/outline';
 import { InboxIcon as InboxIconSolid } from '@heroicons/react/24/solid';
-import { CommunicationHubProps, CommunicationThread } from '@/types/communication';
+import {
+  CommunicationHubProps,
+  CommunicationThread,
+} from '@/types/communication';
 import { useCommunication } from '@/contexts/CommunicationContext';
 import { useEmailIntegration } from '@/hooks/useEmailIntegration';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
@@ -32,7 +35,8 @@ export default function CommunicationHub({
   const [showFilters, setShowFilters] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isGmailConnected, setIsGmailConnected] = useState(false);
-  const [selectedThread, setSelectedThread] = useState<CommunicationThread | null>(null);
+  const [selectedThread, setSelectedThread] =
+    useState<CommunicationThread | null>(null);
   const [showThreadView, setShowThreadView] = useState(false);
 
   const {} = useEmailIntegration();
@@ -116,9 +120,7 @@ export default function CommunicationHub({
         break;
       case 'channel':
         newFilters.channels =
-          value === 'all'
-            ? undefined
-            : [value as 'email' | 'phone' | 'other'];
+          value === 'all' ? undefined : [value as 'email' | 'phone' | 'other'];
         break;
       case 'priority':
         newFilters.priorities =
@@ -858,7 +860,7 @@ export default function CommunicationHub({
                     size="sm"
                     className="bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl"
                   >
-                    <ReplyIcon className="w-4 h-4 mr-2" />
+                    <ArrowUturnLeftIcon className="w-4 h-4 mr-2" />
                     Répondre
                   </Button>
                   <Button
@@ -895,7 +897,8 @@ export default function CommunicationHub({
                     {selectedThread.contact.email}
                   </p>
                   <p className="text-white/60 text-sm">
-                    Conversation ouverte • {selectedThread.messageCount} message{selectedThread.messageCount > 1 ? 's' : ''}
+                    Conversation ouverte • {selectedThread.messageCount} message
+                    {selectedThread.messageCount > 1 ? 's' : ''}
                   </p>
                 </div>
               </div>
@@ -910,25 +913,38 @@ export default function CommunicationHub({
                   </h2>
                   <div className="flex items-center space-x-4 text-sm text-gray-600">
                     <span className="flex items-center">
-                      <span className={`inline-block w-2 h-2 rounded-full mr-2 ${
-                        selectedThread.status === 'new' ? 'bg-blue-500' :
-                        selectedThread.status === 'responded' ? 'bg-green-500' :
-                        selectedThread.status === 'waiting' ? 'bg-yellow-500' :
-                        'bg-gray-500'
-                      }`}></span>
-                      {selectedThread.status === 'new' ? 'Nouveau' :
-                       selectedThread.status === 'responded' ? 'Répondu' :
-                       selectedThread.status === 'waiting' ? 'En attente' :
-                       selectedThread.status === 'negotiating' ? 'Négociation' :
-                       'Fermé'}
+                      <span
+                        className={`inline-block w-2 h-2 rounded-full mr-2 ${
+                          selectedThread.status === 'new'
+                            ? 'bg-blue-500'
+                            : selectedThread.status === 'responded'
+                              ? 'bg-green-500'
+                              : selectedThread.status === 'waiting'
+                                ? 'bg-yellow-500'
+                                : 'bg-gray-500'
+                        }`}
+                      ></span>
+                      {selectedThread.status === 'new'
+                        ? 'Nouveau'
+                        : selectedThread.status === 'responded'
+                          ? 'Répondu'
+                          : selectedThread.status === 'waiting'
+                            ? 'En attente'
+                            : selectedThread.status === 'negotiating'
+                              ? 'Négociation'
+                              : 'Fermé'}
                     </span>
                     <span>•</span>
-                    <span>Priorité: {
-                      selectedThread.priority === 'urgent' ? '🔴 Urgent' :
-                      selectedThread.priority === 'high' ? '🟠 Élevée' :
-                      selectedThread.priority === 'medium' ? '🟡 Moyenne' :
-                      '🟢 Faible'
-                    }</span>
+                    <span>
+                      Priorité:{' '}
+                      {selectedThread.priority === 'urgent'
+                        ? '🔴 Urgent'
+                        : selectedThread.priority === 'high'
+                          ? '🟠 Élevée'
+                          : selectedThread.priority === 'medium'
+                            ? '🟡 Moyenne'
+                            : '🟢 Faible'}
+                    </span>
                     <span>•</span>
                     <span>Canal: 📧 Email</span>
                   </div>
@@ -939,21 +955,25 @@ export default function CommunicationHub({
                   <div className="flex justify-end">
                     <div className="max-w-md bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-4 rounded-2xl rounded-br-md">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-xs font-medium text-white/80">Vous</span>
+                        <span className="text-xs font-medium text-white/80">
+                          Vous
+                        </span>
                         <span className="text-xs text-white/60">
-                          {new Date(selectedThread.createdAt).toLocaleString('fr-FR', {
-                            day: 'numeric',
-                            month: 'short',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
+                          {new Date(selectedThread.createdAt).toLocaleString(
+                            'fr-FR',
+                            {
+                              day: 'numeric',
+                              month: 'short',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            }
+                          )}
                         </span>
                       </div>
                       <p className="text-white leading-relaxed">
                         {selectedThread.lastMessage.type === 'sent'
                           ? selectedThread.lastMessage.content
-                          : "Bonjour ! Nous aimerions collaborer avec vous pour notre nouvelle campagne. Seriez-vous intéressé(e) ?"
-                        }
+                          : 'Bonjour ! Nous aimerions collaborer avec vous pour notre nouvelle campagne. Seriez-vous intéressé(e) ?'}
                       </p>
                     </div>
                   </div>
@@ -966,19 +986,21 @@ export default function CommunicationHub({
                           {selectedThread.contact.name}
                         </span>
                         <span className="text-xs text-gray-600">
-                          {new Date(selectedThread.updatedAt).toLocaleString('fr-FR', {
-                            day: 'numeric',
-                            month: 'short',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
+                          {new Date(selectedThread.updatedAt).toLocaleString(
+                            'fr-FR',
+                            {
+                              day: 'numeric',
+                              month: 'short',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            }
+                          )}
                         </span>
                       </div>
                       <p className="text-gray-800 leading-relaxed">
                         {selectedThread.lastMessage.type === 'received'
                           ? selectedThread.lastMessage.content
-                          : "Bonjour ! Je suis très intéressé(e) par votre proposition. Pouvons-nous en discuter plus en détail ?"
-                        }
+                          : 'Bonjour ! Je suis très intéressé(e) par votre proposition. Pouvons-nous en discuter plus en détail ?'}
                       </p>
                     </div>
                   </div>
@@ -987,7 +1009,10 @@ export default function CommunicationHub({
                   {selectedThread.messageCount > 2 && (
                     <div className="flex justify-center">
                       <div className="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm">
-                        💬 {selectedThread.messageCount - 2} message{selectedThread.messageCount - 2 > 1 ? 's' : ''} supplémentaire{selectedThread.messageCount - 2 > 1 ? 's' : ''}
+                        💬 {selectedThread.messageCount - 2} message
+                        {selectedThread.messageCount - 2 > 1 ? 's' : ''}{' '}
+                        supplémentaire
+                        {selectedThread.messageCount - 2 > 1 ? 's' : ''}
                       </div>
                     </div>
                   )}
