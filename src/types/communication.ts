@@ -3,7 +3,7 @@
 export interface CommunicationChannel {
   id: string;
   name: string;
-  type: 'email' | 'linkedin' | 'instagram' | 'phone' | 'other';
+  type: 'email' | 'phone' | 'other';
   connected: boolean;
   lastSync?: string;
 }
@@ -14,8 +14,6 @@ export interface CommunicationContact {
   email?: string;
   phone?: string;
   socialHandles?: {
-    linkedin?: string;
-    instagram?: string;
     tiktok?: string;
     youtube?: string;
   };
@@ -29,7 +27,7 @@ export interface CommunicationMessage {
   threadId: string;
   senderId: string;
   recipientId: string;
-  channel: 'email' | 'linkedin' | 'instagram' | 'phone' | 'other';
+  channel: 'email' | 'phone' | 'other';
   type: 'sent' | 'received' | 'draft';
   subject?: string;
   content: string;
@@ -51,7 +49,7 @@ export interface CommunicationThread {
   id: string;
   contactId: string;
   contact: CommunicationContact;
-  channel: 'email' | 'linkedin' | 'instagram' | 'phone' | 'other';
+  channel: 'email' | 'phone' | 'other';
   subject: string;
   lastMessage: CommunicationMessage;
   messageCount: number;
@@ -94,7 +92,7 @@ export interface CommunicationCampaign {
   name: string;
   description?: string;
   type: 'sequence' | 'broadcast' | 'drip';
-  channel: 'email' | 'linkedin' | 'instagram' | 'multi';
+  channel: 'email' | 'multi';
   status: 'draft' | 'scheduled' | 'active' | 'paused' | 'completed' | 'cancelled';
   listId?: string;
   listName?: string;
@@ -143,7 +141,7 @@ export interface CommunicationSequenceStep {
 }
 
 export interface CommunicationFilter {
-  channels?: ('email' | 'linkedin' | 'instagram' | 'phone' | 'other')[];
+  channels?: ('email' | 'phone' | 'other')[];
   statuses?: string[];
   priorities?: ('low' | 'medium' | 'high' | 'urgent')[];
   dateRange?: {

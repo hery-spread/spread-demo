@@ -11,9 +11,12 @@ import {
   MagnifyingGlassIcon,
   FunnelIcon,
   StarIcon as StarIconSolid,
+  ArrowLeftIcon,
+  PaperAirplaneIcon,
+  ReplyIcon,
 } from '@heroicons/react/24/outline';
 import { InboxIcon as InboxIconSolid } from '@heroicons/react/24/solid';
-import { CommunicationHubProps } from '@/types/communication';
+import { CommunicationHubProps, CommunicationThread } from '@/types/communication';
 import { useCommunication } from '@/contexts/CommunicationContext';
 import { useEmailIntegration } from '@/hooks/useEmailIntegration';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
@@ -29,6 +32,8 @@ export default function CommunicationHub({
   const [showFilters, setShowFilters] = useState(false);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [isGmailConnected, setIsGmailConnected] = useState(false);
+  const [selectedThread, setSelectedThread] = useState<CommunicationThread | null>(null);
+  const [showThreadView, setShowThreadView] = useState(false);
 
   const {} = useEmailIntegration();
 
@@ -38,10 +43,9 @@ export default function CommunicationHub({
     loading,
     error,
     filters,
-    selectedThread,
     loadThreads,
     setFilters,
-    selectThread,
+
     markAsRead,
     starThread,
     archiveThread,
@@ -114,7 +118,7 @@ export default function CommunicationHub({
         newFilters.channels =
           value === 'all'
             ? undefined
-            : [value as 'email' | 'linkedin' | 'instagram' | 'phone' | 'other'];
+            : [value as 'email' | 'phone' | 'other'];
         break;
       case 'priority':
         newFilters.priorities =
@@ -162,6 +166,16 @@ export default function CommunicationHub({
     } else {
       setSelectedItems(threads.map((t) => t.id));
     }
+  };
+
+  const openThread = (thread: CommunicationThread) => {
+    setSelectedThread(thread);
+    setShowThreadView(true);
+  };
+
+  const closeThread = () => {
+    setShowThreadView(false);
+    setSelectedThread(null);
   };
 
   const formatDate = (dateString: string) => {
@@ -551,8 +565,6 @@ export default function CommunicationHub({
                     options={[
                       { value: 'all', label: 'Tous les canaux' },
                       { value: 'email', label: '📧 Email' },
-                      { value: 'linkedin', label: '💼 LinkedIn' },
-                      { value: 'instagram', label: '📸 Instagram' },
                     ]}
                     onChange={(e) =>
                       handleFilterChange('channel', e.target.value)
@@ -694,7 +706,7 @@ export default function CommunicationHub({
                               : ''
                           } ${!thread.isRead ? 'bg-blue-50/50 border-blue-200' : ''}`}
                           style={{ animationDelay: `${index * 0.1}s` }}
-                          onClick={() => selectThread(thread)}
+                          onClick={() => openThread(thread)}
                         >
                           {/* Priority indicator */}
                           {thread.priority === 'urgent' && (
@@ -826,6 +838,181 @@ export default function CommunicationHub({
           )}
         </div>
       </div>
+
+      {/* Thread View Modal */}
+      {showThreadView && selectedThread && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6">
+              <div className="flex items-center justify-between mb-4">
+                <Button
+                  onClick={closeThread}
+                  className="bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl"
+                >
+                  <ArrowLeftIcon className="w-4 h-4 mr-2" />
+                  Retour
+                </Button>
+                <div className="flex items-center space-x-3">
+                  <Button
+                    size="sm"
+                    className="bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl"
+                  >
+                    <ReplyIcon className="w-4 h-4 mr-2" />
+                    Répondre
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl"
+                  >
+                    <StarIconSolid className="w-4 h-4 mr-2" />
+                    Favoris
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
+                  {selectedThread.contact.avatar ? (
+                    <Image
+                      src={selectedThread.contact.avatar}
+                      alt={selectedThread.contact.name}
+                      width={64}
+                      height={64}
+                      className="w-16 h-16 rounded-2xl object-cover"
+                    />
+                  ) : (
+                    <span className="text-white font-bold text-xl">
+                      {selectedThread.contact.name.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-white">
+                    {selectedThread.contact.name}
+                  </h1>
+                  <p className="text-white/80">
+                    {selectedThread.contact.email}
+                  </p>
+                  <p className="text-white/60 text-sm">
+                    Conversation ouverte • {selectedThread.messageCount} message{selectedThread.messageCount > 1 ? 's' : ''}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Email Content */}
+            <div className="p-6 bg-gray-50 min-h-[400px]">
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <div className="border-b border-gray-200 pb-4 mb-6">
+                  <h2 className="text-xl font-bold text-gray-900 mb-2">
+                    {selectedThread.subject}
+                  </h2>
+                  <div className="flex items-center space-x-4 text-sm text-gray-600">
+                    <span className="flex items-center">
+                      <span className={`inline-block w-2 h-2 rounded-full mr-2 ${
+                        selectedThread.status === 'new' ? 'bg-blue-500' :
+                        selectedThread.status === 'responded' ? 'bg-green-500' :
+                        selectedThread.status === 'waiting' ? 'bg-yellow-500' :
+                        'bg-gray-500'
+                      }`}></span>
+                      {selectedThread.status === 'new' ? 'Nouveau' :
+                       selectedThread.status === 'responded' ? 'Répondu' :
+                       selectedThread.status === 'waiting' ? 'En attente' :
+                       selectedThread.status === 'negotiating' ? 'Négociation' :
+                       'Fermé'}
+                    </span>
+                    <span>•</span>
+                    <span>Priorité: {
+                      selectedThread.priority === 'urgent' ? '🔴 Urgent' :
+                      selectedThread.priority === 'high' ? '🟠 Élevée' :
+                      selectedThread.priority === 'medium' ? '🟡 Moyenne' :
+                      '🟢 Faible'
+                    }</span>
+                    <span>•</span>
+                    <span>Canal: 📧 Email</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Message envoyé (vous) */}
+                  <div className="flex justify-end">
+                    <div className="max-w-md bg-gradient-to-r from-purple-500 to-indigo-500 text-white p-4 rounded-2xl rounded-br-md">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="text-xs font-medium text-white/80">Vous</span>
+                        <span className="text-xs text-white/60">
+                          {new Date(selectedThread.createdAt).toLocaleString('fr-FR', {
+                            day: 'numeric',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
+                      <p className="text-white leading-relaxed">
+                        {selectedThread.lastMessage.type === 'sent'
+                          ? selectedThread.lastMessage.content
+                          : "Bonjour ! Nous aimerions collaborer avec vous pour notre nouvelle campagne. Seriez-vous intéressé(e) ?"
+                        }
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Message reçu (contact) */}
+                  <div className="flex justify-start">
+                    <div className="max-w-md bg-white border border-gray-200 p-4 rounded-2xl rounded-bl-md shadow-sm">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="text-xs font-medium text-gray-900">
+                          {selectedThread.contact.name}
+                        </span>
+                        <span className="text-xs text-gray-600">
+                          {new Date(selectedThread.updatedAt).toLocaleString('fr-FR', {
+                            day: 'numeric',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
+                      <p className="text-gray-800 leading-relaxed">
+                        {selectedThread.lastMessage.type === 'received'
+                          ? selectedThread.lastMessage.content
+                          : "Bonjour ! Je suis très intéressé(e) par votre proposition. Pouvons-nous en discuter plus en détail ?"
+                        }
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Message supplémentaire si count > 2 */}
+                  {selectedThread.messageCount > 2 && (
+                    <div className="flex justify-center">
+                      <div className="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm">
+                        💬 {selectedThread.messageCount - 2} message{selectedThread.messageCount - 2 > 1 ? 's' : ''} supplémentaire{selectedThread.messageCount - 2 > 1 ? 's' : ''}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Reply Section */}
+            <div className="bg-white border-t border-gray-200 p-6">
+              <div className="flex items-center space-x-4">
+                <div className="flex-1">
+                  <Input
+                    placeholder={`Répondre à ${selectedThread.contact.name}...`}
+                    className="bg-gray-50 border-gray-200 rounded-xl focus:bg-white"
+                  />
+                </div>
+                <Button className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl px-6">
+                  <PaperAirplaneIcon className="w-4 h-4 mr-2" />
+                  Envoyer
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
