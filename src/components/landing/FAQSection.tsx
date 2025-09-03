@@ -66,8 +66,8 @@ export default function FAQSection() {
                 📞 Quel support est disponible ?
               </h4>
               <p className="text-gray-600 text-sm mb-6">
-                Support par email 5j/7 de 9h à 18h, chat en direct, et support téléphonique
-                pour les plans Pro et Elite.
+                Support par email 5j/7 de 9h à 18h, chat en direct, et support
+                téléphonique pour les plans Pro et Elite.
               </p>
             </div>
           </div>

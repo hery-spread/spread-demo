@@ -39,13 +39,13 @@ export default function HomePage() {
         <PricingPreview />
       </div>
 
+      {/* Call to Action Section (BOFU) */}
+      <CTASection />
+
       {/* FAQ Section */}
       <div id="faq">
         <FAQSection />
       </div>
-
-      {/* Call to Action Section (BOFU) */}
-      <CTASection />
 
       {/* Trust Indicators
       <TrustIndicators /> */}

@@ -39,13 +39,14 @@ export default function CampaignsPage() {
         <PricingPreview />
       </div>
 
+      {/* Call to Action Section */}
+      <CTASection />
+
       {/* FAQ Section */}
       <div id="faq">
         <FAQSection />
       </div>
 
-      {/* Call to Action Section */}
-      <CTASection />
       {/* Footer */}
       <Footer />
     </div>

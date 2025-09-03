@@ -21,7 +21,7 @@ export default function PricingPreview() {
       popular: false,
       icon: RocketLaunchIcon,
       features: [
-        'Jusqu\'à 10 000 résultats de recherche/mois',
+        "Jusqu'à 10 000 résultats de recherche/mois",
         "40 rapports d'audience/mois",
         "40 contacts d'influenceurs débloqués/mois",
         '10 rapports de campagne/mois',

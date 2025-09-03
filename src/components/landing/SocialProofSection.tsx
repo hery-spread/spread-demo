@@ -2,7 +2,6 @@
 
 import { useI18n } from '@/lib/i18n/context';
 import { StarIcon } from '@heroicons/react/24/solid';
-import { UserGroupIcon } from '@heroicons/react/24/outline';
 
 export default function SocialProofSection() {
   const { t } = useI18n();
@@ -133,35 +132,6 @@ export default function SocialProofSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/50">
-          <div className="grid md:grid-cols-2 gap-12 text-center max-w-4xl mx-auto">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-4">
-                <StarIcon className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">
-                {t('socialProof.trustIndicators.excellence.title')}
-              </h3>
-              <p className="text-gray-600 text-sm">
-                {t('socialProof.trustIndicators.excellence.description')}
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-4">
-                <UserGroupIcon className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">
-                {t('socialProof.trustIndicators.support.title')}
-              </h3>
-              <p className="text-gray-600 text-sm">
-                {t('socialProof.trustIndicators.support.description')}
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
