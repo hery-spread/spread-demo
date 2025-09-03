@@ -31,6 +31,10 @@ export default function LandingNavbar() {
   const navigationLinks = [
     { name: t('navbar.features'), action: () => scrollToSection('features') },
     {
+      name: '🔍 Recherche IA',
+      action: () => window.location.href = '/ai-search',
+    },
+    {
       name: t('navbar.testimonials'),
       action: () => scrollToSection('testimonials'),
     },

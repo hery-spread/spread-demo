@@ -1,9 +1,11 @@
 'use client';
 
+import React from 'react';
 import {
   XMarkIcon,
   MagnifyingGlassIcon,
   ArrowPathIcon,
+  InformationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui';
 import { AdvancedSearchFilters, SearchUIState } from '@/types';
@@ -31,6 +33,20 @@ export default function SearchSidebar({
   calculationMethod = 'median',
   onCalculationMethodChange,
 }: SearchSidebarProps) {
+  const [showTooltip, setShowTooltip] = React.useState(false);
+  const [hasStoredQuery, setHasStoredQuery] = React.useState(false);
+
+  // Vérifier si on a une recherche stockée
+  React.useEffect(() => {
+    const stored = sessionStorage.getItem('aiSearchQuery');
+    if (stored) {
+      setHasStoredQuery(true);
+      // Afficher le tooltip pendant 5 secondes
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 5000);
+    }
+  }, []);
+
   const updateFilters = (newFilters: AdvancedSearchFilters) => {
     onSearchStateChange({
       activeFilters: newFilters,
@@ -249,11 +265,31 @@ export default function SearchSidebar({
       </div>
 
       {/* Bouton de recherche sticky en bas de la sidebar */}
-      <div className="flex-shrink-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 p-4 shadow-lg">
+      <div className="flex-shrink-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 p-4 shadow-lg relative">
+        {/* Tooltip */}
+        {showTooltip && hasStoredQuery && (
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs rounded-lg px-3 py-2 shadow-lg z-10 whitespace-nowrap">
+            <div className="flex items-center space-x-1">
+              <InformationCircleIcon className="w-3 h-3" />
+              <span>Cliquez ici pour lancer votre recherche !</span>
+            </div>
+            {/* Flèche */}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          </div>
+        )}
+
         <Button
-          onClick={onSearch}
+          onClick={() => {
+            onSearch();
+            // Masquer le tooltip après le clic
+            setShowTooltip(false);
+          }}
           disabled={isSearching}
-          className="w-full flex items-center justify-center space-x-2 py-3 text-sm font-semibold"
+          className={`w-full flex items-center justify-center space-x-2 py-3 text-sm font-semibold transition-all duration-200 ${
+            hasStoredQuery && !isSearching
+              ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 shadow-lg shadow-green-500/25 animate-pulse'
+              : ''
+          }`}
           size="lg"
         >
           {isSearching ? (
@@ -267,11 +303,23 @@ export default function SearchSidebar({
               <span>
                 {totalActiveFilters > 0
                   ? `Rechercher (${totalActiveFilters} filtre${totalActiveFilters > 1 ? 's' : ''})`
-                  : 'Rechercher'}
+                  : hasStoredQuery
+                    ? '🚀 Lancer ma recherche IA'
+                    : 'Rechercher'}
               </span>
             </>
           )}
         </Button>
+
+        {/* Indicateur visuel pour recherche importée */}
+        {hasStoredQuery && !isSearching && (
+          <div className="mt-2 text-center">
+            <span className="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5 animate-pulse"></div>
+              Recherche IA importée - Prêt à lancer !
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

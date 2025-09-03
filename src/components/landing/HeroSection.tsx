@@ -405,9 +405,12 @@ export default function HeroSection() {
 
               {/* CTA */}
               <div className="mt-6">
-                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm">
+                <button
+                  onClick={handleStartTrial}
+                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300 cursor-pointer"
+                >
                   {t('hero.aiSearch.ctaButton')}
-                </div>
+                </button>
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/Button';
 import { SparklesIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon as SparklesIconSolid } from '@heroicons/react/24/solid';
@@ -132,25 +132,49 @@ export default function TextSearchSection({
 }: TextSearchSectionProps) {
   const [aiResult, setAiResult] = useState<AISearchInput | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [storedQuery, setStoredQuery] = useState<string>('');
 
-  const handleAIAnalysis = async () => {
-    if (!searchQuery.trim()) return;
+  const handleAIAnalysis = useCallback(
+    async (queryToAnalyze?: string) => {
+      const query = queryToAnalyze || searchQuery;
+      if (!query.trim()) return;
 
-    setIsAnalyzing(true);
-    try {
-      const result = await simulateAIParsing(searchQuery);
-      setAiResult(result);
+      setIsAnalyzing(true);
+      try {
+        const result = await simulateAIParsing(query);
+        setAiResult(result);
 
-      // Appliquer automatiquement les filtres détectés
-      if (result.parsedFilters) {
-        onFiltersChange(result.parsedFilters);
+        // Appliquer automatiquement les filtres détectés
+        if (result.parsedFilters) {
+          onFiltersChange(result.parsedFilters);
+        }
+
+        // Supprimer la recherche du sessionStorage après utilisation
+        if (queryToAnalyze) {
+          sessionStorage.removeItem('aiSearchQuery');
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'analyse IA:", error);
+      } finally {
+        setIsAnalyzing(false);
       }
-    } catch (error) {
-      console.error("Erreur lors de l'analyse IA:", error);
-    } finally {
-      setIsAnalyzing(false);
+    },
+    [searchQuery, onFiltersChange]
+  );
+
+  // Récupérer la recherche stockée au montage du composant
+  React.useEffect(() => {
+    const stored = sessionStorage.getItem('aiSearchQuery');
+    if (stored && !searchQuery) {
+      setStoredQuery(stored);
+      onSearchQueryChange(stored);
+
+      // Lancer automatiquement l'analyse IA si on a une recherche stockée
+      setTimeout(() => {
+        handleAIAnalysis(stored);
+      }, 500);
     }
-  };
+  }, [searchQuery, onSearchQueryChange, handleAIAnalysis]);
 
   const clearAiResult = () => {
     setAiResult(null);
@@ -159,18 +183,30 @@ export default function TextSearchSection({
   return (
     <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
       {/* Header */}
-      <div className="flex items-center space-x-3 mb-4">
-        <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
-          <MagnifyingGlassIcon className="w-5 h-5 text-purple-600" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+            <MagnifyingGlassIcon className="w-5 h-5 text-purple-600" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-900">
+              Recherche intelligente
+            </h3>
+            <p className="text-sm text-gray-600">
+              Décrivez ce que vous cherchez en langage naturel
+            </p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-semibold text-gray-900">
-            Recherche intelligente
-          </h3>
-          <p className="text-sm text-gray-600">
-            Décrivez ce que vous cherchez en langage naturel
-          </p>
-        </div>
+
+        {/* Indicateur de recherche préremplie */}
+        {storedQuery && (
+          <div className="flex items-center space-x-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="text-xs font-medium text-green-800">
+              Recherche importée
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Textarea de recherche */}
@@ -184,7 +220,7 @@ export default function TextSearchSection({
             rows={4}
           />
           <Button
-            onClick={handleAIAnalysis}
+            onClick={() => handleAIAnalysis()}
             disabled={!searchQuery.trim() || isAnalyzing}
             size="sm"
             className="mr-0 flex items-center space-x-1"

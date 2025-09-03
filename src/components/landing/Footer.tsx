@@ -13,6 +13,7 @@ export default function Footer() {
 
   const quickLinks = [
     { label: t('footer.quickLinks.features'), href: '#features' },
+    { label: '🔍 Recherche IA', href: '/ai-search' },
     { label: t('footer.quickLinks.pricing'), href: '#pricing' },
     { label: t('footer.quickLinks.testimonials'), href: '#testimonials' },
     { label: t('footer.quickLinks.demo'), href: '/onboarding?demo=true' },

@@ -17,7 +17,8 @@ export default function ConditionalLayout({
   const isMarketingPage =
     pathname.startsWith('/onboarding') ||
     pathname.startsWith('/pricing') ||
-    pathname.startsWith('/share/');
+    pathname.startsWith('/share/') ||
+    pathname.startsWith('/ai-search');
 
   // Si c'est la landing page ou une page marketing, pas de layout dashboard
   if (isLandingPage || isMarketingPage) {
