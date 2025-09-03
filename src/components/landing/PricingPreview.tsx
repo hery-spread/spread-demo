@@ -14,69 +14,81 @@ export default function PricingPreview() {
 
   const plans = [
     {
-      id: 'starter',
-      name: 'Starter',
-      description: 'Parfait pour débuter',
-      price: { monthly: 49, yearly: 490 },
+      id: 'brand',
+      name: 'Brand',
+      description: "l'offre pour commencer ✈️",
+      price: { monthly: 89, yearly: 854 },
       popular: false,
       icon: RocketLaunchIcon,
       features: [
-        '100 recherches par mois',
-        "20 rapports d'audience",
-        '1 utilisateur',
-        'Export CSV basique',
-        'Support email',
+        'Accès à 1 utilisateur',
+        'Création de listes illimitées',
+        'Une multitude de filtres avancés',
+        'Historique complet des données en illimité',
+        'Accès à 10k créateurs sélectionnés parmi 250 millions de profils',
+        "40 génération de rapports d'audience",
+        '40 accès direct aux contacts des influenceurs',
+        '10 rapports de campagne',
+        'Configuration rapide et efficace',
       ],
       cta: 'Essai Gratuit 14 Jours',
       color: 'gray',
+      access: 'Accès limité',
     },
     {
-      id: 'pro',
-      name: 'Pro',
-      description: 'Pour les équipes qui grandissent',
-      price: { monthly: 149, yearly: 1490 },
+      id: 'agency',
+      name: 'Agency',
+      description: "l'offre qu'il vous faut ✅",
+      price: { monthly: 219, yearly: 2124 },
       popular: true,
       icon: SparklesIcon,
       features: [
-        'Recherches illimitées',
-        "100 rapports d'audience",
-        '5 utilisateurs',
-        'Export CSV avancé',
-        'CRM intégré',
-        'Support prioritaire',
-        'API access',
+        'Accès à 1 utilisateur',
+        'Création de listes en illimitées',
+        'Une multitude de filtres avancés',
+        'Historique complet des données en illimités',
+        'Recherches illimitées parmi 250 millions de créateurs',
+        "200 génération de rapports d'audience",
+        'Accès à 200 contacts des influenceurs',
+        'Rapports de campagne illimités',
+        'Support client',
+        'Configuration rapide et efficace',
       ],
       cta: 'Essai Gratuit 14 Jours',
       color: 'purple',
+      access: 'Accès puissant',
     },
     {
-      id: 'elite',
-      name: 'Elite',
-      description: 'Pour les agences et grandes équipes',
-      price: { monthly: 299, yearly: 2990 },
+      id: 'enterprise',
+      name: 'Enterprise',
+      description: 'Pour les plus costaud 💼',
+      price: { monthly: 'Sur mesure', yearly: 'Sur mesure' },
       popular: false,
       icon: BuildingOfficeIcon,
       features: [
-        'Recherches illimitées',
-        "500 rapports d'audience",
-        '20 utilisateurs',
-        'Export CSV illimité',
-        'CRM avancé avec pipelines',
-        'Support téléphonique',
-        'API access complet',
-        'Manager dédié',
+        'Accès à 5 utilisateurs',
+        'Création de listes en illimitées',
+        'Une multitude de filtres avancés',
+        'Historique complet des données en illimités',
+        'Recherches illimitées parmi 250 millions de créateurs',
+        "Génération de rapports d'audience illimités",
+        'Accès aux contacts des influenceurs en illimités',
+        'Rapports de campagne illimités',
+        'Support client premium',
+        'Configuration rapide et efficace',
       ],
-      cta: 'Contactez les Ventes',
+      cta: 'Contactez-nous',
       color: 'indigo',
+      access: 'Accès illimité',
     },
   ];
 
   const savings = billing === 'yearly' ? 20 : 0;
 
   const handleGetStarted = (planId: string) => {
-    if (planId === 'elite') {
+    if (planId === 'enterprise') {
       // Redirection vers contact/demo
-      window.location.href = '/onboarding?demo=true&plan=elite';
+      window.location.href = '/onboarding?demo=true&plan=enterprise';
     } else {
       // Redirection vers essai gratuit avec plan présélectionné
       window.location.href = `/onboarding?plan=${planId}`;
@@ -174,7 +186,6 @@ export default function PricingPreview() {
             const colors = getColorClasses(plan.color, plan.popular);
             const Icon = plan.icon;
             const price = plan.price[billing];
-            const monthlyPrice = billing === 'yearly' ? price / 12 : price;
 
             return (
               <div
@@ -209,21 +220,35 @@ export default function PricingPreview() {
 
                 {/* Pricing */}
                 <div className="text-center mb-8">
-                  <div className="flex items-end justify-center">
-                    <span className="text-5xl font-bold text-gray-900">
-                      {Math.round(monthlyPrice)}€
-                    </span>
-                    <span className="text-gray-500 ml-1 mb-1">/mois</span>
-                  </div>
-                  {billing === 'yearly' && (
-                    <div className="text-sm text-green-600 font-medium mt-1">
-                      Économisez{' '}
-                      {(
-                        ((plan.price.monthly * 12 - plan.price.yearly) /
-                          (plan.price.monthly * 12)) *
-                        100
-                      ).toFixed(0)}
-                      % avec l&apos;abonnement annuel
+                  {typeof price === 'string' ? (
+                    <div>
+                      <div className="text-3xl font-bold text-gray-900 mb-2">
+                        {price}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Plan Annuel/mensuel disponible
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-end justify-center">
+                        <span className="text-5xl font-bold text-gray-900">
+                          {billing === 'yearly' ? Math.round(price / 12) : price}€
+                        </span>
+                        <span className="text-gray-500 ml-1 mb-1">/mois</span>
+                      </div>
+                      {billing === 'yearly' && (
+                        <div className="text-sm text-green-600 font-medium mt-1">
+                          ou {price}€/An (-20%)
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {plan.access && (
+                    <div className="mt-3">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700">
+                        {plan.access}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -247,7 +272,7 @@ export default function PricingPreview() {
                 </Button>
 
                 {/* Trial Note */}
-                {plan.id !== 'elite' && (
+                {plan.id !== 'enterprise' && (
                   <p className="text-center text-sm text-gray-500 mt-4">
                     ✨ Sans engagement • 🔐 Sans CB • 📞 Support inclus
                   </p>

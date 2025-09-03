@@ -14,84 +14,103 @@ interface Plan {
   name: string;
   description: string;
   price: {
-    monthly: number;
-    yearly: number;
+    monthly: number | string;
+    yearly: number | string;
   };
   features: string[];
   limits: {
     searches: number | 'unlimited';
-    reports: number;
+    reports: number | 'unlimited';
     users: number;
+    contacts: number | 'unlimited';
+    campaigns: number | 'unlimited';
   };
   popular?: boolean;
   cta: string;
+  access: string;
 }
 
 const plans: Plan[] = [
   {
-    id: 'starter',
-    name: 'Starter',
-    description: 'Parfait pour débuter',
-    price: { monthly: 49, yearly: 490 },
+    id: 'brand',
+    name: 'Brand',
+    description: "l'offre pour commencer ✈️",
+    price: { monthly: 89, yearly: 854 },
     limits: {
-      searches: 100,
-      reports: 20,
+      searches: 10000,
+      reports: 40,
       users: 1,
+      contacts: 40,
+      campaigns: 10,
     },
     features: [
-      '100 recherches par mois',
-      "20 rapports d'audience",
-      '1 utilisateur',
-      'Export CSV basique',
-      'Support email',
+      'Accès à 1 utilisateur',
+      'Création de listes illimitées',
+      'Une multitude de filtres avancés',
+      'Historique complet des données en illimité',
+      'Accès à 10k créateurs sélectionnés parmi 250 millions de profils',
+      "40 génération de rapports d'audience",
+      '40 accès direct aux contacts des influenceurs',
+      '10 rapports de campagne',
+      'Configuration rapide et efficace',
     ],
-    cta: 'Commencer gratuitement',
+    cta: 'Essai Gratuit 14 Jours',
+    access: 'Accès limité',
   },
   {
-    id: 'pro',
-    name: 'Pro',
-    description: 'Pour les équipes qui grandissent',
-    price: { monthly: 149, yearly: 1490 },
+    id: 'agency',
+    name: 'Agency',
+    description: "l'offre qu'il vous faut ✅",
+    price: { monthly: 219, yearly: 2124 },
     limits: {
       searches: 'unlimited',
-      reports: 100,
-      users: 5,
+      reports: 200,
+      users: 1,
+      contacts: 200,
+      campaigns: 'unlimited',
     },
     features: [
-      'Recherches illimitées',
-      "100 rapports d'audience",
-      '5 utilisateurs',
-      'Export CSV avancé',
-      'CRM intégré',
-      'Support prioritaire',
-      'API access',
+      'Accès à 1 utilisateur',
+      'Création de listes en illimitées',
+      'Une multitude de filtres avancés',
+      'Historique complet des données en illimités',
+      'Recherches illimitées parmi 250 millions de créateurs',
+      "200 génération de rapports d'audience",
+      'Accès à 200 contacts des influenceurs',
+      'Rapports de campagne illimités',
+      'Support client',
+      'Configuration rapide et efficace',
     ],
     popular: true,
-    cta: 'Essai gratuit 14 jours',
+    cta: 'Essai Gratuit 14 Jours',
+    access: 'Accès puissant',
   },
   {
-    id: 'elite',
-    name: 'Elite',
-    description: 'Pour les agences et grandes équipes',
-    price: { monthly: 299, yearly: 2990 },
+    id: 'enterprise',
+    name: 'Enterprise',
+    description: 'Pour les plus costaud 💼',
+    price: { monthly: 'Devis sur demande', yearly: 'Devis sur demande' },
     limits: {
       searches: 'unlimited',
-      reports: 500,
-      users: 20,
+      reports: 'unlimited',
+      users: 5,
+      contacts: 'unlimited',
+      campaigns: 'unlimited',
     },
     features: [
-      'Recherches illimitées',
-      "500 rapports d'audience",
-      '20 utilisateurs',
-      'Export CSV illimité',
-      'CRM avancé avec pipelines',
-      'Support téléphonique',
-      'API access complet',
-      'Manager dédié',
-      'Formation personnalisée',
-      'SLA garantie',
+      'Accès à 5 utilisateurs',
+      'Création de listes en illimitées',
+      'Une multitude de filtres avancés',
+      'Historique complet des données en illimités',
+      'Recherches illimitées parmi 250 millions de créateurs',
+      "Génération de rapports d'audience illimités",
+      'Accès aux contacts des influenceurs en illimités',
+      'Rapports de campagne illimités',
+      'Support client premium',
+      'Configuration rapide et efficace',
     ],
-    cta: 'Contactez les ventes',
+    cta: 'Contactez-nous',
+    access: 'Accès illimité',
   },
 ];
 
@@ -99,14 +118,20 @@ export default function PlanComparison() {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
 
   const getPrice = (plan: Plan) => {
+    if (typeof plan.price.monthly === 'string') {
+      return plan.price.monthly;
+    }
     const price =
-      billing === 'yearly' ? plan.price.yearly / 12 : plan.price.monthly;
+      billing === 'yearly' ? plan.price.yearly as number / 12 : plan.price.monthly;
     return Math.round(price);
   };
 
   const getYearlySavings = (plan: Plan) => {
-    const monthlyCost = plan.price.monthly * 12;
-    const yearlyCost = plan.price.yearly;
+    if (typeof plan.price.monthly === 'string') {
+      return { savings: 0, percentage: 0 };
+    }
+    const monthlyCost = (plan.price.monthly as number) * 12;
+    const yearlyCost = plan.price.yearly as number;
     const savings = monthlyCost - yearlyCost;
     const percentage = Math.round((savings / monthlyCost) * 100);
     return { savings, percentage };
