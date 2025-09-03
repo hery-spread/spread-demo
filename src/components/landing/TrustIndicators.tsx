@@ -10,7 +10,7 @@ export default function TrustIndicators() {
         <div className="text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 text-sm font-medium">
             <SparklesIcon className="w-4 h-4 mr-2" />
-            Rejoignez 2,847+ marques qui nous font déjà confiance
+            Rejoignez 400+ utilisateurs qui nous font déjà confiance
           </div>
         </div>
       </div>

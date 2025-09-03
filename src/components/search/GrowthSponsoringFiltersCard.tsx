@@ -37,8 +37,6 @@ export default function GrowthSponsoringFiltersCard({
     });
   };
 
-
-
   // Calculer les filtres actifs
   const growthFilters = filters.growth || {};
   const growthActiveCount = Object.keys(growthFilters).filter((key) => {
@@ -350,8 +348,6 @@ export default function GrowthSponsoringFiltersCard({
             </div>
           </div>
         </div>
-
-
 
         {/* Aide contextuelle */}
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">

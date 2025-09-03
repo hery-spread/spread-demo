@@ -118,8 +118,6 @@ export default function ListsPage() {
     console.log('Partager la liste:', listId);
   };
 
-
-
   if (loading) {
     return (
       <div className="space-y-6">
@@ -170,7 +168,11 @@ export default function ListsPage() {
 
         <div className="bg-white rounded-lg border border-gray-200 p-4">
           <div className="text-2xl font-bold text-green-600">
-            {lists.filter(list => list.influencers.some(inf => inf.contactEmail)).length}
+            {
+              lists.filter((list) =>
+                list.influencers.some((inf) => inf.contactEmail)
+              ).length
+            }
           </div>
           <div className="text-sm text-gray-600">Listes contactables</div>
         </div>
@@ -200,8 +202,6 @@ export default function ListsPage() {
               className="pl-10"
             />
           </div>
-
-
 
           {/* Mode d'affichage */}
           <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">

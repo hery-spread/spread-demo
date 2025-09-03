@@ -10,10 +10,30 @@
   },
   "hero": {
     "trustBadge": "Rejoignez 2,847+ marketeurs qui nous font confiance",
-    "headline": "Trouvez les",
-    "headlineHighlight": " Influenceurs Parfaits ",
-    "headlineEnd": "en 30 Secondes",
-    "subheadline": "La première plateforme IA qui révolutionne la recherche d'influenceurs avec des rapports d'audience ultra-détaillés",
+    "search": {
+      "headline": "Trouvez les",
+      "headlineHighlight": " Influenceurs Parfaits ",
+      "headlineEnd": "en 30 Secondes",
+      "subheadline": "La première plateforme IA qui révolutionne la recherche d'influenceurs avec des rapports d'audience ultra-détaillés"
+    },
+    "messaging": {
+      "headline": "Gérez toutes vos",
+      "headlineHighlight": " Conversations ",
+      "headlineEnd": "en Un Lieu",
+      "subheadline": "Messagerie intégrée avec templates personnalisables, suivi automatique et 87% de taux de réponse moyen"
+    },
+    "campaign": {
+      "headline": "Pilotez vos",
+      "headlineHighlight": " Campagnes ",
+      "headlineEnd": "en Temps Réel",
+      "subheadline": "Dashboard complet avec métriques live, suivi ROI automatique et +347% de performance moyenne"
+    },
+    "reports": {
+      "headline": "Analyses",
+      "headlineHighlight": " Ultra-Détaillées ",
+      "headlineEnd": "d'Audience",
+      "subheadline": "Rapports précis avec démographie, géolocalisation et centres d'intérêt analysés avec 96% de précision"
+    },
     "benefits": {
       "aiSearch": "Recherche IA Multi-Plateformes",
       "reports": "Rapports d'Audience Détaillés",

@@ -18,7 +18,7 @@ export default function CTASection() {
   const urgencyStats = [
     {
       icon: UserGroupIcon,
-      number: '2,847+',
+      number: '400+',
       label: t('cta.urgency.brands'),
     },
     {
@@ -55,7 +55,7 @@ export default function CTASection() {
 
           {/* Main Headline */}
           <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Rejoignez les 2,847+ marketeurs qui
+            Rejoignez les 400+ utilisateurs qui
             <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
               {' '}
               économisent 10h/semaine{' '}
@@ -145,7 +145,7 @@ export default function CTASection() {
             <div className="flex items-center text-purple-200">
               <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
               <span className="text-sm">
-                2,847+ utilisateurs actifs maintenant
+                400+ utilisateurs actifs maintenant
               </span>
             </div>
             <div className="flex items-center text-purple-200">

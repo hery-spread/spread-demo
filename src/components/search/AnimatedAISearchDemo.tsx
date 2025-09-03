@@ -33,56 +33,62 @@ export default function AnimatedAISearchDemo() {
   const targetText =
     'Influenceuses beauté françaises entre 50k et 500k followers sur Instagram, taux engagement >4%, audience féminine 18-35 ans';
 
-  const filters: DetectedFilter[] = useMemo(() => [
-    {
-      id: 'location',
-      label: '📍 France',
-      value: 'France',
-      icon: '🇫🇷',
-      delay: 200,
-    },
-    {
-      id: 'followers',
-      label: '👥 50K-500K followers',
-      value: '50K-500K',
-      icon: '📊',
-      delay: 400,
-    },
-    {
-      id: 'engagement',
-      label: '📈 +4% engagement',
-      value: '>4%',
-      icon: '⚡',
-      delay: 600,
-    },
-    {
-      id: 'category',
-      label: '💄 Beauté',
-      value: 'Beauté',
-      icon: '✨',
-      delay: 800,
-    },
-    {
-      id: 'audience',
-      label: '👩 Audience féminine',
-      value: 'Féminine',
-      icon: '💗',
-      delay: 1000,
-    },
-    {
-      id: 'age',
-      label: '🔢 18-35 ans',
-      value: '18-35',
-      icon: '🎯',
-      delay: 1200,
-    },
-  ], []);
+  const filters: DetectedFilter[] = useMemo(
+    () => [
+      {
+        id: 'location',
+        label: '📍 France',
+        value: 'France',
+        icon: '🇫🇷',
+        delay: 200,
+      },
+      {
+        id: 'followers',
+        label: '👥 50K-500K followers',
+        value: '50K-500K',
+        icon: '📊',
+        delay: 400,
+      },
+      {
+        id: 'engagement',
+        label: '📈 +4% engagement',
+        value: '>4%',
+        icon: '⚡',
+        delay: 600,
+      },
+      {
+        id: 'category',
+        label: '💄 Beauté',
+        value: 'Beauté',
+        icon: '✨',
+        delay: 800,
+      },
+      {
+        id: 'audience',
+        label: '👩 Audience féminine',
+        value: 'Féminine',
+        icon: '💗',
+        delay: 1000,
+      },
+      {
+        id: 'age',
+        label: '🔢 18-35 ans',
+        value: '18-35',
+        icon: '🎯',
+        delay: 1200,
+      },
+    ],
+    []
+  );
 
-  const finalResults: SearchResults = useMemo(() => ({
-    profiles: 2847,
-    avgFollowers: '~156K',
-    avgEngagement: '5.2%',
-  }), []);
+  const finalResults: SearchResults = useMemo(
+    () => ({
+      profiles: 2847,
+      avgFollowers: '~156K',
+      avgEngagement: '5.2%',
+    }),
+    []
+  );
 
   // Effect de frappe pour le texte
   useEffect(() => {

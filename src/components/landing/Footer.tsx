@@ -179,7 +179,7 @@ export default function Footer() {
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-purple-300 mb-2">
-                    2,847+
+                    400+
                   </div>
                   <div className="text-sm text-gray-400">
                     {t('footer.stats.clients')}

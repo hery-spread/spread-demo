@@ -9,7 +9,7 @@
     "signUp": "Gratis Proefperiode"
   },
   "hero": {
-    "trustBadge": "Sluit je aan bij 2.847+ marketeers die ons vertrouwen",
+    "trustBadge": "Sluit je aan bij 400+ gebruikers die ons vertrouwen",
     "headline": "Vind de",
     "headlineHighlight": " Perfecte Influencers ",
     "headlineEnd": "in 30 Seconden",
@@ -40,17 +40,17 @@
         "age": "🔢 18-35 jaar"
       },
       "results": "Gevonden resultaten",
-      "profilesCount": "2.847 profielen",
+      "profilesCount": "400 profielen",
       "stats": {
         "profiles": "Profielen",
         "avgFollowers": "Gem. volgers",
         "avgEngagement": "Gem. engagement"
       },
-      "ctaButton": "🔍 Bekijk 2.847 Gevonden Profielen",
+      "ctaButton": "🔍 Bekijk 400 Gevonden Profielen",
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
-      "brands": "Klanten",
+      "brands": "Gebruikers",
       "influencers": "Gerefereerde influencers",
       "satisfaction": "Tevredenheidspercentage",
       "timeSaved": "Bespaard per week"
@@ -123,7 +123,7 @@
     }
   },
   "socialProof": {
-    "badge": "Goedgekeurd door 2.847+ marketeers",
+    "badge": "Goedgekeurd door 400+ gebruikers",
     "title": "Zij",
     "titleHighlight": " vertrouwen ons ",
     "titleEnd": "al",
@@ -153,12 +153,12 @@
     },
     "stats": {
       "0": {
-        "number": "98%",
+        "number": "96%",
         "label": "Klanttevredenheidspercentage"
       },
       "1": {
-        "number": "2.847+",
-        "label": "Merken vertrouwen ons"
+        "number": "400+",
+        "label": "Gebruikers vertrouwen ons"
       },
       "2": {
         "number": "250M+",
@@ -258,7 +258,7 @@
     "title": "Klaar om Je",
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "te Revolutioneren?",
-    "subtitle": "Sluit je aan bij 2.847+ merken die hun strategie al hebben getransformeerd met Spread. Start nu je gratis proefperiode.",
+    "subtitle": "Sluit je aan bij 400+ gebruikers die hun strategie al hebben getransformeerd met Spread. Start nu je gratis proefperiode.",
     "urgency": {
       "offer": "🔥 Speciale aanbieding: 20% korting op je eerste jaar!",
       "brands": "marketeers vertrouwen ons al",

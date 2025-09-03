@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { 
-  ChartBarIcon, 
+import {
+  ChartBarIcon,
   ArrowTrendingUpIcon,
   CalendarIcon,
   FunnelIcon,
@@ -29,7 +29,7 @@ type TimeRange = '7d' | '30d' | '90d' | '1y' | 'all';
 
 export default function ModashPerformanceChart({
   data,
-  title = "Performance historique",
+  title = 'Performance historique',
   className = '',
   isLoading = false,
   showPosts = true,
@@ -41,10 +41,10 @@ export default function ModashPerformanceChart({
   // Filtrer les données selon la période sélectionnée
   const filteredData = useMemo(() => {
     if (!data.length) return [];
-    
+
     const now = new Date();
     let cutoffDate: Date;
-    
+
     switch (timeRange) {
       case '7d':
         cutoffDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -61,35 +61,35 @@ export default function ModashPerformanceChart({
       default:
         return data;
     }
-    
-    return data.filter(point => new Date(point.date) >= cutoffDate);
+
+    return data.filter((point) => new Date(point.date) >= cutoffDate);
   }, [data, timeRange]);
 
   // Calculer les statistiques
   const stats = useMemo(() => {
     if (!filteredData.length) return null;
-    
-    const values = filteredData.map(point => point[selectedMetric] || 0);
+
+    const values = filteredData.map((point) => point[selectedMetric] || 0);
     const min = Math.min(...values);
     const max = Math.max(...values);
     const avg = values.reduce((sum, val) => sum + val, 0) / values.length;
     const latest = values[values.length - 1];
     const previous = values[values.length - 2];
     const change = previous ? ((latest - previous) / previous) * 100 : 0;
-    
+
     return { min, max, avg, latest, change };
   }, [filteredData, selectedMetric]);
 
   // Normaliser les données pour le graphique (0-100)
   const normalizedData = useMemo(() => {
     if (!filteredData.length || !stats) return [];
-    
+
     const { min, max } = stats;
     const range = max - min || 1;
-    
+
     return filteredData.map((point, index) => ({
       ...point,
-      normalizedValue: ((point[selectedMetric] || 0) - min) / range * 80 + 10, // 10-90% de hauteur
+      normalizedValue: (((point[selectedMetric] || 0) - min) / range) * 80 + 10, // 10-90% de hauteur
       index,
     }));
   }, [filteredData, selectedMetric, stats]);
@@ -112,35 +112,47 @@ export default function ModashPerformanceChart({
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', { 
-      month: 'short', 
-      day: 'numeric' 
+    return date.toLocaleDateString('fr-FR', {
+      month: 'short',
+      day: 'numeric',
     });
   };
 
   const getMetricColor = (metric: MetricType): string => {
     switch (metric) {
-      case 'followers': return '#8B5CF6'; // Purple
-      case 'engagement': return '#EC4899'; // Pink
-      case 'reach': return '#3B82F6'; // Blue
-      case 'posts': return '#10B981'; // Green
-      default: return '#6B7280'; // Gray
+      case 'followers':
+        return '#8B5CF6'; // Purple
+      case 'engagement':
+        return '#EC4899'; // Pink
+      case 'reach':
+        return '#3B82F6'; // Blue
+      case 'posts':
+        return '#10B981'; // Green
+      default:
+        return '#6B7280'; // Gray
     }
   };
 
   const getMetricLabel = (metric: MetricType): string => {
     switch (metric) {
-      case 'followers': return 'Followers';
-      case 'engagement': return 'Engagement';
-      case 'reach': return 'Portée';
-      case 'posts': return 'Publications';
-      default: return metric;
+      case 'followers':
+        return 'Followers';
+      case 'engagement':
+        return 'Engagement';
+      case 'reach':
+        return 'Portée';
+      case 'posts':
+        return 'Publications';
+      default:
+        return metric;
     }
   };
 
   if (isLoading) {
     return (
-      <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>
+      <div
+        className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
+      >
         <div className="animate-pulse">
           <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-64 bg-gray-200 rounded"></div>
@@ -151,24 +163,30 @@ export default function ModashPerformanceChart({
 
   if (!data.length) {
     return (
-      <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>
+      <div
+        className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
+      >
         <div className="text-center py-12">
           <ChartBarIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">Aucune donnée de performance disponible</p>
+          <p className="text-gray-500">
+            Aucune donnée de performance disponible
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>
+    <div
+      className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
           <ArrowTrendingUpIcon className="w-5 h-5 text-purple-600" />
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
         </div>
-        
+
         <div className="flex items-center space-x-3">
           {/* Time Range Selector */}
           <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
@@ -191,7 +209,14 @@ export default function ModashPerformanceChart({
 
       {/* Metric Selector */}
       <div className="flex flex-wrap gap-2 mb-6">
-        {(['followers', 'engagement', 'reach', ...(showPosts ? ['posts'] : [])] as MetricType[]).map((metric) => (
+        {(
+          [
+            'followers',
+            'engagement',
+            'reach',
+            ...(showPosts ? ['posts'] : []),
+          ] as MetricType[]
+        ).map((metric) => (
           <button
             key={metric}
             onClick={() => setSelectedMetric(metric)}
@@ -217,10 +242,17 @@ export default function ModashPerformanceChart({
           </div>
           <div className="text-center">
             <p className="text-sm text-gray-500">Évolution</p>
-            <p className={`text-lg font-semibold ${
-              stats.change > 0 ? 'text-green-600' : stats.change < 0 ? 'text-red-600' : 'text-gray-600'
-            }`}>
-              {stats.change > 0 ? '+' : ''}{stats.change.toFixed(1)}%
+            <p
+              className={`text-lg font-semibold ${
+                stats.change > 0
+                  ? 'text-green-600'
+                  : stats.change < 0
+                    ? 'text-red-600'
+                    : 'text-gray-600'
+              }`}
+            >
+              {stats.change > 0 ? '+' : ''}
+              {stats.change.toFixed(1)}%
             </p>
           </div>
           <div className="text-center">
@@ -263,8 +295,9 @@ export default function ModashPerformanceChart({
           {normalizedData.length > 1 && (
             <polyline
               points={normalizedData
-                .map((point, index) => 
-                  `${(index / (normalizedData.length - 1)) * 800},${200 - point.normalizedValue * 2}`
+                .map(
+                  (point, index) =>
+                    `${(index / (normalizedData.length - 1)) * 800},${200 - point.normalizedValue * 2}`
                 )
                 .join(' ')}
               fill="none"
@@ -308,7 +341,10 @@ export default function ModashPerformanceChart({
                 fontSize="12"
                 fontWeight="bold"
               >
-                {formatValue(normalizedData[hoveredPoint][selectedMetric] || 0, selectedMetric)}
+                {formatValue(
+                  normalizedData[hoveredPoint][selectedMetric] || 0,
+                  selectedMetric
+                )}
               </text>
               <text
                 x={(hoveredPoint / (normalizedData.length - 1)) * 800}
@@ -328,10 +364,12 @@ export default function ModashPerformanceChart({
       <div className="flex items-center justify-center mt-4 space-x-6 text-sm text-gray-600">
         <div className="flex items-center space-x-2">
           <CalendarIcon className="w-4 h-4" />
-          <span>Période: {timeRange === 'all' ? 'Toutes les données' : timeRange}</span>
+          <span>
+            Période: {timeRange === 'all' ? 'Toutes les données' : timeRange}
+          </span>
         </div>
         <div className="flex items-center space-x-2">
-          <div 
+          <div
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: getMetricColor(selectedMetric) }}
           ></div>

@@ -9,7 +9,7 @@
     "signUp": "Free Trial"
   },
   "hero": {
-    "trustBadge": "Join 2,847+ marketers who trust us",
+    "trustBadge": "Join 400+ users who trust us",
     "headline": "Find the",
     "headlineHighlight": " Perfect Influencers ",
     "headlineEnd": "in 30 Seconds",
@@ -40,17 +40,17 @@
         "age": "🔢 18-35 years"
       },
       "results": "Results found",
-      "profilesCount": "2,847 profiles",
+      "profilesCount": "400 profiles",
       "stats": {
         "profiles": "Profiles",
         "avgFollowers": "Avg followers",
         "avgEngagement": "Avg engagement"
       },
-      "ctaButton": "🔍 View 2,847 Found Profiles",
+      "ctaButton": "🔍 View 400 Found Profiles",
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
-      "brands": "Client brands",
+      "brands": "Users",
       "influencers": "Referenced influencers",
       "satisfaction": "Satisfaction rate",
       "timeSaved": "Saved per week"
@@ -123,7 +123,7 @@
     }
   },
   "socialProof": {
-    "badge": "Approved by 2,847+ marketers",
+    "badge": "Approved by 400+ users",
     "title": "They already",
     "titleHighlight": " trust us ",
     "subtitle": "Join thousands of marketers who have transformed their influence strategy with Spread.",
@@ -152,12 +152,12 @@
     },
     "stats": {
       "0": {
-        "number": "98%",
+        "number": "96%",
         "label": "Customer satisfaction rate"
       },
       "1": {
-        "number": "2,847+",
-        "label": "Brands trust us"
+        "number": "400+",
+        "label": "Users trust us"
       },
       "2": {
         "number": "250M+",
@@ -257,7 +257,7 @@
     "title": "Ready to Revolutionize Your",
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "?",
-    "subtitle": "Join 2,847+ brands who have already transformed their strategy with Spread. Start your free trial now.",
+    "subtitle": "Join 400+ users who have already transformed their strategy with Spread. Start your free trial now.",
     "urgency": {
       "offer": "🔥 Special offer: 20% off your first year!",
       "brands": "marketers already trust us",

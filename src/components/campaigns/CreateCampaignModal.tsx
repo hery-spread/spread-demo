@@ -240,8 +240,9 @@ export default function CreateCampaignModal({
             </div>
 
             <p className="text-xs text-gray-500 mt-2">
-              Ajoutez autant de liens que nécessaire pour suivre les performances de votre
-              campagne. Chaque lien peut avoir son propre budget et libellé.
+              Ajoutez autant de liens que nécessaire pour suivre les
+              performances de votre campagne. Chaque lien peut avoir son propre
+              budget et libellé.
             </p>
           </div>
 

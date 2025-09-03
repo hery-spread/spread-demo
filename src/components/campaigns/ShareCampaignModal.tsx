@@ -270,7 +270,7 @@ export default function ShareCampaignModal({
                 <LanguageIcon className="w-5 h-5" />
                 <span>Langue du rapport</span>
               </h3>
-              
+
               <div className="grid grid-cols-3 gap-3">
                 {languages.map((lang) => (
                   <label
@@ -303,11 +303,12 @@ export default function ShareCampaignModal({
                   </label>
                 ))}
               </div>
-              
+
               <div className="bg-blue-50 rounded-lg p-3">
                 <p className="text-sm text-blue-800">
-                  <strong>Conseil :</strong> Le rapport sera généré dans la langue sélectionnée. 
-                  Toutes les métriques, libellés et descriptions seront traduits automatiquement.
+                  <strong>Conseil :</strong> Le rapport sera généré dans la
+                  langue sélectionnée. Toutes les métriques, libellés et
+                  descriptions seront traduits automatiquement.
                 </p>
               </div>
             </div>
@@ -411,7 +412,13 @@ export default function ShareCampaignModal({
                     {shareSettings.includeBudgets && (
                       <li>• Budget and cost information</li>
                     )}
-                    <li>• Rapport en {languages.find(l => l.code === shareSettings.language)?.name}</li>
+                    <li>
+                      • Rapport en{' '}
+                      {
+                        languages.find((l) => l.code === shareSettings.language)
+                          ?.name
+                      }
+                    </li>
                     <li>• Branded Spread call-to-action</li>
                   </ul>
                 </div>

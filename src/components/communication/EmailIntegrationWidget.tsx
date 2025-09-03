@@ -15,10 +15,14 @@ interface EmailIntegrationWidgetProps {
   compact?: boolean;
 }
 
-export default function EmailIntegrationWidget({ compact = false }: EmailIntegrationWidgetProps) {
+export default function EmailIntegrationWidget({
+  compact = false,
+}: EmailIntegrationWidgetProps) {
   const [showConnectModal, setShowConnectModal] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<'gmail' | 'outlook' | null>(null);
-  
+  const [selectedProvider, setSelectedProvider] = useState<
+    'gmail' | 'outlook' | null
+  >(null);
+
   const {
     providers,
     hasConnectedEmail,
@@ -28,7 +32,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
     syncEmails,
   } = useEmailIntegration();
 
-  const connectedProvider = providers.find(p => p.connected);
+  const connectedProvider = providers.find((p) => p.connected);
 
   const handleConnect = (providerType: 'gmail' | 'outlook') => {
     setSelectedProvider(providerType);
@@ -37,7 +41,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
 
   const confirmConnection = async () => {
     if (!selectedProvider) return;
-    
+
     const success = await connectProvider(selectedProvider);
     if (success) {
       setShowConnectModal(false);
@@ -57,7 +61,9 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CheckCircleIconSolid className="w-4 h-4 text-green-500" />
-                <span className="text-xs font-medium text-gray-700">Email connecté</span>
+                <span className="text-xs font-medium text-gray-700">
+                  Email connecté
+                </span>
               </div>
               <Button
                 size="sm"
@@ -83,7 +89,9 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
               <ExclamationTriangleIcon className="w-4 h-4 text-amber-500" />
-              <span className="text-xs font-medium text-gray-700">Email non configuré</span>
+              <span className="text-xs font-medium text-gray-700">
+                Email non configuré
+              </span>
             </div>
             <Button
               size="sm"
@@ -96,9 +104,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
           </div>
         )}
 
-        {error && (
-          <div className="text-xs text-red-600 mt-1">{error}</div>
-        )}
+        {error && <div className="text-xs text-red-600 mt-1">{error}</div>}
       </div>
     );
   }
@@ -110,7 +116,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
           <EnvelopeIcon className="w-5 h-5 text-gray-400" />
           <h3 className="font-medium text-gray-900">Intégration Email</h3>
         </div>
-        
+
         {hasConnectedEmail && (
           <Button
             size="sm"
@@ -139,10 +145,10 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
             </div>
           )}
           <div className="text-xs text-gray-500">
-            Dernière sync: {connectedProvider?.lastSync ? 
-              new Date(connectedProvider.lastSync).toLocaleTimeString('fr-FR') : 
-              'Jamais'
-            }
+            Dernière sync:{' '}
+            {connectedProvider?.lastSync
+              ? new Date(connectedProvider.lastSync).toLocaleTimeString('fr-FR')
+              : 'Jamais'}
           </div>
         </div>
       ) : (
@@ -165,9 +171,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
         </div>
       )}
 
-      {error && (
-        <div className="mt-2 text-sm text-red-600">{error}</div>
-      )}
+      {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
 
       {/* Modal de connexion */}
       {showConnectModal && (
@@ -183,8 +187,18 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                   disabled={isConnecting}
                   className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
                 >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
               </div>
@@ -198,13 +212,15 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                     Connexion en cours...
                   </h4>
                   <p className="text-gray-600">
-                    Authentification avec {selectedProvider === 'gmail' ? 'Google' : 'Microsoft'}
+                    Authentification avec{' '}
+                    {selectedProvider === 'gmail' ? 'Google' : 'Microsoft'}
                   </p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   <p className="text-gray-600 mb-4">
-                    Choisissez votre fournisseur d'email pour synchroniser vos conversations.
+                    Choisissez votre fournisseur d'email pour synchroniser vos
+                    conversations.
                   </p>
 
                   <div className="space-y-3">
@@ -214,11 +230,17 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+                          <svg
+                            className="w-4 h-4 text-red-600"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
                             <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
                           </svg>
                         </div>
-                        <span className="font-medium text-gray-900">Google Gmail</span>
+                        <span className="font-medium text-gray-900">
+                          Google Gmail
+                        </span>
                       </div>
                       <span className="text-sm text-gray-500">Connecter →</span>
                     </button>
@@ -229,11 +251,17 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
+                          <svg
+                            className="w-4 h-4 text-blue-600"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
                             <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
                           </svg>
                         </div>
-                        <span className="font-medium text-gray-900">Microsoft Outlook</span>
+                        <span className="font-medium text-gray-900">
+                          Microsoft Outlook
+                        </span>
                       </div>
                       <span className="text-sm text-gray-500">Connecter →</span>
                     </button>
@@ -250,7 +278,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                         <li>• Accès aux informations de contact</li>
                         <li>• Synchronisation des conversations</li>
                       </ul>
-                      
+
                       <div className="flex space-x-3 mt-4">
                         <Button
                           variant="secondary"
@@ -262,10 +290,7 @@ export default function EmailIntegrationWidget({ compact = false }: EmailIntegra
                         >
                           Annuler
                         </Button>
-                        <Button
-                          onClick={confirmConnection}
-                          className="flex-1"
-                        >
+                        <Button onClick={confirmConnection} className="flex-1">
                           Autoriser
                         </Button>
                       </div>

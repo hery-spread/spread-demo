@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { 
-  UsersIcon, 
+import {
+  UsersIcon,
   GlobeAltIcon,
   HeartIcon,
   LanguageIcon,
@@ -29,7 +29,13 @@ interface ModashAudienceInsightsProps {
   isLoading?: boolean;
 }
 
-type InsightType = 'gender' | 'age' | 'countries' | 'cities' | 'languages' | 'interests';
+type InsightType =
+  | 'gender'
+  | 'age'
+  | 'countries'
+  | 'cities'
+  | 'languages'
+  | 'interests';
 
 export default function ModashAudienceInsights({
   data,
@@ -64,32 +70,54 @@ export default function ModashAudienceInsights({
 
   const getInsightIcon = (type: InsightType) => {
     switch (type) {
-      case 'gender': return <UsersIcon className="w-4 h-4" />;
-      case 'age': return <UsersIcon className="w-4 h-4" />;
-      case 'countries': return <GlobeAltIcon className="w-4 h-4" />;
-      case 'cities': return <GlobeAltIcon className="w-4 h-4" />;
-      case 'languages': return <LanguageIcon className="w-4 h-4" />;
-      case 'interests': return <HeartIcon className="w-4 h-4" />;
-      default: return <UsersIcon className="w-4 h-4" />;
+      case 'gender':
+        return <UsersIcon className="w-4 h-4" />;
+      case 'age':
+        return <UsersIcon className="w-4 h-4" />;
+      case 'countries':
+        return <GlobeAltIcon className="w-4 h-4" />;
+      case 'cities':
+        return <GlobeAltIcon className="w-4 h-4" />;
+      case 'languages':
+        return <LanguageIcon className="w-4 h-4" />;
+      case 'interests':
+        return <HeartIcon className="w-4 h-4" />;
+      default:
+        return <UsersIcon className="w-4 h-4" />;
     }
   };
 
   const getInsightLabel = (type: InsightType) => {
     switch (type) {
-      case 'gender': return 'Genre';
-      case 'age': return 'Âge';
-      case 'countries': return 'Pays';
-      case 'cities': return 'Villes';
-      case 'languages': return 'Langues';
-      case 'interests': return 'Intérêts';
-      default: return type;
+      case 'gender':
+        return 'Genre';
+      case 'age':
+        return 'Âge';
+      case 'countries':
+        return 'Pays';
+      case 'cities':
+        return 'Villes';
+      case 'languages':
+        return 'Langues';
+      case 'interests':
+        return 'Intérêts';
+      default:
+        return type;
     }
   };
 
   const getColorForIndex = (index: number): string => {
     const colors = [
-      '#8B5CF6', '#EC4899', '#3B82F6', '#10B981', '#F59E0B',
-      '#EF4444', '#8B5A2B', '#6366F1', '#84CC16', '#F97316',
+      '#8B5CF6',
+      '#EC4899',
+      '#3B82F6',
+      '#10B981',
+      '#F59E0B',
+      '#EF4444',
+      '#8B5A2B',
+      '#6366F1',
+      '#84CC16',
+      '#F97316',
     ];
     return colors[index % colors.length];
   };
@@ -97,7 +125,11 @@ export default function ModashAudienceInsights({
   const formatKey = (key: string, type: InsightType): string => {
     switch (type) {
       case 'gender':
-        return key === 'male' ? '👨 Hommes' : key === 'female' ? '👩 Femmes' : key;
+        return key === 'male'
+          ? '👨 Hommes'
+          : key === 'female'
+            ? '👩 Femmes'
+            : key;
       case 'age':
         return `👥 ${key} ans`;
       case 'countries':
@@ -113,7 +145,9 @@ export default function ModashAudienceInsights({
 
   if (isLoading) {
     return (
-      <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>
+      <div
+        className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
+      >
         <div className="animate-pulse">
           <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="flex space-x-4 mb-6">
@@ -138,14 +172,16 @@ export default function ModashAudienceInsights({
   const currentData = processedData[selectedInsight] || [];
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>
+    <div
+      className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-2">
           <UsersIcon className="w-5 h-5 text-purple-600" />
           <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <InformationCircleIcon className="w-4 h-4 text-gray-400" />
           <span className="text-sm text-gray-500">
@@ -156,7 +192,16 @@ export default function ModashAudienceInsights({
 
       {/* Insight Selector */}
       <div className="flex flex-wrap gap-2 mb-6">
-        {(['gender', 'age', 'countries', 'cities', 'languages', 'interests'] as InsightType[]).map((type) => (
+        {(
+          [
+            'gender',
+            'age',
+            'countries',
+            'cities',
+            'languages',
+            'interests',
+          ] as InsightType[]
+        ).map((type) => (
           <button
             key={type}
             onClick={() => setSelectedInsight(type)}
@@ -208,7 +253,7 @@ export default function ModashAudienceInsights({
               <div className="w-32 text-sm font-medium text-gray-700 truncate">
                 {formatKey(item.key, selectedInsight)}
               </div>
-              
+
               {/* Progress Bar */}
               <div className="flex-1 relative">
                 <div className="h-6 bg-gray-200 rounded-full overflow-hidden">
@@ -220,7 +265,7 @@ export default function ModashAudienceInsights({
                     }}
                   />
                 </div>
-                
+
                 {/* Percentage Label */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-xs font-medium text-white mix-blend-difference">
@@ -228,7 +273,7 @@ export default function ModashAudienceInsights({
                   </span>
                 </div>
               </div>
-              
+
               {/* Value */}
               <div className="w-16 text-right text-sm text-gray-600">
                 {item.percentage.toFixed(1)}%
@@ -245,10 +290,12 @@ export default function ModashAudienceInsights({
               className="flex items-center space-x-2 mx-auto px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors"
             >
               <span>
-                {showAllItems ? 'Voir moins' : `Voir tout (${Object.keys(data[selectedInsight] || {}).length})`}
+                {showAllItems
+                  ? 'Voir moins'
+                  : `Voir tout (${Object.keys(data[selectedInsight] || {}).length})`}
               </span>
-              <ChevronDownIcon 
-                className={`w-4 h-4 transition-transform ${showAllItems ? 'rotate-180' : ''}`} 
+              <ChevronDownIcon
+                className={`w-4 h-4 transition-transform ${showAllItems ? 'rotate-180' : ''}`}
               />
             </button>
           </div>
@@ -265,7 +312,8 @@ export default function ModashAudienceInsights({
               <div className="space-y-1 text-sm text-blue-800">
                 {selectedInsight === 'gender' && currentData.length >= 2 && (
                   <p>
-                    L&apos;audience est composée à {currentData[0].percentage.toFixed(0)}% de{' '}
+                    L&apos;audience est composée à{' '}
+                    {currentData[0].percentage.toFixed(0)}% de{' '}
                     {currentData[0].key === 'female' ? 'femmes' : 'hommes'} et{' '}
                     {currentData[1].percentage.toFixed(0)}% de{' '}
                     {currentData[1].key === 'female' ? 'femmes' : 'hommes'}.
@@ -273,8 +321,9 @@ export default function ModashAudienceInsights({
                 )}
                 {selectedInsight === 'age' && currentData.length > 0 && (
                   <p>
-                    La tranche d&apos;âge dominante est {currentData[0].key} avec{' '}
-                    {currentData[0].percentage.toFixed(1)}% de l&apos;audience.
+                    La tranche d&apos;âge dominante est {currentData[0].key}{' '}
+                    avec {currentData[0].percentage.toFixed(1)}% de
+                    l&apos;audience.
                   </p>
                 )}
                 {selectedInsight === 'countries' && currentData.length > 0 && (
@@ -282,8 +331,16 @@ export default function ModashAudienceInsights({
                     {currentData[0].key} est le pays principal avec{' '}
                     {currentData[0].percentage.toFixed(1)}% de l&apos;audience.
                     {currentData.length > 1 && (
-                      <> Les {Math.min(3, currentData.length)} premiers pays représentent{' '}
-                      {currentData.slice(0, 3).reduce((sum, item) => sum + item.percentage, 0).toFixed(1)}% du total.</>
+                      <>
+                        {' '}
+                        Les {Math.min(3, currentData.length)} premiers pays
+                        représentent{' '}
+                        {currentData
+                          .slice(0, 3)
+                          .reduce((sum, item) => sum + item.percentage, 0)
+                          .toFixed(1)}
+                        % du total.
+                      </>
                     )}
                   </p>
                 )}
@@ -295,7 +352,12 @@ export default function ModashAudienceInsights({
                 )}
                 {selectedInsight === 'interests' && currentData.length > 0 && (
                   <p>
-                    Les intérêts principaux incluent {currentData.slice(0, 3).map(item => item.key).join(', ')}.
+                    Les intérêts principaux incluent{' '}
+                    {currentData
+                      .slice(0, 3)
+                      .map((item) => item.key)
+                      .join(', ')}
+                    .
                   </p>
                 )}
               </div>

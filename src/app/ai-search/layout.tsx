@@ -16,9 +16,7 @@ export default function AISearchLayout({
       <LandingNavbar />
 
       {/* Main Content avec padding pour le navbar fixed */}
-      <div className="pt-24">
-        {children}
-      </div>
+      <div className="pt-24">{children}</div>
 
       {/* Footer */}
       <Footer />

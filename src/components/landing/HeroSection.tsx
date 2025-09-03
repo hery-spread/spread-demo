@@ -9,8 +9,15 @@ import {
   UserGroupIcon,
   SparklesIcon,
 } from '@heroicons/react/24/outline';
+import MessagingAnimation from './MessagingAnimation';
+import CampaignAnimation from './CampaignAnimation';
+import ReportsAnimation from './ReportsAnimation';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  featureType?: 'search' | 'messaging' | 'campaign' | 'reports';
+}
+
+export default function HeroSection({ featureType = 'search' }: HeroSectionProps) {
   const { t } = useI18n();
 
   // États pour les animations
@@ -220,16 +227,16 @@ export default function HeroSection() {
 
             {/* Main Headline */}
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              {t('hero.headline')}
+              {t(`hero.${featureType}.headline`)}
               <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                {t('hero.headlineHighlight')}
+                {t(`hero.${featureType}.headlineHighlight`)}
               </span>
-              {t('hero.headlineEnd')}
+              {t(`hero.${featureType}.headlineEnd`)}
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed">
-              {t('hero.subheadline')}
+              {t(`hero.${featureType}.subheadline`)}
             </p>
 
             {/* Benefits List */}
@@ -275,12 +282,13 @@ export default function HeroSection() {
             </p>
           </div>
 
-          {/* Visual Right - Real AI Search Interface */}
-          <div
-            className="relative"
-            onMouseEnter={() => setIsLooping(false)}
-            onMouseLeave={() => setIsLooping(true)}
-          >
+          {/* Visual Right - Feature Animation */}
+          {featureType === 'search' ? (
+            <div
+              className="relative"
+              onMouseEnter={() => setIsLooping(false)}
+              onMouseLeave={() => setIsLooping(true)}
+            >
             {/* AI Search Interface Mockup */}
             <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
               {/* Header */}
@@ -420,17 +428,24 @@ export default function HeroSection() {
             </div>
 
             {/* Performance Badge */}
-            <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-              {t('hero.aiSearch.performanceBadge')}
-            </div>
-          </div>
+                         <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+               {t('hero.aiSearch.performanceBadge')}
+             </div>
+           </div>
+          ) : featureType === 'messaging' ? (
+            <MessagingAnimation />
+          ) : featureType === 'campaign' ? (
+            <CampaignAnimation />
+          ) : featureType === 'reports' ? (
+            <ReportsAnimation />
+          ) : null}
         </div>
 
         {/* Stats Bar */}
         <div className="mt-20 pt-12 border-t border-gray-200">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-purple-600">2,847+</div>
+              <div className="text-3xl font-bold text-purple-600">400+</div>
               <div className="text-gray-600">{t('hero.statsBar.brands')}</div>
             </div>
             <div>
@@ -446,7 +461,7 @@ export default function HeroSection() {
               </div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600">98%</div>
+              <div className="text-3xl font-bold text-purple-600">96%</div>
               <div className="text-gray-600">de précision des données</div>
             </div>
           </div>

@@ -516,13 +516,25 @@ export default function CampaignDetailPage() {
 
             {/* Métriques temporelles */}
             <div className="mb-8">
-              <h3 className="text-md font-semibold text-gray-800 mb-4">Performance temporelle</h3>
+              <h3 className="text-md font-semibold text-gray-800 mb-4">
+                Performance temporelle
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <ClockIcon className="w-5 h-5 text-blue-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {Math.round(campaign.analytics.reach.totalImpressions / Math.max(1, Math.ceil((new Date().getTime() - new Date(campaign.startDate).getTime()) / (1000 * 60 * 60 * 24))))}
+                      {Math.round(
+                        campaign.analytics.reach.totalImpressions /
+                          Math.max(
+                            1,
+                            Math.ceil(
+                              (new Date().getTime() -
+                                new Date(campaign.startDate).getTime()) /
+                                (1000 * 60 * 60 * 24)
+                            )
+                          )
+                      )}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">Impressions/jour</p>
@@ -542,7 +554,10 @@ export default function CampaignDetailPage() {
                   <div className="flex items-center justify-center mb-2">
                     <FireIcon className="w-5 h-5 text-orange-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {Math.round(campaign.analytics.engagement.totalEngagements / Math.max(1, campaign.analytics.content.totalPosts))}
+                      {Math.round(
+                        campaign.analytics.engagement.totalEngagements /
+                          Math.max(1, campaign.analytics.content.totalPosts)
+                      )}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">Eng./post moyen</p>
@@ -552,7 +567,15 @@ export default function CampaignDetailPage() {
                   <div className="flex items-center justify-center mb-2">
                     <TrophyIcon className="w-5 h-5 text-yellow-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {(campaign.analytics.reach.totalViews / Math.max(1, campaign.analytics.reach.totalImpressions) * 100).toFixed(1)}%
+                      {(
+                        (campaign.analytics.reach.totalViews /
+                          Math.max(
+                            1,
+                            campaign.analytics.reach.totalImpressions
+                          )) *
+                        100
+                      ).toFixed(1)}
+                      %
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">Taux de vue</p>
@@ -562,13 +585,23 @@ export default function CampaignDetailPage() {
 
             {/* Métriques d'audience */}
             <div className="mb-8">
-              <h3 className="text-md font-semibold text-gray-800 mb-4">Analyse d'audience</h3>
+              <h3 className="text-md font-semibold text-gray-800 mb-4">
+                Analyse d'audience
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <GlobeAltIcon className="w-5 h-5 text-purple-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {Math.round(campaign.analytics.reach.totalReach / Math.max(1, campaign.analytics.reach.totalImpressions) * 100)}%
+                      {Math.round(
+                        (campaign.analytics.reach.totalReach /
+                          Math.max(
+                            1,
+                            campaign.analytics.reach.totalImpressions
+                          )) *
+                          100
+                      )}
+                      %
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">Portée unique</p>
@@ -598,13 +631,23 @@ export default function CampaignDetailPage() {
 
             {/* Métriques de conversion */}
             <div className="mb-8">
-              <h3 className="text-md font-semibold text-gray-800 mb-4">Conversion & ROI</h3>
+              <h3 className="text-md font-semibold text-gray-800 mb-4">
+                Conversion & ROI
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
                     <CursorArrowRaysIcon className="w-5 h-5 text-indigo-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {(campaign.analytics.performance.totalClicks / Math.max(1, campaign.analytics.reach.totalImpressions) * 100).toFixed(2)}%
+                      {(
+                        (campaign.analytics.performance.totalClicks /
+                          Math.max(
+                            1,
+                            campaign.analytics.reach.totalImpressions
+                          )) *
+                        100
+                      ).toFixed(2)}
+                      %
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">CTR</p>
@@ -614,7 +657,13 @@ export default function CampaignDetailPage() {
                   <div className="flex items-center justify-center mb-2">
                     <BanknotesIcon className="w-5 h-5 text-green-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {formatCurrency(campaign.analytics.financials.totalCreatorCost / Math.max(1, campaign.analytics.performance.totalClicks))}
+                      {formatCurrency(
+                        campaign.analytics.financials.totalCreatorCost /
+                          Math.max(
+                            1,
+                            campaign.analytics.performance.totalClicks
+                          )
+                      )}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">CPC</p>
@@ -624,7 +673,14 @@ export default function CampaignDetailPage() {
                   <div className="flex items-center justify-center mb-2">
                     <TrophyIcon className="w-5 h-5 text-yellow-400 mr-2" />
                     <span className="text-2xl font-bold text-gray-900">
-                      {formatCurrency(campaign.analytics.financials.totalCreatorCost / Math.max(1, campaign.analytics.reach.totalImpressions) * 1000)}
+                      {formatCurrency(
+                        (campaign.analytics.financials.totalCreatorCost /
+                          Math.max(
+                            1,
+                            campaign.analytics.reach.totalImpressions
+                          )) *
+                          1000
+                      )}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">CPM réel</p>
@@ -654,11 +710,15 @@ export default function CampaignDetailPage() {
 
             {/* Comparaison avec benchmarks */}
             <div>
-              <h3 className="text-md font-semibold text-gray-800 mb-4">Comparaison benchmarks</h3>
+              <h3 className="text-md font-semibold text-gray-800 mb-4">
+                Comparaison benchmarks
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-green-800">ER vs Industrie</span>
+                    <span className="text-sm font-medium text-green-800">
+                      ER vs Industrie
+                    </span>
                     <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
                   </div>
                   <div className="flex items-baseline space-x-2">
@@ -668,39 +728,58 @@ export default function CampaignDetailPage() {
                     <span className="text-sm text-green-600">vs 2.1%</span>
                   </div>
                   <p className="text-xs text-green-700 mt-1">
-                    +{(campaign.analytics.engagement.averageER - 2.1).toFixed(1)}% au-dessus
+                    +
+                    {(campaign.analytics.engagement.averageER - 2.1).toFixed(1)}
+                    % au-dessus
                   </p>
                 </div>
 
                 <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-blue-800">CPM vs Marché</span>
+                    <span className="text-sm font-medium text-blue-800">
+                      CPM vs Marché
+                    </span>
                     <ArrowTrendingDownIcon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div className="flex items-baseline space-x-2">
                     <span className="text-2xl font-bold text-blue-900">
                       {formatCurrency(campaign.analytics.financials.averageCPM)}
                     </span>
-                    <span className="text-sm text-blue-600">vs {formatCurrency(8.50)}</span>
+                    <span className="text-sm text-blue-600">
+                      vs {formatCurrency(8.5)}
+                    </span>
                   </div>
                   <p className="text-xs text-blue-700 mt-1">
-                    {campaign.analytics.financials.averageCPM < 8.5 ? 'Économie' : 'Premium'} de {formatCurrency(Math.abs(campaign.analytics.financials.averageCPM - 8.5))}
+                    {campaign.analytics.financials.averageCPM < 8.5
+                      ? 'Économie'
+                      : 'Premium'}{' '}
+                    de{' '}
+                    {formatCurrency(
+                      Math.abs(campaign.analytics.financials.averageCPM - 8.5)
+                    )}
                   </p>
                 </div>
 
                 <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-purple-800">ROI Campagne</span>
+                    <span className="text-sm font-medium text-purple-800">
+                      ROI Campagne
+                    </span>
                     <TrophyIcon className="w-4 h-4 text-purple-600" />
                   </div>
                   <div className="flex items-baseline space-x-2">
                     <span className="text-2xl font-bold text-purple-900">
-                      {campaign.analytics.financials.roas ? `${campaign.analytics.financials.roas}x` : '2.4x'}
+                      {campaign.analytics.financials.roas
+                        ? `${campaign.analytics.financials.roas}x`
+                        : '2.4x'}
                     </span>
                     <span className="text-sm text-purple-600">ROI</span>
                   </div>
                   <p className="text-xs text-purple-700 mt-1">
-                    Performance {(campaign.analytics.financials.roas || 2.4) > 2 ? 'excellente' : 'correcte'}
+                    Performance{' '}
+                    {(campaign.analytics.financials.roas || 2.4) > 2
+                      ? 'excellente'
+                      : 'correcte'}
                   </p>
                 </div>
               </div>

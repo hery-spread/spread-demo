@@ -151,9 +151,12 @@ export default function UnlockReportsModal({
                   className="h-4 w-4 text-purple-600 rounded border-gray-300"
                 />
                 <Image
-                  src={influencer.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                    influencer.name
-                  )}&background=6366f1&color=fff`}
+                  src={
+                    influencer.avatar ||
+                    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                      influencer.name
+                    )}&background=6366f1&color=fff`
+                  }
                   alt={influencer.name}
                   width={40}
                   height={40}

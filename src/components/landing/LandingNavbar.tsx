@@ -32,7 +32,7 @@ export default function LandingNavbar() {
     { name: t('navbar.features'), action: () => scrollToSection('features') },
     {
       name: '🔍 Recherche IA',
-      action: () => window.location.href = '/ai-search',
+      action: () => (window.location.href = '/ai-search'),
     },
     {
       name: t('navbar.testimonials'),

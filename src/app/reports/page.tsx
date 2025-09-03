@@ -7,38 +7,39 @@ import SocialProofSection from '@/components/landing/SocialProofSection';
 import PricingPreview from '@/components/landing/PricingPreview';
 import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
+import TrustIndicators from '@/components/landing/TrustIndicators';
 import Footer from '@/components/landing/Footer';
 import UseCasesSection from '@/components/landing/UseCasesSection';
 import SEOHead from '@/components/layout/SEOHead';
 
-export default function HomePage() {
+export default function ReportsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* SEO Head */}
-      <SEOHead pathname="/" />
+      <SEOHead pathname="/reports" />
 
       {/* Landing Navbar */}
       <LandingNavbar />
 
-      {/* Hero Section (TOFU) */}
+      {/* Hero Section - Reports */}
       <div id="hero">
-        <HeroSection featureType="search" />
+        <HeroSection featureType="reports" />
       </div>
 
       {/* Use Cases Section */}
-      <UseCasesSection currentFeature="search" />
+      <UseCasesSection currentFeature="reports" />
 
-      {/* Features Section (MOFU) */}
+      {/* Features Section */}
       <div id="features">
         <FeaturesSection />
       </div>
 
-      {/* Social Proof Section (MOFU) */}
+      {/* Social Proof Section */}
       <div id="testimonials">
         <SocialProofSection />
       </div>
 
-      {/* Pricing Preview Section (BOFU) */}
+      {/* Pricing Preview Section */}
       <div id="pricing">
         <PricingPreview />
       </div>
@@ -48,11 +49,11 @@ export default function HomePage() {
         <FAQSection />
       </div>
 
-      {/* Call to Action Section (BOFU) */}
+      {/* Call to Action Section */}
       <CTASection />
 
-      {/* Trust Indicators
-      <TrustIndicators /> */}
+      {/* Trust Indicators */}
+      <TrustIndicators />
 
       {/* Footer */}
       <Footer />
