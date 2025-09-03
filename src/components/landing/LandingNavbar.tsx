@@ -20,6 +20,11 @@ export default function LandingNavbar() {
     window.location.href = '/onboarding';
   };
 
+  const handleLogoClick = () => {
+    // Redirection vers page d'accueil
+    window.location.href = '/';
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -49,7 +54,10 @@ export default function LandingNavbar() {
           <div className="bg-white/80 backdrop-blur-xl shadow-2xl shadow-gray-500/10 rounded-2xl border border-white/20 px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Logo */}
-              <div className="flex items-center space-x-3">
+              <button
+                onClick={handleLogoClick}
+                className="flex items-center space-x-3 transition-opacity duration-300 hover:opacity-80"
+              >
                 <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25 transform transition-transform duration-300 hover:rotate-12 hover:scale-110">
                   <span className="text-white font-bold text-lg">S</span>
                 </div>
@@ -61,7 +69,7 @@ export default function LandingNavbar() {
                     {t('navbar.tagline')}
                   </p>
                 </div>
-              </div>
+              </button>
 
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-8">
