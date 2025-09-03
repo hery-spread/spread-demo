@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  PaperAirplaneIcon, 
-  InboxIcon, 
+import {
+  PaperAirplaneIcon,
+  InboxIcon,
   CheckIcon,
-  ClockIcon
+  ClockIcon,
 } from '@heroicons/react/24/outline';
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid';
 
@@ -16,41 +16,45 @@ export default function MessagingAnimation() {
   const [isAnimating, setIsAnimating] = useState(true);
 
   // Données de démonstration pour les conversations
-  const demoConversations = useMemo(() => [
-    {
-      id: 1,
-      influencer: 'Marie Beauté',
-      avatar: 'MB',
-      platform: 'Instagram',
-      status: 'responded',
-      lastMessage: 'Merci pour cette opportunité ! Je suis très intéressée...',
-      time: '2 min',
-      isStarred: true,
-      responseRate: 95
-    },
-    {
-      id: 2,
-      influencer: 'Thomas Fitness',
-      avatar: 'TF',
-      platform: 'YouTube',
-      status: 'sent',
-      lastMessage: 'Bonjour Thomas, nous aimerions collaborer avec vous...',
-      time: '5 min',
-      isStarred: false,
-      responseRate: 78
-    },
-    {
-      id: 3,
-      influencer: 'Sophie Lifestyle',
-      avatar: 'SL',
-      platform: 'TikTok',
-      status: 'pending',
-      lastMessage: 'En attente de réponse...',
-      time: '1h',
-      isStarred: false,
-      responseRate: 88
-    }
-  ], []);
+  const demoConversations = useMemo(
+    () => [
+      {
+        id: 1,
+        influencer: 'Marie Beauté',
+        avatar: 'MB',
+        platform: 'Instagram',
+        status: 'responded',
+        lastMessage:
+          'Merci pour cette opportunité ! Je suis très intéressée...',
+        time: '2 min',
+        isStarred: true,
+        responseRate: 95,
+      },
+      {
+        id: 2,
+        influencer: 'Thomas Fitness',
+        avatar: 'TF',
+        platform: 'YouTube',
+        status: 'sent',
+        lastMessage: 'Bonjour Thomas, nous aimerions collaborer avec vous...',
+        time: '5 min',
+        isStarred: false,
+        responseRate: 78,
+      },
+      {
+        id: 3,
+        influencer: 'Sophie Lifestyle',
+        avatar: 'SL',
+        platform: 'TikTok',
+        status: 'pending',
+        lastMessage: 'En attente de réponse...',
+        time: '1h',
+        isStarred: false,
+        responseRate: 88,
+      },
+    ],
+    []
+  );
 
   // Animation en boucle
   useEffect(() => {
@@ -111,7 +115,7 @@ export default function MessagingAnimation() {
   };
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsAnimating(false)}
       onMouseLeave={() => setIsAnimating(true)}
@@ -124,33 +128,31 @@ export default function MessagingAnimation() {
             <InboxIcon className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900">
-              Messagerie Intégrée
-            </h4>
-            <p className="text-xs text-gray-500">
-              Conversations centralisées
-            </p>
+            <h4 className="font-semibold text-gray-900">Messagerie Intégrée</h4>
+            <p className="text-xs text-gray-500">Conversations centralisées</p>
           </div>
         </div>
 
         {/* Stats en temps réel */}
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-3 text-center">
-            <div className={`text-lg font-bold text-blue-700 transition-all duration-500 ${currentStep >= 1 ? 'animate-pulse' : ''}`}>
+            <div
+              className={`text-lg font-bold text-blue-700 transition-all duration-500 ${currentStep >= 1 ? 'animate-pulse' : ''}`}
+            >
               {messagesSent}
             </div>
             <div className="text-xs text-blue-600">Messages envoyés</div>
           </div>
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3 text-center">
-            <div className={`text-lg font-bold text-green-700 transition-all duration-500 ${currentStep >= 2 ? 'animate-pulse' : ''}`}>
+            <div
+              className={`text-lg font-bold text-green-700 transition-all duration-500 ${currentStep >= 2 ? 'animate-pulse' : ''}`}
+            >
               {responsesReceived}
             </div>
             <div className="text-xs text-green-600">Réponses reçues</div>
           </div>
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-3 text-center">
-            <div className="text-lg font-bold text-purple-700">
-              87%
-            </div>
+            <div className="text-lg font-bold text-purple-700">87%</div>
             <div className="text-xs text-purple-600">Taux de réponse</div>
           </div>
         </div>
@@ -158,14 +160,16 @@ export default function MessagingAnimation() {
         {/* Liste des conversations */}
         <div className="space-y-3">
           {demoConversations.map((conv, index) => (
-            <div 
+            <div
               key={conv.id}
               className={`p-3 rounded-xl border transition-all duration-500 ${getStatusColor(conv.status)} ${
-                currentStep >= index + 1 ? 'animate-slideIn opacity-100' : 'opacity-60'
+                currentStep >= index + 1
+                  ? 'animate-slideIn opacity-100'
+                  : 'opacity-60'
               }`}
               style={{
                 animationDelay: `${index * 0.3}s`,
-                animationFillMode: 'both'
+                animationFillMode: 'both',
               }}
             >
               <div className="flex items-start space-x-3">
@@ -175,18 +179,28 @@ export default function MessagingAnimation() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center space-x-2">
-                      <span className="font-medium text-gray-900 text-sm">{conv.influencer}</span>
-                      <span className="text-xs text-gray-500">• {conv.platform}</span>
-                      {conv.isStarred && <StarIconSolid className="w-3 h-3 text-yellow-400" />}
+                      <span className="font-medium text-gray-900 text-sm">
+                        {conv.influencer}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        • {conv.platform}
+                      </span>
+                      {conv.isStarred && (
+                        <StarIconSolid className="w-3 h-3 text-yellow-400" />
+                      )}
                     </div>
                     <div className="flex items-center space-x-1">
                       {getStatusIcon(conv.status)}
                       <span className="text-xs text-gray-500">{conv.time}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-600 truncate">{conv.lastMessage}</p>
+                  <p className="text-xs text-gray-600 truncate">
+                    {conv.lastMessage}
+                  </p>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-xs text-gray-500">Taux de réponse: {conv.responseRate}%</span>
+                    <span className="text-xs text-gray-500">
+                      Taux de réponse: {conv.responseRate}%
+                    </span>
                     {currentStep >= 3 && conv.status === 'responded' && (
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800 animate-fadeIn">
                         ✓ Répondu
@@ -204,7 +218,9 @@ export default function MessagingAnimation() {
           <div className="mt-4 p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl border border-purple-200 animate-fadeIn">
             <div className="flex items-center space-x-2 mb-2">
               <PaperAirplaneIcon className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-purple-900">Nouveau message</span>
+              <span className="text-sm font-medium text-purple-900">
+                Nouveau message
+              </span>
             </div>
             <div className="text-xs text-purple-700">
               Rédigez votre message personnalisé...

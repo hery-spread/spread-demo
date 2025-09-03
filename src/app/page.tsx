@@ -8,7 +8,6 @@ import PricingPreview from '@/components/landing/PricingPreview';
 import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
 import Footer from '@/components/landing/Footer';
-import UseCasesSection from '@/components/landing/UseCasesSection';
 import SEOHead from '@/components/layout/SEOHead';
 
 export default function HomePage() {
@@ -24,9 +23,6 @@ export default function HomePage() {
       <div id="hero">
         <HeroSection featureType="search" />
       </div>
-
-      {/* Use Cases Section */}
-      <UseCasesSection currentFeature="search" />
 
       {/* Features Section (MOFU) */}
       <div id="features">

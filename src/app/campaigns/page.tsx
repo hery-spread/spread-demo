@@ -9,7 +9,6 @@ import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
 import TrustIndicators from '@/components/landing/TrustIndicators';
 import Footer from '@/components/landing/Footer';
-import UseCasesSection from '@/components/landing/UseCasesSection';
 import SEOHead from '@/components/layout/SEOHead';
 
 export default function CampaignsPage() {
@@ -25,9 +24,6 @@ export default function CampaignsPage() {
       <div id="hero">
         <HeroSection featureType="campaign" />
       </div>
-
-      {/* Use Cases Section */}
-      <UseCasesSection currentFeature="campaign" />
 
       {/* Features Section */}
       <div id="features">

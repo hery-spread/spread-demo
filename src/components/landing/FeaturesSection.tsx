@@ -22,6 +22,7 @@ export default function FeaturesSection() {
         t('features.aiSearch.benefits.3'),
       ],
       color: 'purple',
+      href: '/',
     },
     {
       icon: ChartBarIcon,
@@ -34,6 +35,7 @@ export default function FeaturesSection() {
         t('features.reports.benefits.3'),
       ],
       color: 'indigo',
+      href: '/reports',
     },
     {
       icon: ChatBubbleLeftRightIcon,
@@ -47,6 +49,7 @@ export default function FeaturesSection() {
         'Gestion des listes de contacts',
       ],
       color: 'green',
+      href: '/messaging',
     },
     {
       icon: SparklesIcon,
@@ -59,6 +62,7 @@ export default function FeaturesSection() {
         t('features.analytics.benefits.3'),
       ],
       color: 'blue',
+      href: '/campaigns',
     },
   ];
 
@@ -90,6 +94,12 @@ export default function FeaturesSection() {
       },
     };
     return colorMap[color as keyof typeof colorMap];
+  };
+
+  const handleFeatureClick = (href: string) => {
+    if (href !== window.location.pathname) {
+      window.location.href = href;
+    }
   };
 
   return (
@@ -124,7 +134,8 @@ export default function FeaturesSection() {
             return (
               <div
                 key={index}
-                className="group relative bg-white rounded-3xl p-8 border border-gray-200 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-100/50 transition-all duration-300"
+                onClick={() => handleFeatureClick(feature.href)}
+                className="group relative bg-white rounded-3xl p-8 border border-gray-200 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-100/50 transition-all duration-300 cursor-pointer"
               >
                 {/* Icon */}
                 <div
@@ -158,138 +169,16 @@ export default function FeaturesSection() {
 
                 {/* Hover Effect */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                {/* Click indicator */}
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="text-gray-400 text-sm font-medium">
+                    → Découvrir
+                  </div>
+                </div>
               </div>
             );
           })}
-        </div>
-
-        {/* Real Features Showcase */}
-        <div className="bg-gradient-to-br from-gray-50 to-purple-50 rounded-3xl p-8 lg:p-12 border border-gray-200">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                Fonctionnalités Avancées
-              </h3>
-              <p className="text-lg text-gray-600 mb-8">
-                Des outils puissants conçus spécialement pour maximiser le ROI
-                de vos campagnes d&apos;influence marketing.
-              </p>
-
-              <div className="grid grid-cols-1 gap-6">
-                <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MagnifyingGlassIcon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
-                      Recherche IA Multi-Plateformes
-                    </h4>
-                    <p className="text-gray-600 text-sm mb-2">
-                      Instagram • YouTube • TikTok
-                    </p>
-                    <div className="flex items-center text-green-600 text-sm font-medium">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Base de données 250M+ profils
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <ChartBarIcon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
-                      Rapports d&apos;Audience Ultra-Précis
-                    </h4>
-                    <p className="text-gray-600 text-sm mb-2">
-                      Démographie • Centres d&apos;intérêt • Fake followers
-                    </p>
-                    <div className="flex items-center text-green-600 text-sm font-medium">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Précision 98.5% validée
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <ChatBubbleLeftRightIcon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">
-                      Séquences Mailing Automatisées
-                    </h4>
-                    <p className="text-gray-600 text-sm mb-2">
-                      Templates • Séquences • Suivi automatisé
-                    </p>
-                    <div className="flex items-center text-green-600 text-sm font-medium">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      +250% taux de réponse moyen
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative">
-              {/* Real Features Mockup */}
-              <div className="bg-white rounded-2xl shadow-2xl p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h4 className="font-semibold text-gray-900">
-                    Tableau de Bord
-                  </h4>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm text-gray-500">Live</span>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                    <div>
-                      <div className="font-medium text-gray-900">
-                        Recherches ce mois
-                      </div>
-                      <div className="text-2xl font-bold text-green-600">
-                        247 / 500
-                      </div>
-                    </div>
-                    <div className="text-3xl">📈</div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
-                    <div>
-                      <div className="font-medium text-gray-900">
-                        Rapports débloqués
-                      </div>
-                      <div className="text-2xl font-bold text-blue-600">
-                        89 / 100
-                      </div>
-                    </div>
-                    <div className="text-3xl">📊</div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg border border-purple-200">
-                    <div>
-                      <div className="font-medium text-gray-900">
-                        Campagnes actives
-                      </div>
-                      <div className="text-2xl font-bold text-purple-600">
-                        12
-                      </div>
-                    </div>
-                    <div className="text-3xl">🚀</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating Performance Indicator */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white p-3 rounded-full shadow-lg">
-                <SparklesIcon className="w-6 h-6" />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
