@@ -230,7 +230,10 @@ export default function PricingPreview() {
                     <div>
                       <div className="flex items-end justify-center">
                         <span className="text-5xl font-bold text-gray-900">
-                          {billing === 'yearly' ? Math.round(price / 12) : price}€
+                          {billing === 'yearly'
+                            ? Math.round(price / 12)
+                            : price}
+                          €
                         </span>
                         <span className="text-gray-500 ml-1 mb-1">/mois</span>
                       </div>
