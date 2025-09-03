@@ -16,7 +16,7 @@ export default function PricingPreview() {
     {
       id: 'brand',
       name: 'Brand',
-      description: "l'offre pour commencer ✈️",
+      description: 'Pour les petites équipes',
       price: { monthly: 89, yearly: 854 },
       popular: false,
       icon: RocketLaunchIcon,
@@ -33,12 +33,11 @@ export default function PricingPreview() {
       ],
       cta: 'Essai Gratuit 14 Jours',
       color: 'gray',
-      access: 'Accès limité',
     },
     {
       id: 'agency',
       name: 'Agency',
-      description: "l'offre qu'il vous faut ✅",
+      description: 'Pour les agences',
       price: { monthly: 219, yearly: 2124 },
       popular: true,
       icon: SparklesIcon,
@@ -56,12 +55,11 @@ export default function PricingPreview() {
       ],
       cta: 'Essai Gratuit 14 Jours',
       color: 'purple',
-      access: 'Accès puissant',
     },
     {
       id: 'enterprise',
       name: 'Enterprise',
-      description: 'Pour les plus costaud 💼',
+      description: 'Pour les grandes entreprises',
       price: { monthly: 'Sur mesure', yearly: 'Sur mesure' },
       popular: false,
       icon: BuildingOfficeIcon,
@@ -79,7 +77,6 @@ export default function PricingPreview() {
       ],
       cta: 'Contactez-nous',
       color: 'indigo',
-      access: 'Accès illimité',
     },
   ];
 
@@ -242,13 +239,6 @@ export default function PricingPreview() {
                           ou {price}€/An (-20%)
                         </div>
                       )}
-                    </div>
-                  )}
-                  {plan.access && (
-                    <div className="mt-3">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-700">
-                        {plan.access}
-                      </span>
                     </div>
                   )}
                 </div>

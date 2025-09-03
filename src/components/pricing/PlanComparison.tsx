@@ -34,7 +34,7 @@ const plans: Plan[] = [
   {
     id: 'brand',
     name: 'Brand',
-    description: "l'offre pour commencer ✈️",
+    description: 'Pour les petites équipes',
     price: { monthly: 89, yearly: 854 },
     limits: {
       searches: 10000,
@@ -55,12 +55,12 @@ const plans: Plan[] = [
       'Configuration rapide et efficace',
     ],
     cta: 'Essai Gratuit 14 Jours',
-    access: 'Accès limité',
+    access: '',
   },
   {
     id: 'agency',
     name: 'Agency',
-    description: "l'offre qu'il vous faut ✅",
+    description: 'Pour les agences',
     price: { monthly: 219, yearly: 2124 },
     limits: {
       searches: 'unlimited',
@@ -83,12 +83,12 @@ const plans: Plan[] = [
     ],
     popular: true,
     cta: 'Essai Gratuit 14 Jours',
-    access: 'Accès puissant',
+    access: '',
   },
   {
     id: 'enterprise',
     name: 'Enterprise',
-    description: 'Pour les plus costaud 💼',
+    description: 'Pour les grandes entreprises',
     price: { monthly: 'Devis sur demande', yearly: 'Devis sur demande' },
     limits: {
       searches: 'unlimited',
@@ -110,7 +110,7 @@ const plans: Plan[] = [
       'Configuration rapide et efficace',
     ],
     cta: 'Contactez-nous',
-    access: 'Accès illimité',
+    access: '',
   },
 ];
 
@@ -122,7 +122,9 @@ export default function PlanComparison() {
       return plan.price.monthly;
     }
     const price =
-      billing === 'yearly' ? plan.price.yearly as number / 12 : plan.price.monthly;
+      billing === 'yearly'
+        ? (plan.price.yearly as number) / 12
+        : plan.price.monthly;
     return Math.round(price);
   };
 
