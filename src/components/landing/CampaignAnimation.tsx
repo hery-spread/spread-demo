@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  ChartBarIcon, 
-  ArrowTrendingUpIcon, 
+import {
+  ChartBarIcon,
+  ArrowTrendingUpIcon,
   CurrencyEuroIcon,
   EyeIcon,
-  HeartIcon
+  HeartIcon,
 } from '@heroicons/react/24/outline';
 
 export default function CampaignAnimation() {
@@ -17,28 +17,49 @@ export default function CampaignAnimation() {
     budget: 0,
     roi: 0,
     posts: 0,
-    influencers: 0
+    influencers: 0,
   });
   const [isAnimating, setIsAnimating] = useState(true);
 
   // Données de démonstration pour la campagne
-  const campaignData = useMemo(() => ({
-    name: "Campagne Beauté Automne",
-    status: "En cours",
-    targetMetrics: {
-      reach: 250000,
-      engagement: 15000,
-      budget: 8500,
-      roi: 347,
-      posts: 24,
-      influencers: 8
-    },
-    influencers: [
-      { name: 'Marie B.', avatar: 'MB', platform: 'Instagram', status: 'published', reach: 85000 },
-      { name: 'Sophie L.', avatar: 'SL', platform: 'TikTok', status: 'scheduled', reach: 62000 },
-      { name: 'Emma F.', avatar: 'EF', platform: 'YouTube', status: 'draft', reach: 103000 }
-    ]
-  }), []);
+  const campaignData = useMemo(
+    () => ({
+      name: 'Campagne Beauté Automne',
+      status: 'En cours',
+      targetMetrics: {
+        reach: 250000,
+        engagement: 15000,
+        budget: 8500,
+        roi: 347,
+        posts: 24,
+        influencers: 8,
+      },
+      influencers: [
+        {
+          name: 'Marie B.',
+          avatar: 'MB',
+          platform: 'Instagram',
+          status: 'published',
+          reach: 85000,
+        },
+        {
+          name: 'Sophie L.',
+          avatar: 'SL',
+          platform: 'TikTok',
+          status: 'scheduled',
+          reach: 62000,
+        },
+        {
+          name: 'Emma F.',
+          avatar: 'EF',
+          platform: 'YouTube',
+          status: 'draft',
+          reach: 103000,
+        },
+      ],
+    }),
+    []
+  );
 
   // Animation en boucle
   useEffect(() => {
@@ -54,7 +75,7 @@ export default function CampaignAnimation() {
             budget: 0,
             roi: 0,
             posts: 0,
-            influencers: 0
+            influencers: 0,
           });
           return 0;
         }
@@ -73,27 +94,31 @@ export default function CampaignAnimation() {
       const duration = 1500;
       const steps = 60;
       const stepDuration = duration / steps;
-      
+
       let currentStepCount = 0;
-      
+
       const timer = setInterval(() => {
         currentStepCount++;
         const progress = currentStepCount / steps;
-        
+
         setCampaignMetrics({
           reach: Math.floor(campaignData.targetMetrics.reach * progress),
-          engagement: Math.floor(campaignData.targetMetrics.engagement * progress),
+          engagement: Math.floor(
+            campaignData.targetMetrics.engagement * progress
+          ),
           budget: Math.floor(campaignData.targetMetrics.budget * progress),
           roi: Math.floor(campaignData.targetMetrics.roi * progress),
           posts: Math.floor(campaignData.targetMetrics.posts * progress),
-          influencers: Math.floor(campaignData.targetMetrics.influencers * progress)
+          influencers: Math.floor(
+            campaignData.targetMetrics.influencers * progress
+          ),
         });
-        
+
         if (currentStepCount >= steps) {
           clearInterval(timer);
         }
       }, stepDuration);
-      
+
       return () => clearInterval(timer);
     };
 
@@ -137,7 +162,7 @@ export default function CampaignAnimation() {
   };
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsAnimating(false)}
       onMouseLeave={() => setIsAnimating(true)}
@@ -150,12 +175,8 @@ export default function CampaignAnimation() {
             <ChartBarIcon className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900">
-              Gestion de Campagne
-            </h4>
-            <p className="text-xs text-gray-500">
-              Suivi en temps réel
-            </p>
+            <h4 className="font-semibold text-gray-900">Gestion de Campagne</h4>
+            <p className="text-xs text-gray-500">Suivi en temps réel</p>
           </div>
         </div>
 
@@ -174,39 +195,51 @@ export default function CampaignAnimation() {
           <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-3">
             <div className="flex items-center space-x-2 mb-1">
               <EyeIcon className="w-4 h-4 text-purple-600" />
-              <span className="text-xs font-medium text-purple-900">Portée</span>
+              <span className="text-xs font-medium text-purple-900">
+                Portée
+              </span>
             </div>
-            <div className={`text-lg font-bold text-purple-700 transition-all duration-300 ${currentStep >= 1 ? 'animate-countUp' : ''}`}>
+            <div
+              className={`text-lg font-bold text-purple-700 transition-all duration-300 ${currentStep >= 1 ? 'animate-countUp' : ''}`}
+            >
               {formatNumber(campaignMetrics.reach)}
             </div>
           </div>
-          
+
           <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-3">
             <div className="flex items-center space-x-2 mb-1">
               <HeartIcon className="w-4 h-4 text-pink-600" />
-              <span className="text-xs font-medium text-pink-900">Engagement</span>
+              <span className="text-xs font-medium text-pink-900">
+                Engagement
+              </span>
             </div>
-            <div className={`text-lg font-bold text-pink-700 transition-all duration-300 ${currentStep >= 2 ? 'animate-countUp' : ''}`}>
+            <div
+              className={`text-lg font-bold text-pink-700 transition-all duration-300 ${currentStep >= 2 ? 'animate-countUp' : ''}`}
+            >
               {formatNumber(campaignMetrics.engagement)}
             </div>
           </div>
-          
+
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-3">
             <div className="flex items-center space-x-2 mb-1">
               <CurrencyEuroIcon className="w-4 h-4 text-green-600" />
               <span className="text-xs font-medium text-green-900">Budget</span>
             </div>
-            <div className={`text-lg font-bold text-green-700 transition-all duration-300 ${currentStep >= 3 ? 'animate-countUp' : ''}`}>
+            <div
+              className={`text-lg font-bold text-green-700 transition-all duration-300 ${currentStep >= 3 ? 'animate-countUp' : ''}`}
+            >
               {campaignMetrics.budget}€
             </div>
           </div>
-          
+
           <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-3">
             <div className="flex items-center space-x-2 mb-1">
               <ArrowTrendingUpIcon className="w-4 h-4 text-orange-600" />
               <span className="text-xs font-medium text-orange-900">ROI</span>
             </div>
-            <div className={`text-lg font-bold text-orange-700 transition-all duration-300 ${currentStep >= 4 ? 'animate-countUp' : ''}`}>
+            <div
+              className={`text-lg font-bold text-orange-700 transition-all duration-300 ${currentStep >= 4 ? 'animate-countUp' : ''}`}
+            >
               +{campaignMetrics.roi}%
             </div>
           </div>
@@ -215,19 +248,25 @@ export default function CampaignAnimation() {
         {/* Liste des influenceurs */}
         <div className="space-y-2 mb-6">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700">Influenceurs ({campaignMetrics.influencers})</span>
-            <span className="text-xs text-gray-500">{campaignMetrics.posts} posts</span>
+            <span className="text-sm font-medium text-gray-700">
+              Influenceurs ({campaignMetrics.influencers})
+            </span>
+            <span className="text-xs text-gray-500">
+              {campaignMetrics.posts} posts
+            </span>
           </div>
-          
+
           {campaignData.influencers.map((influencer, index) => (
-            <div 
+            <div
               key={index}
               className={`p-3 rounded-xl bg-gray-50 border border-gray-200 transition-all duration-500 ${
-                currentStep >= index + 2 ? 'animate-slideIn opacity-100' : 'opacity-60'
+                currentStep >= index + 2
+                  ? 'animate-slideIn opacity-100'
+                  : 'opacity-60'
               }`}
               style={{
                 animationDelay: `${index * 0.2}s`,
-                animationFillMode: 'both'
+                animationFillMode: 'both',
               }}
             >
               <div className="flex items-center justify-between">
@@ -236,11 +275,18 @@ export default function CampaignAnimation() {
                     {influencer.avatar}
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900 text-sm">{influencer.name}</div>
-                    <div className="text-xs text-gray-500">{influencer.platform} • {formatNumber(influencer.reach)} followers</div>
+                    <div className="font-medium text-gray-900 text-sm">
+                      {influencer.name}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {influencer.platform} • {formatNumber(influencer.reach)}{' '}
+                      followers
+                    </div>
                   </div>
                 </div>
-                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${getStatusColor(influencer.status)}`}>
+                <span
+                  className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${getStatusColor(influencer.status)}`}
+                >
                   {getStatusIcon(influencer.status)} {influencer.status}
                 </span>
               </div>
@@ -253,7 +299,9 @@ export default function CampaignAnimation() {
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200 animate-fadeIn">
             <div className="flex items-center space-x-2 mb-2">
               <ArrowTrendingUpIcon className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-green-900">Performance Excellente</span>
+              <span className="text-sm font-medium text-green-900">
+                Performance Excellente
+              </span>
             </div>
             <div className="text-xs text-green-700">
               ROI de +347% • Engagement 23% au-dessus de la moyenne

@@ -17,7 +17,9 @@ interface HeroSectionProps {
   featureType?: 'search' | 'messaging' | 'campaign' | 'reports';
 }
 
-export default function HeroSection({ featureType = 'search' }: HeroSectionProps) {
+export default function HeroSection({
+  featureType = 'search',
+}: HeroSectionProps) {
   const { t } = useI18n();
 
   // États pour les animations
@@ -289,149 +291,151 @@ export default function HeroSection({ featureType = 'search' }: HeroSectionProps
               onMouseEnter={() => setIsLooping(false)}
               onMouseLeave={() => setIsLooping(true)}
             >
-            {/* AI Search Interface Mockup */}
-            <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
-              {/* Header */}
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
-                  <SparklesIcon className="w-5 h-5 text-white" />
+              {/* AI Search Interface Mockup */}
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-gray-500/20 p-6 border border-gray-200/50">
+                {/* Header */}
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                    <SparklesIcon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">
+                      {t('hero.aiSearch.title')}
+                    </h4>
+                    <p className="text-xs text-gray-500">
+                      {t('hero.aiSearch.subtitle')}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    {t('hero.aiSearch.title')}
-                  </h4>
-                  <p className="text-xs text-gray-500">
-                    {t('hero.aiSearch.subtitle')}
-                  </p>
-                </div>
-              </div>
 
-              {/* AI Search Input Animé */}
-              <div className="relative mb-6">
-                <div
-                  className={`w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium min-h-[60px] flex items-center ${showAnalysis || isAnalyzing ? 'pb-8' : ''}`}
-                >
-                  {currentText}
-                  {currentText.length < targetText.length && (
-                    <span className="animate-pulse bg-purple-500 w-0.5 h-4 inline-block ml-1"></span>
+                {/* AI Search Input Animé */}
+                <div className="relative mb-6">
+                  <div
+                    className={`w-full p-4 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-2xl text-sm text-gray-700 font-medium min-h-[60px] flex items-center ${showAnalysis || isAnalyzing ? 'pb-8' : ''}`}
+                  >
+                    {currentText}
+                    {currentText.length < targetText.length && (
+                      <span className="animate-pulse bg-purple-500 w-0.5 h-4 inline-block ml-1"></span>
+                    )}
+                  </div>
+                  {(showAnalysis || isAnalyzing) && (
+                    <div className="absolute bottom-2 right-3 flex items-center space-x-1">
+                      <SparklesIcon
+                        className={`w-4 h-4 text-purple-600 ${isAnalyzing ? 'animate-spin' : 'animate-pulse'}`}
+                      />
+                      <span className="text-xs text-purple-600 font-medium">
+                        {isAnalyzing
+                          ? 'Analyse en cours...'
+                          : 'Analyse terminée'}
+                      </span>
+                    </div>
                   )}
                 </div>
-                {(showAnalysis || isAnalyzing) && (
-                  <div className="absolute bottom-2 right-3 flex items-center space-x-1">
-                    <SparklesIcon
-                      className={`w-4 h-4 text-purple-600 ${isAnalyzing ? 'animate-spin' : 'animate-pulse'}`}
-                    />
-                    <span className="text-xs text-purple-600 font-medium">
-                      {isAnalyzing ? 'Analyse en cours...' : 'Analyse terminée'}
-                    </span>
+
+                {/* AI Analysis Results Animés */}
+                {showAnalysis && (
+                  <div className="space-y-3 mb-6 animate-fadeIn">
+                    <p className="text-xs font-medium text-gray-600">
+                      Filtres détectés automatiquement :
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {filters.map((filter, index) => (
+                        <span
+                          key={filter.id}
+                          className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full transition-all duration-500 ${
+                            showFilters.includes(filter.id)
+                              ? 'animate-slideIn opacity-100 scale-100'
+                              : 'opacity-0 scale-75'
+                          } ${
+                            filter.id === 'location'
+                              ? 'bg-blue-100 text-blue-800'
+                              : filter.id === 'followers'
+                                ? 'bg-green-100 text-green-800'
+                                : filter.id === 'engagement'
+                                  ? 'bg-purple-100 text-purple-800'
+                                  : filter.id === 'category'
+                                    ? 'bg-pink-100 text-pink-800'
+                                    : filter.id === 'audience'
+                                      ? 'bg-orange-100 text-orange-800'
+                                      : 'bg-indigo-100 text-indigo-800'
+                          }`}
+                          style={{
+                            animationDelay: `${index * 0.1}s`,
+                            animationFillMode: 'both',
+                          }}
+                        >
+                          {filter.label}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
-              </div>
 
-              {/* AI Analysis Results Animés */}
-              {showAnalysis && (
-                <div className="space-y-3 mb-6 animate-fadeIn">
-                  <p className="text-xs font-medium text-gray-600">
-                    Filtres détectés automatiquement :
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {filters.map((filter, index) => (
-                      <span
-                        key={filter.id}
-                        className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full transition-all duration-500 ${
-                          showFilters.includes(filter.id)
-                            ? 'animate-slideIn opacity-100 scale-100'
-                            : 'opacity-0 scale-75'
-                        } ${
-                          filter.id === 'location'
-                            ? 'bg-blue-100 text-blue-800'
-                            : filter.id === 'followers'
-                              ? 'bg-green-100 text-green-800'
-                              : filter.id === 'engagement'
-                                ? 'bg-purple-100 text-purple-800'
-                                : filter.id === 'category'
-                                  ? 'bg-pink-100 text-pink-800'
-                                  : filter.id === 'audience'
-                                    ? 'bg-orange-100 text-orange-800'
-                                    : 'bg-indigo-100 text-indigo-800'
-                        }`}
-                        style={{
-                          animationDelay: `${index * 0.1}s`,
-                          animationFillMode: 'both',
-                        }}
-                      >
-                        {filter.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Search Results Preview */}
-              <div className="border-t border-gray-100 pt-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-gray-600">
-                    {t('hero.aiSearch.results')}
-                  </span>
-                  <div className="flex items-center space-x-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs text-green-600 font-medium">
-                      {t('hero.aiSearch.profilesCount')}
+                {/* Search Results Preview */}
+                <div className="border-t border-gray-100 pt-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm font-medium text-gray-600">
+                      {t('hero.aiSearch.results')}
                     </span>
+                    <div className="flex items-center space-x-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-green-600 font-medium">
+                        {t('hero.aiSearch.profilesCount')}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                      <div>
+                        <div className="text-lg font-bold text-green-700">
+                          {currentSearch.results.count.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-green-600">
+                          {t('hero.aiSearch.stats.profiles')}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-blue-700">
+                          {currentSearch.results.avgFollowers}
+                        </div>
+                        <div className="text-xs text-blue-600">
+                          {t('hero.aiSearch.stats.avgFollowers')}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-purple-700">
+                          {currentSearch.results.avgEngagement}
+                        </div>
+                        <div className="text-xs text-purple-600">
+                          {t('hero.aiSearch.stats.avgEngagement')}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-lg font-bold text-green-700">
-                        {currentSearch.results.count.toLocaleString()}
-                      </div>
-                      <div className="text-xs text-green-600">
-                        {t('hero.aiSearch.stats.profiles')}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-blue-700">
-                        {currentSearch.results.avgFollowers}
-                      </div>
-                      <div className="text-xs text-blue-600">
-                        {t('hero.aiSearch.stats.avgFollowers')}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-purple-700">
-                        {currentSearch.results.avgEngagement}
-                      </div>
-                      <div className="text-xs text-purple-600">
-                        {t('hero.aiSearch.stats.avgEngagement')}
-                      </div>
-                    </div>
-                  </div>
+                {/* CTA */}
+                <div className="mt-6">
+                  <button
+                    onClick={handleStartTrial}
+                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300 cursor-pointer"
+                  >
+                    {t('hero.aiSearch.ctaButton')}
+                  </button>
                 </div>
               </div>
 
-              {/* CTA */}
-              <div className="mt-6">
-                <button
-                  onClick={handleStartTrial}
-                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300 cursor-pointer"
-                >
-                  {t('hero.aiSearch.ctaButton')}
-                </button>
+              {/* Floating AI Elements */}
+              <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <MagnifyingGlassIcon className="w-6 h-6 text-white" />
+              </div>
+
+              {/* Performance Badge */}
+              <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                {t('hero.aiSearch.performanceBadge')}
               </div>
             </div>
-
-            {/* Floating AI Elements */}
-            <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <MagnifyingGlassIcon className="w-6 h-6 text-white" />
-            </div>
-
-            {/* Performance Badge */}
-                         <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-               {t('hero.aiSearch.performanceBadge')}
-             </div>
-           </div>
           ) : featureType === 'messaging' ? (
             <MessagingAnimation />
           ) : featureType === 'campaign' ? (

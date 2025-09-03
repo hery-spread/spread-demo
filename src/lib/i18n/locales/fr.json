@@ -9,7 +9,7 @@
     "signUp": "Essai gratuit"
   },
   "hero": {
-    "trustBadge": "Rejoignez 2,847+ marketeurs qui nous font confiance",
+    "trustBadge": "Rejoignez 400+ utilisateurs qui nous font confiance",
     "search": {
       "headline": "Trouvez les",
       "headlineHighlight": " Influenceurs Parfaits ",
@@ -60,13 +60,13 @@
         "age": "🔢 18-35 ans"
       },
       "results": "Résultats trouvés",
-      "profilesCount": "2,847 profils",
+      "profilesCount": "400 profils",
       "stats": {
         "profiles": "Profils",
         "avgFollowers": "Followers moy.",
         "avgEngagement": "Engagement moy."
       },
-      "ctaButton": "🔍 Voir les 2,847 Profils Trouvés",
+      "ctaButton": "🔍 Voir les 400 Profils Trouvés",
       "performanceBadge": "⚡ < 30s"
     },
     "statsBar": {
@@ -143,7 +143,7 @@
     }
   },
   "socialProof": {
-    "badge": "Approuvé par 2,847+ marketeurs",
+    "badge": "Approuvé par 400+ utilisateurs",
     "title": "Ils nous font déjà",
     "titleHighlight": " confiance ",
     "subtitle": "Rejoignez des milliers de marketeurs qui ont transformé leur stratégie d'influence avec Spread.",
@@ -172,11 +172,11 @@
     },
     "stats": {
       "0": {
-        "number": "98%",
+        "number": "96%",
         "label": "Taux de satisfaction client"
       },
       "1": {
-        "number": "2,847+",
+        "number": "400+",
         "label": "Marques nous font confiance"
       },
       "2": {
@@ -277,7 +277,7 @@
     "title": "Prêt à Révolutionner Votre",
     "titleHighlight": " Influence Marketing ",
     "titleEnd": "?",
-    "subtitle": "Rejoignez 2,847+ marques qui ont déjà transformé leur stratégie avec Spread. Commencez votre essai gratuit maintenant.",
+    "subtitle": "Rejoignez 400+ utilisateurs qui ont déjà transformé leur stratégie avec Spread. Commencez votre essai gratuit maintenant.",
     "urgency": {
       "offer": "🔥 Offre spéciale : 20% de réduction sur votre première année !",
       "brands": "marketeurs nous font déjà confiance",
