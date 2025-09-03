@@ -44,9 +44,9 @@ export default function MessagingAnimation() {
       influencer: 'Sophie Lifestyle',
       avatar: 'SL',
       platform: 'TikTok',
-      status: 'draft',
-      lastMessage: 'Brouillon : Salut Sophie, votre contenu nous inspire...',
-      time: 'Brouillon',
+      status: 'pending',
+      lastMessage: 'En attente de réponse...',
+      time: '1h',
       isStarred: false,
       responseRate: 88
     }
@@ -214,8 +214,8 @@ export default function MessagingAnimation() {
 
         {/* CTA */}
         <div className="mt-6">
-          <button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm hover:from-blue-700 hover:to-indigo-700 transition-colors duration-300">
-            🚀 Gérer mes Conversations
+          <button className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 rounded-xl font-semibold text-sm hover:from-purple-700 hover:to-indigo-700 transition-colors duration-300">
+            🚀 Contacter mes Créateurs
           </button>
         </div>
       </div>
