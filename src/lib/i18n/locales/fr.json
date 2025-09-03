@@ -249,7 +249,7 @@
           "Tout du plan Pro",
           "API personnalisée",
           "Formation dédiée",
-          "Support téléphonique 24/7"
+          "Support téléphonique 5/7 de 9 à 18h"
         ],
         "cta": "Contactez-nous"
       }
@@ -594,7 +594,7 @@
     "title": "Support Client",
     "subtitle": "Nous sommes là pour vous aider à réussir avec Spread",
     "backToHome": "Retour à l'accueil",
-    "available": "24h/24, 7j/7 disponible",
+    "available": "5j/7 de 9h à 18h disponible",
     "languages": "Support en français, anglais et néerlandais",
     "contact": "Contact",
     "channelsSection": {
@@ -622,7 +622,7 @@
       "title": "Support d'Urgence",
       "subtitle": "Pour les problèmes critiques affectant votre activité",
       "phone": "Téléphone d'Urgence",
-      "phoneHours": "24h/24 pour clients Enterprise",
+      "phoneHours": "5j/7 de 9h à 18h pour clients Enterprise",
       "email": "E-mail d'Urgence",
       "emailResponse": "Réponse sous 15 minutes"
     },

@@ -99,7 +99,7 @@ export default function SupportPage() {
             <div className="flex justify-center items-center space-x-8 text-sm text-green-200">
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-                <span>24h/24, 7j/7 disponible</span>
+                <span>5j/7 de 9h à 18h disponible</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-blue-400 rounded-full"></span>

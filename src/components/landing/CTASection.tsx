@@ -154,7 +154,7 @@ export default function CTASection() {
             </div>
             <div className="flex items-center text-purple-200">
               <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
-              <span className="text-sm">Support français 7j/7</span>
+              <span className="text-sm">Support français 5j/7 de 9h à 18h</span>
             </div>
           </div>
         </div>

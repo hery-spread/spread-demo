@@ -62,7 +62,7 @@ export default function PricingPreview() {
         "Contacts d'influenceurs illimités",
         'Rapports de campagne illimités',
         'API access',
-        'Support dédié 24/7',
+        'Support dédié 5/7 de 9h à 18h',
       ],
       cta: 'Contactez-nous',
       color: 'indigo',

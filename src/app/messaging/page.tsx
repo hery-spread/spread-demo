@@ -7,7 +7,6 @@ import SocialProofSection from '@/components/landing/SocialProofSection';
 import PricingPreview from '@/components/landing/PricingPreview';
 import FAQSection from '@/components/landing/FAQSection';
 import CTASection from '@/components/landing/CTASection';
-import TrustIndicators from '@/components/landing/TrustIndicators';
 import Footer from '@/components/landing/Footer';
 import SEOHead from '@/components/layout/SEOHead';
 
@@ -47,9 +46,6 @@ export default function MessagingPage() {
 
       {/* Call to Action Section */}
       <CTASection />
-
-      {/* Trust Indicators */}
-      <TrustIndicators />
 
       {/* Footer */}
       <Footer />
