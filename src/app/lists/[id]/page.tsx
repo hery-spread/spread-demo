@@ -7,7 +7,19 @@ import ListHeader from '@/components/lists/ListHeader';
 import ContactsTable from '@/components/lists/ContactsTable';
 import SelectionPreview from '@/components/lists/SelectionPreview';
 import BulkEmailModal from '@/components/lists/BulkEmailModal';
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import ShareListModal from '@/components/lists/ShareListModal';
+import {
+  ArrowLeftIcon,
+  LinkIcon,
+  EyeIcon,
+  ChartBarIcon,
+  ClipboardIcon,
+} from '@heroicons/react/24/outline';
+import {
+  CheckCircleIcon as CheckCircleIconSolid,
+  XCircleIcon as XCircleIconSolid,
+  ChatBubbleLeftIcon as ChatBubbleLeftIconSolid,
+} from '@heroicons/react/24/solid';
 import { InfluencerList, InfluencerContact } from '@/types';
 import {
   getUserListById,
@@ -25,6 +37,9 @@ export default function ListDetailPage() {
   // Nouveaux états pour la sélection
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
   const [showBulkEmailModal, setShowBulkEmailModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [activeShareLink, setActiveShareLink] = useState<string | null>(null);
+  const [showShareInfo, setShowShareInfo] = useState(false);
 
   const loadList = useCallback(async () => {
     try {
@@ -49,6 +64,15 @@ export default function ListDetailPage() {
     loadList();
   }, [loadList]);
 
+  // Simuler un lien de partage actif pour la démo
+  useEffect(() => {
+    if (list) {
+      const mockShareLink = `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/share/list/demo_${list.id}_2025`;
+      setActiveShareLink(mockShareLink);
+      setShowShareInfo(true);
+    }
+  }, [list]);
+
   const handleEditList = () => {
     // TODO: Implémenter la modification de liste
     console.log('Modifier la liste:', list?.name);
@@ -72,8 +96,17 @@ export default function ListDetailPage() {
   };
 
   const handleShareList = () => {
-    // TODO: Implémenter le partage de liste
-    console.log('Partager la liste:', list?.name);
+    setShowShareModal(true);
+  };
+
+  const copyShareLink = async () => {
+    if (!activeShareLink) return;
+    try {
+      await navigator.clipboard.writeText(activeShareLink);
+      alert('Lien copié !');
+    } catch (error) {
+      console.error('Erreur lors de la copie:', error);
+    }
   };
 
   const handleAddInfluencer = () => {
@@ -186,7 +219,85 @@ export default function ListDetailPage() {
         onDelete={handleDeleteList}
         onShare={handleShareList}
         onAddInfluencer={handleAddInfluencer}
+        onViewShareResults={() =>
+          router.push(`/lists/${list.id}/share-results`)
+        }
       />
+
+      {/* Section Partage Actif */}
+      {showShareInfo && activeShareLink && (
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-2xl p-6 shadow-sm">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center">
+                <LinkIcon className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">
+                  Liste partagée active
+                </h3>
+                <p className="text-sm text-purple-700">
+                  Votre liste de casting est accessible publiquement
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Lien de partage */}
+          <div className="bg-white rounded-lg p-4 mb-4">
+            <label className="text-xs font-medium text-gray-600 mb-2 block">
+              Lien de partage
+            </label>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                value={activeShareLink}
+                readOnly
+                className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm font-mono"
+              />
+              <Button
+                onClick={copyShareLink}
+                size="sm"
+                variant="outline"
+                className="flex items-center space-x-1"
+              >
+                <ClipboardIcon className="w-4 h-4" />
+                <span>Copier</span>
+              </Button>
+              <Button
+                onClick={() => window.open(activeShareLink, '_blank')}
+                size="sm"
+                className="bg-purple-600 hover:bg-purple-700"
+              >
+                Ouvrir
+              </Button>
+            </div>
+          </div>
+
+          {/* Indicateur de réponse */}
+          <div className="bg-white rounded-lg p-4">
+            <div className="flex items-center justify-center space-x-2">
+              <EyeIcon className="w-5 h-5 text-gray-400" />
+              <span className="text-sm text-gray-600">
+                <span className="font-semibold text-gray-900">{Math.floor(Math.random() * 50) + 15}</span> vues • 
+                <span className="font-semibold text-gray-900 ml-2">En attente de feedback</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Bouton pour voir les détails */}
+          <div className="mt-4">
+            <Button
+              onClick={() => router.push(`/lists/${list.id}/share-results`)}
+              variant="outline"
+              className="w-full border-purple-300 text-purple-700 hover:bg-white"
+            >
+              <ChartBarIcon className="w-4 h-4 mr-2" />
+              Voir le classement détaillé des créateurs
+            </Button>
+          </div>
+        </div>
+      )}
 
       {/* Aperçu de la sélection avec actions rapides */}
       {list.influencers.length > 0 && (
@@ -216,6 +327,13 @@ export default function ListDetailPage() {
         listName={list.name}
         selectedContacts={selectedContacts}
         onSelectionChange={handleSelectionChange}
+      />
+
+      {/* Share List Modal */}
+      <ShareListModal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        list={list}
       />
     </div>
   );

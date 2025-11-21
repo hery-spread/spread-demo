@@ -205,6 +205,52 @@ export interface CampaignShareStats {
   geographicViews: { country: string; views: number }[];
 }
 
+// Types pour le partage de listes avec votes
+export interface SharedList {
+  id: string;
+  listId: string;
+  shareType: 'public' | 'private';
+  createdAt: string;
+  expiresAt?: string;
+  password?: string;
+  viewCount: number;
+  lastViewedAt?: string;
+  allowVotes: boolean;
+  allowComments: boolean;
+  trackingEnabled: boolean;
+}
+
+export interface ListVote {
+  influencerId: string;
+  voteType: 'up' | 'down';
+  votedAt: string;
+  voterFingerprint: string; // Hash du navigateur pour éviter votes multiples
+}
+
+export interface ListComment {
+  id: string;
+  influencerId: string;
+  comment: string;
+  createdAt: string;
+  voterFingerprint: string;
+}
+
+export interface ListShareStats {
+  totalViews: number;
+  totalVotes: number;
+  goVotes: number;
+  noGoVotes: number;
+  discussVotes: number;
+  votesByInfluencer: { 
+    influencerId: string; 
+    go: number; 
+    noGo: number; 
+    discuss: number;
+    comments: string[];
+  }[];
+  comments: ListComment[];
+}
+
 // Types pour l'onboarding
 export interface OnboardingData {
   step: number;

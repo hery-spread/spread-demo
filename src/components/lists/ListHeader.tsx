@@ -11,6 +11,7 @@ import {
   CalendarIcon,
   TagIcon,
   EnvelopeIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline';
 import { InfluencerList } from '@/types';
 import ExportModal from './ExportModal';
@@ -24,6 +25,7 @@ interface ListHeaderProps {
   onDelete: () => void;
   onShare: () => void;
   onAddInfluencer: () => void;
+  onViewShareResults?: () => void;
 }
 
 export default function ListHeader({
@@ -32,6 +34,7 @@ export default function ListHeader({
   onDelete,
   onShare,
   onAddInfluencer,
+  onViewShareResults,
 }: ListHeaderProps) {
   const [showActions, setShowActions] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
@@ -182,7 +185,7 @@ export default function ListHeader({
               </Button>
 
               {showActions && (
-                <div className="absolute right-0 top-10 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
+                <div className="absolute right-0 top-10 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
                   <button
                     onClick={() => {
                       onShare();
@@ -193,6 +196,19 @@ export default function ListHeader({
                     <ShareIcon className="w-4 h-4" />
                     <span>Partager</span>
                   </button>
+
+                  {onViewShareResults && (
+                    <button
+                      onClick={() => {
+                        onViewShareResults();
+                        setShowActions(false);
+                      }}
+                      className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-purple-700 hover:bg-purple-50"
+                    >
+                      <ChartBarIcon className="w-4 h-4" />
+                      <span>Résultats des votes</span>
+                    </button>
+                  )}
 
                   <div className="border-t border-gray-100 my-1"></div>
 
