@@ -355,7 +355,6 @@ export default function SharedListPage() {
               {list.influencers.map((inf) => {
                 const influencer = inf as InfluencerWithProfile;
                 const userVote = votes[influencer.id];
-                const userComment = comments[influencer.id];
 
                 return (
                   <div

@@ -15,11 +15,6 @@ import {
   ChartBarIcon,
   ClipboardIcon,
 } from '@heroicons/react/24/outline';
-import {
-  CheckCircleIcon as CheckCircleIconSolid,
-  XCircleIcon as XCircleIconSolid,
-  ChatBubbleLeftIcon as ChatBubbleLeftIconSolid,
-} from '@heroicons/react/24/solid';
 import { InfluencerList, InfluencerContact } from '@/types';
 import {
   getUserListById,

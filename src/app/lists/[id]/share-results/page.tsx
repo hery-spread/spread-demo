@@ -6,13 +6,15 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
   ArrowLeftIcon,
-  HandThumbUpIcon,
-  HandThumbDownIcon,
   EyeIcon,
   UserGroupIcon,
-  ChartBarIcon,
   ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline';
+import {
+  CheckCircleIcon as CheckCircleIconSolid,
+  XCircleIcon as XCircleIconSolid,
+  ChatBubbleLeftIcon as ChatBubbleLeftIconSolid,
+} from '@heroicons/react/24/solid';
 import { InfluencerList, ListShareStats } from '@/types';
 import { getUserListById } from '@/lib/mockData';
 
@@ -122,66 +124,11 @@ export default function ShareResultsPage() {
         </div>
       </div>
 
-      {/* Statistiques globales */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <div className="flex items-center justify-center mb-2">
-            <EyeIcon className="w-5 h-5 text-gray-400 mr-2" />
-            <span className="text-3xl font-bold text-gray-900">
-              {stats.totalViews}
-            </span>
-          </div>
-          <p className="text-sm text-gray-600 text-center">Vues totales</p>
-        </div>
-
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <div className="flex items-center justify-center mb-2">
-            <ChartBarIcon className="w-5 h-5 text-gray-400 mr-2" />
-            <span className="text-3xl font-bold text-gray-900">
-              {stats.totalVotes}
-            </span>
-          </div>
-          <p className="text-sm text-gray-600 text-center">Votes totaux</p>
-        </div>
-
-        <div className="bg-green-50 rounded-2xl p-6 border border-green-200 shadow-sm">
-          <div className="flex items-center justify-center mb-2">
-            <HandThumbUpIcon className="w-5 h-5 text-green-500 mr-2" />
-            <span className="text-3xl font-bold text-green-700">
-              {stats.goVotes}
-            </span>
-          </div>
-          <p className="text-sm text-green-600 text-center font-medium">Go</p>
-        </div>
-
-        <div className="bg-red-50 rounded-2xl p-6 border border-red-200 shadow-sm">
-          <div className="flex items-center justify-center mb-2">
-            <HandThumbDownIcon className="w-5 h-5 text-red-500 mr-2" />
-            <span className="text-3xl font-bold text-red-700">
-              {stats.noGoVotes}
-            </span>
-          </div>
-          <p className="text-sm text-red-600 text-center font-medium">No Go</p>
-        </div>
-
-        <div className="bg-orange-50 rounded-2xl p-6 border border-orange-200 shadow-sm">
-          <div className="flex items-center justify-center mb-2">
-            <ChartBarIcon className="w-5 h-5 text-orange-500 mr-2" />
-            <span className="text-3xl font-bold text-orange-700">
-              {stats.discussVotes}
-            </span>
-          </div>
-          <p className="text-sm text-orange-600 text-center font-medium">
-            À discuter
-          </p>
-        </div>
-      </div>
-
-      {/* Votes des créateurs */}
+      {/* Feedback des créateurs */}
       <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
         <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
           <UserGroupIcon className="w-5 h-5" />
-          <span>Votes par créateur</span>
+          <span>Feedback par créateur</span>
         </h2>
 
         <div className="space-y-4">
