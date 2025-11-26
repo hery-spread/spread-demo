@@ -14,6 +14,7 @@ import {
   EyeIcon,
   ChartBarIcon,
   ClipboardIcon,
+  ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline';
 import { InfluencerList, InfluencerContact } from '@/types';
 import {
@@ -219,77 +220,56 @@ export default function ListDetailPage() {
         }
       />
 
-      {/* Section Partage Actif */}
+      {/* Section Partage Actif - Compact */}
       {showShareInfo && activeShareLink && (
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-2xl p-6 shadow-sm">
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center">
-                <LinkIcon className="w-5 h-5 text-white" />
+        <div className="bg-white border border-purple-200/60 rounded-lg p-3">
+          <div className="flex items-center justify-between gap-3">
+            {/* Info + Link */}
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <div className="w-7 h-7 bg-purple-100 rounded-md flex items-center justify-center flex-shrink-0">
+                <LinkIcon className="w-3.5 h-3.5 text-purple-600" />
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">
-                  Liste partagée active
-                </h3>
-                <p className="text-sm text-purple-700">
-                  Votre liste de casting est accessible publiquement
-                </p>
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <span className="text-xs font-medium text-purple-600 whitespace-nowrap">
+                  Lien actif
+                </span>
+                <input
+                  type="text"
+                  value={activeShareLink}
+                  readOnly
+                  className="flex-1 min-w-0 px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs font-mono text-gray-600 truncate"
+                />
               </div>
             </div>
-          </div>
 
-          {/* Lien de partage */}
-          <div className="bg-white rounded-lg p-4 mb-4">
-            <label className="text-xs font-medium text-gray-600 mb-2 block">
-              Lien de partage
-            </label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={activeShareLink}
-                readOnly
-                className="flex-1 px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm font-mono"
-              />
-              <Button
-                onClick={copyShareLink}
-                size="sm"
-                variant="outline"
-                className="flex items-center space-x-1"
-              >
-                <ClipboardIcon className="w-4 h-4" />
-                <span>Copier</span>
-              </Button>
-              <Button
-                onClick={() => window.open(activeShareLink, '_blank')}
-                size="sm"
-                className="bg-purple-600 hover:bg-purple-700"
-              >
-                Ouvrir
-              </Button>
-            </div>
-          </div>
-
-          {/* Indicateur de réponse */}
-          <div className="bg-white rounded-lg p-4">
-            <div className="flex items-center justify-center space-x-2">
-              <EyeIcon className="w-5 h-5 text-gray-400" />
-              <span className="text-sm text-gray-600">
-                <span className="font-semibold text-gray-900">{Math.floor(Math.random() * 50) + 15}</span> vues • 
-                <span className="font-semibold text-gray-900 ml-2">En attente de feedback</span>
+            {/* Actions */}
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              <span className="text-xs text-gray-500 flex items-center gap-1">
+                <EyeIcon className="w-3.5 h-3.5" />
+                {Math.floor(Math.random() * 50) + 15}
               </span>
+              <button
+                onClick={copyShareLink}
+                className="h-7 w-7 p-0 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+                title="Copier le lien"
+              >
+                <ClipboardIcon className="w-4 h-4 text-gray-600" />
+              </button>
+              <button
+                onClick={() => window.open(activeShareLink, '_blank')}
+                className="h-7 w-7 p-0 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+                title="Ouvrir dans un nouvel onglet"
+              >
+                <ArrowTopRightOnSquareIcon className="w-4 h-4 text-gray-600" />
+              </button>
+              <button
+                onClick={() => router.push(`/lists/${list.id}/share-results`)}
+                className="h-7 px-2 flex items-center rounded-md text-xs font-medium text-purple-600 hover:bg-purple-50 transition-colors"
+              >
+                <ChartBarIcon className="w-4 h-4 mr-1" />
+                Résultats
+              </button>
             </div>
-          </div>
-
-          {/* Bouton pour voir les détails */}
-          <div className="mt-4">
-            <Button
-              onClick={() => router.push(`/lists/${list.id}/share-results`)}
-              variant="outline"
-              className="w-full border-purple-300 text-purple-700 hover:bg-white"
-            >
-              <ChartBarIcon className="w-4 h-4 mr-2" />
-              Voir le classement détaillé des créateurs
-            </Button>
           </div>
         </div>
       )}

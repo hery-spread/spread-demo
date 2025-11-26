@@ -32,6 +32,7 @@ import {
   ComputerDesktopIcon,
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
+  SparklesIcon,
 } from '@heroicons/react/24/outline';
 import {
   PlayCircleIcon as PlayCircleIconSolid,
@@ -240,6 +241,15 @@ export default function CampaignDetailPage() {
               <PlusIcon className="w-4 h-4" />
               <span>Add creators</span>
             </Button>
+            <Link href={`/search/from-campaign?campaignId=${campaignId}`}>
+              <Button
+                variant="outline"
+                className="flex items-center space-x-2 text-purple-600 border-purple-200 hover:bg-purple-50"
+              >
+                <SparklesIcon className="w-4 h-4" />
+                <span>Trouver créateurs similaires</span>
+              </Button>
+            </Link>
             <Button className="flex items-center space-x-2 bg-green-600 hover:bg-green-700">
               <CheckIcon className="w-4 h-4" />
               <span>Finish campaign</span>

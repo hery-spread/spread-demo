@@ -1145,6 +1145,352 @@ L'ensemble des fonctionnalités est conçu pour améliorer significativement l'e
 
 ---
 
+## 🔍 X. Système de Recherche Avancée Multi-Mode
+
+**Date d'ajout:** 26 novembre 2025  
+**Fichiers créés:** 15 nouveaux fichiers  
+**Fichiers modifiés:** 4 fichiers existants
+
+---
+
+### 10.1 Vue d'ensemble
+
+Extension majeure du système de recherche existant avec **2 nouveaux modes de recherche** :
+
+1. **Business DNA** : Trouver des créateurs basés sur l'ADN d'un site web
+2. **Recherche depuis Campagne** : Trouver des créateurs similaires aux top performers d'une campagne
+
+### Routes créées :
+
+```
+/search                    → Recherche avancée (existante)
+/search/business-dna       → Recherche Business DNA (NOUVEAU)
+/search/from-campaign      → Recherche depuis campagne (NOUVEAU)
+```
+
+---
+
+### 10.2 Nouveaux Types TypeScript (`src/types/index.ts`)
+
+#### Types Business DNA :
+
+```typescript
+// Business DNA - Analyse d'un site web pour trouver des créateurs pertinents
+export interface BusinessDNA {
+  id: string;
+  name: string;
+  websiteUrl: string;
+  analyzedAt: string;
+  keywords: string[];
+  categories: string[];
+  targetAudience: {
+    ageRange: string;
+    gender: string;
+    interests: string[];
+  };
+  suggestedCreatorTypes: string[];
+  description?: string;
+  logoUrl?: string;
+  lastSearchAt?: string;
+  searchCount: number;
+}
+
+// Historique des recherches Business DNA
+export interface BusinessDNASearch {
+  id: string;
+  businessDnaId: string;
+  searchedAt: string;
+  resultsCount: number;
+  filters?: AdvancedSearchFilters;
+}
+```
+
+#### Types Campaign Search :
+
+```typescript
+// Score d'un créateur dans une campagne (pour identifier les top performers)
+export interface CampaignCreatorScore {
+  creatorId: string;
+  creatorName: string;
+  creatorUsername: string;
+  creatorAvatar: string;
+  platform: 'instagram' | 'youtube' | 'tiktok';
+  roi: number; // Return on Investment (%)
+  costPerEngagement: number; // Coût par engagement (€)
+  engagementRate: number; // Taux d'engagement (%)
+  totalCost: number;
+  totalEngagements: number;
+  totalImpressions: number;
+  compositeScore: number; // Score composite (0-100)
+  performanceAttributes: string[];
+}
+
+// Résultat de recherche de créateurs similaires
+export interface SimilarCreatorResult extends Influencer {
+  similarityScore: number; // Score de similarité (0-100)
+  estimatedCost: number; // Coût estimé pour une collaboration (€)
+  predictedROI: number; // ROI prédit basé sur les top performers (%)
+  predictedEngagementRate: number;
+  matchedAttributes: string[];
+  confidenceLevel: 'high' | 'medium' | 'low';
+}
+
+// État de la recherche depuis une campagne
+export interface CampaignSearchState {
+  selectedCampaignId: string | null;
+  topPerformers: CampaignCreatorScore[];
+  similarCreators: SimilarCreatorResult[];
+  isLoadingTopPerformers: boolean;
+  isLoadingSimilar: boolean;
+  loadedCount: number;
+  totalAvailable: number;
+  budgetTarget?: number;
+}
+```
+
+---
+
+### 10.3 Mock Data et Fonctions Utilitaires (`src/lib/mockData.ts`)
+
+#### Données mockées :
+
+- **`mockBusinessDNAs`** : 4 Business DNAs pré-configurés (Beauté, Sport, Gaming, Mode éco-responsable)
+- **`mockBusinessDNASearchHistory`** : Historique des recherches
+
+#### Fonctions ajoutées :
+
+| Fonction | Description |
+|----------|-------------|
+| `analyzeWebsiteForDNA(url)` | Simule l'analyse IA d'un site web (2-4s délai) |
+| `searchCreatorsByDNA(dna)` | Recherche des créateurs basés sur l'ADN |
+| `getBusinessDNAs()` | Récupère tous les Business DNAs |
+| `getBusinessDNAById(id)` | Récupère un Business DNA par ID |
+| `saveBusinessDNA(dna)` | Sauvegarde un nouveau Business DNA |
+| `getTopPerformersFromCampaign(campaignId)` | Récupère les top performers d'une campagne |
+| `findSimilarCreators(campaignId, loadedCount, pageSize)` | Trouve des créateurs similaires avec pagination |
+| `estimateProfitabilityCost(topPerformers, targetBudget)` | Estime le coût pour atteindre la rentabilité |
+
+---
+
+### 10.4 Page Business DNA (`/search/business-dna`)
+
+**Nouveau fichier :** `src/app/search/business-dna/page.tsx`
+
+#### Fonctionnalités :
+
+- ✅ **Sidebar avec historique** des Business DNAs
+  - Liste des Business DNAs existants
+  - Filtres par catégorie
+  - Recherche textuelle
+  - Bouton "Nouveau Business DNA"
+  - Actions : relancer recherche, supprimer
+
+- ✅ **Formulaire d'analyse de site web**
+  - Input URL avec validation
+  - Animation de chargement IA élaborée
+  - Affichage des résultats d'analyse :
+    - Mots-clés extraits
+    - Catégories détectées
+    - Audience cible (âge, genre, intérêts)
+    - Types de créateurs suggérés
+  - Boutons : Sauvegarder, Lancer la recherche
+
+- ✅ **Affichage des résultats**
+  - Réutilisation de `SearchResultsTable`
+  - Stats par plateforme
+  - Sélection multiple pour export
+
+---
+
+### 10.5 Composants Business DNA (`src/components/search/business-dna/`)
+
+| Composant | Lignes | Description |
+|-----------|--------|-------------|
+| `BusinessDNASidebar.tsx` | ~150 | Sidebar avec historique et filtres |
+| `BusinessDNAForm.tsx` | ~280 | Formulaire d'analyse avec animation IA |
+| `BusinessDNAResults.tsx` | ~180 | Affichage des résultats de recherche |
+| `BusinessDNACard.tsx` | ~110 | Card pour un Business DNA sauvegardé |
+
+---
+
+### 10.6 Page Recherche depuis Campagne (`/search/from-campaign`)
+
+**Nouveau fichier :** `src/app/search/from-campaign/page.tsx`
+
+#### Fonctionnalités :
+
+- ✅ **Sélecteur de campagne**
+  - Liste des campagnes éligibles (active/completed avec créateurs)
+  - Métriques rapides (créateurs, engagements, ROI)
+  - Indicateur de sélection visuel
+  - Support du paramètre URL `?campaignId=xxx`
+
+- ✅ **Panel Top Performers**
+  - Les 5 meilleurs créateurs par score composite
+  - Métriques : ROI, coût/engagement, ER
+  - Badges des attributs de performance
+  - Classement avec médailles (🥇🥈🥉)
+
+- ✅ **Grille de créateurs similaires**
+  - Pagination : 3 premiers, puis 10 par 10
+  - Score de similarité (%)
+  - ROI et coût estimés
+  - Niveau de confiance (high/medium/low)
+  - Attributs matchés
+  - Actions : Voir profil, Ajouter à liste
+
+- ✅ **Estimateur de rentabilité**
+  - Sélection du budget cible (slider + boutons prédéfinis)
+  - Estimations : créateurs, impressions, engagements, ROI
+  - Indicateur de seuil de rentabilité
+  - Barre de progression visuelle
+
+---
+
+### 10.7 Composants Campaign Search (`src/components/search/from-campaign/`)
+
+| Composant | Lignes | Description |
+|-----------|--------|-------------|
+| `CampaignSelector.tsx` | ~160 | Sélecteur de campagne avec métriques |
+| `TopPerformersPanel.tsx` | ~180 | Panel des top performers avec scores |
+| `SimilarCreatorsResults.tsx` | ~270 | Grille de créateurs similaires paginée |
+| `CostEstimator.tsx` | ~170 | Estimateur de rentabilité avec slider |
+
+---
+
+### 10.8 Composant SearchModeSelector (`src/components/search/SearchModeSelector.tsx`)
+
+**Nouveau composant** pour la navigation entre les 3 modes de recherche.
+
+#### Caractéristiques :
+
+- ✅ Tabs/Pills avec icônes distinctives
+- ✅ Mode actif highlighté
+- ✅ Navigation via Next.js Link
+- ✅ Affiché en haut de chaque page de recherche
+
+#### Modes :
+
+| Mode | Route | Icône | Description |
+|------|-------|-------|-------------|
+| Recherche avancée | `/search` | 🔍 MagnifyingGlassIcon | Filtres détaillés |
+| Business DNA | `/search/business-dna` | 🌐 GlobeAltIcon | Analyse de site web |
+| Depuis campagne | `/search/from-campaign` | ✨ SparklesIcon | Créateurs similaires |
+
+---
+
+### 10.9 Modification de la Sidebar (`src/components/layout/Sidebar.tsx`)
+
+#### Ajouts :
+
+- ✅ **Sous-menu dépliable** pour la section Recherche
+- ✅ **3 sous-items** :
+  - Recherche avancée → `/search`
+  - Business DNA → `/search/business-dna`
+  - Depuis campagne → `/search/from-campaign`
+- ✅ **Chevron animé** pour indiquer l'état ouvert/fermé
+- ✅ **Auto-expansion** si on est sur une page de recherche
+- ✅ **Design cohérent** avec le reste de la sidebar
+
+---
+
+### 10.10 Bouton "Trouver créateurs similaires" (`src/app/campagnes/[id]/page.tsx`)
+
+#### Ajout :
+
+- ✅ **Nouveau bouton** dans la section Actions de la page détail campagne
+- ✅ Icône `SparklesIcon` (violet)
+- ✅ Redirige vers `/search/from-campaign?campaignId=xxx`
+- ✅ Style cohérent avec les autres boutons d'action
+
+---
+
+### 10.11 Points d'Accès à la Recherche depuis Campagne
+
+1. **Via la sidebar** → Recherche → Depuis campagne
+2. **Via la page campagne détail** → bouton "Trouver créateurs similaires"
+3. **Via URL directe** avec paramètre : `/search/from-campaign?campaignId=xxx`
+
+---
+
+### 10.12 Fichiers Créés/Modifiés
+
+#### Nouveaux fichiers (15) :
+
+```
+src/app/search/business-dna/page.tsx
+src/app/search/from-campaign/page.tsx
+src/components/search/business-dna/BusinessDNASidebar.tsx
+src/components/search/business-dna/BusinessDNAForm.tsx
+src/components/search/business-dna/BusinessDNAResults.tsx
+src/components/search/business-dna/BusinessDNACard.tsx
+src/components/search/from-campaign/CampaignSelector.tsx
+src/components/search/from-campaign/TopPerformersPanel.tsx
+src/components/search/from-campaign/SimilarCreatorsResults.tsx
+src/components/search/from-campaign/CostEstimator.tsx
+src/components/search/SearchModeSelector.tsx
+```
+
+#### Fichiers modifiés (4) :
+
+```
+src/types/index.ts                    → +70 lignes (nouveaux types)
+src/lib/mockData.ts                   → +400 lignes (mock data et fonctions)
+src/components/layout/Sidebar.tsx     → +150 lignes (sous-menu Recherche)
+src/app/campagnes/[id]/page.tsx       → +10 lignes (bouton créateurs similaires)
+```
+
+---
+
+### 10.13 Design System Appliqué
+
+- ✅ **Gradient principal** Indigo → Violet pour les headers
+- ✅ **Glassmorphism** subtil (`bg-white/80 backdrop-blur-xl`)
+- ✅ **Animations de chargement** pour l'analyse Business DNA
+- ✅ **Badges colorés** pour les attributs matchés
+- ✅ **Cards interactives** avec effets hover
+- ✅ **Indicateurs de confiance** (vert/jaune/gris)
+- ✅ **Layouts responsives** 1/2/3 colonnes
+
+---
+
+### 10.14 Valeur Ajoutée
+
+#### Pour les Agences :
+
+- ✅ **Gain de temps** : Trouver des créateurs pertinents automatiquement à partir d'un site web
+- ✅ **Optimisation ROI** : Identifier et répliquer les profils de créateurs performants
+- ✅ **Prédictions** : Estimer le coût et ROI avant de contacter un créateur
+- ✅ **Historique** : Sauvegarder et réutiliser les analyses Business DNA
+
+#### Pour les Marques :
+
+- ✅ **Cohérence** : Créateurs alignés avec l'ADN de la marque
+- ✅ **Scaling** : Répliquer le succès des campagnes précédentes
+- ✅ **Budget** : Optimiser les dépenses grâce aux estimations
+
+---
+
+## 🎉 Conclusion Mise à Jour
+
+Ce commit représente une **évolution majeure** de l'application avec maintenant **trois systèmes clés** :
+
+1. **Système de partage collaboratif** permettant de collecter efficacement les avis sur les castings
+2. **Rapports de campagne enrichis** offrant une navigation intuitive et une personnalisation poussée
+3. **Recherche avancée multi-mode** avec Business DNA et recherche depuis campagne (NOUVEAU)
+
+### Bilan global :
+
+- 📊 **50% d'implémentation** des 9 fonctionnalités du cahier des charges initial
+- ✅ **2 fonctionnalités complètes à 100%**
+- 🟡 **4 fonctionnalités partielles** (nécessitent des compléments)
+- 🎁 **7 fonctionnalités bonus** non demandées mais à forte valeur ajoutée (+3 avec le nouveau système de recherche)
+
+L'ensemble des fonctionnalités est conçu pour améliorer significativement l'expérience utilisateur tant pour les créateurs d'agence que pour leurs clients/collaborateurs. Le **socle technique est solide** et permet d'ajouter facilement les fonctionnalités manquantes en itérations successives.
+
+---
+
 **Développé le 21 novembre 2025**  
-**Commit:** `48b3a6d`  
+**Mise à jour : 26 novembre 2025**  
+**Commit initial:** `48b3a6d`  
 **Prochaine mise à jour prévue :** Phase 1 Quick Wins

@@ -12,6 +12,7 @@ import {
   LinkIcon,
   CalendarDaysIcon,
   EyeIcon,
+  FolderIcon,
 } from '@heroicons/react/24/outline';
 import {
   PlayCircleIcon as PlayCircleIconSolid,
@@ -19,9 +20,16 @@ import {
   CheckCircleIcon as CheckCircleIconSolid,
   DocumentTextIcon,
 } from '@heroicons/react/24/solid';
-import { CampaignTracker } from '@/types';
-import { getAdvancedCampaigns, createCampaign } from '@/lib/mockData';
+import { CampaignTracker, CampaignFolder } from '@/types';
+import {
+  getAdvancedCampaigns,
+  createCampaign,
+  getCampaignFolders,
+  createFolder,
+} from '@/lib/mockData';
 import CreateCampaignModal from '@/components/campaigns/CreateCampaignModal';
+import FolderSidebar from '@/components/campaigns/FolderSidebar';
+import CreateFolderModal from '@/components/campaigns/CreateFolderModal';
 
 // Fonction pour obtenir l'icône du statut
 const getStatusIcon = (status: CampaignTracker['status']) => {
@@ -77,34 +85,55 @@ const getStatusColors = (status: CampaignTracker['status']) => {
 
 export default function SimpleCampaignsPage() {
   const [campaigns, setCampaigns] = useState<CampaignTracker[]>([]);
+  const [folders, setFolders] = useState<CampaignFolder[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
 
-  // Charger les campagnes
+  // Charger les campagnes et les dossiers
   useEffect(() => {
-    const loadCampaigns = async () => {
+    const loadData = async () => {
       try {
-        const data = await getAdvancedCampaigns();
-        setCampaigns(data);
+        const [campaignsData, foldersData] = await Promise.all([
+          getAdvancedCampaigns(),
+          getCampaignFolders(),
+        ]);
+        setCampaigns(campaignsData);
+        setFolders(foldersData);
       } catch (error) {
-        console.error('Erreur lors du chargement des campagnes:', error);
+        console.error('Erreur lors du chargement des données:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    loadCampaigns();
+    loadData();
   }, []);
 
-  // Filtrer les campagnes
+  // Filtrer les campagnes par dossier et recherche
   const filteredCampaigns = campaigns.filter((campaign) => {
-    if (!searchQuery.trim()) return true;
-    return (
-      campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      campaign.description?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // Filtre par dossier
+    if (selectedFolderId !== null && campaign.folderId !== selectedFolderId) {
+      return false;
+    }
+
+    // Filtre par recherche
+    if (searchQuery.trim()) {
+      return (
+        campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        campaign.description?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return true;
   });
+
+  // Obtenir le nom du dossier sélectionné
+  const selectedFolder = selectedFolderId
+    ? folders.find((f) => f.id === selectedFolderId)
+    : null;
 
   // Créer une nouvelle campagne
   const handleCreateCampaign = async (campaignData: {
@@ -112,8 +141,22 @@ export default function SimpleCampaignsPage() {
     description: string;
     links: { url: string; label?: string; budget?: number }[];
     platforms: string[];
+    manualContents?: unknown[];
+    importedPosts?: unknown[];
+    folderId: string | null;
   }) => {
     try {
+      // Log des contenus ajoutés (pour démo)
+      if (campaignData.manualContents?.length) {
+        console.log(
+          '📝 Contenus manuels ajoutés:',
+          campaignData.manualContents
+        );
+      }
+      if (campaignData.importedPosts?.length) {
+        console.log('🔄 Posts importés via Apify:', campaignData.importedPosts);
+      }
+
       const newCampaign = await createCampaign({
         name: campaignData.name,
         description: campaignData.description,
@@ -132,12 +175,29 @@ export default function SimpleCampaignsPage() {
         },
         creators: [],
         totalBudget: 0,
+        folderId: campaignData.folderId, // Utiliser le dossier choisi dans le formulaire
       });
 
       setCampaigns((prev) => [newCampaign, ...prev]);
     } catch (error) {
       console.error('Erreur lors de la création de la campagne:', error);
       alert('Erreur lors de la création de la campagne');
+    }
+  };
+
+  // Créer un nouveau dossier
+  const handleCreateFolder = async (folderData: {
+    name: string;
+    description?: string;
+    clientName?: string;
+    color: string;
+  }) => {
+    try {
+      const newFolder = await createFolder(folderData);
+      setFolders((prev) => [...prev, newFolder]);
+    } catch (error) {
+      console.error('Erreur lors de la création du dossier:', error);
+      alert('Erreur lors de la création du dossier');
     }
   };
 
@@ -149,13 +209,20 @@ export default function SimpleCampaignsPage() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-6"></div>
-          <div className="space-y-4">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
-            ))}
+      <div className="flex gap-6">
+        {/* Skeleton sidebar */}
+        <div className="w-64 flex-shrink-0">
+          <div className="animate-pulse bg-gray-200 rounded-2xl h-96"></div>
+        </div>
+        {/* Skeleton content */}
+        <div className="flex-1 space-y-6">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 rounded w-1/3 mb-6"></div>
+            <div className="space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-32 bg-gray-200 rounded-2xl"></div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -163,261 +230,362 @@ export default function SimpleCampaignsPage() {
   }
 
   return (
-    <div className="space-y-8 max-w-6xl">
-      {/* Header simple */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/25">
-              <MegaphoneIcon className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Campagnes</h1>
-              <p className="text-gray-600 mt-1">
-                Gérez vos campagnes de tracking d&apos;influence
-              </p>
-            </div>
-          </div>
-          <Button
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center space-x-2"
-          >
-            <PlusIcon className="w-5 h-5" />
-            <span>Nouvelle campagne</span>
-          </Button>
-        </div>
+    <div className="flex gap-6">
+      {/* Sidebar des dossiers */}
+      <FolderSidebar
+        folders={folders}
+        campaigns={campaigns}
+        selectedFolderId={selectedFolderId}
+        onSelectFolder={setSelectedFolderId}
+        onCreateFolder={() => setShowCreateFolderModal(true)}
+      />
 
-        {/* Statistiques simples */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-green-700 text-sm font-medium">
-                  Campagnes actives
-                </p>
-                <p className="text-2xl font-bold text-green-800">
-                  {campaigns.filter((c) => c.status === 'active').length}
-                </p>
+      {/* Contenu principal */}
+      <div className="flex-1 space-y-6">
+        {/* Header */}
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center space-x-4">
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+                style={{
+                  background: selectedFolder?.color
+                    ? `linear-gradient(135deg, ${selectedFolder.color} 0%, ${selectedFolder.color}dd 100%)`
+                    : 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+                  boxShadow: selectedFolder?.color
+                    ? `0 10px 15px -3px ${selectedFolder.color}40`
+                    : '0 10px 15px -3px rgba(139, 92, 246, 0.25)',
+                }}
+              >
+                {selectedFolder ? (
+                  <FolderIcon className="w-6 h-6 text-white" />
+                ) : (
+                  <MegaphoneIcon className="w-6 h-6 text-white" />
+                )}
               </div>
-              <PlayCircleIconSolid className="w-8 h-8 text-green-500" />
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200/30">
-            <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-700 text-sm font-medium">
-                  Total campagnes
-                </p>
-                <p className="text-2xl font-bold text-blue-800">
-                  {campaigns.length}
-                </p>
-              </div>
-              <MegaphoneIcon className="w-8 h-8 text-blue-500" />
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200/30">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-purple-700 text-sm font-medium">
-                  Total impressions
-                </p>
-                <p className="text-2xl font-bold text-purple-800">
-                  {formatNumber(
-                    campaigns.reduce(
-                      (sum, c) => sum + c.analytics.reach.totalImpressions,
-                      0
-                    )
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {selectedFolder
+                    ? selectedFolder.name
+                    : 'Toutes les campagnes'}
+                </h1>
+                <p className="text-gray-600 text-sm mt-0.5">
+                  {selectedFolder ? (
+                    <>
+                      {selectedFolder.clientName && (
+                        <span className="text-gray-500">
+                          {selectedFolder.clientName} •{' '}
+                        </span>
+                      )}
+                      {filteredCampaigns.length} campagne
+                      {filteredCampaigns.length !== 1 ? 's' : ''}
+                    </>
+                  ) : (
+                    `${campaigns.length} campagne${campaigns.length !== 1 ? 's' : ''} au total`
                   )}
                 </p>
               </div>
-              <EyeIcon className="w-8 h-8 text-purple-500" />
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Recherche */}
-      {campaigns.length > 0 && (
-        <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
-          <div className="relative max-w-md">
-            <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Rechercher une campagne..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Liste des campagnes */}
-      {filteredCampaigns.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="text-6xl mb-4">📢</div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            {campaigns.length === 0
-              ? 'Aucune campagne créée'
-              : 'Aucune campagne trouvée'}
-          </h3>
-          <p className="text-gray-600 mb-6">
-            {campaigns.length === 0
-              ? 'Créez votre première campagne pour commencer le tracking'
-              : 'Essayez de modifier votre recherche'}
-          </p>
-          {campaigns.length === 0 && (
             <Button
               onClick={() => setShowCreateModal(true)}
               className="flex items-center space-x-2"
             >
-              <PlusIcon className="w-4 h-4" />
-              <span>Créer ma première campagne</span>
+              <PlusIcon className="w-5 h-5" />
+              <span>Nouvelle campagne</span>
             </Button>
-          )}
+          </div>
+
+          {/* Statistiques */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-700 text-sm font-medium">
+                    Campagnes actives
+                  </p>
+                  <p className="text-2xl font-bold text-green-800">
+                    {
+                      filteredCampaigns.filter((c) => c.status === 'active')
+                        .length
+                    }
+                  </p>
+                </div>
+                <PlayCircleIconSolid className="w-8 h-8 text-green-500" />
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-700 text-sm font-medium">
+                    {selectedFolder ? 'Dans ce dossier' : 'Total campagnes'}
+                  </p>
+                  <p className="text-2xl font-bold text-blue-800">
+                    {filteredCampaigns.length}
+                  </p>
+                </div>
+                {selectedFolder ? (
+                  <FolderIcon className="w-8 h-8 text-blue-500" />
+                ) : (
+                  <MegaphoneIcon className="w-8 h-8 text-blue-500" />
+                )}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-700 text-sm font-medium">
+                    Total impressions
+                  </p>
+                  <p className="text-2xl font-bold text-purple-800">
+                    {formatNumber(
+                      filteredCampaigns.reduce(
+                        (sum, c) => sum + c.analytics.reach.totalImpressions,
+                        0
+                      )
+                    )}
+                  </p>
+                </div>
+                <EyeIcon className="w-8 h-8 text-purple-500" />
+              </div>
+            </div>
+          </div>
         </div>
-      ) : (
-        <div className="space-y-4">
-          {filteredCampaigns.map((campaign) => (
-            <div
-              key={campaign.id}
-              className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200"
-            >
-              {/* Header de la campagne */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <Link
-                      href={`/campagnes/${campaign.id}`}
-                      className="text-xl font-bold text-gray-900 hover:text-purple-600 transition-colors"
-                    >
-                      {campaign.name}
-                    </Link>
-                    <div className="flex items-center space-x-2">
-                      {getStatusIcon(campaign.status)}
-                      <span
-                        className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColors(campaign.status)}`}
-                      >
-                        {getStatusText(campaign.status)}
-                      </span>
+
+        {/* Recherche */}
+        {campaigns.length > 0 && (
+          <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-gray-200/50">
+            <div className="relative max-w-md">
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Input
+                type="text"
+                placeholder={
+                  selectedFolder
+                    ? `Rechercher dans ${selectedFolder.name}...`
+                    : 'Rechercher une campagne...'
+                }
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Liste des campagnes */}
+        {filteredCampaigns.length === 0 ? (
+          <div className="text-center py-12 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50">
+            <div className="text-6xl mb-4">{selectedFolder ? '📁' : '📢'}</div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {campaigns.length === 0
+                ? 'Aucune campagne créée'
+                : selectedFolder
+                  ? `Aucune campagne dans "${selectedFolder.name}"`
+                  : 'Aucune campagne trouvée'}
+            </h3>
+            <p className="text-gray-600 mb-6">
+              {campaigns.length === 0
+                ? 'Créez votre première campagne pour commencer le tracking'
+                : selectedFolder
+                  ? 'Créez une nouvelle campagne dans ce dossier'
+                  : 'Essayez de modifier votre recherche'}
+            </p>
+            {(campaigns.length === 0 || selectedFolder) && (
+              <Button
+                onClick={() => setShowCreateModal(true)}
+                className="flex items-center space-x-2 mx-auto"
+              >
+                <PlusIcon className="w-4 h-4" />
+                <span>
+                  {selectedFolder
+                    ? `Créer une campagne dans ${selectedFolder.name}`
+                    : 'Créer ma première campagne'}
+                </span>
+              </Button>
+            )}
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredCampaigns.map((campaign) => {
+              // Trouver le dossier de la campagne
+              const campaignFolder = campaign.folderId
+                ? folders.find((f) => f.id === campaign.folderId)
+                : null;
+
+              return (
+                <div
+                  key={campaign.id}
+                  className="bg-white/80 backdrop-blur-xl rounded-xl p-6 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200"
+                >
+                  {/* Header de la campagne */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-3 mb-2">
+                        <Link
+                          href={`/campagnes/${campaign.id}`}
+                          className="text-xl font-bold text-gray-900 hover:text-purple-600 transition-colors"
+                        >
+                          {campaign.name}
+                        </Link>
+                        <div className="flex items-center space-x-2">
+                          {getStatusIcon(campaign.status)}
+                          <span
+                            className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColors(campaign.status)}`}
+                          >
+                            {getStatusText(campaign.status)}
+                          </span>
+                        </div>
+                        {/* Badge du dossier (uniquement si vue "Toutes") */}
+                        {!selectedFolderId && campaignFolder && (
+                          <span
+                            className="px-2 py-1 text-xs font-medium rounded-full flex items-center space-x-1"
+                            style={{
+                              backgroundColor: `${campaignFolder.color}15`,
+                              color: campaignFolder.color,
+                            }}
+                          >
+                            <FolderIcon className="w-3 h-3" />
+                            <span>{campaignFolder.name}</span>
+                          </span>
+                        )}
+                      </div>
+
+                      {campaign.description && (
+                        <p className="text-gray-600 mb-3">
+                          {campaign.description}
+                        </p>
+                      )}
+
+                      {/* Liens de tracking */}
+                      <div className="flex flex-wrap items-center gap-2">
+                        {campaign.trackingConfig.links
+                          .slice(0, 3)
+                          .map((link, index) => (
+                            <span
+                              key={index}
+                              className="inline-flex items-center space-x-1 px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full"
+                            >
+                              <LinkIcon className="w-3 h-3" />
+                              <span>
+                                {link.label || new URL(link.url).hostname}
+                                {link.budget && ` (${link.budget}€)`}
+                              </span>
+                            </span>
+                          ))}
+                        {campaign.trackingConfig.links.length > 3 && (
+                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                            +{campaign.trackingConfig.links.length - 3} autres
+                          </span>
+                        )}
+                        {campaign.trackingConfig.links.length === 0 && (
+                          <span className="text-xs text-gray-500 italic">
+                            Aucun lien configuré
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-2">
+                      <Link href={`/campagnes/${campaign.id}`}>
+                        <Button
+                          size="sm"
+                          className="flex items-center space-x-1"
+                        >
+                          <ChartBarIcon className="w-4 h-4" />
+                          <span>Voir</span>
+                        </Button>
+                      </Link>
                     </div>
                   </div>
 
-                  {campaign.description && (
-                    <p className="text-gray-600 mb-3">{campaign.description}</p>
-                  )}
+                  {/* Métriques simplifiées */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-gray-100">
+                    <div className="text-center">
+                      <div className="text-sm text-gray-500">Contenus</div>
+                      <div className="text-lg font-bold text-gray-900">
+                        {campaign.analytics.content.totalPosts}
+                      </div>
+                    </div>
 
-                  {/* Liens de tracking */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    {campaign.trackingConfig.links
-                      .slice(0, 3)
-                      .map((link, index) => (
+                    <div className="text-center">
+                      <div className="text-sm text-gray-500">Impressions</div>
+                      <div className="text-lg font-bold text-purple-600">
+                        {formatNumber(
+                          campaign.analytics.reach.totalImpressions
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="text-sm text-gray-500">Engagements</div>
+                      <div className="text-lg font-bold text-blue-600">
+                        {formatNumber(
+                          campaign.analytics.engagement.totalEngagements
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="text-sm text-gray-500">Créateurs</div>
+                      <div className="text-lg font-bold text-gray-900">
+                        {campaign.analytics.content.creatorsPosted}/
+                        {campaign.analytics.content.totalCreators}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Période */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 mt-4 pt-3 border-t border-gray-100">
+                    <div className="flex items-center space-x-2">
+                      <CalendarDaysIcon className="w-4 h-4" />
+                      <span>
+                        {new Date(campaign.startDate).toLocaleDateString(
+                          'fr-FR'
+                        )}
+                        {campaign.endDate && (
+                          <>
+                            {' '}
+                            -{' '}
+                            {new Date(campaign.endDate).toLocaleDateString(
+                              'fr-FR'
+                            )}
+                          </>
+                        )}
+                      </span>
+                    </div>
+                    <div className="flex space-x-2">
+                      {campaign.trackingConfig.platforms.map((platform) => (
                         <span
-                          key={index}
-                          className="inline-flex items-center space-x-1 px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded-full"
+                          key={platform}
+                          className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full capitalize"
                         >
-                          <LinkIcon className="w-3 h-3" />
-                          <span>
-                            {link.label || new URL(link.url).hostname}
-                            {link.budget && ` (${link.budget}€)`}
-                          </span>
+                          {platform}
                         </span>
                       ))}
-                    {campaign.trackingConfig.links.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                        +{campaign.trackingConfig.links.length - 3} autres
-                      </span>
-                    )}
-                    {campaign.trackingConfig.links.length === 0 && (
-                      <span className="text-xs text-gray-500 italic">
-                        Aucun lien configuré
-                      </span>
-                    )}
+                    </div>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-                <div className="flex space-x-2">
-                  <Link href={`/campagnes/${campaign.id}`}>
-                    <Button size="sm" className="flex items-center space-x-1">
-                      <ChartBarIcon className="w-4 h-4" />
-                      <span>Voir</span>
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Métriques simplifiées */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-gray-100">
-                <div className="text-center">
-                  <div className="text-sm text-gray-500">Contenus</div>
-                  <div className="text-lg font-bold text-gray-900">
-                    {campaign.analytics.content.totalPosts}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-sm text-gray-500">Impressions</div>
-                  <div className="text-lg font-bold text-purple-600">
-                    {formatNumber(campaign.analytics.reach.totalImpressions)}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-sm text-gray-500">Engagements</div>
-                  <div className="text-lg font-bold text-blue-600">
-                    {formatNumber(
-                      campaign.analytics.engagement.totalEngagements
-                    )}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-sm text-gray-500">Créateurs</div>
-                  <div className="text-lg font-bold text-gray-900">
-                    {campaign.analytics.content.creatorsPosted}/
-                    {campaign.analytics.content.totalCreators}
-                  </div>
-                </div>
-              </div>
-
-              {/* Période */}
-              <div className="flex items-center justify-between text-sm text-gray-500 mt-4 pt-3 border-t border-gray-100">
-                <div className="flex items-center space-x-2">
-                  <CalendarDaysIcon className="w-4 h-4" />
-                  <span>
-                    {new Date(campaign.startDate).toLocaleDateString('fr-FR')}
-                    {campaign.endDate && (
-                      <>
-                        {' '}
-                        -{' '}
-                        {new Date(campaign.endDate).toLocaleDateString('fr-FR')}
-                      </>
-                    )}
-                  </span>
-                </div>
-                <div className="flex space-x-2">
-                  {campaign.trackingConfig.platforms.map((platform) => (
-                    <span
-                      key={platform}
-                      className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full capitalize"
-                    >
-                      {platform}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Modal de création */}
+      {/* Modal de création de campagne */}
       <CreateCampaignModal
         isOpen={showCreateModal}
         onClose={() => setShowCreateModal(false)}
         onCreate={handleCreateCampaign}
+        folders={folders}
+        selectedFolderId={selectedFolderId}
+      />
+
+      {/* Modal de création de dossier */}
+      <CreateFolderModal
+        isOpen={showCreateFolderModal}
+        onClose={() => setShowCreateFolderModal(false)}
+        onCreate={handleCreateFolder}
       />
     </div>
   );

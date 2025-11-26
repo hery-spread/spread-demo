@@ -177,6 +177,84 @@ export interface ShareStats {
 }
 
 // Types pour le partage de campagnes
+
+// Configuration de visibilité des métriques pour le partage
+export interface MetricsVisibilityConfig {
+  // Contrôle par section (désactiver toute la section)
+  sections: {
+    creators: boolean;           // Section liste des créateurs
+    content: boolean;            // Section Content (stats globales)
+    engagement: boolean;         // Section Notoriété & engagement
+    performance: boolean;        // Section Performance
+    publishedContents: boolean;  // Section grille des contenus
+  };
+
+  // Contrôle par métrique individuelle
+  metrics: {
+    // Section Content
+    creatorsPosted: boolean;     // Créateurs ayant posté (X/Y)
+    totalPosts: boolean;         // Total posts
+    totalReels: boolean;         // Total Reels
+    totalStories: boolean;       // Total Stories
+    totalContent: boolean;       // Total contenus
+
+    // Section Engagement
+    totalEngagements: boolean;   // Total engagements
+    averageER: boolean;          // ER moyen %
+    totalImpressions: boolean;   // Impressions estimées
+    totalReach: boolean;         // Portée estimée
+    totalLikes: boolean;         // Total likes
+    totalComments: boolean;      // Total commentaires
+    totalViews: boolean;         // Vues
+    averageVideoER: boolean;     // ER vidéo moyen
+    totalEMV: boolean;           // EMV (Earned Media Value)
+
+    // Section Performance
+    totalCreatorCost: boolean;   // Coût total créateurs
+    averageCPM: boolean;         // CPM
+    averageCPC: boolean;         // CPC
+    roas: boolean;               // ROAS
+    roi: boolean;                // ROI
+    costPerEngagement: boolean;  // Coût par engagement
+  };
+}
+
+// Valeurs par défaut (tout visible)
+export const DEFAULT_METRICS_VISIBILITY: MetricsVisibilityConfig = {
+  sections: {
+    creators: true,
+    content: true,
+    engagement: true,
+    performance: true,
+    publishedContents: true,
+  },
+  metrics: {
+    // Section Content
+    creatorsPosted: true,
+    totalPosts: true,
+    totalReels: true,
+    totalStories: true,
+    totalContent: true,
+    // Section Engagement
+    totalEngagements: true,
+    averageER: true,
+    totalImpressions: true,
+    totalReach: true,
+    totalLikes: true,
+    totalComments: true,
+    totalViews: true,
+    averageVideoER: true,
+    totalEMV: true,
+    // Section Performance
+    totalCreatorCost: true,
+    averageCPM: true,
+    averageCPC: true,
+    roas: true,
+    roi: true,
+    costPerEngagement: true,
+  },
+};
+
 export interface SharedCampaign {
   id: string;
   campaignId: string;
@@ -189,6 +267,7 @@ export interface SharedCampaign {
   includeFinancials: boolean;
   includeBudgets: boolean;
   trackingEnabled: boolean;
+  metricsVisibility?: MetricsVisibilityConfig;
   utmParameters?: {
     source?: string;
     medium?: string;
@@ -443,6 +522,10 @@ export interface CampaignTracker {
     costPerCreator: number;
     status: 'pending' | 'active' | 'completed' | 'cancelled';
     contractedAt: string;
+    // Résultats/ROI (optionnels)
+    salesCount?: number; // Nombre de ventes générées
+    salesRevenue?: number; // Montant des ventes en euros
+    clicks?: number; // Nombre de clics trackés
   }[];
 
   // Métriques globales de la campagne
@@ -455,6 +538,23 @@ export interface CampaignTracker {
   updatedAt: string;
   totalBudget: number;
   spentBudget: number;
+
+  // Dossier parent (optionnel)
+  folderId?: string | null;
+}
+
+// Type pour les dossiers de campagnes
+export interface CampaignFolder {
+  id: string;
+  name: string;
+  description?: string;
+  clientName?: string; // Nom du client associé
+  color?: string; // Couleur pour identification visuelle
+  icon?: string; // Icône optionnelle
+  parentId?: string | null; // Pour hiérarchie future (null = racine)
+  campaignIds: string[]; // IDs des campagnes dans ce dossier
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CampaignAnalytics {
@@ -1714,4 +1814,159 @@ export interface ModashEmailSearchResponse {
   matchedEmails: ModashMatchedEmail[];
   notMatchedEmails: string[];
   totalMatches: number;
+}
+
+// ========================================
+// TYPES CONTENUS MANUELS & IMPORT APIFY
+// ========================================
+
+// Type de contenu disponible selon la plateforme
+export type ContentType = 'story' | 'post' | 'reel' | 'video' | 'short';
+
+// Configuration des champs disponibles par type de contenu
+export interface ContentTypeConfig {
+  type: ContentType;
+  label: string;
+  icon: string;
+  platforms: ('instagram' | 'youtube' | 'tiktok')[];
+  fields: {
+    views: boolean;
+    likes: boolean;
+    comments: boolean;
+    shares: boolean;
+    saves: boolean;
+    budget: boolean;
+  };
+}
+
+// Contenu ajouté manuellement à une campagne
+export interface ManualContent {
+  id: string;
+  type: ContentType;
+  platform: 'instagram' | 'youtube' | 'tiktok';
+  creatorUsername?: string;
+  url?: string;
+  thumbnail?: string;
+  // Métriques (optionnelles selon le type)
+  views?: number;
+  likes?: number;
+  comments?: number;
+  shares?: number;
+  saves?: number;
+  // Données financières
+  budget?: number;
+  // Métadonnées
+  publishedAt?: string;
+  addedAt: string;
+  isManual: true;
+  notes?: string;
+}
+
+// Configuration pour l'import automatique via Apify
+export interface ApifyImportConfig {
+  usernames: string[];
+  filterType: 'hashtag' | 'mention';
+  filterValue: string; // #campagne ou @decathlon (sans le préfixe)
+  platform: 'instagram' | 'tiktok' | 'youtube';
+}
+
+// Post récupéré via scraping Apify
+export interface ApifyScrapedPost {
+  id: string;
+  username: string;
+  userAvatar?: string;
+  type: 'post' | 'reel' | 'video' | 'short';
+  platform: 'instagram' | 'youtube' | 'tiktok';
+  url: string;
+  thumbnail: string;
+  caption: string;
+  likes: number;
+  comments: number;
+  views?: number;
+  shares?: number;
+  saves?: number;
+  publishedAt: string;
+  matchedFilter: string; // Le hashtag ou mention qui a matché
+  matchType: 'hashtag' | 'mention';
+}
+
+// État de l'import Apify
+export interface ApifyImportState {
+  isScanning: boolean;
+  scannedPosts: ApifyScrapedPost[];
+  selectedPostIds: string[];
+  error?: string;
+  lastScanAt?: string;
+}
+
+// ========================================
+// TYPES BUSINESS DNA & CAMPAIGN SEARCH
+// ========================================
+
+// Business DNA - Analyse d'un site web pour trouver des créateurs pertinents
+export interface BusinessDNA {
+  id: string;
+  name: string;
+  websiteUrl: string;
+  analyzedAt: string;
+  keywords: string[];
+  categories: string[];
+  targetAudience: {
+    ageRange: string;
+    gender: string;
+    interests: string[];
+  };
+  suggestedCreatorTypes: string[];
+  description?: string;
+  logoUrl?: string;
+  lastSearchAt?: string;
+  searchCount: number;
+}
+
+// Historique des recherches Business DNA
+export interface BusinessDNASearch {
+  id: string;
+  businessDnaId: string;
+  searchedAt: string;
+  resultsCount: number;
+  filters?: AdvancedSearchFilters;
+}
+
+// Score d'un créateur dans une campagne (pour identifier les top performers)
+export interface CampaignCreatorScore {
+  creatorId: string;
+  creatorName: string;
+  creatorUsername: string;
+  creatorAvatar: string;
+  platform: 'instagram' | 'youtube' | 'tiktok';
+  roi: number; // Return on Investment (%)
+  costPerEngagement: number; // Coût par engagement (€)
+  engagementRate: number; // Taux d'engagement (%)
+  totalCost: number; // Coût total payé
+  totalEngagements: number; // Total des engagements générés
+  totalImpressions: number; // Total des impressions
+  compositeScore: number; // Score composite (0-100)
+  performanceAttributes: string[]; // Attributs qui expliquent la performance
+}
+
+// Résultat de recherche de créateurs similaires
+export interface SimilarCreatorResult extends Influencer {
+  similarityScore: number; // Score de similarité (0-100)
+  estimatedCost: number; // Coût estimé pour une collaboration (€)
+  predictedROI: number; // ROI prédit basé sur les top performers (%)
+  predictedEngagementRate: number; // ER prédit (%)
+  matchedAttributes: string[]; // Attributs qui matchent avec les top performers
+  confidenceLevel: 'high' | 'medium' | 'low'; // Niveau de confiance de la prédiction
+}
+
+// État de la recherche depuis une campagne
+export interface CampaignSearchState {
+  selectedCampaignId: string | null;
+  topPerformers: CampaignCreatorScore[];
+  similarCreators: SimilarCreatorResult[];
+  isLoadingTopPerformers: boolean;
+  isLoadingSimilar: boolean;
+  loadedCount: number; // Nombre de résultats chargés
+  totalAvailable: number; // Total de résultats disponibles
+  budgetTarget?: number; // Budget cible pour l'estimation
 }

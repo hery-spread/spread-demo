@@ -10,14 +10,46 @@ import {
   MegaphoneIcon,
   UserIcon,
   CreditCardIcon,
+  ChevronDownIcon,
 } from '@heroicons/react/24/outline';
 
-const navigation = [
+interface SubItem {
+  name: string;
+  href: string;
+  description: string;
+}
+
+interface NavItem {
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  subItems?: SubItem[];
+}
+
+const navigation: NavItem[] = [
   {
     name: 'Recherche',
     href: '/search',
     icon: MagnifyingGlassIcon,
     description: 'Trouver des influenceurs',
+    subItems: [
+      {
+        name: 'Recherche avancée',
+        href: '/search',
+        description: 'Filtres détaillés',
+      },
+      {
+        name: 'Business DNA',
+        href: '/search/business-dna',
+        description: 'Analyse de site web',
+      },
+      {
+        name: 'Depuis campagne',
+        href: '/search/from-campaign',
+        description: 'Créateurs similaires',
+      },
+    ],
   },
   {
     name: 'Mes Listes',
@@ -42,6 +74,20 @@ const navigation = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [expandedItem, setExpandedItem] = useState<string | null>(() => {
+    // Auto-expand Recherche si on est sur une page de recherche
+    if (pathname.startsWith('/search')) return 'Recherche';
+    return null;
+  });
+
+  // Helper function pour vérifier si un item ou ses sous-items sont actifs
+  const isItemActive = (item: NavItem) => {
+    if (pathname === item.href) return true;
+    if (item.subItems) {
+      return item.subItems.some((sub) => pathname === sub.href);
+    }
+    return false;
+  };
 
   return (
     <div className="w-56 bg-white/80 backdrop-blur-xl shadow-xl shadow-gray-500/10 h-full flex flex-col border-r border-gray-200/50">
@@ -66,12 +112,112 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1.5">
+      <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto">
         {navigation.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const isActive = isItemActive(item);
           const isHovered = hoveredItem === item.name;
+          const hasSubItems = item.subItems && item.subItems.length > 0;
+          const isExpanded = expandedItem === item.name;
 
+          // Si l'item a des sous-items, afficher un menu déroulant
+          if (hasSubItems) {
+            return (
+              <div key={item.name} className="space-y-1">
+                {/* Parent item avec toggle */}
+                <button
+                  onClick={() => setExpandedItem(isExpanded ? null : item.name)}
+                  className={`
+                    group relative flex items-center w-full px-3 py-3 text-sm font-medium rounded-2xl 
+                    transition-all duration-300 transform-gpu overflow-hidden
+                    ${
+                      isActive && !isExpanded
+                        ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/25'
+                        : isActive
+                          ? 'bg-purple-50 text-purple-700'
+                          : 'text-gray-700 hover:bg-white/60 hover:backdrop-blur-sm hover:shadow-md'
+                    }
+                  `}
+                  onMouseEnter={() => setHoveredItem(item.name)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <div className="relative z-10 flex items-center space-x-3 w-full">
+                    <div
+                      className={`
+                      transition-all duration-300 transform-gpu
+                      ${
+                        isActive
+                          ? isExpanded
+                            ? 'text-purple-600'
+                            : 'text-white'
+                          : isHovered
+                            ? 'text-purple-600 scale-110'
+                            : 'text-gray-500'
+                      }
+                    `}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </div>
+
+                    <div className="flex-1 min-w-0 text-left">
+                      <div
+                        className={`
+                        font-semibold transition-all duration-300
+                        ${isActive ? (isExpanded ? 'text-purple-700' : 'text-white') : 'text-gray-700'}
+                      `}
+                      >
+                        {item.name}
+                      </div>
+                    </div>
+
+                    {/* Chevron pour indiquer le sous-menu */}
+                    <ChevronDownIcon
+                      className={`w-4 h-4 transition-transform duration-300 ${
+                        isExpanded ? 'rotate-180' : ''
+                      } ${isActive && !isExpanded ? 'text-white' : 'text-gray-400'}`}
+                    />
+                  </div>
+                </button>
+
+                {/* Sous-items */}
+                {isExpanded && (
+                  <div className="ml-4 pl-4 border-l-2 border-purple-200 space-y-1">
+                    {item.subItems!.map((subItem) => {
+                      const isSubActive = pathname === subItem.href;
+                      return (
+                        <Link
+                          key={subItem.href}
+                          href={subItem.href}
+                          className={`
+                            flex items-center px-3 py-2 text-sm rounded-xl transition-all duration-200
+                            ${
+                              isSubActive
+                                ? 'bg-purple-100 text-purple-700 font-medium'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                            }
+                          `}
+                        >
+                          <div className="flex-1">
+                            <div className="font-medium text-sm">
+                              {subItem.name}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                              {subItem.description}
+                            </div>
+                          </div>
+                          {isSubActive && (
+                            <div className="w-1.5 h-1.5 bg-purple-600 rounded-full" />
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // Item simple sans sous-menu
           return (
             <Link
               key={item.name}

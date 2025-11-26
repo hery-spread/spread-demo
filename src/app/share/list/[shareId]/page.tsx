@@ -49,9 +49,7 @@ interface InfluencerWithProfile {
 }
 
 // Simuler la récupération des données de liste partagée
-function getSharedList(
-  shareId: string
-): {
+function getSharedList(shareId: string): {
   list: InfluencerList & { influencers: InfluencerWithProfile[] };
   shareData: SharedList;
 } | null {
@@ -197,7 +195,10 @@ export default function SharedListPage() {
     localStorage.setItem('listShareSettings', JSON.stringify(settings));
   };
 
-  const handleVote = (influencerId: string, voteType: 'go' | 'no-go' | 'discuss') => {
+  const handleVote = (
+    influencerId: string,
+    voteType: 'go' | 'no-go' | 'discuss'
+  ) => {
     if (!listData?.shareData.allowVotes) return;
 
     setVotes((prev) => {
@@ -224,12 +225,14 @@ export default function SharedListPage() {
       };
 
       // Sauvegarder dans localStorage
-      localStorage.setItem(`comments_${shareId}`, JSON.stringify(updatedComments));
+      localStorage.setItem(
+        `comments_${shareId}`,
+        JSON.stringify(updatedComments)
+      );
 
       return updatedComments;
     });
   };
-
 
   if (loading) {
     return (
@@ -247,30 +250,29 @@ export default function SharedListPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header avec branding agence */}
+      {/* Header avec branding agence - Layout centré comme les rapports */}
       <div className="bg-white shadow-sm border-b border-gray-200 animate-fadeInDown">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
-                style={{
-                  background: `linear-gradient(135deg, ${customization.primaryColor} 0%, ${customization.secondaryColor} 100%)`,
-                }}
-              >
-                <ShareIcon className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">
-                  {customization.agencyName}
-                </h1>
-                <p className="text-sm text-gray-500">
-                  Liste de Casting Partagée
-                </p>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            {/* Logo de l'agence centré et plus grand */}
+            <div
+              className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl"
+              style={{
+                background: `linear-gradient(135deg, ${customization.primaryColor} 0%, ${customization.secondaryColor} 100%)`,
+              }}
+            >
+              <ShareIcon className="w-11 h-11 text-white" />
             </div>
 
-            <div className="text-right">
+            {/* Nom de l'agence */}
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-gray-900">
+                {customization.agencyName}
+              </h1>
+            </div>
+
+            {/* Stats en bas */}
+            <div className="text-center pt-2">
               <p className="text-sm text-gray-500">
                 {shareData.viewCount} vues • Partagé le{' '}
                 {new Date(shareData.createdAt).toLocaleDateString('fr-FR')}
@@ -336,13 +338,15 @@ export default function SharedListPage() {
                     Donnez votre avis
                   </h3>
                   <p className="text-sm text-blue-800">
-                    Pour chaque créateur, indiquez votre avis : <strong>Go</strong> (validé), <strong>No Go</strong> (refusé) ou <strong>À discuter</strong>. Vous pouvez aussi laisser un commentaire.
+                    Pour chaque créateur, indiquez votre avis :{' '}
+                    <strong>Go</strong> (validé), <strong>No Go</strong>{' '}
+                    (refusé) ou <strong>À discuter</strong>. Vous pouvez aussi
+                    laisser un commentaire.
                   </p>
                 </div>
               </div>
             </div>
           )}
-
 
           {/* Liste des créateurs */}
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm animate-fadeInUp">
@@ -363,10 +367,10 @@ export default function SharedListPage() {
                       userVote === 'go'
                         ? 'border-green-300 bg-green-50'
                         : userVote === 'no-go'
-                        ? 'border-red-300 bg-red-50'
-                        : userVote === 'discuss'
-                        ? 'border-orange-300 bg-orange-50'
-                        : 'border-gray-200 bg-white'
+                          ? 'border-red-300 bg-red-50'
+                          : userVote === 'discuss'
+                            ? 'border-orange-300 bg-orange-50'
+                            : 'border-gray-200 bg-white'
                     }`}
                   >
                     <div className="flex items-start gap-6">
@@ -391,11 +395,11 @@ export default function SharedListPage() {
                         {userVote && (
                           <div
                             className={`absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center shadow-lg ${
-                              userVote === 'go' 
-                                ? 'bg-green-500' 
+                              userVote === 'go'
+                                ? 'bg-green-500'
                                 : userVote === 'no-go'
-                                ? 'bg-red-500'
-                                : 'bg-orange-500'
+                                  ? 'bg-red-500'
+                                  : 'bg-orange-500'
                             }`}
                           >
                             {userVote === 'go' ? (
@@ -413,8 +417,15 @@ export default function SharedListPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex items-center space-x-3">
-                            <h3 className="text-xl font-bold text-gray-900 hover:text-purple-600 cursor-pointer transition-colors"
-                                onClick={() => window.open(`/profile/${influencer.id}`, '_blank')}>
+                            <h3
+                              className="text-xl font-bold text-gray-900 hover:text-purple-600 cursor-pointer transition-colors"
+                              onClick={() =>
+                                window.open(
+                                  `/profile/${influencer.id}`,
+                                  '_blank'
+                                )
+                              }
+                            >
                               {influencer.contactName || 'Nom inconnu'}
                             </h3>
                             {influencer.profileUrl && (
@@ -468,7 +479,9 @@ export default function SharedListPage() {
                             <div className="grid grid-cols-3 gap-3">
                               <Button
                                 onClick={() => handleVote(influencer.id, 'go')}
-                                variant={userVote === 'go' ? 'default' : 'outline'}
+                                variant={
+                                  userVote === 'go' ? 'default' : 'outline'
+                                }
                                 className={`flex items-center justify-center space-x-2 ${
                                   userVote === 'go'
                                     ? 'bg-green-500 hover:bg-green-600 text-white border-green-500'
@@ -484,8 +497,12 @@ export default function SharedListPage() {
                               </Button>
 
                               <Button
-                                onClick={() => handleVote(influencer.id, 'no-go')}
-                                variant={userVote === 'no-go' ? 'default' : 'outline'}
+                                onClick={() =>
+                                  handleVote(influencer.id, 'no-go')
+                                }
+                                variant={
+                                  userVote === 'no-go' ? 'default' : 'outline'
+                                }
                                 className={`flex items-center justify-center space-x-2 ${
                                   userVote === 'no-go'
                                     ? 'bg-red-500 hover:bg-red-600 text-white border-red-500'
@@ -501,8 +518,12 @@ export default function SharedListPage() {
                               </Button>
 
                               <Button
-                                onClick={() => handleVote(influencer.id, 'discuss')}
-                                variant={userVote === 'discuss' ? 'default' : 'outline'}
+                                onClick={() =>
+                                  handleVote(influencer.id, 'discuss')
+                                }
+                                variant={
+                                  userVote === 'discuss' ? 'default' : 'outline'
+                                }
                                 className={`flex items-center justify-center space-x-2 ${
                                   userVote === 'discuss'
                                     ? 'bg-orange-500 hover:bg-orange-600 text-white border-orange-500'
@@ -514,7 +535,9 @@ export default function SharedListPage() {
                                 ) : (
                                   <ChatBubbleLeftEllipsisIcon className="w-5 h-5" />
                                 )}
-                                <span className="font-semibold">À discuter</span>
+                                <span className="font-semibold">
+                                  À discuter
+                                </span>
                               </Button>
                             </div>
 
@@ -522,7 +545,12 @@ export default function SharedListPage() {
                             <div>
                               <textarea
                                 value={comments[influencer.id] || ''}
-                                onChange={(e) => handleCommentChange(influencer.id, e.target.value)}
+                                onChange={(e) =>
+                                  handleCommentChange(
+                                    influencer.id,
+                                    e.target.value
+                                  )
+                                }
                                 placeholder="Laissez un commentaire (optionnel)..."
                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none text-sm"
                                 rows={2}
@@ -581,4 +609,3 @@ export default function SharedListPage() {
     </div>
   );
 }
-

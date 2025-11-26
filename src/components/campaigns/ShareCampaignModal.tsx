@@ -11,8 +11,14 @@ import {
   EyeIcon,
   LockClosedIcon,
   LanguageIcon,
+  AdjustmentsHorizontalIcon,
 } from '@heroicons/react/24/outline';
-import { CampaignTracker } from '@/types';
+import {
+  CampaignTracker,
+  MetricsVisibilityConfig,
+  DEFAULT_METRICS_VISIBILITY,
+} from '@/types';
+import MetricsVisibilitySelector from './MetricsVisibilitySelector';
 
 interface ShareCampaignModalProps {
   isOpen: boolean;
@@ -26,11 +32,12 @@ export default function ShareCampaignModal({
   campaign,
 }: ShareCampaignModalProps) {
   const [shareSettings, setShareSettings] = useState({
-    includeFinancials: true,
-    includeBudgets: false,
     shareType: 'public' as 'public' | 'private',
     password: '',
     language: 'fr' as 'fr' | 'en' | 'nl',
+    metricsVisibility: DEFAULT_METRICS_VISIBILITY as MetricsVisibilityConfig,
+    includeFinancials: true,
+    includeBudgets: true,
   });
 
   const languages = [
@@ -76,11 +83,12 @@ export default function ShareCampaignModal({
     setCopied(false);
     setIsGenerating(false);
     setShareSettings({
-      includeFinancials: true,
-      includeBudgets: false,
       shareType: 'public',
       password: '',
       language: 'fr',
+      metricsVisibility: DEFAULT_METRICS_VISIBILITY,
+      includeFinancials: true,
+      includeBudgets: true,
     });
   };
 
@@ -131,56 +139,26 @@ export default function ShareCampaignModal({
               </div>
             </div>
 
-            {/* Paramètres de visibilité */}
+            {/* Configuration des métriques visibles */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">
-                Visibility Settings
+              <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+                <AdjustmentsHorizontalIcon className="w-5 h-5 text-purple-600" />
+                <span>Métriques visibles</span>
               </h3>
-
-              <div className="space-y-3">
-                <label className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={shareSettings.includeFinancials}
-                    onChange={(e) =>
-                      setShareSettings((prev) => ({
-                        ...prev,
-                        includeFinancials: e.target.checked,
-                      }))
-                    }
-                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1"
-                  />
-                  <div>
-                    <span className="text-sm font-medium text-gray-900">
-                      Include financial metrics
-                    </span>
-                    <p className="text-xs text-gray-500">
-                      Show EMV, ROAS, CPM and other financial KPIs
-                    </p>
-                  </div>
-                </label>
-
-                <label className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={shareSettings.includeBudgets}
-                    onChange={(e) =>
-                      setShareSettings((prev) => ({
-                        ...prev,
-                        includeBudgets: e.target.checked,
-                      }))
-                    }
-                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 mt-1"
-                  />
-                  <div>
-                    <span className="text-sm font-medium text-gray-900">
-                      Include budget information
-                    </span>
-                    <p className="text-xs text-gray-500">
-                      Show individual link budgets and total costs
-                    </p>
-                  </div>
-                </label>
+              <p className="text-sm text-gray-500">
+                Choisissez quelles sections et métriques afficher dans le
+                rapport partagé
+              </p>
+              <div className="border border-gray-200 rounded-xl p-4 bg-white max-h-80 overflow-y-auto">
+                <MetricsVisibilitySelector
+                  value={shareSettings.metricsVisibility}
+                  onChange={(config) =>
+                    setShareSettings((prev) => ({
+                      ...prev,
+                      metricsVisibility: config,
+                    }))
+                  }
+                />
               </div>
             </div>
 
@@ -400,17 +378,25 @@ export default function ShareCampaignModal({
                 <EyeIcon className="w-5 h-5 text-blue-600 mt-1" />
                 <div>
                   <h4 className="font-medium text-blue-900 mb-2">
-                    What&apos;s included in this report:
+                    Ce qui est inclus dans ce rapport :
                   </h4>
                   <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Campaign overview and performance metrics</li>
-                    <li>• Content breakdown (posts, stories, reels)</li>
-                    <li>• Creator information and engagement data</li>
-                    {shareSettings.includeFinancials && (
-                      <li>• Financial metrics (EMV, ROAS, CPM)</li>
+                    <li>• Aperçu de la campagne</li>
+                    {shareSettings.metricsVisibility.sections.creators && (
+                      <li>• Liste des créateurs participants</li>
                     )}
-                    {shareSettings.includeBudgets && (
-                      <li>• Budget and cost information</li>
+                    {shareSettings.metricsVisibility.sections.content && (
+                      <li>• Statistiques de contenu (posts, stories, reels)</li>
+                    )}
+                    {shareSettings.metricsVisibility.sections.engagement && (
+                      <li>• Métriques d&apos;engagement et de portée</li>
+                    )}
+                    {shareSettings.metricsVisibility.sections.performance && (
+                      <li>• Métriques de performance financière</li>
+                    )}
+                    {shareSettings.metricsVisibility.sections
+                      .publishedContents && (
+                      <li>• Grille des contenus publiés</li>
                     )}
                     <li>
                       • Rapport en{' '}

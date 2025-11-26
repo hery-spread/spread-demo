@@ -11,6 +11,8 @@ import {
   BanknotesIcon,
   CurrencyEuroIcon,
   CursorArrowRaysIcon,
+  ShoppingCartIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline';
 import { CampaignTracker } from '@/types';
 import ContentGrid, { ContentItem } from './ContentGrid';
@@ -218,7 +220,12 @@ export default function CreatorDetailView({
           <div className="text-center">
             <div className="flex items-center justify-center mb-2">
               <BanknotesIcon className="w-5 h-5 text-gray-400 mr-2" />
-              <span className="text-2xl font-bold text-gray-900">-</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {creator.salesRevenue && creator.costPerCreator > 0
+                  ? (creator.salesRevenue / creator.costPerCreator).toFixed(2) +
+                    'x'
+                  : '-'}
+              </span>
             </div>
             <p className="text-sm text-gray-600">ROAS</p>
           </div>
@@ -226,11 +233,89 @@ export default function CreatorDetailView({
           <div className="text-center">
             <div className="flex items-center justify-center mb-2">
               <CursorArrowRaysIcon className="w-5 h-5 text-gray-400 mr-2" />
-              <span className="text-2xl font-bold text-gray-900">-</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {creator.salesRevenue && creator.costPerCreator > 0
+                  ? (
+                      ((creator.salesRevenue - creator.costPerCreator) /
+                        creator.costPerCreator) *
+                      100
+                    ).toFixed(0) + '%'
+                  : '-'}
+              </span>
             </div>
             <p className="text-sm text-gray-600">ROI</p>
           </div>
         </div>
+      </div>
+
+      {/* Section Résultats & Conversions */}
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-sm animate-fadeInUp">
+        <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center space-x-2">
+          <ChartBarIcon className="w-5 h-5" />
+          <span>Résultats &amp; Conversions</span>
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-2">
+              <CursorArrowRaysIcon className="w-5 h-5 text-blue-400 mr-2" />
+              <span className="text-2xl font-bold text-gray-900">
+                {creator.clicks !== undefined
+                  ? formatNumber(creator.clicks)
+                  : '-'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">Clics</p>
+          </div>
+
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-2">
+              <ShoppingCartIcon className="w-5 h-5 text-green-500 mr-2" />
+              <span className="text-2xl font-bold text-gray-900">
+                {creator.salesCount !== undefined ? creator.salesCount : '-'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">Ventes</p>
+          </div>
+
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-2">
+              <BanknotesIcon className="w-5 h-5 text-green-500 mr-2" />
+              <span className="text-2xl font-bold text-green-600">
+                {creator.salesRevenue !== undefined
+                  ? formatCurrency(creator.salesRevenue)
+                  : '-'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">Revenus générés</p>
+          </div>
+
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-2">
+              <TrophyIcon className="w-5 h-5 text-purple-500 mr-2" />
+              <span className="text-2xl font-bold text-purple-600">
+                {creator.clicks && creator.salesCount
+                  ? ((creator.salesCount / creator.clicks) * 100).toFixed(1) +
+                    '%'
+                  : '-'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">Taux de conversion</p>
+          </div>
+        </div>
+
+        {/* Message si aucune donnée */}
+        {!creator.clicks && !creator.salesCount && !creator.salesRevenue && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-xl text-center">
+            <p className="text-sm text-gray-500">
+              Aucune donnée de résultat renseignée pour ce créateur.
+              <br />
+              <span className="text-xs">
+                Ces champs sont optionnels mais permettent de calculer le ROI.
+              </span>
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Contenus du créateur */}
@@ -243,4 +328,3 @@ export default function CreatorDetailView({
     </div>
   );
 }
-

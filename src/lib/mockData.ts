@@ -7,6 +7,16 @@ import {
   CampaignTracker,
   CampaignContent,
   SharedCampaign,
+  ApifyImportConfig,
+  ApifyScrapedPost,
+  ContentTypeConfig,
+  MetricsVisibilityConfig,
+  DEFAULT_METRICS_VISIBILITY,
+  CampaignFolder,
+  BusinessDNA,
+  BusinessDNASearch,
+  CampaignCreatorScore,
+  SimilarCreatorResult,
 } from "@/types";
 
 // Données mockées des influenceurs
@@ -3506,6 +3516,10 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
         costPerCreator: 2500,
         status: 'active',
         contractedAt: '2025-01-15T10:00:00Z',
+        // Résultats/ROI
+        clicks: 892,
+        salesCount: 28,
+        salesRevenue: 4200,
       },
       {
         influencerId: 'inf_2',
@@ -3518,6 +3532,10 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
         costPerCreator: 4500,
         status: 'completed',
         contractedAt: '2025-01-15T10:00:00Z',
+        // Résultats/ROI
+        clicks: 1250,
+        salesCount: 45,
+        salesRevenue: 6750,
       },
       {
         influencerId: 'inf_3',
@@ -3530,6 +3548,7 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
         costPerCreator: 3200,
         status: 'completed',
         contractedAt: '2025-01-15T10:00:00Z',
+        // Pas de résultats renseignés pour ce créateur
       }
     ],
     
@@ -3645,6 +3664,7 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
     updatedAt: '2025-01-25T16:30:00Z',
     totalBudget: 15000,
     spentBudget: 10200,
+    folderId: 'folder_1', // Dossier Samsung
   },
   
   {
@@ -3681,6 +3701,10 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
         costPerCreator: 1800,
         status: 'active',
         contractedAt: '2025-01-08T14:00:00Z',
+        // Résultats/ROI
+        clicks: 456,
+        salesCount: 12,
+        salesRevenue: 1440,
       },
       {
         influencerId: 'inf_5',
@@ -3693,6 +3717,10 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
         costPerCreator: 1200,
         status: 'active',
         contractedAt: '2025-01-08T14:00:00Z',
+        // Résultats/ROI
+        clicks: 789,
+        salesCount: 18,
+        salesRevenue: 2160,
       }
     ],
     
@@ -3808,8 +3836,229 @@ export const mockAdvancedCampaigns: CampaignTracker[] = [
     updatedAt: '2025-01-25T14:15:00Z',
     totalBudget: 5000,
     spentBudget: 3000,
+    folderId: 'folder_2', // Dossier SportBrand
+  },
+  
+  // Campagne sans dossier pour tester la vue "Toutes les campagnes"
+  {
+    id: 'camp_3',
+    name: 'Campagne Test Indépendante',
+    description: 'Une campagne sans dossier assigné',
+    
+    trackingConfig: {
+      links: [
+        { url: 'https://example.com/test', label: 'Test Link', budget: 1000 },
+      ],
+      mentions: ['@testbrand'],
+      keywords: ['test', 'demo'],
+      platforms: ['instagram'],
+      autoImport: false,
+      flagMissingDisclosure: true,
+      eventMode: false,
+    },
+    
+    startDate: '2025-02-01T00:00:00Z',
+    endDate: '2025-03-01T23:59:59Z',
+    
+    creators: [],
+    
+    analytics: {
+      content: {
+        totalPosts: 0,
+        totalStories: 0,
+        totalReels: 0,
+        totalVideos: 0,
+        creatorsPosted: 0,
+        totalCreators: 0,
+      },
+      engagement: {
+        totalEngagements: 0,
+        averageER: 0,
+        totalLikes: 0,
+        totalComments: 0,
+        totalShares: 0,
+        totalSaves: 0,
+      },
+      reach: {
+        totalImpressions: 0,
+        totalReach: 0,
+        averageVideoER: 0,
+        totalViews: 0,
+      },
+      performance: {
+        totalLinks: 0,
+        totalClicks: 0,
+        ctr: 0,
+        totalConversions: 0,
+        conversionRate: 0,
+      },
+      financials: {
+        totalCreatorCost: 0,
+        totalEMV: 0,
+        averageCPM: 0,
+        averageCPC: 0,
+        roas: 0,
+        costPerEngagement: 0,
+      },
+      byPlatform: {},
+      topCreators: [],
+      timeline: [],
+    },
+    
+    status: 'draft',
+    createdBy: 'user_1',
+    createdAt: '2025-02-01T10:00:00Z',
+    updatedAt: '2025-02-01T10:00:00Z',
+    totalBudget: 1000,
+    spentBudget: 0,
+    folderId: null, // Pas de dossier assigné
   }
 ];
+
+// Mock data pour les dossiers de campagnes
+export const mockCampaignFolders: CampaignFolder[] = [
+  {
+    id: 'folder_1',
+    name: 'Samsung',
+    description: 'Toutes les campagnes Samsung France',
+    clientName: 'Samsung Electronics France',
+    color: '#1428A0', // Bleu Samsung
+    icon: 'device-phone-mobile',
+    parentId: null,
+    campaignIds: ['camp_1'],
+    createdAt: '2025-01-01T10:00:00Z',
+    updatedAt: '2025-01-25T16:30:00Z',
+  },
+  {
+    id: 'folder_2',
+    name: 'SportBrand',
+    description: 'Campagnes pour la marque SportBrand',
+    clientName: 'SportBrand International',
+    color: '#16A34A', // Vert sport
+    icon: 'fire',
+    parentId: null,
+    campaignIds: ['camp_2'],
+    createdAt: '2025-01-05T09:00:00Z',
+    updatedAt: '2025-01-25T14:15:00Z',
+  },
+  {
+    id: 'folder_3',
+    name: 'Beauté & Cosmétiques',
+    description: 'Campagnes beauté et cosmétiques',
+    clientName: 'Multi-clients',
+    color: '#DB2777', // Rose beauté
+    icon: 'sparkles',
+    parentId: null,
+    campaignIds: [],
+    createdAt: '2025-01-10T11:00:00Z',
+    updatedAt: '2025-01-10T11:00:00Z',
+  },
+];
+
+// Fonctions utilitaires pour les dossiers de campagnes
+export const getCampaignFolders = async (): Promise<CampaignFolder[]> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return mockCampaignFolders;
+};
+
+export const getFolderById = async (folderId: string): Promise<CampaignFolder | null> => {
+  await new Promise(resolve => setTimeout(resolve, 200));
+  return mockCampaignFolders.find(f => f.id === folderId) || null;
+};
+
+export const createFolder = async (folderData: Partial<CampaignFolder>): Promise<CampaignFolder> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  const newFolder: CampaignFolder = {
+    id: `folder_${Date.now()}`,
+    name: folderData.name || 'Nouveau dossier',
+    description: folderData.description,
+    clientName: folderData.clientName,
+    color: folderData.color || '#8B5CF6', // Violet par défaut
+    icon: folderData.icon,
+    parentId: folderData.parentId || null,
+    campaignIds: [],
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+  
+  mockCampaignFolders.push(newFolder);
+  return newFolder;
+};
+
+export const updateFolder = async (folderId: string, updates: Partial<CampaignFolder>): Promise<CampaignFolder> => {
+  await new Promise(resolve => setTimeout(resolve, 400));
+  
+  const folderIndex = mockCampaignFolders.findIndex(f => f.id === folderId);
+  if (folderIndex === -1) throw new Error('Dossier non trouvé');
+  
+  mockCampaignFolders[folderIndex] = {
+    ...mockCampaignFolders[folderIndex],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  
+  return mockCampaignFolders[folderIndex];
+};
+
+export const deleteFolder = async (folderId: string): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  const folderIndex = mockCampaignFolders.findIndex(f => f.id === folderId);
+  if (folderIndex === -1) throw new Error('Dossier non trouvé');
+  
+  // Retirer les campagnes du dossier (les remettre sans dossier)
+  const folder = mockCampaignFolders[folderIndex];
+  folder.campaignIds.forEach(campaignId => {
+    const campaign = mockAdvancedCampaigns.find(c => c.id === campaignId);
+    if (campaign) {
+      campaign.folderId = null;
+    }
+  });
+  
+  mockCampaignFolders.splice(folderIndex, 1);
+};
+
+export const moveCampaignToFolder = async (campaignId: string, folderId: string | null): Promise<void> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  const campaign = mockAdvancedCampaigns.find(c => c.id === campaignId);
+  if (!campaign) throw new Error('Campagne non trouvée');
+  
+  // Retirer la campagne de son ancien dossier
+  if (campaign.folderId) {
+    const oldFolder = mockCampaignFolders.find(f => f.id === campaign.folderId);
+    if (oldFolder) {
+      oldFolder.campaignIds = oldFolder.campaignIds.filter(id => id !== campaignId);
+    }
+  }
+  
+  // Ajouter la campagne au nouveau dossier
+  if (folderId) {
+    const newFolder = mockCampaignFolders.find(f => f.id === folderId);
+    if (!newFolder) throw new Error('Dossier de destination non trouvé');
+    newFolder.campaignIds.push(campaignId);
+  }
+  
+  campaign.folderId = folderId;
+};
+
+export const getCampaignsByFolder = async (folderId: string | null): Promise<CampaignTracker[]> => {
+  await new Promise(resolve => setTimeout(resolve, 400));
+  
+  if (folderId === null) {
+    // Retourner toutes les campagnes
+    return mockAdvancedCampaigns;
+  }
+  
+  // Retourner les campagnes du dossier spécifié
+  return mockAdvancedCampaigns.filter(c => c.folderId === folderId);
+};
+
+export const getCampaignsWithoutFolder = async (): Promise<CampaignTracker[]> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return mockAdvancedCampaigns.filter(c => !c.folderId);
+};
 
 // Mock data pour les contenus trackés
 export const mockCampaignContents: CampaignContent[] = [
@@ -3987,6 +4236,7 @@ export const mockSharedCampaigns: SharedCampaign[] = [
     includeBudgets: false,
     trackingEnabled: true,
     lastViewedAt: '2025-01-26T10:15:00Z',
+    metricsVisibility: DEFAULT_METRICS_VISIBILITY,
     utmParameters: {
       source: 'email',
       medium: 'share',
@@ -4004,7 +4254,39 @@ export const mockSharedCampaigns: SharedCampaign[] = [
     includeBudgets: true,
     trackingEnabled: true,
     lastViewedAt: '2025-01-25T09:45:00Z',
-    expiresAt: '2025-02-24T14:20:00Z'
+    expiresAt: '2025-02-24T14:20:00Z',
+    // Exemple avec certaines métriques masquées
+    metricsVisibility: {
+      sections: {
+        creators: true,
+        content: true,
+        engagement: true,
+        performance: false, // Section Performance masquée
+        publishedContents: true,
+      },
+      metrics: {
+        creatorsPosted: true,
+        totalPosts: true,
+        totalReels: true,
+        totalStories: true,
+        totalContent: true,
+        totalEngagements: true,
+        averageER: true,
+        totalImpressions: true,
+        totalReach: true,
+        totalLikes: true,
+        totalComments: true,
+        totalViews: true,
+        averageVideoER: false, // ER vidéo masqué
+        totalEMV: false, // EMV masqué
+        totalCreatorCost: false,
+        averageCPM: false,
+        averageCPC: false,
+        roas: false,
+        roi: false,
+        costPerEngagement: false,
+      },
+    }
   }
 ];
 
@@ -4026,6 +4308,7 @@ export const createCampaignShare = async (campaignId: string, settings: {
   includeFinancials: boolean;
   includeBudgets: boolean;
   password?: string;
+  metricsVisibility?: MetricsVisibilityConfig;
 }): Promise<SharedCampaign> => {
   await new Promise(resolve => setTimeout(resolve, 1500));
   
@@ -4041,9 +4324,689 @@ export const createCampaignShare = async (campaignId: string, settings: {
     includeFinancials: settings.includeFinancials,
     includeBudgets: settings.includeBudgets,
     trackingEnabled: true,
+    metricsVisibility: settings.metricsVisibility || DEFAULT_METRICS_VISIBILITY,
     ...(settings.shareType === 'private' && { expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() })
   };
   
   mockSharedCampaigns.push(newShare);
   return newShare;
+};
+
+// ========================================
+// MOCK APIFY SCRAPING - IMPORT AUTOMATIQUE
+// ========================================
+
+// Configuration des types de contenus avec leurs champs disponibles
+export const CONTENT_TYPE_CONFIGS: ContentTypeConfig[] = [
+  {
+    type: 'story',
+    label: 'Story',
+    icon: 'fire',
+    platforms: ['instagram', 'tiktok'],
+    fields: {
+      views: true,
+      likes: false,
+      comments: false,
+      shares: false,
+      saves: false,
+      budget: true,
+    },
+  },
+  {
+    type: 'post',
+    label: 'Post',
+    icon: 'photo',
+    platforms: ['instagram', 'tiktok'],
+    fields: {
+      views: true,
+      likes: true,
+      comments: true,
+      shares: false,
+      saves: true,
+      budget: true,
+    },
+  },
+  {
+    type: 'reel',
+    label: 'Reel',
+    icon: 'video',
+    platforms: ['instagram', 'tiktok'],
+    fields: {
+      views: true,
+      likes: true,
+      comments: true,
+      shares: true,
+      saves: true,
+      budget: true,
+    },
+  },
+  {
+    type: 'video',
+    label: 'Vidéo',
+    icon: 'play',
+    platforms: ['youtube'],
+    fields: {
+      views: true,
+      likes: true,
+      comments: true,
+      shares: false,
+      saves: false,
+      budget: true,
+    },
+  },
+  {
+    type: 'short',
+    label: 'Short',
+    icon: 'bolt',
+    platforms: ['youtube', 'tiktok'],
+    fields: {
+      views: true,
+      likes: true,
+      comments: true,
+      shares: false,
+      saves: false,
+      budget: true,
+    },
+  },
+];
+
+// Données mockées de posts scrapés via Apify
+const mockScrapedPostsData: Omit<ApifyScrapedPost, 'matchedFilter' | 'matchType'>[] = [
+  {
+    id: 'scraped_1',
+    username: 'marie_fit',
+    userAvatar: 'https://ui-avatars.com/api/?name=Marie+Fit&background=8b5cf6&color=fff',
+    type: 'post',
+    platform: 'instagram',
+    url: 'https://instagram.com/p/abc123',
+    thumbnail: 'https://picsum.photos/seed/post1/400/400',
+    caption: 'Nouveau partenariat avec @decathlon ! 🏃‍♀️ Découvrez ma nouvelle tenue de sport #fitness #decathlon #partenariat',
+    likes: 15420,
+    comments: 342,
+    views: 89000,
+    publishedAt: '2025-01-20T10:30:00Z',
+  },
+  {
+    id: 'scraped_2',
+    username: 'marie_fit',
+    userAvatar: 'https://ui-avatars.com/api/?name=Marie+Fit&background=8b5cf6&color=fff',
+    type: 'reel',
+    platform: 'instagram',
+    url: 'https://instagram.com/reel/def456',
+    thumbnail: 'https://picsum.photos/seed/reel1/400/400',
+    caption: 'Morning routine avec @decathlon 💪 #morningroutine #sport #decathlon',
+    likes: 45200,
+    comments: 1230,
+    views: 320000,
+    shares: 890,
+    saves: 2100,
+    publishedAt: '2025-01-22T08:00:00Z',
+  },
+  {
+    id: 'scraped_3',
+    username: 'john_lifestyle',
+    userAvatar: 'https://ui-avatars.com/api/?name=John+Lifestyle&background=6366f1&color=fff',
+    type: 'post',
+    platform: 'instagram',
+    url: 'https://instagram.com/p/ghi789',
+    thumbnail: 'https://picsum.photos/seed/post2/400/400',
+    caption: 'Collaboration avec @decathlon pour cette nouvelle collection 🔥 #lifestyle #mode #decathlon',
+    likes: 8900,
+    comments: 156,
+    views: 42000,
+    publishedAt: '2025-01-21T14:45:00Z',
+  },
+  {
+    id: 'scraped_4',
+    username: 'john_lifestyle',
+    userAvatar: 'https://ui-avatars.com/api/?name=John+Lifestyle&background=6366f1&color=fff',
+    type: 'reel',
+    platform: 'instagram',
+    url: 'https://instagram.com/reel/jkl012',
+    thumbnail: 'https://picsum.photos/seed/reel2/400/400',
+    caption: 'Unboxing de ma commande @decathlon 📦 #unboxing #haul #decathlon #sport',
+    likes: 23400,
+    comments: 567,
+    views: 189000,
+    shares: 450,
+    saves: 1200,
+    publishedAt: '2025-01-23T16:20:00Z',
+  },
+  {
+    id: 'scraped_5',
+    username: 'sarah_runner',
+    userAvatar: 'https://ui-avatars.com/api/?name=Sarah+Runner&background=22c55e&color=fff',
+    type: 'post',
+    platform: 'instagram',
+    url: 'https://instagram.com/p/mno345',
+    thumbnail: 'https://picsum.photos/seed/post3/400/400',
+    caption: 'Mon équipement running @decathlon pour le marathon 🏃‍♀️ #running #marathon #decathlon #fitness',
+    likes: 12300,
+    comments: 289,
+    views: 67000,
+    publishedAt: '2025-01-19T09:15:00Z',
+  },
+  {
+    id: 'scraped_6',
+    username: 'sarah_runner',
+    userAvatar: 'https://ui-avatars.com/api/?name=Sarah+Runner&background=22c55e&color=fff',
+    type: 'reel',
+    platform: 'instagram',
+    url: 'https://instagram.com/reel/pqr678',
+    thumbnail: 'https://picsum.photos/seed/reel3/400/400',
+    caption: 'Test des nouvelles chaussures @decathlon ! 👟 Verdict dans la vidéo #test #running #chaussures',
+    likes: 34500,
+    comments: 890,
+    views: 245000,
+    shares: 670,
+    saves: 1800,
+    publishedAt: '2025-01-24T11:00:00Z',
+  },
+  {
+    id: 'scraped_7',
+    username: 'alex_outdoor',
+    userAvatar: 'https://ui-avatars.com/api/?name=Alex+Outdoor&background=f59e0b&color=fff',
+    type: 'post',
+    platform: 'instagram',
+    url: 'https://instagram.com/p/stu901',
+    thumbnail: 'https://picsum.photos/seed/post4/400/400',
+    caption: 'Randonnée avec le nouveau sac @decathlon 🏔️ #hiking #outdoor #decathlon #nature',
+    likes: 9800,
+    comments: 178,
+    views: 51000,
+    publishedAt: '2025-01-18T15:30:00Z',
+  },
+  {
+    id: 'scraped_8',
+    username: 'alex_outdoor',
+    userAvatar: 'https://ui-avatars.com/api/?name=Alex+Outdoor&background=f59e0b&color=fff',
+    type: 'reel',
+    platform: 'instagram',
+    url: 'https://instagram.com/reel/vwx234',
+    thumbnail: 'https://picsum.photos/seed/reel4/400/400',
+    caption: 'Setup camping complet chez @decathlon ⛺ #camping #outdoor #materiel #decathlon',
+    likes: 28700,
+    comments: 456,
+    views: 198000,
+    shares: 520,
+    saves: 2400,
+    publishedAt: '2025-01-25T07:45:00Z',
+  },
+];
+
+// Fonction de scraping mock Apify
+export const mockApifyScrape = async (config: ApifyImportConfig): Promise<ApifyScrapedPost[]> => {
+  // Simulation du délai de scraping (2-4 secondes)
+  const delay = 2000 + Math.random() * 2000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+
+  // Normaliser les usernames (enlever @ si présent)
+  const normalizedUsernames = config.usernames.map(u => 
+    u.startsWith('@') ? u.slice(1).toLowerCase() : u.toLowerCase()
+  );
+
+  // Normaliser la valeur du filtre
+  const filterValue = config.filterValue.toLowerCase();
+  const filterPrefix = config.filterType === 'hashtag' ? '#' : '@';
+  const normalizedFilter = filterValue.startsWith(filterPrefix) 
+    ? filterValue.slice(1) 
+    : filterValue;
+
+  // D'abord essayer de trouver dans les données mockées
+  const userFilteredPosts = mockScrapedPostsData.filter(post =>
+    normalizedUsernames.length === 0 || normalizedUsernames.includes(post.username.toLowerCase())
+  );
+
+  const matchedPosts = userFilteredPosts.filter(post => {
+    const caption = post.caption.toLowerCase();
+    if (config.filterType === 'hashtag') {
+      return caption.includes(`#${normalizedFilter}`);
+    } else {
+      return caption.includes(`@${normalizedFilter}`);
+    }
+  });
+
+  // Si des résultats sont trouvés, les retourner
+  if (matchedPosts.length > 0) {
+    return matchedPosts.map(post => ({
+      ...post,
+      matchedFilter: `${filterPrefix}${normalizedFilter}`,
+      matchType: config.filterType,
+    }));
+  }
+
+  // Sinon, générer 3 posts fictifs pour les usernames fournis
+  const generatedPosts: ApifyScrapedPost[] = [];
+  const postTypes: ('post' | 'reel')[] = ['post', 'reel', 'post'];
+  const colors = ['8b5cf6', '6366f1', '22c55e', 'f59e0b', 'ef4444'];
+  
+  normalizedUsernames.slice(0, 3).forEach((username, index) => {
+    const colorIndex = index % colors.length;
+    const type = postTypes[index % postTypes.length];
+    const isReel = type === 'reel';
+    
+    generatedPosts.push({
+      id: `generated_${Date.now()}_${index}`,
+      username,
+      userAvatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=${colors[colorIndex]}&color=fff`,
+      type,
+      platform: config.platform,
+      url: `https://instagram.com/${isReel ? 'reel' : 'p'}/generated${index}`,
+      thumbnail: `https://picsum.photos/seed/${username}${normalizedFilter}${index}/400/400`,
+      caption: `${config.filterType === 'hashtag' ? `Mon nouveau post avec #${normalizedFilter}` : `Collaboration avec @${normalizedFilter}`} 🎉 Super content de partager ça avec vous ! #${normalizedFilter} #collab #partenariat`,
+      likes: Math.floor(5000 + Math.random() * 50000),
+      comments: Math.floor(100 + Math.random() * 2000),
+      views: Math.floor(20000 + Math.random() * 300000),
+      shares: isReel ? Math.floor(100 + Math.random() * 1000) : undefined,
+      saves: isReel ? Math.floor(200 + Math.random() * 3000) : undefined,
+      publishedAt: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
+      matchedFilter: `${filterPrefix}${normalizedFilter}`,
+      matchType: config.filterType,
+    });
+  });
+
+  return generatedPosts;
+};
+
+// Fonction pour obtenir la config d'un type de contenu
+export const getContentTypeConfig = (type: string): ContentTypeConfig | undefined => {
+  return CONTENT_TYPE_CONFIGS.find(config => config.type === type);
+};
+
+// ========================================
+// BUSINESS DNA - MOCK DATA & FUNCTIONS
+// ========================================
+
+// Mock Business DNAs existants
+export const mockBusinessDNAs: BusinessDNA[] = [
+  {
+    id: 'dna_1',
+    name: 'Beauté & Skincare Premium',
+    websiteUrl: 'https://www.caudalie.com',
+    analyzedAt: '2025-01-10T14:30:00Z',
+    keywords: ['skincare', 'beauté', 'soins visage', 'anti-âge', 'naturel', 'vegan', 'cosmétique'],
+    categories: ['Beauté', 'Cosmétiques', 'Bien-être'],
+    targetAudience: {
+      ageRange: '25-45',
+      gender: 'Femmes (80%)',
+      interests: ['Skincare', 'Beauté naturelle', 'Self-care', 'Mode', 'Lifestyle'],
+    },
+    suggestedCreatorTypes: ['Beauty influencer', 'Skincare expert', 'Lifestyle blogger', 'Dermatologue'],
+    description: 'Marque de cosmétiques naturels haut de gamme',
+    logoUrl: 'https://ui-avatars.com/api/?name=Caudalie&background=d4a574&color=fff',
+    lastSearchAt: '2025-01-20T10:00:00Z',
+    searchCount: 12,
+  },
+  {
+    id: 'dna_2',
+    name: 'Sport & Outdoor',
+    websiteUrl: 'https://www.decathlon.fr',
+    analyzedAt: '2025-01-08T09:15:00Z',
+    keywords: ['sport', 'fitness', 'running', 'outdoor', 'équipement sportif', 'vélo', 'natation'],
+    categories: ['Sport', 'Fitness', 'Outdoor'],
+    targetAudience: {
+      ageRange: '18-55',
+      gender: 'Mixte',
+      interests: ['Sport', 'Fitness', 'Running', 'Nature', 'Aventure', 'Santé'],
+    },
+    suggestedCreatorTypes: ['Fitness influencer', 'Sportif professionnel', 'Coach sportif', 'Outdoor adventurer'],
+    description: 'Équipement sportif accessible pour tous',
+    logoUrl: 'https://ui-avatars.com/api/?name=Decathlon&background=0082c3&color=fff',
+    lastSearchAt: '2025-01-22T16:45:00Z',
+    searchCount: 28,
+  },
+  {
+    id: 'dna_3',
+    name: 'Tech & Gaming',
+    websiteUrl: 'https://www.razer.com',
+    analyzedAt: '2025-01-05T11:00:00Z',
+    keywords: ['gaming', 'esport', 'PC', 'périphériques', 'clavier', 'souris', 'casque', 'streaming'],
+    categories: ['Gaming', 'Tech', 'Esport'],
+    targetAudience: {
+      ageRange: '16-35',
+      gender: 'Hommes (75%)',
+      interests: ['Jeux vidéo', 'Esport', 'Tech', 'Streaming', 'PC Gaming'],
+    },
+    suggestedCreatorTypes: ['Gamer', 'Streamer', 'Tech reviewer', 'Esport player'],
+    description: 'Matériel gaming haut de gamme pour les joueurs exigeants',
+    logoUrl: 'https://ui-avatars.com/api/?name=Razer&background=44d62c&color=000',
+    lastSearchAt: '2025-01-18T20:30:00Z',
+    searchCount: 15,
+  },
+  {
+    id: 'dna_4',
+    name: 'Mode Éco-responsable',
+    websiteUrl: 'https://www.veja-store.com',
+    analyzedAt: '2025-01-12T13:20:00Z',
+    keywords: ['mode', 'sneakers', 'éco-responsable', 'durable', 'éthique', 'vegan', 'fashion'],
+    categories: ['Mode', 'Sneakers', 'Éco-responsable'],
+    targetAudience: {
+      ageRange: '20-40',
+      gender: 'Mixte',
+      interests: ['Mode durable', 'Écologie', 'Sneakers', 'Lifestyle', 'Design'],
+    },
+    suggestedCreatorTypes: ['Fashion influencer', 'Eco-activist', 'Lifestyle blogger', 'Sneakerhead'],
+    description: 'Sneakers éco-responsables et éthiques',
+    logoUrl: 'https://ui-avatars.com/api/?name=Veja&background=1a1a1a&color=fff',
+    searchCount: 8,
+  },
+];
+
+// Historique des recherches Business DNA
+export const mockBusinessDNASearchHistory: BusinessDNASearch[] = [
+  {
+    id: 'search_1',
+    businessDnaId: 'dna_1',
+    searchedAt: '2025-01-20T10:00:00Z',
+    resultsCount: 156,
+  },
+  {
+    id: 'search_2',
+    businessDnaId: 'dna_2',
+    searchedAt: '2025-01-22T16:45:00Z',
+    resultsCount: 234,
+  },
+  {
+    id: 'search_3',
+    businessDnaId: 'dna_3',
+    searchedAt: '2025-01-18T20:30:00Z',
+    resultsCount: 89,
+  },
+];
+
+// Fonction qui simule l'analyse IA d'un site web
+export const analyzeWebsiteForDNA = async (url: string): Promise<BusinessDNA> => {
+  // Simulation du délai d'analyse IA (2-4 secondes)
+  const delay = 2000 + Math.random() * 2000;
+  await new Promise(resolve => setTimeout(resolve, delay));
+
+  // Extraction du nom de domaine pour le mock
+  let domain = 'website';
+  try {
+    const urlObj = new URL(url);
+    domain = urlObj.hostname.replace('www.', '').split('.')[0];
+  } catch {
+    domain = url.replace(/https?:\/\//, '').split('/')[0].split('.')[0];
+  }
+
+  // Génération de données mockées basées sur des patterns dans l'URL
+  const urlLower = url.toLowerCase();
+  
+  let keywords: string[] = [];
+  let categories: string[] = [];
+  let targetAudience = {
+    ageRange: '25-45',
+    gender: 'Mixte',
+    interests: [] as string[],
+  };
+  let suggestedCreatorTypes: string[] = [];
+  let description = '';
+
+  // Détection de patterns dans l'URL pour générer des données pertinentes
+  if (urlLower.includes('beauty') || urlLower.includes('cosmetic') || urlLower.includes('skin') || urlLower.includes('sephora') || urlLower.includes('caudalie')) {
+    keywords = ['beauté', 'skincare', 'cosmétique', 'maquillage', 'soins', 'naturel'];
+    categories = ['Beauté', 'Cosmétiques', 'Bien-être'];
+    targetAudience = { ageRange: '20-45', gender: 'Femmes (85%)', interests: ['Skincare', 'Maquillage', 'Self-care', 'Mode'] };
+    suggestedCreatorTypes = ['Beauty influencer', 'Makeup artist', 'Skincare expert', 'Lifestyle blogger'];
+    description = 'Site de produits de beauté et cosmétiques';
+  } else if (urlLower.includes('sport') || urlLower.includes('fitness') || urlLower.includes('decathlon') || urlLower.includes('nike')) {
+    keywords = ['sport', 'fitness', 'running', 'musculation', 'équipement', 'performance'];
+    categories = ['Sport', 'Fitness', 'Lifestyle'];
+    targetAudience = { ageRange: '18-50', gender: 'Mixte', interests: ['Sport', 'Fitness', 'Santé', 'Running', 'Outdoor'] };
+    suggestedCreatorTypes = ['Fitness influencer', 'Coach sportif', 'Athlète', 'Runner'];
+    description = 'Site d\'équipement et articles de sport';
+  } else if (urlLower.includes('game') || urlLower.includes('gaming') || urlLower.includes('razer') || urlLower.includes('steam')) {
+    keywords = ['gaming', 'jeux vidéo', 'esport', 'PC', 'console', 'streaming'];
+    categories = ['Gaming', 'Tech', 'Esport'];
+    targetAudience = { ageRange: '15-35', gender: 'Hommes (70%)', interests: ['Jeux vidéo', 'Esport', 'Tech', 'Streaming'] };
+    suggestedCreatorTypes = ['Gamer', 'Streamer', 'Tech reviewer', 'Esport player'];
+    description = 'Site de gaming et jeux vidéo';
+  } else if (urlLower.includes('food') || urlLower.includes('restaurant') || urlLower.includes('cuisine')) {
+    keywords = ['cuisine', 'recettes', 'gastronomie', 'food', 'restaurant', 'chef'];
+    categories = ['Food', 'Gastronomie', 'Lifestyle'];
+    targetAudience = { ageRange: '25-55', gender: 'Mixte', interests: ['Cuisine', 'Gastronomie', 'Recettes', 'Food photography'] };
+    suggestedCreatorTypes = ['Food blogger', 'Chef', 'Food photographer', 'Lifestyle influencer'];
+    description = 'Site culinaire et gastronomique';
+  } else if (urlLower.includes('fashion') || urlLower.includes('mode') || urlLower.includes('veja') || urlLower.includes('zara')) {
+    keywords = ['mode', 'fashion', 'vêtements', 'style', 'tendances', 'accessoires'];
+    categories = ['Mode', 'Fashion', 'Lifestyle'];
+    targetAudience = { ageRange: '18-40', gender: 'Femmes (65%)', interests: ['Mode', 'Fashion', 'Style', 'Shopping'] };
+    suggestedCreatorTypes = ['Fashion influencer', 'Styliste', 'Fashion blogger', 'Model'];
+    description = 'Site de mode et vêtements';
+  } else {
+    // Défaut générique
+    keywords = ['lifestyle', 'tendances', 'découverte', 'innovation', 'qualité'];
+    categories = ['Lifestyle', 'Général'];
+    targetAudience = { ageRange: '25-45', gender: 'Mixte', interests: ['Lifestyle', 'Découverte', 'Tendances'] };
+    suggestedCreatorTypes = ['Lifestyle influencer', 'Content creator', 'Blogger'];
+    description = 'Site web analysé par IA';
+  }
+
+  const newDNA: BusinessDNA = {
+    id: `dna_${Date.now()}`,
+    name: domain.charAt(0).toUpperCase() + domain.slice(1),
+    websiteUrl: url,
+    analyzedAt: new Date().toISOString(),
+    keywords,
+    categories,
+    targetAudience,
+    suggestedCreatorTypes,
+    description,
+    logoUrl: `https://ui-avatars.com/api/?name=${encodeURIComponent(domain)}&background=${Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')}&color=fff`,
+    searchCount: 0,
+  };
+
+  return newDNA;
+};
+
+// Fonction pour rechercher des créateurs basés sur un Business DNA
+export const searchCreatorsByDNA = async (dna: BusinessDNA): Promise<Influencer[]> => {
+  // Simulation du délai de recherche
+  await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
+
+  // Filtrer les influenceurs mockés basé sur les catégories du DNA
+  const categoryKeywords = dna.keywords.map(k => k.toLowerCase());
+  
+  // Retourner un sous-ensemble d'influenceurs "pertinents"
+  const relevantInfluencers = mockInfluencers.filter((influencer, index) => {
+    // Logique simplifiée : prendre environ 60% des influenceurs comme "pertinents"
+    // En production, cela serait basé sur une vraie recherche sémantique
+    const bioLower = (influencer.bio || '').toLowerCase();
+    const hasKeywordMatch = categoryKeywords.some(kw => bioLower.includes(kw));
+    return hasKeywordMatch || index % 3 !== 0;
+  });
+
+  return relevantInfluencers.slice(0, 30);
+};
+
+// Fonction pour obtenir tous les Business DNAs
+export const getBusinessDNAs = async (): Promise<BusinessDNA[]> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return mockBusinessDNAs;
+};
+
+// Fonction pour obtenir un Business DNA par ID
+export const getBusinessDNAById = async (id: string): Promise<BusinessDNA | null> => {
+  await new Promise(resolve => setTimeout(resolve, 200));
+  return mockBusinessDNAs.find(dna => dna.id === id) || null;
+};
+
+// Fonction pour sauvegarder un nouveau Business DNA
+export const saveBusinessDNA = async (dna: BusinessDNA): Promise<BusinessDNA> => {
+  await new Promise(resolve => setTimeout(resolve, 500));
+  // En mock, on ne modifie pas vraiment le tableau
+  // En production, cela irait en base de données
+  return dna;
+};
+
+// ========================================
+// CAMPAIGN SEARCH - MOCK DATA & FUNCTIONS
+// ========================================
+
+// Fonction pour obtenir les top performers d'une campagne (basé sur ROI)
+export const getTopPerformersFromCampaign = async (campaignId: string): Promise<CampaignCreatorScore[]> => {
+  await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 500));
+
+  // Trouver la campagne
+  const campaign = mockAdvancedCampaigns.find(c => c.id === campaignId);
+  if (!campaign) return [];
+
+  // Générer des scores pour les créateurs de la campagne
+  const topPerformers: CampaignCreatorScore[] = campaign.creators.map((creator) => {
+    // Simuler des métriques de performance variées
+    const baseROI = 150 + Math.random() * 350; // ROI entre 150% et 500%
+    const costPerEngagement = 0.02 + Math.random() * 0.15; // 0.02€ à 0.17€
+    const engagementRate = 2 + Math.random() * 8; // 2% à 10%
+    
+    // Attributs de performance
+    const allAttributes = [
+      'Engagement élevé', 'Audience qualifiée', 'Contenu authentique',
+      'Forte conversion', 'Bonne rétention', 'Audience fidèle',
+      'Niche pertinente', 'Timing optimal', 'Format adapté'
+    ];
+    const numAttributes = 2 + Math.floor(Math.random() * 3);
+    const performanceAttributes = allAttributes
+      .sort(() => Math.random() - 0.5)
+      .slice(0, numAttributes);
+
+    return {
+      creatorId: creator.influencerId,
+      creatorName: creator.influencerName,
+      creatorUsername: creator.influencerUsername,
+      creatorAvatar: creator.influencerAvatar,
+      platform: creator.platform,
+      roi: Math.round(baseROI * 10) / 10,
+      costPerEngagement: Math.round(costPerEngagement * 1000) / 1000,
+      engagementRate: Math.round(engagementRate * 100) / 100,
+      totalCost: creator.costPerCreator,
+      totalEngagements: Math.floor(creator.costPerCreator / costPerEngagement),
+      totalImpressions: Math.floor(creator.costPerCreator / costPerEngagement * 15),
+      compositeScore: Math.round((baseROI / 5 + engagementRate * 5 + (1 / costPerEngagement) * 10) / 3),
+      performanceAttributes,
+    };
+  });
+
+  // Trier par score composite décroissant
+  return topPerformers.sort((a, b) => b.compositeScore - a.compositeScore);
+};
+
+// Fonction pour trouver des créateurs similaires aux top performers
+export const findSimilarCreators = async (
+  campaignId: string,
+  loadedCount: number = 0,
+  pageSize: number = 10
+): Promise<{ creators: SimilarCreatorResult[]; total: number }> => {
+  await new Promise(resolve => setTimeout(resolve, 1200 + Math.random() * 800));
+
+  // Obtenir les top performers pour comprendre les patterns
+  const topPerformers = await getTopPerformersFromCampaign(campaignId);
+  if (topPerformers.length === 0) {
+    return { creators: [], total: 0 };
+  }
+
+  // Calculer les moyennes des top performers pour les prédictions
+  const avgROI = topPerformers.reduce((sum, p) => sum + p.roi, 0) / topPerformers.length;
+  const avgER = topPerformers.reduce((sum, p) => sum + p.engagementRate, 0) / topPerformers.length;
+  const avgCPE = topPerformers.reduce((sum, p) => sum + p.costPerEngagement, 0) / topPerformers.length;
+
+  // Collecter tous les attributs des top performers
+  const topAttributes = [...new Set(topPerformers.flatMap(p => p.performanceAttributes))];
+
+  // Exclure les créateurs déjà dans la campagne
+  const existingCreatorIds = new Set(topPerformers.map(p => p.creatorId));
+  const availableInfluencers = mockInfluencers.filter(i => !existingCreatorIds.has(i.id));
+
+  // Générer des résultats de créateurs similaires
+  const allSimilarCreators: SimilarCreatorResult[] = availableInfluencers.map(influencer => {
+    // Simuler un score de similarité basé sur des critères
+    const similarityScore = 50 + Math.random() * 50; // 50-100%
+    
+    // Prédire les performances basées sur les top performers + variation
+    const variation = 0.7 + Math.random() * 0.6; // 70% à 130%
+    const predictedROI = Math.round(avgROI * variation * 10) / 10;
+    const predictedER = Math.round(avgER * variation * 100) / 100;
+    
+    // Estimer le coût basé sur le nombre de followers et le CPE moyen
+    const estimatedEngagements = influencer.followers * (predictedER / 100);
+    const estimatedCost = Math.round(estimatedEngagements * avgCPE);
+
+    // Sélectionner des attributs matchés aléatoirement parmi les top
+    const numMatched = 1 + Math.floor(Math.random() * Math.min(4, topAttributes.length));
+    const matchedAttributes = topAttributes
+      .sort(() => Math.random() - 0.5)
+      .slice(0, numMatched);
+
+    // Niveau de confiance basé sur le score de similarité
+    const confidenceLevel: 'high' | 'medium' | 'low' = 
+      similarityScore >= 80 ? 'high' : 
+      similarityScore >= 60 ? 'medium' : 'low';
+
+    return {
+      ...influencer,
+      similarityScore: Math.round(similarityScore),
+      estimatedCost: Math.max(500, Math.min(estimatedCost, 50000)), // Min 500€, Max 50000€
+      predictedROI,
+      predictedEngagementRate: predictedER,
+      matchedAttributes,
+      confidenceLevel,
+    };
+  });
+
+  // Trier par score de similarité décroissant
+  const sortedCreators = allSimilarCreators.sort((a, b) => b.similarityScore - a.similarityScore);
+
+  // Pagination
+  const paginatedCreators = sortedCreators.slice(loadedCount, loadedCount + pageSize);
+
+  return {
+    creators: paginatedCreators,
+    total: sortedCreators.length,
+  };
+};
+
+// Fonction pour estimer le coût de rentabilité
+export const estimateProfitabilityCost = (
+  topPerformers: CampaignCreatorScore[],
+  targetBudget: number
+): {
+  estimatedCreators: number;
+  estimatedImpressions: number;
+  estimatedEngagements: number;
+  estimatedROI: number;
+  breakEvenBudget: number;
+} => {
+  if (topPerformers.length === 0) {
+    return {
+      estimatedCreators: 0,
+      estimatedImpressions: 0,
+      estimatedEngagements: 0,
+      estimatedROI: 0,
+      breakEvenBudget: 0,
+    };
+  }
+
+  // Calculer les moyennes
+  const avgCostPerCreator = topPerformers.reduce((sum, p) => sum + p.totalCost, 0) / topPerformers.length;
+  const avgROI = topPerformers.reduce((sum, p) => sum + p.roi, 0) / topPerformers.length;
+  const avgImpressionsPerCreator = topPerformers.reduce((sum, p) => sum + p.totalImpressions, 0) / topPerformers.length;
+  const avgEngagementsPerCreator = topPerformers.reduce((sum, p) => sum + p.totalEngagements, 0) / topPerformers.length;
+
+  const estimatedCreators = Math.floor(targetBudget / avgCostPerCreator);
+  const estimatedImpressions = Math.round(estimatedCreators * avgImpressionsPerCreator);
+  const estimatedEngagements = Math.round(estimatedCreators * avgEngagementsPerCreator);
+  
+  // Le ROI diminue légèrement avec l'échelle (effet de saturation)
+  const scaleFactor = Math.max(0.7, 1 - (estimatedCreators / 100) * 0.1);
+  const estimatedROI = Math.round(avgROI * scaleFactor * 10) / 10;
+
+  // Budget pour atteindre le seuil de rentabilité (ROI = 100%)
+  const breakEvenBudget = Math.round(avgCostPerCreator * 3); // Estimation simplifiée
+
+  return {
+    estimatedCreators,
+    estimatedImpressions,
+    estimatedEngagements,
+    estimatedROI,
+    breakEvenBudget,
+  };
 };
