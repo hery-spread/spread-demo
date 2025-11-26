@@ -373,28 +373,30 @@ export default function SharedCampaignPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header avec branding agence */}
       <div className="bg-white shadow-sm border-b border-gray-200 animate-fadeInDown">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
-                style={{
-                  background: `linear-gradient(135deg, ${customization.primaryColor} 0%, ${customization.secondaryColor} 100%)`,
-                }}
-              >
-                <ShareIcon className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">
-                  {customization.agencyName}
-                </h1>
-                <p className="text-sm text-gray-500">
-                  Rapport de Campagne - Analyse détaillée
-                </p>
-              </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col items-center justify-center space-y-4">
+            {/* Logo de l'agence centré et plus grand */}
+            <div
+              className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl"
+              style={{
+                background: `linear-gradient(135deg, ${customization.primaryColor} 0%, ${customization.secondaryColor} 100%)`,
+              }}
+            >
+              <ShareIcon className="w-11 h-11 text-white" />
+            </div>
+            
+            {/* Nom de l'agence et sous-titre */}
+            <div className="text-center">
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">
+                {customization.agencyName}
+              </h1>
+              <p className="text-sm text-gray-500">
+                Rapport de Campagne - Analyse détaillée
+              </p>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Boutons et stats en bas */}
+            <div className="flex items-center space-x-4 pt-2">
               <Button
                 onClick={handleExportPDF}
                 variant="outline"
@@ -403,7 +405,7 @@ export default function SharedCampaignPage() {
                 <ArrowDownTrayIcon className="w-4 h-4" />
                 <span>Exporter en PDF</span>
               </Button>
-              <div className="text-right">
+              <div className="text-center">
                 <p className="text-sm text-gray-500">
                   {shareData.viewCount} vues • Partagé le{' '}
                   {new Date(shareData.createdAt).toLocaleDateString('fr-FR')}
