@@ -673,3 +673,150 @@ const er = creatorContents.length > 0
   ? ((totalLikes + totalComments) / creatorContents.length / 1000) * 100
   : 0;
 ```
+
+---
+
+# ContentGrid Component
+
+## Icons Used (from @heroicons/react/24/outline)
+- `HeartIcon` - Likes (w-4 h-4)
+- `ChatBubbleLeftIcon` - Comments (w-4 h-4)
+- `EyeIcon` - Views (w-4 h-4)
+- `VideoCameraIcon` - Video/Reel badge (w-4 h-4)
+- `PhotoIcon` - Post/Story badge (w-4 h-4), empty state (w-12 h-12)
+
+## Next.js Components
+- `Image` from `next/image`
+
+## Types
+```typescript
+export interface ContentItem {
+  id: string;
+  creatorName: string;
+  creatorUsername: string;
+  creatorAvatar: string;
+  contentType: 'post' | 'story' | 'reel' | 'video';
+  thumbnail: string;
+  publishedAt: string;
+  likes: number;
+  comments: number;
+  views?: number;
+  url: string;
+}
+
+interface ContentGridProps {
+  contents: ContentItem[];
+  onContentClick?: (content: ContentItem) => void;
+}
+```
+
+## Functions
+- `formatNumber(num)` - Formats to K/M notation
+- `getContentTypeIcon(type)` - Returns icon for content type
+- `getContentTypeLabel(type)` - Returns French label for type
+
+## Component Structure
+
+### Empty State
+```tsx
+<div className="col-span-full text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+  <PhotoIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+  <p className="text-gray-600 text-sm">
+    Les contenus publiés s'afficheront ici au fur et à mesure
+  </p>
+</div>
+```
+
+### Grid & Content Card
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div onClick={() => onContentClick?.(content)}
+       className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl
+                  transition-all duration-300 cursor-pointer group animate-fadeInUp">
+
+    {/* Thumbnail (aspect-square) */}
+    <div className="relative aspect-square bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+      <Image
+        src={content.thumbnail}
+        alt={`Contenu de ${content.creatorName}`}
+        fill
+        className="object-cover transition-transform duration-300 group-hover:scale-110"
+      />
+
+      {/* Type Badge (top-right) */}
+      <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-sm text-white
+                      px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5">
+        {getContentTypeIcon(content.contentType)}
+        <span>{getContentTypeLabel(content.contentType)}</span>
+      </div>
+    </div>
+
+    {/* Info Section */}
+    <div className="p-4 space-y-3">
+      {/* Creator */}
+      <div className="flex items-center space-x-2">
+        <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
+             style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+          {content.creatorName.charAt(0).toUpperCase()}
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold text-gray-900 truncate">
+            @{content.creatorUsername}
+          </p>
+        </div>
+      </div>
+
+      {/* Date */}
+      <p className="text-xs text-gray-500">
+        Publié le {new Date(content.publishedAt).toLocaleDateString('fr-FR')}
+      </p>
+
+      {/* Metrics (3 columns) */}
+      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-gray-100">
+        <div className="text-center">
+          <div className="flex items-center justify-center space-x-1 text-sm font-bold text-gray-900">
+            <HeartIcon className="w-4 h-4 text-gray-400" />
+            <span>{formatNumber(content.likes)}</span>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">Likes</p>
+        </div>
+
+        <div className="text-center">
+          <div className="flex items-center justify-center space-x-1 text-sm font-bold text-gray-900">
+            <ChatBubbleLeftIcon className="w-4 h-4 text-gray-400" />
+            <span>{formatNumber(content.comments)}</span>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">Comm.</p>
+        </div>
+
+        <div className="text-center">
+          <div className="flex items-center justify-center space-x-1 text-sm font-bold text-gray-900">
+            <EyeIcon className="w-4 h-4 text-gray-400" />
+            <span>{content.views ? formatNumber(content.views) : '-'}</span>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">Vues</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+## Content Type Icons
+| Type | Icon | Label |
+|------|------|-------|
+| reel | `VideoCameraIcon` | "Reel" |
+| video | `VideoCameraIcon` | "Vidéo" |
+| story | `PhotoIcon` | "Story" |
+| post | `PhotoIcon` | "Post" |
+
+## Layout
+```
+└─ div.grid (1/2/3 cols)
+   └─ div.bg-white.rounded-xl (card)
+      ├─ div.aspect-square (thumbnail + badge)
+      └─ div.p-4 (info)
+         ├─ div (creator + avatar)
+         ├─ p (date)
+         └─ div.grid.grid-cols-3 (metrics)
+```
